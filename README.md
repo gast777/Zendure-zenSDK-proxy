@@ -65,8 +65,8 @@ Hiermee wordt de json content niet gecomprimeerd door HA en kan de Node-Red HTTP
 input_number:
   zendure_2400_ac_handmatig_vermogen:
     name: Zendure 2400 AC Handmatig Vermogen
-    min: -2400
-    max: 2400
+    min: -2400     <<<< verander naar -4800
+    max: 2400      <<<< verander naar 4800
     step: 1
     mode: box
     unit_of_measurement: "W"
