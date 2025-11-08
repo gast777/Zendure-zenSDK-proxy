@@ -61,23 +61,26 @@ Voorbeeld:
 Hiermee wordt de json content niet gecomprimeerd door HA en kan de Node-Red HTTP-in node het lezen. Zonder deze aanpassing zullen de POST opdrachten niet werken.
 
 - In configuration.yaml, verander hier de "min: -2400" en "max: 2400" naar "min: -4800" en "max 4800":
-
+```
 input_number:
   zendure_2400_ac_handmatig_vermogen:
     name: Zendure 2400 AC Handmatig Vermogen
-**    min: -2400
-    max: 2400**
+    min: -2400
+    max: 2400
     step: 1
     mode: box
     unit_of_measurement: "W"
-
+```
 Daarmee kun je handmatig laden/leveren tot 4800W in plaats van 2400W.
 
 - In automations.yaml, zoek en vervang alle
+```
 cap = 2400
-voor
+```
+door
+```
 cap = 4800
-
+```
 Hiermee wordt het maximale vermogen verhoogd naar het maximale wat de 2x SolarFlow 2400AC's (oftewel een virtuele SolarFlow 4800AC) aankunnen.
 
 
