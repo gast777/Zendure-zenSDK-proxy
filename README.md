@@ -41,19 +41,22 @@ Vervolgens moet je ook een paar kleine aanpassingen doen in de Gielz automatiser
 Oudere versies: In configuration.yaml, vul het IP adres en poort van de Node-Red HTTP proxy in op de plaats van het 2400 AC device IP adres.
 
 - In configuration.yaml, onder alle rest_command items, voeg deze HTTP regels toe:
+```
     headers:
       Content-Type: application/json
       Content-Encoding: identity
+```
 
 Voorbeeld:
-
+```
   zendure_stop_met_ontladen:
     url: http://{{ states('input_text.zendure_2400_ac_ip_adres') }}/properties/write
     method: POST
-**    headers:
+    headers:
       Content-Type: application/json
-      Content-Encoding: identity**
+      Content-Encoding: identity
     payload: '{"sn":"{{sn}}","properties":{"acMode": 2, "outputLimit": 0 }}'
+```
 
 Hiermee wordt de json content niet gecomprimeerd door HA en kan de Node-Red HTTP-in node het lezen. Zonder deze aanpassing zullen de POST opdrachten niet werken.
 
