@@ -16,7 +16,7 @@ Deze Node-Red flow vormt een proxy server die het mogelijk maakt de Gielz automa
 
 
 
-Na importeren van deze Node-Red flow in je Node-Red server, kun je je eigen IP adressen en de serienummers van je twee Zendure devices invullen in de Node-Red flow. Hieronder staat aangegeven waar je dat kunt doen.
+Na importeren van deze Node-Red flow in je Node-Red server, kun je de IP adressen en de serienummers van je twee Zendure devices invullen. Hieronder staat aangegeven waar je dat kunt doen.
 
 Vervolgens moet je ook een paar kleine aanpassingen doen in de Gielz automatisering in HomeAssistant. 
 
