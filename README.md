@@ -11,7 +11,7 @@ Deze Node-Red flow vormt een proxy server die het mogelijk maakt de Gielz automa
 
 
 
-![Preview](images/node-red-flow-image.png)   
+![Preview](images/proxy-HA-Zendure-diagram.png)   
 
 
 
@@ -29,7 +29,7 @@ Vervolgens moet je ook een paar kleine aanpassingen doen in de Gielz automatiser
 
 
 
-![Preview](images/proxy-HA-Zendure-diagram.png)   
+![Preview](images/node-red-flow-image.png) 
 
 
 
