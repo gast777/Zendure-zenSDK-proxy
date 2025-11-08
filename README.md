@@ -1,16 +1,19 @@
 # Zendure-zenSDK-proxy
 
-- Zendure-zenSDK-proxy -
-- versie 20251108 -
+versie 20251108
 
 
-#### Instructies ####
+## Instructies ##
 
 De Gielz automatisering voor Zendure ( https://github.com/Gielz1986/Zendure-HA-zenSDK ) werkt heel goed om een Zendure thuisbatterij die de ZenSDK API ondersteunt, lokaal te besturen, waarbij geen cloud communicatie nodig is. De standaard Gielz automatisering ondersteunt echter slechts 1 Zendure device (omvormer).
 
 Deze Node-Red flow vormt een proxy server die het mogelijk maakt de Gielz automatisering te gebruiken met twee Zendure devices, zoals 2x Solarflow 2400AC.
 
-![Preview](proxy-HA-Zendure.png)   
+
+
+![Preview](images/node-red-flow-image.png)   
+
+
 
 
 Na importeren van deze Node-Red flow in je Node-Red server, kun je je eigen IP adressen en de serienummers van je twee Zendure devices invullen in de Node-Red flow. Hieronder staat aangegeven waar je dat kunt doen.
@@ -25,7 +28,10 @@ Vervolgens moet je ook een paar kleine aanpassingen doen in de Gielz automatiser
 - In de blokken "Call Zendure 1 API" en "Call Zendure 2 API", vul het juiste IP adres van je Zendures in de URL.
 
 
-![Preview](proxy-HA-Zendure-diagram.png)   
+
+![Preview](images/proxy-HA-Zendure-diagram.png)   
+
+
 
 
 ### HomeAssistant ###
