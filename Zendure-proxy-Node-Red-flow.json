@@ -1,0 +1,438 @@
+[
+    {
+        "id": "f1534761.26ba3",
+        "type": "tab",
+        "label": "Zendure-HA proxy flow",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "ceb2d787.8f9fb",
+        "type": "http in",
+        "z": "f1534761.26ba3",
+        "name": "API Proxy In",
+        "url": "/properties/report",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 90,
+        "y": 279,
+        "wires": [
+            [
+                "a1d34151.8e2ba8",
+                "b4b1742a.abfac"
+            ]
+        ]
+    },
+    {
+        "id": "20d4d6.87e0932a",
+        "type": "http request",
+        "z": "f1534761.26ba3",
+        "name": "Call Zendure 1 API",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": true,
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 410,
+        "y": 260,
+        "wires": [
+            [
+                "58b4f565.c368bc"
+            ]
+        ]
+    },
+    {
+        "id": "58b4f565.c368bc",
+        "type": "join",
+        "z": "f1534761.26ba3",
+        "name": "Join Responses",
+        "mode": "custom",
+        "build": "array",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "",
+        "count": "2",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 620,
+        "y": 279,
+        "wires": [
+            [
+                "3ce1303c.303df",
+                "2637c1c3.6c7b56"
+            ]
+        ]
+    },
+    {
+        "id": "3ce1303c.303df",
+        "type": "function",
+        "z": "f1534761.26ba3",
+        "name": "GET Response handling",
+        "func": "/*\nHere we will add the values to the payload which are needed for HA Gielz sensors and automation\n\nTo test this proxy, run:\n% curl http://192.168.2.246:1880/properties/report\n\nTo access original nodes:\n% curl http://192.168.2.220/properties/report\n% curl http://192.168.2.217/properties/report\n\n\nFirst we'll order the objects correctly, because they will be returned in random order depending which response arrived first.\n\n*/\n\n// read serial numbers from global variable (the first get request will have saved it)\nvar snZendure1 = flow.get('snZendure1')||1;\nvar snZendure2 = flow.get('snZendure2')||1;\n\n\n// load global variables\nvar electricLevel_A = flow.get('electricLevel_A')||50;\nvar electricLevel_B = flow.get('electricLevel_B')||50;\nvar minSoc = flow.get('minSoc')||10;\nvar socSet = flow.get('socSet')||100;\n\n\n\n//Create a new json object to store the original and new values\nlet values = {}\nvalues.properties = {}\nvalues.original = {}\n\n// make sure the order of objects is zendure1, zendure2\nif (msg.payload[0].sn == snZendure1) {\n    values.original = msg.payload\n} else {\n    values.original[0] = msg.payload[1]\n    values.original[1] = msg.payload[0]\n}\n\n\n// move battery packdata from original data to root level, as if it is one device\nlet packData1 = values.original[0].packData;\nlet packData2 = values.original[1].packData;\nlet packData = [...packData1, ...packData2]\nvalues.packData = packData\n// delete from original location\nvalues.original[0].packData = []\nvalues.original[1].packData = []\n\n\n\n// serialnr dummy\nlet sn = \"00000DUMMY00000\"\nvalues.sn = sn\n\n// product\nlet product = \"PROXY-NODE-RED\"\nvalues.product = product\n\n\n\n\n//----- here come all variables to send to HA in the response for the combined nodes\n\n\n// total battery percentage\nlet electricLevel = (values.original[0].properties.electricLevel + values.original[1].properties.electricLevel) / 2;\nvalues.properties.electricLevel = electricLevel\n\n// update current SoC levels to global variable\nelectricLevel_A = parseInt((values.original[0].properties.electricLevel))\nelectricLevel_B = parseInt((values.original[1].properties.electricLevel))\nflow.set('electricLevel_A', electricLevel_A)\nflow.set('electricLevel_B', electricLevel_B)\n\n\n// chargeMaxLimit\nlet chargeMaxLimit = (values.original[0].properties.chargeMaxLimit + values.original[1].properties.chargeMaxLimit);\nvalues.properties.chargeMaxLimit = chargeMaxLimit;\n\n// packInputPower\nlet packInputPower = (values.original[0].properties.packInputPower + values.original[1].properties.packInputPower);\nvalues.properties.packInputPower = packInputPower;\n\n// outputPackPower\nlet outputPackPower = (values.original[0].properties.outputPackPower + values.original[1].properties.outputPackPower);\nvalues.properties.outputPackPower = outputPackPower;\n\n// packNum\nlet packNum = (values.original[0].properties.packNum + values.original[1].properties.packNum);\nvalues.properties.packNum = packNum;\n\n// rssi, use the lowest of both rssi's\nlet rssi = Math.min(values.original[0].properties.rssi, values.original[1].properties.rssi);\nvalues.properties.rssi = rssi;\n\n// smartMode\n// We will send 0 if one of the nodes is at 0 (then it needs to be corrected to 1 by an HA POST command)\n// Doc: https://github.com/Zendure/zenSDK/blob/main/docs/en_properties.md\n//1: The setting parameter is not written to flash. After an unexpected power loss and restart, the device will use the value stored in flash. \n//0: The setting parameter is written to flash.\nlet smartMode = values.original[0].properties.smartMode * values.original[1].properties.smartMode;\nvalues.properties.smartMode = smartMode;\n\n// BatVolt\nlet BatVolt = (values.original[0].properties.BatVolt + values.original[1].properties.BatVolt) / 2;\nvalues.properties.BatVolt = BatVolt\n\n// remainOutTime\nlet remainOutTime = (values.original[0].properties.remainOutTime + values.original[1].properties.remainOutTime) / 2;\nvalues.properties.remainOutTime = remainOutTime\n\n// hyperTmp (take the highest value)\nlet hyperTmp = Math.max(values.original[0].properties.hyperTmp, values.original[1].properties.hyperTmp);\nvalues.properties.hyperTmp = hyperTmp;\n\n// minSoc - select largest one\nminSoc = Math.max(values.original[0].properties.minSoc, values.original[1].properties.minSoc);\nvalues.properties.minSoc = minSoc\nflow.set('minSoc', minSoc)\n\n// socSet - select lowest one\nsocSet = Math.min(values.original[0].properties.socSet, values.original[1].properties.socSet);\nvalues.properties.socSet = socSet\nflow.set('socSet', socSet)\n\n// acMode (as this may be different on each node, best obtain it from a global variable, set by the POST messages to Zendure. Then at least it will be logical for HA)\n// 1: Input, 2: Output\nlet acMode = (values.original[0].properties.acMode + values.original[1].properties.acMode) / 2;\nvalues.properties.acMode = Math.floor(acMode);\n\n// is_error (normaal 0; als er een >0 is, dan is het dat)\nlet is_error = Math.max(values.original[0].properties.is_error, values.original[1].properties.is_error);\nvalues.properties.is_error = is_error;\n\n// socStatus (0: No, 1: Calibrating)\nlet socStatus = Math.max(values.original[0].properties.socStatus, values.original[1].properties.socStatus);\nvalues.properties.socStatus = socStatus;\n\n// outputLimit (Output power limit)\nlet outputLimit = (values.original[0].properties.outputLimit + values.original[1].properties.outputLimit);\nvalues.properties.outputLimit = outputLimit;\n\n// inputLimit (AC charging power limit)\nlet inputLimit = (values.original[0].properties.inputLimit + values.original[1].properties.inputLimit);\nvalues.properties.inputLimit = inputLimit;\n\n// inverseMaxPower (Maximum output power limit)\nlet inverseMaxPower = (values.original[0].properties.inverseMaxPower + values.original[1].properties.inverseMaxPower);\nvalues.properties.inverseMaxPower = inverseMaxPower;\n\n\n\n\n\n\n\n\n//-----\nmsg.payload = values;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 850,
+        "y": 279,
+        "wires": [
+            [
+                "3683e7f0.ef2388",
+                "f0e1a13a.e3be1"
+            ]
+        ]
+    },
+    {
+        "id": "3683e7f0.ef2388",
+        "type": "http response",
+        "z": "f1534761.26ba3",
+        "name": "Send GET Response",
+        "statusCode": "",
+        "headers": {},
+        "x": 1100,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "a1d34151.8e2ba8",
+        "type": "debug",
+        "z": "f1534761.26ba3",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 330,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "8ae813f4.8c3e6",
+        "type": "http request",
+        "z": "f1534761.26ba3",
+        "name": "Call Zendure 2 API",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": true,
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 410,
+        "y": 300,
+        "wires": [
+            [
+                "58b4f565.c368bc"
+            ]
+        ]
+    },
+    {
+        "id": "a39851ce.2e5df8",
+        "type": "comment",
+        "z": "f1534761.26ba3",
+        "name": "Proxy for data gathering (GET)",
+        "info": "This part is the rest api proxy used to receive the get request from HA (Gielz) and forward it to both Zedure devices (must be equal size).\n\nThe reply consists of the replies from both devices in an array. In addition, we will add the direct values that the HA defined sensors will use to get the data that they need, derived from both responses.\n\nThe values returned to client will be whatever the intergration needs:\n\n\"electricLevel\" will be the average of both devices\n\"hyperTmp\":3011 will be the highest of both devices\n\"chargeMaxLimit\" will be from both devices added\n\"chargeMaxLimit\" will be from both devices added\n...\n",
+        "x": 140,
+        "y": 239,
+        "wires": []
+    },
+    {
+        "id": "23351965.02af96",
+        "type": "comment",
+        "z": "f1534761.26ba3",
+        "name": "Proxy for instruction posting (POST)",
+        "info": "This part is the rest api proxy used to receive the POST request from HA (Gielz) and forward it to both Zedure devices.\n\n",
+        "x": 160,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "808346d4.dfcd98",
+        "type": "http in",
+        "z": "f1534761.26ba3",
+        "name": "API Proxy In",
+        "url": "/properties/write",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 90,
+        "y": 460,
+        "wires": [
+            [
+                "81625e8c.a241c8",
+                "6a24b61e.f4c42"
+            ]
+        ]
+    },
+    {
+        "id": "6a24b61e.f4c42",
+        "type": "function",
+        "z": "f1534761.26ba3",
+        "name": "POST Request handling",
+        "func": "\n/* \nUse this example request to test:\n\n % curl -vX POST \"http://192.168.2.246:1880/properties/write\" -H \"Content-Type: application/json\" -d \"{\\\"sn\\\": \\\"xxxxx\\\",\\\"properties\\\":{\\\"acMode\\\":1, \\\"inputLimit\\\":0}}\"  \n\n % curl -vX POST \"http://192.168.2.246:1880/properties/write\" -H \"Content-Type: application/json\" -d \"{\\\"sn\\\": \\\"xxxxx\\\",\\\"properties\\\":{\\\"acMode\\\":2, \\\"outputLimit\\\":1000}}\"\n \n*/ \n\n// read serial numbers from global variable\nvar snZendure1 = flow.get('snZendure1')||1;\nvar snZendure2 = flow.get('snZendure2')||1;\n\n// read IP addresses from global variable\nvar ipZendure1 = flow.get('ipZendure1')||1;\nvar ipZendure2 = flow.get('ipZendure2')||1;\n\n\n// load global variables\nvar electricLevel_A = flow.get('electricLevel_A')||50;\nvar electricLevel_B = flow.get('electricLevel_B')||50;\nvar minSoc = flow.get('minSoc')||10;   // assumption: this is set the same for both devices\nvar socSet = flow.get('socSet')||100;  // assumption: this is set the same for both devices\nvar acMode_Zendure1 = flow.get('acMode_Zendure1')||1;\nvar acMode_Zendure2 = flow.get('acMode_Zendure2')||1;\n\n//debugging\n//node.error(\"electricLevel_A is \" + electricLevel_A);\n//node.error(\"electricLevel_B is \" + electricLevel_B);\n//node.error(\"minSoc is \" + minSoc);\n//node.error(\"socSet is \" + socSet);\n\n\nlet maxPower = 2400 // for SF2400AC devices\n//let maxPower = 800 // for SF800Pro devices\nlet balancingFactor = 1.1 // this lets the device that needs to charge/discharge faster \n                           // for balancing, do it even faster to reach balance earlier.\n                           // Must be 1 or higher.\nlet boostAmount = 0\nlet inputLimit = 0\nlet outputLimit = 0\nlet Power_A = 0\nlet Power_B = 0\n\n\n// Define target servers\nlet server1 = \"http://\" + ipZendure1 + \"/properties/write\";\nlet server2 = \"http://\" + ipZendure2 + \"/properties/write\";\n\n// The incoming POST body\nlet data = msg.payload;\n\n// Keep a reference to req/res for later response\nlet req = msg.req;\nlet res = msg.res;\n\n\n// Make copies of the payload so we don't overwrite it\nlet data1 = JSON.parse(JSON.stringify(data));\nlet data2 = JSON.parse(JSON.stringify(data));\n\n// if acMode is set here, save it to local and global variable\nif (msg.payload && msg.payload.properties && \"acMode\" in msg.payload.properties) {\n    acMode_Zendure1 = data1.properties.acMode;\n    flow.set('acMode_Zendure1', acMode_Zendure1)\n    acMode_Zendure2 = data2.properties.acMode;\n    flow.set('acMode_Zendure2', acMode_Zendure2)\n}\n\n\n\n// Set the Zendure device serial numbers\ndata1.sn = snZendure1;\ndata2.sn = snZendure2;\n\n\n\n// Power distribution\n\nlet Avail_A = 0\nlet Avail_B = 0\nlet Avail_Total = 0\n\n\n// Charging - inputLimit\n\nif (\"inputLimit\" in data.properties) {\n    // charging\n    \n    inputLimit = data.properties.inputLimit\n    \n    if (inputLimit === 0) {\n        Power_A = 0;\n        Power_B = Power_A\n    } else {\n        \n        Avail_A = socSet/10 - electricLevel_A  // available storage to charge\n        if (Avail_A < 0) {\n            Avail_A = 0\n        }\n        Avail_B = socSet/10 - electricLevel_B  // available storage to charge\n        if (Avail_B < 0) {\n            Avail_B = 0\n        }\n        Avail_Total = Avail_A + Avail_B\n        \n        if (Avail_A == Avail_B) {\n            Power_A = Math.floor(inputLimit / 2);\n            Power_B = Power_A\n        } else {   // unequal storage available to charge\n                    // start with the highest available one, determine it's power, proportional to available storage\n            if (Avail_A > Avail_B) {\n                Avail_A = Avail_A * balancingFactor\n                if (Avail_A > Avail_Total) { // make sure this will not be bigger than the total available\n                    Avail_A = Avail_Total\n                }\n                Power_A = Math.floor((Avail_A / Avail_Total) * inputLimit)\n                if (Power_A > maxPower) {\n                    Power_A = maxPower\n                } \n                Power_B = inputLimit - Power_A  // the smaller one takes the rest\n            } else if (Avail_B > Avail_A) {\n                Avail_B = Avail_B * balancingFactor\n                if (Avail_B > Avail_Total) { // make sure this will not be bigger than the total available\n                    Avail_B = Avail_Total\n                }\n                Power_B = Math.floor((Avail_B / Avail_Total) * inputLimit)\n                if (Power_B > maxPower) {\n                    Power_B = maxPower\n                } \n                Power_A = inputLimit - Power_B\n            }\n        }\n    }\n    data1.properties.inputLimit = Power_A\n    data2.properties.inputLimit = Power_B\n}\n\n\n\n// Discharging - outputlimit; instead of available storage, use available charge stored\n\nif (\"outputLimit\" in data.properties) {\n    // discharging\n    \n    outputLimit = data.properties.outputLimit\n    \n    if (outputLimit === 0) {\n        Power_A = 0;\n        Power_B = Power_A\n    } else {\n        \n        Avail_A = electricLevel_A - minSoc/10  // available charge stored\n        if (Avail_A < 0) {\n            Avail_A = 0\n        }\n        Avail_B = electricLevel_B - minSoc/10  // available charge stored\n        if (Avail_B < 0) {\n            Avail_B = 0\n        }\n        Avail_Total = Avail_A + Avail_B\n        \n        if (Avail_A == Avail_B) {\n            Power_A = Math.floor(outputLimit / 2);\n            Power_B = Power_A\n        } else {   // unequal charge available to discharge\n                    // start with the highest available one, determine it's power, proportional to available storage\n            if (Avail_A > Avail_B) {\n                Avail_A = Avail_A * balancingFactor\n                if (Avail_A > Avail_Total) { // make sure this will not be bigger than the total available\n                    Avail_A = Avail_Total\n                }\n                Power_A = Math.floor((Avail_A / Avail_Total) * outputLimit)\n                if (Power_A > maxPower) {\n                    Power_A = maxPower\n                } \n                Power_B = outputLimit - Power_A  // the smaller one takes the rest\n            } else if (Avail_B > Avail_A) {\n                Avail_B = Avail_B * balancingFactor\n                if (Avail_B > Avail_Total) { // make sure this will not be bigger than the total available\n                    Avail_B = Avail_Total\n                }\n                Power_B = Math.floor((Avail_B / Avail_Total) * outputLimit)\n                if (Power_B > maxPower) {\n                    Power_B = maxPower\n                } \n                Power_A = outputLimit - Power_B\n            }\n        }\n    }\n    data1.properties.outputLimit = Power_A\n    data2.properties.outputLimit = Power_B\n}\n    \n\n\n\n\n\n\n\n// Build the two messages\nlet msg1 = {\n    method: \"POST\",\n    url: server1,\n    headers: { \"Content-Type\": \"application/json\" },\n    payload: data1,\n    req: req,\n    res: res\n};\n\nlet msg2 = {\n    method: \"POST\",\n    url: server2,\n    headers: { \"Content-Type\": \"application/json\" },\n    payload: data2,\n    req: req,\n    res: res\n};\n\n\n\n\n\n// Return both messages (to the two HTTP request outputs)\nreturn [msg1, msg2];\n",
+        "outputs": 2,
+        "noerr": 0,
+        "x": 330,
+        "y": 460,
+        "wires": [
+            [
+                "6bca3b71.54d19c",
+                "b9b74d0.c946db"
+            ],
+            [
+                "868046ae.ffd238",
+                "b9b74d0.c946db"
+            ]
+        ]
+    },
+    {
+        "id": "6bca3b71.54d19c",
+        "type": "http request",
+        "z": "f1534761.26ba3",
+        "name": "Call Zendure 1 API",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": true,
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 630,
+        "y": 440,
+        "wires": [
+            [
+                "c4aeade8.a3cef8",
+                "ead19e80.177bc8"
+            ]
+        ]
+    },
+    {
+        "id": "868046ae.ffd238",
+        "type": "http request",
+        "z": "f1534761.26ba3",
+        "name": "Call Zendure 2 API",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": true,
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 630,
+        "y": 480,
+        "wires": [
+            [
+                "c4aeade8.a3cef8",
+                "ead19e80.177bc8"
+            ]
+        ]
+    },
+    {
+        "id": "99faebe8.09e788",
+        "type": "http response",
+        "z": "f1534761.26ba3",
+        "name": "Send POST Response",
+        "statusCode": "",
+        "headers": {},
+        "x": 1100,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "c4aeade8.a3cef8",
+        "type": "join",
+        "z": "f1534761.26ba3",
+        "name": "Join Responses",
+        "mode": "custom",
+        "build": "array",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "3",
+        "count": "2",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 881,
+        "y": 460,
+        "wires": [
+            [
+                "99faebe8.09e788",
+                "af140bcc.8f4068"
+            ]
+        ]
+    },
+    {
+        "id": "b9b74d0.c946db",
+        "type": "debug",
+        "z": "f1534761.26ba3",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 470,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "2637c1c3.6c7b56",
+        "type": "debug",
+        "z": "f1534761.26ba3",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 590,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "f0e1a13a.e3be1",
+        "type": "debug",
+        "z": "f1534761.26ba3",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 870,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "af140bcc.8f4068",
+        "type": "debug",
+        "z": "f1534761.26ba3",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 971,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "81625e8c.a241c8",
+        "type": "debug",
+        "z": "f1534761.26ba3",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 150,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "ead19e80.177bc8",
+        "type": "debug",
+        "z": "f1534761.26ba3",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 670,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "c48a5186.72dfa",
+        "type": "comment",
+        "z": "f1534761.26ba3",
+        "name": "## Instructies ##  -  Proxy van HA Gielz Zendure-HA-zenSDK naar 2x Zendure SF2400AC",
+        "info": "- Zendure-zenSDK-proxy -\n- versie 20251109 -\n\n#### Instructies ####\n\nDe Gielz automatisering voor Zendure ( https://github.com/Gielz1986/Zendure-HA-zenSDK ) is heel mooi en nuttig om een Zendure thuisbatterij die de ZenSDK API ondersteunt, lokaal te besturen, waarbij geen cloud comminicatie nodig is. De standaard Gielz automatisering ondersteunt echter slechts 1 Zendure device (omvormer).\n\nDeze Node-Red flow maakt het mogelijk de Gielz automatisering te gebruiken met twee Zendure devices, zoals 2x Solarflow 2400AC.\n\nNa importeren van deze Node-Red flow in je Node-Red server, kun je je eigen IP adressen en de serienummers van je twee Zendure devices invullen in de Node-Red flow. Hieronder staat aangegeven waar je dat kunt doen.\n\nVervolgens moet je ook een paar kleine aanpassingen doen in de Gielz automatisering in HomeAssistant, ten opzichte van de normale situatie met 1 device zonder deze proxy. \n\n\n### Node-Red ###\n\n- Vul in het blok \"Vul hier de Zendure IP adressen en serienummers in\" de IP adressen en de serienummers van de Zendure devices in.\n\n\n\n### HomeAssistant ###\n\n- Op het HA Dashboard, vul het IP adres en poort van de Node-Red proxy in voor \"Zendure 2400 AC IP-adres\" (input_text.zendure_2400_ac_ip_adres). Bijvoorbeeld: 192.168.x.x:1880\n\nOudere versies: In configuration.yaml, vul het IP adres en poort van de Node-Red HTTP proxy in op de plaats van het 2400 AC device IP adres.\n\n- In configuration.yaml, onder alle rest_command items, voeg deze HTTP regels toe:\n    headers:\n      Content-Type: application/json\n      Content-Encoding: identity\n\nVoorbeeld:\n\n  zendure_stop_met_ontladen:\n    url: http://{{ states('input_text.zendure_2400_ac_ip_adres') }}/properties/write\n    method: POST\n    headers:\n      Content-Type: application/json\n      Content-Encoding: identity\n    payload: '{\"sn\":\"{{sn}}\",\"properties\":{\"acMode\": 2, \"outputLimit\": 0 }}'\n\nHiermee wordt de json content niet gecomprimeerd door HA en kan de Node-Red HTTP-in node het lezen. Zonder deze aanpassing zullen de POST opdrachten niet werken.\n\n- In configuration.yaml, verander hier de \"min: -2400\" en \"max: 2400\" naar \"min: -4800\" en \"max 4800\":\n\ninput_number:\n  zendure_2400_ac_handmatig_vermogen:\n    name: Zendure 2400 AC Handmatig Vermogen\n    min: -2400\n    max: 2400\n    step: 1\n    mode: box\n    unit_of_measurement: \"W\"\n\nDaarmee kun je handmatig laden/leveren tot 4800W in plaats van 2400W.\n\n- In automations.yaml, zoek en vervang alle\ncap = 2400\nvoor\ncap = 4800\n\nHiermee wordt het maximale vermogen verhoogd naar het maximale wat de 2x SolarFlow 2400AC's (oftewel een virtuele SolarFlow 4800AC) aankunnen.\n\n\n\n\nNB: deze Node-Red flow is getest met de Zendure-HA-zenSDK-20251026 versie van de Gielz automatisering. In latere versies kan het enigszins anders zijn.\n\nTip: \nom de statusinformatie van de Zendures te krijgen (inclusief bijvoorbeeld serienummer) kun je deze curl commando's gebruiken, of de URL in je browser plakken:\n% curl http://192.168.x.x/properties/report\n% curl http://192.168.x.x/properties/report\n\nom de proxy te testen kun je deze curl commando's gebruiken, of de URL in je browser plakken:\n% curl http://192.168.y.y:1880/properties/report\n\n\nFeatures:\n- SoC balancering - De SoC (state of charge) van de twee devices wordt dicht bij elkaar gehouden doordat de volste batterij het snelst ontlaadt en de leegste batterij het snelst oplaadt, zodat ze ongeveer tegelijk bij het ingestelde maximale of minimale laadpercentage uitkomen.\n\n- Benodigd: \n    - Zorg dat op beide Zendures hetzelfde maximale en minimale laadpercentage (SoC percentages) ingesteld staan.\n    - Beide Zendures moeten hetzelfde aantal batterijen hebben.\n    - De beide Zendures en de Node-Red server moeten een vast IP adres hebben.\n    - Beide Zendures moeten beschikbaar zijn en werken.\n    - De Node-Red server kan een aparte server zijn of op dezelfde machine als HomeAssistant draaien.\n\n- Het Zendure serienummer dat HomeAssistant gebruikt is niet relevant. Die mag gewoon een dummy zijn zoals \"xxxxx\"\n\n- Mogelijk later toe te voegen: \n    - mogelijk toekomstige feature is het laden/ontladen van slechts 1 Zendure device tegelijk bij het op lagere vermogens laden/ontladen, en dit afwisselen gebaseerd op SoC. Momenteel zullen beide devices tegelijk laden/ontladen.\n    - mogelijke detectie of een van de Zendures down is, zodat dan met 1 Zendure normaal doorgewerkt wordt.\n\n\n\n\n\n\n\n",
+        "x": 330,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "427f083d.76a508",
+        "type": "inject",
+        "z": "f1534761.26ba3",
+        "name": "Initialize",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "x": 100,
+        "y": 100,
+        "wires": [
+            [
+                "691c8847.815ac8"
+            ]
+        ]
+    },
+    {
+        "id": "691c8847.815ac8",
+        "type": "function",
+        "z": "f1534761.26ba3",
+        "name": "Vul hier de Zendure IP adressen en serienummers in",
+        "func": "\n\n//===============================================================\n//== Vul hier de Zendure device IP adressen en serienummers in ==\n//===============================================================\nlet snZendure1 = \"HOA1Nxxxxxxxxxx\"\nlet snZendure2 = \"HOA1Nxxxxxxxxxx\"\n\nlet ipZendure1 = \"192.168.x.x\"\nlet ipZendure2 = \"192.168.y.y\"\n\n// Zie het blok \"Instructies\".\n//===============================================================\n\n\n// Save SN to global variables\nflow.set('snZendure1', snZendure1)\nflow.set('snZendure2', snZendure2)\n\n// Save SN to global variables\nflow.set('ipZendure1', ipZendure1)\nflow.set('ipZendure2', ipZendure2)\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 380,
+        "y": 100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b4b1742a.abfac",
+        "type": "function",
+        "z": "f1534761.26ba3",
+        "name": "Set URL",
+        "func": "\n\n// read IP addresses from global variable\nvar ipZendure1 = flow.get('ipZendure1')||1;\nvar ipZendure2 = flow.get('ipZendure2')||1;\n\n\n// Define target servers\nlet server1 = \"http://\" + ipZendure1 + \"/properties/report\";\nlet server2 = \"http://\" + ipZendure2 + \"/properties/report\";\n\n// Keep a reference to req/res for later response\nlet req = msg.req;\nlet res = msg.res;\n\n// The incoming POST body\nlet data = msg.payload;\n\n// Make copies of the payload so we don't overwrite it\nlet data1 = JSON.parse(JSON.stringify(data));\n\n// Build the message\nlet msg1 = {\n    method: \"GET\",\n    url: server1,\n    headers: { \"Content-Type\": \"application/json\" },\n    payload: data1,\n    req: req,\n    res: res\n};\nlet msg2 = {\n    method: \"GET\",\n    url: server2,\n    headers: { \"Content-Type\": \"application/json\" },\n    payload: data1,\n    req: req,\n    res: res\n};\n\n\n\nreturn [msg1, msg2];",
+        "outputs": 2,
+        "noerr": 0,
+        "x": 240,
+        "y": 280,
+        "wires": [
+            [
+                "20d4d6.87e0932a",
+                "2637c1c3.6c7b56"
+            ],
+            [
+                "8ae813f4.8c3e6"
+            ]
+        ]
+    }
+]
