@@ -37,6 +37,9 @@ Vervolgens moet je ook een paar kleine aanpassingen doen in de Gielz automatiser
 
 - Op het HA Dashboard, vul het IP adres en poort van de Node-Red proxy in voor "Zendure 2400 AC IP-adres" (input_text.zendure_2400_ac_ip_adres). Bijvoorbeeld: 192.168.x.x:1880
 
+![Preview](images/HA-gielz-ip-port.png) 
+
+
 Oudere versies: In configuration.yaml, vul het IP adres en poort van de Node-Red HTTP proxy in op de plaats van het 2400 AC device IP adres.
 
 - In configuration.yaml, onder alle rest_command items, voeg deze HTTP regels toe:
