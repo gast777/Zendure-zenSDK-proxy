@@ -1,6 +1,6 @@
 # Zendure-zenSDK-proxy
 
-versie 20251108
+versie 20251109
 
 
 ## Instructies ##
@@ -25,7 +25,6 @@ Vervolgens moet je ook een paar kleine aanpassingen doen in de Gielz automatiser
 
 - Vul in het blok "Vul hier de Zendure IP adressen en serienummers in" de IP adressen en de serienummers van de Zendure devices in.
 
-- In de blokken "Call Zendure 1 API" en "Call Zendure 2 API", vul het juiste IP adres van je Zendures in de URL.
 
 
 
