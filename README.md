@@ -1,6 +1,6 @@
 # Zendure-zenSDK-proxy
 
-versie 20251109
+versie 20251110
 
 
 ## Instructies ##
@@ -87,23 +87,22 @@ Hiermee wordt het maximale vermogen verhoogd naar het maximale wat de 2x SolarFl
 
 
 
-Features:
+## Features ##
 - SoC balancering - De SoC (state of charge) van de twee devices wordt dicht bij elkaar gehouden doordat de volste batterij het snelst ontlaadt en de leegste batterij het snelst oplaadt. Bij gelijke SoC laden ze beide even snel.
+- Single Mode - bij lagere vermogens wordt slechts een van de Zendures gebruikt.
 
-- Vereisten: 
-    - 2x Zendure SolarFlow 2400 AC (2x Zendure SolarFlow 800 Pro zal ook werken als je "let maxPower = 2400" in het blok "POST Request handling" verandert naar "let maxPower = 800").
-    - Zorg dat op beide Zendures hetzelfde maximale en minimale laadpercentage (SoC percentages) ingesteld staan.
-    - Beide Zendures moeten hetzelfde aantal batterijen hebben.
-    - De beide Zendures en de Node-Red server moeten een vast IP adres hebben.
-    - Beide Zendures moeten beschikbaar zijn en werken.
+## Vereisten ## 
+- 2x Zendure SolarFlow 2400 AC (2x Zendure SolarFlow 800 Pro zal ook werken als je "let maxPower = 2400" in het blok "POST Request handling" verandert naar "let maxPower = 800").
+- Zorg dat op beide Zendures hetzelfde maximale en minimale laadpercentage (SoC percentages) ingesteld staan.
+- Beide Zendures moeten hetzelfde aantal batterijen hebben.
+- De beide Zendures en de Node-Red server moeten een vast IP adres hebben.
+- Beide Zendures moeten beschikbaar zijn en werken.
 
-Opmerkingen:
+## Opmerkingen ##
 - De Node-Red server kan een aparte server zijn of op dezelfde machine als HomeAssistant draaien.
 - Het Zendure serienummer dat HomeAssistant gebruikt is niet relevant. Die mag gewoon een dummy zijn zoals "xxxxx". De juiste serienummers worden in deze Node-Red proxy ingevuld.
 
-- Mogelijke functionaliteit later toe te voegen: 
-    - het laden/ontladen van slechts 1 Zendure device tegelijk op lagere vermogens, en dit afwisselen gebaseerd op SoC. Momenteel zullen beide devices tegelijk laden/ontladen.
-    - detectie of een van de Zendures onbereikbaar is, zodat dan met 1 Zendure normaal doorgewerkt kan worden.
+
 
 
 
