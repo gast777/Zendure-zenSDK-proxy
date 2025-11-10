@@ -89,7 +89,7 @@ Hiermee wordt het maximale vermogen verhoogd naar het maximale wat de 2x SolarFl
 
 ## Features ##
 - SoC balancering - De SoC (state of charge) van de twee devices wordt dicht bij elkaar gehouden doordat de volste batterij het snelst ontlaadt en de leegste batterij het snelst oplaadt. Bij gelijke SoC laden ze beide even snel.
-- Single Mode - bij lagere vermogens wordt slechts een van de Zendures gebruikt.
+- Single Mode - Bij lagere vermogens laadt/ontlaadt slechts een van de Zendures tegelijk. Dit wordt afgewisseld aan de hand van de SoC van de beide devices, waardoor de SoC waardes gebalanceerd blijven.
 
 ## Vereisten ## 
 - 2x Zendure SolarFlow 2400 AC (2x Zendure SolarFlow 800 Pro zal ook werken als je "let maxPower = 2400" in het blok "POST Request handling" verandert naar "let maxPower = 800").
