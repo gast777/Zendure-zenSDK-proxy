@@ -100,7 +100,7 @@ Hiermee wordt het maximale vermogen verhoogd naar het maximale wat de 2x SolarFl
 
 ## Opmerkingen ##
 - De Node-Red server kan een aparte server zijn of op dezelfde machine als HomeAssistant draaien.
-- Het Zendure serienummer dat HomeAssistant gebruikt is niet relevant. Die mag gewoon een dummy zijn zoals "xxxxx". De juiste serienummers worden in deze Node-Red proxy ingevuld.
+
 
 
 
