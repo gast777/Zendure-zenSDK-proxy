@@ -1,6 +1,6 @@
 # Zendure-zenSDK-proxy
 
-versie 20251110
+versie 20251119
 
 
 ## Instructies ##
@@ -89,7 +89,9 @@ Hiermee wordt het maximale vermogen verhoogd naar het maximale wat de 2x SolarFl
 
 ## Features ##
 - SoC balancering - De SoC (state of charge) van de twee devices wordt dicht bij elkaar gehouden doordat de volste batterij het snelst ontlaadt en de leegste batterij het snelst oplaadt. Bij gelijke SoC laden ze beide even snel.
+- Herhaling van instructies om te laden/ontladen, zodat SoC balancing tussen de Zendures ook werkt voor Handmatige mode.
 - Single Mode - Bij lagere vermogens laadt/ontlaadt slechts een van de Zendures tegelijk. Dit wordt afgewisseld aan de hand van de SoC van de beide devices, waardoor de SoC waardes gebalanceerd blijven.
+- In Single Mode overschakelen naar ander device laden/ontladen bij meer dan 1% punt verschil in SoC (standaard bij 2% verschil). Hierdoor wordt minder vaak overgeschakeld.
 
 ## Vereisten ## 
 - 2x Zendure SolarFlow 2400 AC (2x Zendure SolarFlow 800 Pro zal ook werken als je "let maxPower = 2400" in het blok "POST Request handling" verandert naar "let maxPower = 800").
