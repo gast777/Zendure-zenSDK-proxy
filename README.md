@@ -94,7 +94,7 @@ Hiermee wordt het maximale vermogen verhoogd naar het maximale wat de 2x SolarFl
 - In Single Mode overschakelen naar ander device laden/ontladen bij meer dan 1% punt verschil in SoC (standaard bij 2% verschil). Hierdoor wordt minder vaak overgeschakeld.
 
 ## Vereisten ## 
-- 2x Zendure SolarFlow 2400 AC (2x Zendure SolarFlow 800 Pro zal ook werken als je "let maxPower = 2400" in het blok "Vul hier de Zendure IP adressen en serienummers in" verandert naar "let maxPower = 800").
+- 2x Zendure SolarFlow 2400 AC (2x Zendure SolarFlow 800 Pro zal ook werken als je "let maxPower = 2400" verandert naar "let maxPower = 800" in het blok "Vul hier de Zendure IP adressen en serienummers in").
 - Zorg dat op beide Zendures hetzelfde maximale en minimale laadpercentage (SoC percentages) ingesteld staan.
 - Beide Zendures moeten hetzelfde aantal batterijen hebben.
 - De beide Zendures en de Node-Red server moeten een vast IP adres hebben.
