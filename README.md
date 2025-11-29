@@ -39,6 +39,7 @@ Vervolgens moet je ook een paar kleine aanpassingen doen in de Gielz automatiser
 
 ![Preview](images/HA-gielz-ip-port.png) 
 
+NB: Als Node-Red op de HomeAssistent server is geinstalleerd als Add-On, vul in "localhost:1880/endpoint".
 
 Oudere versies: In configuration.yaml, vul het IP adres en poort van de Node-Red HTTP proxy in op de plaats van het 2400 AC device IP adres.
 
@@ -85,6 +86,20 @@ cap = 4800
 ```
 Hiermee wordt het maximale vermogen verhoogd naar het maximale wat de 2x SolarFlow 2400AC's (oftewel een virtuele SolarFlow 4800AC) aankunnen.
 
+
+## Node-Red als HomeAssistant Add-on ##
+
+Indien Node-Red op de HomeAssistant server zelf is geinstalleerd als Add-on, volg deze stappen om de flow direct te laten werken:
+
+1) HomeAssistant Add-On Configuratie van Node-Red:
+- Zet "ssl" uit
+- Zet "Show unused optional configuration options" aan
+- Zet "leave_front_door_open" aan
+Save de configuratie
+Herstart Node-Red
+
+2) Op het HA Dashboard, configureer als "Zendure 2400 AC IP-adres":
+localhost:1880/endpoint
 
 
 ## Features ##
