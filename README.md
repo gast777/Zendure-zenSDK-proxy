@@ -98,8 +98,8 @@ Indien Node-Red op de HomeAssistant server zelf is geinstalleerd als Add-on, vol
 - Zet "ssl" uit
 - Zet "Show unused optional configuration options" aan
 - Zet "leave_front_door_open" aan
-Save de configuratie
-Herstart Node-Red
+- Save de configuratie
+- Herstart Node-Red
 
 2) Op het HA Dashboard, configureer als "Zendure 2400 AC IP-adres":
 localhost:1880/endpoint
