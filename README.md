@@ -41,6 +41,9 @@ Vervolgens moet je ook een paar kleine aanpassingen doen in de Gielz automatiser
 
 NB: Als Node-Red op de HomeAssistent server is geinstalleerd als Add-On, vul in "localhost:1880/endpoint".
 
+![Preview](images/HA-gielz-ip-port-AddOn.png) 
+
+
 Oudere versies: In configuration.yaml, vul het IP adres en poort van de Node-Red HTTP proxy in op de plaats van het 2400 AC device IP adres.
 
 - In configuration.yaml, onder alle rest_command items, voeg deze HTTP regels toe:
