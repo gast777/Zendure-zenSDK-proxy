@@ -39,7 +39,7 @@ Vervolgens moet je ook een paar kleine aanpassingen doen in de Gielz automatiser
 
 ![Preview](images/HA-gielz-ip-port.png) 
 
-Als Node-Red op de HomeAssistent server zelf is geinstalleerd als Add-On, vul in "localhost:1880/endpoint".
+Als Node-Red op de HomeAssistant server zelf is geinstalleerd als Add-On, vul in "localhost:1880/endpoint".
 
 ![Preview](images/HA-gielz-ip-port-AddOn.png) 
 
