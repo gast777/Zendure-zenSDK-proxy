@@ -101,7 +101,7 @@ Indien Node-Red op de HomeAssistant server zelf is geinstalleerd als Add-on, vol
 - Save de configuratie
 - Herstart Node-Red
 
-2) Op het HA Dashboard, configureer als "Zendure 2400 AC IP-adres":
+2) Op het HA Dashboard, configureer als "Zendure 2400 AC IP-adres": <br />
 localhost:1880/endpoint
 
 
