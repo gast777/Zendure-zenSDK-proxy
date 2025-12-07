@@ -40,6 +40,8 @@ Vervolgens moet je ook een paar kleine aanpassingen doen in de Gielz automatiser
 
 NB: als in de blokken "API Proxy In" staat "The url will be relative to /endpoint", dan vul hier in <IP_adres>:<poort>/endpoint 
 
+![Preview](images/HA-gielz-ip-port-endpoint.png) 
+
 Als Node-Red op de HomeAssistant server zelf is geinstalleerd als Add-On, vul in "localhost:1880/endpoint".
 
 ![Preview](images/HA-gielz-ip-port-AddOn.png) 
