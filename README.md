@@ -32,12 +32,13 @@ Vervolgens moet je ook een paar kleine aanpassingen doen in de Gielz automatiser
 
 
 
-
 ### HomeAssistant ###
 
 - Op het HA Dashboard, vul het IP adres en poort van de Node-Red proxy in voor "Zendure 2400 AC IP-adres" (input_text.zendure_2400_ac_ip_adres). Bijvoorbeeld: 192.168.x.x:1880
 
 ![Preview](images/HA-gielz-ip-port.png) 
+
+NB: als in de blokken "API Proxy In" staat "The url will be relative to /endpoint", dan vul hier in <IP_adres>:<poort>/endpoint 
 
 Als Node-Red op de HomeAssistant server zelf is geinstalleerd als Add-On, vul in "localhost:1880/endpoint".
 
