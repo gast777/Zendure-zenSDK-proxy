@@ -121,8 +121,7 @@ localhost:1880/endpoint
 - De beide Zendures en de Node-Red server moeten een vast IP adres hebben.
 - Beide Zendures moeten beschikbaar zijn en werken.
 
-## Opmerkingen ##
-- De Node-Red server kan een aparte server zijn of op dezelfde machine als HomeAssistant draaien.
+
 
 
 
