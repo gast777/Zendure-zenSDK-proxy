@@ -38,7 +38,7 @@ Vervolgens moet je ook een paar kleine aanpassingen doen in de Gielz automatiser
 
 ![Preview](images/HA-gielz-ip-port.png) 
 
-NB: als in de blokken "API Proxy In" staat "The url will be relative to /endpoint", dan vul hier in <IP_adres>:<poort>/endpoint 
+Als in de blokken "API Proxy In" staat "The url will be relative to /endpoint", dan vul hier in <IP_adres>:<poort>/endpoint 
 
 ![Preview](images/HA-gielz-ip-port-endpoint.png) 
 
