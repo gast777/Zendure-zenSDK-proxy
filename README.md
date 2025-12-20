@@ -69,7 +69,7 @@ Voorbeeld:
 
 Hiermee wordt de json content niet gecomprimeerd door HA en kan de Node-Red HTTP-in node het lezen. Zonder deze aanpassing zullen de POST opdrachten niet werken.
 
-- In configuration.yaml, verander hier de "min: -2400" en "max: 2400" naar "min: -4800" en "max 4800":
+- In configuration.yaml, verander hier de "min: -2400" en "max: 2400" naar "min: -4800" en "max: 4800":
 ```
 input_number:
   zendure_2400_ac_handmatig_vermogen:
