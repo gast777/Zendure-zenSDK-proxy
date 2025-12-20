@@ -1,6 +1,6 @@
 # Zendure-zenSDK-proxy
 
-versie 20251128
+versie 20251220
 
 
 ## Instructies ##
