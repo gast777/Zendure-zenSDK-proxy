@@ -9,22 +9,23 @@ De Gielz automatisering voor Zendure ( https://github.com/Gielz1986/Zendure-HA-z
 
 Deze Node-Red flow vormt een proxy server die het mogelijk maakt de Gielz automatisering te gebruiken met twee Zendure devices, zoals 2x Solarflow 2400AC.
 
-
+<br/>
 
 ![Preview](images/proxy-HA-Zendure-diagram.png)   
 
-
+ <br/>
+ <br/>
 
 
 Het werkt als volgt: De HA (Gielz) zal met de proxy praten, in plaats van met een Zendure. De proxy praat met de twee Zendure devices. Vanuit de proxy gezien lijkt het nog steeds alsof er maar 1 Zendure device is, maar dan wel eentje die twee keer zo veel vermogen aan kan. De proxy verdeelt het vermogen dat HA (Gielz) aanstuurt netjes over de twee Zendures.
 
 Na importeren van deze Node-Red flow in je Node-Red server, kun je de IP adressen en de serienummers van je twee Zendure devices invullen. Hieronder staat aangegeven waar je dat kunt doen.
 
-Vervolgens moet je ook een paar kleine aanpassingen doen in de Gielz automatisering in HomeAssistant, zoals in onderstaande instructies te zien is. Daarna kan hij aan het werk :)
-
+Vervolgens moet je ook een paar kleine aanpassingen doen in de Gielz automatisering in HomeAssistant, zoals in onderstaande instructies te zien is. Daarna kan hij aan het werk :)<br/>
+<br/>
 
 ### Node-Red ###
-
+<br/>
 - Vul in het blok "Vul hier de Zendure IP adressen en serienummers in" de IP adressen en de serienummers van de Zendure devices in.
 
 
@@ -32,11 +33,12 @@ Vervolgens moet je ook een paar kleine aanpassingen doen in de Gielz automatiser
 
 ![Preview](images/node-red-flow-image.png) 
 
-
+<br/>
 
 ### HomeAssistant ###
+<br/>
 
-- Op een HA Dashboard heb je als het goed is reeds het invulveld "Zendure 2400 AC IP-adres" beschikbaar, als onderdeel van de Gielz instructies. Zo niet, voeg die alsnog toe. Vul het IP adres en poort van de Node-Red proxy in voor "Zendure 2400 AC IP-adres" (input_text.zendure_2400_ac_ip_adres). Bijvoorbeeld: 192.168.x.x:1880
+- [ ] Op een HA Dashboard heb je als het goed is reeds het invulveld "Zendure 2400 AC IP-adres" beschikbaar, als onderdeel van de Gielz instructies. Zo niet, voeg die alsnog toe. Vul het IP adres en poort van de Node-Red proxy in voor "Zendure 2400 AC IP-adres" (input_text.zendure_2400_ac_ip_adres). Bijvoorbeeld: 192.168.x.x:1880
 
 ![Preview](images/HA-gielz-ip-port.png) 
 
@@ -49,9 +51,10 @@ Als Node-Red op de HomeAssistant server zelf is geinstalleerd als Add-On, vul in
 ![Preview](images/HA-gielz-ip-port-AddOn.png) 
 
 
-Oudere versies: In configuration.yaml, vul het IP adres en poort van de Node-Red HTTP proxy in op de plaats van het 2400 AC device IP adres.
+Oudere versies van de Gielz ZenSDK: In configuration.yaml, vul het IP adres en poort van de Node-Red HTTP proxy in op de plaats van het 2400 AC device IP adres.<br/>
+<br/>
 
-- In configuration.yaml, onder alle rest_command items, voeg deze HTTP regels toe:
+- [ ] In configuration.yaml, onder alle rest_command items, voeg deze HTTP regels toe:
 ```
     headers:
       Content-Type: application/json
@@ -69,9 +72,10 @@ Voorbeeld:
     payload: '{"sn":"{{sn}}","properties":{"acMode": 2, "outputLimit": 0 }}'
 ```
 
-Hiermee wordt de json content niet gecomprimeerd door HA en kan de Node-Red HTTP-in node het lezen. Zonder deze aanpassing zullen de POST opdrachten niet werken.
+Hiermee wordt de json content niet gecomprimeerd door HA en kan de Node-Red HTTP-in node het lezen. Zonder deze aanpassing zullen de POST opdrachten niet werken.<br/>
+<br/>
 
-- In configuration.yaml, verander hier de "min: -2400" en "max: 2400" naar "min: -4800" en "max: 4800":
+- [ ] In configuration.yaml, verander hier de "min: -2400" en "max: 2400" naar "min: -4800" en "max: 4800":
 ```
 input_number:
   zendure_2400_ac_handmatig_vermogen:
@@ -82,9 +86,10 @@ input_number:
     mode: box
     unit_of_measurement: "W"
 ```
-Daarmee kun je handmatig laden/leveren tot 4800W in plaats van 2400W.
+Daarmee kun je handmatig laden/leveren tot 4800W in plaats van 2400W.<br/>
+<br/>
 
-- In automations.yaml, zoek en vervang alle
+- [ ] In automations.yaml, zoek en vervang alle
 ```
 cap = 2400
 ```
@@ -97,17 +102,17 @@ Hiermee wordt het maximale vermogen verhoogd naar het maximale wat de 2x SolarFl
 
 ## Node-Red als HomeAssistant Add-on ##
 
-Indien Node-Red op de HomeAssistant server zelf is geinstalleerd als Add-on, volg deze stappen om de flow direct te laten werken:
+Indien Node-Red op de HomeAssistant server zelf is geinstalleerd als Add-on, volg deze stappen om de flow direct te laten werken:<br/>
 
 1) HomeAssistant Add-On Configuratie van Node-Red:
 - Zet "ssl" uit
 - Zet "Show unused optional configuration options" aan
 - Zet "leave_front_door_open" aan
 - Save de configuratie
-- Herstart Node-Red
+- Herstart Node-Red<br/>
 
 2) Op het HA Dashboard, configureer als "Zendure 2400 AC IP-adres": <br />
-localhost:1880/endpoint
+localhost:1880/endpoint<br/>
 
 
 ## Features ##
