@@ -28,10 +28,8 @@ Vervolgens moet je ook een paar kleine aanpassingen doen in de Gielz automatiser
 
 ### Node-Red ###
 <br/>
-- Vul in het blok "Vul hier de Zendure IP adressen en serienummers in" de IP adressen en de serienummers van de Zendure devices in.
-
-
-
+- Vul in het blok "Vul hier de Zendure IP adressen en serienummers in" de IP adressen en de serienummers van de Zendure devices in.<br/>
+<br/>
 
 ![Preview](images/node-red-flow-image.png) 
 
