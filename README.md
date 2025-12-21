@@ -20,7 +20,7 @@ Het werkt als volgt: De HA (Gielz) zal met de proxy praten, in plaats van met ee
 
 Na importeren van deze Node-Red flow in je Node-Red server, kun je de IP adressen en de serienummers van je twee Zendure devices invullen. Hieronder staat aangegeven waar je dat kunt doen.
 
-Vervolgens moet je ook een paar kleine aanpassingen doen in de Gielz automatisering in HomeAssistant. Daarna kan hij aan het werk.
+Vervolgens moet je ook een paar kleine aanpassingen doen in de Gielz automatisering in HomeAssistant, zoals in onderstaande instructies te zien is. Daarna kan hij aan het werk :)
 
 
 ### Node-Red ###
