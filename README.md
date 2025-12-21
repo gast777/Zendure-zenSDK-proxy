@@ -16,9 +16,11 @@ Deze Node-Red flow vormt een proxy server die het mogelijk maakt de Gielz automa
 
 
 
+Hoe het werkt is als volgt: De HA (Gielz) zal met de proxy praten, in plaats van met een Zendure. De proxy praat met de twee Zendure devices. Vanuit de proxy gezien lijkt het nog steeds alsof er maar 1 Zendure device is, maar dan wel eentje die twee keer zo veel vermogen aan kan. De proxy verdeelt het vermogen dat HA (Gielz) aanstuurt netjes over de twee Zendures.
+
 Na importeren van deze Node-Red flow in je Node-Red server, kun je de IP adressen en de serienummers van je twee Zendure devices invullen. Hieronder staat aangegeven waar je dat kunt doen.
 
-Vervolgens moet je ook een paar kleine aanpassingen doen in de Gielz automatisering in HomeAssistant. 
+Vervolgens moet je ook een paar kleine aanpassingen doen in de Gielz automatisering in HomeAssistant. Daarna kan hij aan het werk.
 
 
 ### Node-Red ###
@@ -34,7 +36,7 @@ Vervolgens moet je ook een paar kleine aanpassingen doen in de Gielz automatiser
 
 ### HomeAssistant ###
 
-- Op het HA Dashboard, vul het IP adres en poort van de Node-Red proxy in voor "Zendure 2400 AC IP-adres" (input_text.zendure_2400_ac_ip_adres). Bijvoorbeeld: 192.168.x.x:1880
+- Op een HA Dashboard heb je als het goed is reeds het invulveld "Zendure 2400 AC IP-adres" beschikbaar, als onderdeel van de Gielz instructies. Zo niet, voeg die alsnog toe. Vul het IP adres en poort van de Node-Red proxy in voor "Zendure 2400 AC IP-adres" (input_text.zendure_2400_ac_ip_adres). Bijvoorbeeld: 192.168.x.x:1880
 
 ![Preview](images/HA-gielz-ip-port.png) 
 
