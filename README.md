@@ -17,7 +17,7 @@ Deze Node-Red flow vormt een proxy server die het mogelijk maakt de Gielz automa
  <br/>
 
 
-Het werkt als volgt: De HA (Gielz) zal met de proxy praten, in plaats van met een Zendure. De proxy praat met de twee Zendure devices. Vanuit de proxy gezien lijkt het nog steeds alsof er maar 1 Zendure device is, maar dan wel eentje die twee keer zo veel vermogen aan kan. De proxy verdeelt het vermogen dat HA (Gielz) aanstuurt netjes over de twee Zendures.
+Het werkt als volgt: De HA (Gielz) zal met de proxy praten, in plaats van met een Zendure. De proxy praat met de twee Zendure devices. Vanuit HA (Gielz) gezien lijkt het nog steeds alsof er maar 1 Zendure device is, maar dan wel eentje die twee keer zo veel vermogen aan kan. De proxy verdeelt het vermogen dat HA (Gielz) aanstuurt netjes over de twee Zendures.
 
 Na importeren van deze Node-Red flow in je Node-Red server, kun je de IP adressen en de serienummers van je twee Zendure devices invullen. Hieronder staat aangegeven waar je dat kunt doen.
 
