@@ -1,15 +1,15 @@
 [
     {
-        "id": "f1534761.26ba3",
+        "id": "3a312453.f7e23c",
         "type": "tab",
         "label": "Zendure-HA proxy flow",
         "disabled": false,
         "info": ""
     },
     {
-        "id": "ceb2d787.8f9fb",
+        "id": "2c1d66d1.0e367a",
         "type": "http in",
-        "z": "f1534761.26ba3",
+        "z": "3a312453.f7e23c",
         "name": "API Proxy In",
         "url": "/properties/report",
         "method": "get",
@@ -19,15 +19,15 @@
         "y": 279,
         "wires": [
             [
-                "a1d34151.8e2ba8",
-                "b4b1742a.abfac"
+                "7e284809.30fe6",
+                "e2d5e713.0a3b1"
             ]
         ]
     },
     {
-        "id": "20d4d6.87e0932a",
+        "id": "1aff08e7.0a1067",
         "type": "http request",
-        "z": "f1534761.26ba3",
+        "z": "3a312453.f7e23c",
         "name": "Call Zendure 1 API",
         "method": "use",
         "ret": "obj",
@@ -41,14 +41,14 @@
         "y": 260,
         "wires": [
             [
-                "58b4f565.c368bc"
+                "4865609f.9c3728"
             ]
         ]
     },
     {
-        "id": "58b4f565.c368bc",
+        "id": "4865609f.9c3728",
         "type": "join",
-        "z": "f1534761.26ba3",
+        "z": "3a312453.f7e23c",
         "name": "Join Responses",
         "mode": "custom",
         "build": "array",
@@ -69,36 +69,32 @@
         "y": 279,
         "wires": [
             [
-                "3ce1303c.303df",
-                "2637c1c3.6c7b56"
+                "98c646d5.741008",
+                "2c7aa6af.428d12"
             ]
         ]
     },
     {
-        "id": "3ce1303c.303df",
+        "id": "98c646d5.741008",
         "type": "function",
-        "z": "f1534761.26ba3",
+        "z": "3a312453.f7e23c",
         "name": "GET Response handling",
         "func": "/*\nHere we will add the values to the payload which are needed for HA Gielz sensors and automation\n\nTo test this proxy, run:\n% curl http://192.168.2.246:1880/properties/report\n\nTo access original nodes:\n% curl http://192.168.2.220/properties/report\n% curl http://192.168.2.217/properties/report\n\n\nFirst we'll order the objects correctly, because they will be returned in random order depending which response arrived first.\n\n*/\n\n// read serial numbers from global variable\nvar snZendure1 = flow.get('snZendure1')||1;\nvar snZendure2 = flow.get('snZendure2')||1;\n\n\n// load global variables\nvar electricLevel_A = flow.get('electricLevel_A')||50;\nvar electricLevel_B = flow.get('electricLevel_B')||50;\nvar minSoc = flow.get('minSoc')||10;\nvar socSet = flow.get('socSet')||100;\nlet electricLevel = 0\n\n\n//Create a new json object to store the original and new values\nlet values = {}\nvalues.properties = {}\nvalues.original = {}\n\n// make sure the order of objects is zendure1, zendure2\nif (msg.payload[0].sn == snZendure1) {\n    values.original[0] = JSON.parse(JSON.stringify(msg.payload[0])); // clone it\n    values.original[1] = JSON.parse(JSON.stringify(msg.payload[1])); // clone it\n} else {\n    values.original[0] = JSON.parse(JSON.stringify(msg.payload[1])); // clone it\n    values.original[1] = JSON.parse(JSON.stringify(msg.payload[0])); // clone it\n}\n\n\n// move battery packdata from original data to root level, as if it is one device\nlet packData1 = JSON.parse(JSON.stringify(values.original[0].packData));\nlet packData2 = JSON.parse(JSON.stringify(values.original[1].packData));\nlet packData = [...packData1, ...packData2]\nvalues.packData = packData\n\n\n\n// serialnr dummy\nlet sn = \"00000DUMMY00000\"\nvalues.sn = sn\n\n// product\nlet product = \"PROXY-NODE-RED\"\nvalues.product = product\n\n\n// update current SoC levels to global variable\nelectricLevel_A = (values.original[0].properties.electricLevel)\nelectricLevel_B = (values.original[1].properties.electricLevel)\nflow.set('electricLevel_A', electricLevel_A)\nflow.set('electricLevel_B', electricLevel_B)\n\n\n\n//----- here come all variables to send to HA in the response for the combined nodes\n\n\n// total battery percentage\nif (values.original[0].properties.electricLevel <= values.original[0].properties.minSoc/10 || values.original[1].properties.electricLevel <= values.original[1].properties.minSoc/10 ) {\n    electricLevel = Math.ceil((values.original[0].properties.electricLevel + values.original[1].properties.electricLevel) / 2);\n    values.properties.electricLevel = electricLevel\n} else {\n    electricLevel = Math.floor((values.original[0].properties.electricLevel + values.original[1].properties.electricLevel) / 2);\n    values.properties.electricLevel = electricLevel\n}\n\n\n// chargeMaxLimit\nlet chargeMaxLimit = (values.original[0].properties.chargeMaxLimit + values.original[1].properties.chargeMaxLimit);\nvalues.properties.chargeMaxLimit = chargeMaxLimit;\n\n// packInputPower\nlet packInputPower = (values.original[0].properties.packInputPower + values.original[1].properties.packInputPower);\nvalues.properties.packInputPower = packInputPower;\n\n// outputPackPower\nlet outputPackPower = (values.original[0].properties.outputPackPower + values.original[1].properties.outputPackPower);\nvalues.properties.outputPackPower = outputPackPower;\n\n// packNum\nlet packNum = (values.original[0].properties.packNum + values.original[1].properties.packNum);\nvalues.properties.packNum = packNum;\n\n// rssi, use the lowest of both rssi's\nlet rssi = Math.min(values.original[0].properties.rssi, values.original[1].properties.rssi);\nvalues.properties.rssi = rssi;\n\n// smartMode\n// We will send 0 if one of the nodes is at 0 (then it needs to be corrected to 1 by an HA POST command)\n// Doc: https://github.com/Zendure/zenSDK/blob/main/docs/en_properties.md\n//1: The setting parameter is not written to flash. After an unexpected power loss and restart, the device will use the value stored in flash. \n//0: The setting parameter is written to flash.\nlet smartMode = values.original[0].properties.smartMode * values.original[1].properties.smartMode;\nvalues.properties.smartMode = smartMode;\n\n// BatVolt\nlet BatVolt = (values.original[0].properties.BatVolt + values.original[1].properties.BatVolt) / 2;\nvalues.properties.BatVolt = BatVolt\n\n// remainOutTime\nlet remainOutTime = (values.original[0].properties.remainOutTime + values.original[1].properties.remainOutTime) / 2;\nvalues.properties.remainOutTime = remainOutTime\n\n// hyperTmp (take the highest value)\nlet hyperTmp = Math.max(values.original[0].properties.hyperTmp, values.original[1].properties.hyperTmp);\nvalues.properties.hyperTmp = hyperTmp;\n\n// minSoc - select largest one\nminSoc = Math.max(values.original[0].properties.minSoc, values.original[1].properties.minSoc);\nvalues.properties.minSoc = minSoc\nflow.set('minSoc', minSoc)\n\n// socSet - select lowest one\nsocSet = Math.min(values.original[0].properties.socSet, values.original[1].properties.socSet);\nvalues.properties.socSet = socSet\nflow.set('socSet', socSet)\n\n// acMode (as this may be different on each node, best obtain it from a global variable, set by the POST messages to Zendure. Then at least it will be logical for HA)\n// 1: Input, 2: Output\nlet acMode = (values.original[0].properties.acMode + values.original[1].properties.acMode) / 2;\nvalues.properties.acMode = Math.floor(acMode);\n\n// is_error (normaal 0; als er een >0 is, dan is het dat)\nlet is_error = Math.max(values.original[0].properties.is_error, values.original[1].properties.is_error);\nvalues.properties.is_error = is_error;\n\n// socStatus (0: No, 1: Calibrating)\nlet socStatus = Math.min(values.original[0].properties.socStatus, values.original[1].properties.socStatus);\nvalues.properties.socStatus = socStatus;\n\n// save socStatus for both devices to a global variable (socStatus \tint \t0: No, 1: Calibrating)\nflow.set('socStatus_A', values.original[0].properties.socStatus)\nflow.set('socStatus_B', values.original[1].properties.socStatus)\n\n// outputLimit (Output power limit)\nlet outputLimit = (values.original[0].properties.outputLimit + values.original[1].properties.outputLimit);\nvalues.properties.outputLimit = outputLimit;\n\n// inputLimit (AC charging power limit)\nlet inputLimit = (values.original[0].properties.inputLimit + values.original[1].properties.inputLimit);\nvalues.properties.inputLimit = inputLimit;\n\n// inverseMaxPower (Maximum output power limit)\nlet inverseMaxPower = (values.original[0].properties.inverseMaxPower + values.original[1].properties.inverseMaxPower);\nvalues.properties.inverseMaxPower = inverseMaxPower;\n\n\n\n\n\n\n\n\n//-----\n\n// delete from original data to keep the packet small\ndelete values.original\n\n\n// put new payload in msg.payload\nmsg.payload = values;\n\nreturn msg;",
         "outputs": 1,
-        "timeout": "",
         "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
         "x": 850,
         "y": 279,
         "wires": [
             [
-                "3683e7f0.ef2388",
-                "f0e1a13a.e3be1"
+                "7e92f9a3.ef3d9",
+                "f5fb6bab.a9da1"
             ]
         ]
     },
     {
-        "id": "3683e7f0.ef2388",
+        "id": "7e92f9a3.ef3d9",
         "type": "http response",
-        "z": "f1534761.26ba3",
+        "z": "3a312453.f7e23c",
         "name": "Send GET Response",
         "statusCode": "",
         "headers": {},
@@ -107,9 +103,9 @@
         "wires": []
     },
     {
-        "id": "a1d34151.8e2ba8",
+        "id": "7e284809.30fe6",
         "type": "debug",
-        "z": "f1534761.26ba3",
+        "z": "3a312453.f7e23c",
         "name": "",
         "active": false,
         "tosidebar": true,
@@ -122,9 +118,9 @@
         "wires": []
     },
     {
-        "id": "8ae813f4.8c3e6",
+        "id": "2eb9ba4e.e23d06",
         "type": "http request",
-        "z": "f1534761.26ba3",
+        "z": "3a312453.f7e23c",
         "name": "Call Zendure 2 API",
         "method": "use",
         "ret": "obj",
@@ -138,14 +134,14 @@
         "y": 300,
         "wires": [
             [
-                "58b4f565.c368bc"
+                "4865609f.9c3728"
             ]
         ]
     },
     {
-        "id": "a39851ce.2e5df8",
+        "id": "ca12a065.2ee7f8",
         "type": "comment",
-        "z": "f1534761.26ba3",
+        "z": "3a312453.f7e23c",
         "name": "Proxy for data gathering (GET)",
         "info": "This part is the rest api proxy used to receive the get request from HA (Gielz) and forward it to both Zedure devices (must be equal size).\n\nThe reply consists of the replies from both devices in an array. In addition, we will add the direct values that the HA defined sensors will use to get the data that they need, derived from both responses.\n\nThe values returned to client will be whatever the intergration needs:\n\n\"electricLevel\" will be the average of both devices\n\"hyperTmp\":3011 will be the highest of both devices\n\"chargeMaxLimit\" will be from both devices added\n\"chargeMaxLimit\" will be from both devices added\n...\n",
         "x": 140,
@@ -153,9 +149,9 @@
         "wires": []
     },
     {
-        "id": "23351965.02af96",
+        "id": "e08989b9.7109d",
         "type": "comment",
-        "z": "f1534761.26ba3",
+        "z": "3a312453.f7e23c",
         "name": "Proxy for instruction posting (POST)",
         "info": "This part is the rest api proxy used to receive the POST request from HA (Gielz) and forward it to both Zedure devices.\n\n",
         "x": 160,
@@ -163,9 +159,9 @@
         "wires": []
     },
     {
-        "id": "808346d4.dfcd98",
+        "id": "6abd02de.5da07c",
         "type": "http in",
-        "z": "f1534761.26ba3",
+        "z": "3a312453.f7e23c",
         "name": "API Proxy In",
         "url": "/properties/write",
         "method": "post",
@@ -175,40 +171,36 @@
         "y": 460,
         "wires": [
             [
-                "81625e8c.a241c8",
-                "6a24b61e.f4c42"
+                "a2ebb2d6.c26e1",
+                "633308fe.069bc8"
             ]
         ]
     },
     {
-        "id": "6a24b61e.f4c42",
+        "id": "633308fe.069bc8",
         "type": "function",
-        "z": "f1534761.26ba3",
+        "z": "3a312453.f7e23c",
         "name": "POST Request handling",
         "func": "\n/* \nUse this example request to test:\n\n % curl -vX POST \"http://192.168.2.246:1880/properties/write\" -H \"Content-Type: application/json\" -d \"{\\\"sn\\\": \\\"xxxxx\\\",\\\"properties\\\":{\\\"acMode\\\":1, \\\"inputLimit\\\":0}}\"  \n\n % curl -vX POST \"http://192.168.2.246:1880/properties/write\" -H \"Content-Type: application/json\" -d \"{\\\"sn\\\": \\\"xxxxx\\\",\\\"properties\\\":{\\\"acMode\\\":2, \\\"outputLimit\\\":1000}}\"\n \n*/ \n\n\n\n//let debug = 1 // set to 1 to enable debugging\n\n// read serial numbers and IP addresses from global variable (can be modified in block \"Vul hier de Zendure IP adressen en serienummers in\")\nvar snZendure1 = flow.get('snZendure1')||1;\nvar snZendure2 = flow.get('snZendure2')||1;\nvar ipZendure1 = flow.get('ipZendure1')||1;\nvar ipZendure2 = flow.get('ipZendure2')||1;\n\n// load configurable variables (can be modified in block \"Vul hier de Zendure IP adressen en serienummers in\")\nlet maxPower = flow.get('maxPower')||2400;\nlet tmp = flow.get('singleMode_enable');\nvar singleMode_enable = (tmp === undefined) ? 1 : tmp;    // needs special handling because it can be 0 or 1 (not needed if default is 0)\nlet singleMode_upperlimit = flow.get('singleMode_upperlimit')||1500;\nlet singleMode_lowerlimit = flow.get('singleMode_lowerlimit')||500;\nlet balancingFactor = flow.get('balancingFactor')||1;\n\n\n// load global variables\nvar electricLevel_A = flow.get('electricLevel_A')||50;\nvar electricLevel_B = flow.get('electricLevel_B')||50;\nvar minSoc = flow.get('minSoc')||10;   // assumption: this is set the same for both devices\nvar socSet = flow.get('socSet')||100;  // assumption: this is set the same for both devices\nvar singleMode = flow.get('singleMode')||0;\nvar singleMode_change_device_diff = flow.get('singleMode_change_device_diff')||1;\nvar singleMode_highestdevice = flow.get('singleMode_highestdevice')||0; //(if 0 or undefined, it will be 0, no need for special handling here)\nvar socStatus_A = flow.get('socStatus_A')||0;\nvar socStatus_B = flow.get('socStatus_B')||0;\nvar manualMode_messageRepeat = flow.get('manualMode_messageRepeat')||0;\nvar latestPowerMessage_timestamp_epoch = flow.get('latestPowerMessage_timestamp_epoch')||1;\n\n\n\n// initialization of variables\nlet boostAmount = 0\nlet inputLimit = 0\nlet outputLimit = 0\nlet Power_A = 0\nlet Power_B = 0\nlet latestPowerMessage = \"\"\nlet currentTime = Math.floor(Date.now() / 1000)\nlet singleMode_change_device_diff_used = 1\n\n\n/*\n//debugging\nif (debug == 1) {\n    node.error(\"electricLevel_A is \" + electricLevel_A);\n    node.error(\"electricLevel_B is \" + electricLevel_B);\n    //node.error(\"minSoc is \" + minSoc);\n    //node.error(\"socSet is \" + socSet);\n}\n*/\n\n// Define target servers\nlet server1 = \"http://\" + ipZendure1 + \"/properties/write\";\nlet server2 = \"http://\" + ipZendure2 + \"/properties/write\";\n\n// The incoming POST body\n//let data = msg.payload;\nlet data = JSON.parse(JSON.stringify(msg.payload)); \n\n// Keep a reference to req/res for later response\nlet req = msg.req;\nlet res = msg.res;\n\n// Save the URL, to be used in the Resend Post block\nlet latestPowerMessage_host = req.headers.host + req.originalUrl\n\n// Make clones of the payload, to use for both messages to the both Zendures\nlet data1 = JSON.parse(JSON.stringify(data));\nlet data2 = JSON.parse(JSON.stringify(data));\n\n\n// Set the Zendure device serial numbers\ndata1.sn = snZendure1;\ndata2.sn = snZendure2;\n\n\n// Power distribution\n\nlet Avail_A = 0\nlet Avail_B = 0\nlet Avail_Total = 0\n\n\nif (singleMode == 1) { // determine 'highest device' during single mode, which is used for determining which is the active device\n\n    //if socset or minsoc is reached, 1% diff will be enough to change active device (i.e. singleMode_change_device_diff_used = 1)\n    //that will make sure both devices can charge/discharge to the max/min\n    if (electricLevel_A >= socSet/10 || electricLevel_B >= socSet/10 || electricLevel_A <= minSoc/10 || electricLevel_B <= minSoc/10) {\n        singleMode_change_device_diff_used = 1;\n    } else {\n        singleMode_change_device_diff_used = singleMode_change_device_diff;\n    }\n\n    // set or change highest SoC device when SoC is unequal, used for singleMode operation\n    // no change while SoC is equal\n    if (electricLevel_A > electricLevel_B) {\n        if (electricLevel_A - electricLevel_B >= singleMode_change_device_diff_used) {  // to change device less often, we will require % diff to be higher to change\n            singleMode_highestdevice = 0 //device A\n        }\n    }\n    if (electricLevel_A < electricLevel_B) {\n        if (electricLevel_B - electricLevel_A >= singleMode_change_device_diff_used) {  // to change device less often, we will require % diff to be higher to change\n            singleMode_highestdevice = 1 //device B\n        }\n    }\n    flow.set('singleMode_highestdevice', singleMode_highestdevice)\n    \n}\n\n\n\n// Charging - inputLimit\n\nif (\"inputLimit\" in data.properties) {\n//if (data.properties.inputLimit !== undefined) {\n    // charging\n\n\n    if (typeof data.repeat == \"undefined\" ) { /// if this is not already a repeat message\n        // add timestamp, to check age later before resending\n        flow.set('latestPowerMessage_host', latestPowerMessage_host)\n        flow.set('latestPowerMessage_timestamp_epoch', currentTime)\n        //latestPowerMessage = msg.payload  // save payload of message, so that it can be repeated in manual mode\n        latestPowerMessage = JSON.parse(JSON.stringify(msg.payload)); // clone it\n        flow.set('latestPowerMessage', latestPowerMessage)\n    }\n    \n    // drop repeat message if it follows quickly after the latest powermessage (to avoid a race condition)\n    if (typeof data.repeat != \"undefined\") {\n        if (currentTime - latestPowerMessage_timestamp_epoch < 2) {\n            \n            return [null, null];\n        }\n    }\n    \n    //latestPowerMessage = msg.payload  // save payload of message, so that it can be repeated in manual mode // moved to above if statement \"/// if this is not already a repeat message\"\n    //flow.set('latestPowerMessage', latestPowerMessage)\n    \n    \n    inputLimit = data.properties.inputLimit\n\n\n    // manage singleMode status\n    if (inputLimit < singleMode_lowerlimit) {\n        singleMode = 1\n    }\n    if (inputLimit > singleMode_upperlimit) {\n        singleMode = 0\n    }\n    flow.set('singleMode', singleMode)\n\n\n    if (inputLimit === 0) {\n        Power_A = 0;\n        Power_B = Power_A\n    } else {\n        \n        Avail_A = socSet/10 - electricLevel_A  // available storage to charge\n        if (Avail_A < 0 || socStatus_A == 1) { // also make zero when device is Calibrating\n            Avail_A = 0\n        }\n        Avail_B = socSet/10 - electricLevel_B  // available storage to charge\n        if (Avail_B < 0 || socStatus_B == 1) { // also make zero when device is Calibrating\n            Avail_B = 0\n        }\n        \n        //in singleMode, let the smallest available be zero, so that the biggest takes all\n        if (singleMode == 1 && singleMode_enable == 1) {\n            if (singleMode_highestdevice === 0) { //device A is highest //when Available is equal, the lowest marked device will charge all\n            Avail_B = 1\n            Avail_A = 0\n            } else { //device B is highest\n            Avail_A = 1\n            Avail_B = 0\n            }\n        }\n        \n        //calculation for power A and B\n        if (Avail_A == Avail_B) {\n            Power_A = Math.floor(inputLimit / 2);\n            Power_B = Power_A\n        } else {   // unequal storage available to charge\n                    // start with the highest available one, determine it's power, proportional to available storage\n            Avail_Total = Avail_A + Avail_B\n            if (Avail_A > Avail_B) {\n                singleMode_highestdevice = 1 // already set right for single mode\n                flow.set('singleMode_highestdevice', singleMode_highestdevice)\n                Power_A = Math.floor((Avail_A / Avail_Total) * inputLimit * balancingFactor)\n                if (Power_A > inputLimit) {\n                    Power_A = inputLimit\n                }\n                if (Power_A > maxPower) {\n                    Power_A = maxPower\n                }\n                Power_B = inputLimit - Power_A  // the smaller one takes the rest\n            } else if (Avail_B > Avail_A) {\n                singleMode_highestdevice = 0 // already set right for single mode\n                flow.set('singleMode_highestdevice', singleMode_highestdevice)\n                Power_B = Math.floor((Avail_B / Avail_Total) * inputLimit * balancingFactor)\n                if (Power_B > inputLimit) {\n                    Power_B = inputLimit\n                }\n                if (Power_B > maxPower) {\n                    Power_B = maxPower\n                } \n                Power_A = inputLimit - Power_B\n            }\n        }\n    }\n    data1.properties.inputLimit = Power_A\n    data2.properties.inputLimit = Power_B\n\n}\n\n\n\n// Discharging - outputlimit; instead of available storage, use available charge stored\n\nif (\"outputLimit\" in data.properties) {\n//if (data.properties.outputLimit !== undefined) {\n    // discharging\n\n    if (typeof data.repeat == \"undefined\" ) { /// if this is not already a repeat message\n        // add timestamp, to check age later before resending\n        flow.set('latestPowerMessage_host', latestPowerMessage_host)\n        flow.set('latestPowerMessage_timestamp_epoch', currentTime)\n        //latestPowerMessage = msg.payload   // save payload of message, so that it can be repeated in manual mode\n        latestPowerMessage = JSON.parse(JSON.stringify(msg.payload)); // clone it\n        flow.set('latestPowerMessage', latestPowerMessage)\n    }\n    \n    // drop repeat message if it follows quickly after the latest powermessage (to avoid a race condition)\n    if (typeof data.repeat != \"undefined\") {\n        if (currentTime - latestPowerMessage_timestamp_epoch < 2) {\n            \n            return [null, null];\n        }\n    }\n\n\n    //latestPowerMessage = msg.payload   // save payload of message, so that it can be repeated in manual mode  // moved to if statement above: \"/// if this is not already a repeat message\"\n    //flow.set('latestPowerMessage', latestPowerMessage)\n\n    outputLimit = data.properties.outputLimit\n    \n    // manage singleMode status\n    if (outputLimit < singleMode_lowerlimit) {\n        singleMode = 1\n    } \n    if (outputLimit > singleMode_upperlimit) {\n        singleMode = 0\n    }\n    flow.set('singleMode', singleMode)\n    \n    \n    if (outputLimit === 0) {\n        Power_A = 0;\n        Power_B = Power_A\n    } else {\n        \n        Avail_A = electricLevel_A - minSoc/10  // available charge stored\n        if (Avail_A < 0 || socStatus_A == 1) { // also make zero when device is Calibrating\n            Avail_A = 0\n        }\n        Avail_B = electricLevel_B - minSoc/10  // available charge stored\n        if (Avail_B < 0 || socStatus_B == 1) { // also make zero when device is Calibrating\n            Avail_B = 0\n        }\n        \n        //in singleMode, let the smallest available be zero, so that the biggest takes all\n        if (singleMode == 1 && singleMode_enable == 1) {\n            if (singleMode_highestdevice === 0) { //device A is highest\n            Avail_A = 1\n            Avail_B = 0\n            } else { //device B is highest\n            Avail_B = 1\n            Avail_A = 0\n            }\n        }\n        \n        //calculation for power A and B\n        if (Avail_A == Avail_B) {\n            Power_A = Math.floor(outputLimit / 2);\n            Power_B = Power_A\n        } else {   // unequal charge available to discharge\n                    // start with the highest available one, determine it's power, proportional to available storage\n            Avail_Total = Avail_A + Avail_B\n            if (Avail_A > Avail_B) {\n                singleMode_highestdevice = 0 // already set right for single mode\n                flow.set('singleMode_highestdevice', singleMode_highestdevice)\n                Power_A = Math.floor((Avail_A / Avail_Total) * outputLimit * balancingFactor)\n                if (Power_A > outputLimit) {\n                    Power_A = outputLimit\n                }\n                if (Power_A > maxPower) {\n                    Power_A = maxPower\n                } \n                Power_B = outputLimit - Power_A  // the smaller one takes the rest\n            } else if (Avail_B > Avail_A) {\n                singleMode_highestdevice = 1 // already set right for single mode\n                flow.set('singleMode_highestdevice', singleMode_highestdevice)\n                Power_B = Math.floor((Avail_B / Avail_Total) * outputLimit * balancingFactor)\n                if (Power_B > outputLimit) {\n                    Power_B = outputLimit\n                }\n                if (Power_B > maxPower) {\n                    Power_B = maxPower\n                } \n                Power_A = outputLimit - Power_B\n            }\n        }\n    }\n    data1.properties.outputLimit = Power_A\n    data2.properties.outputLimit = Power_B\n}\n\n\n/*\nif (debug == 1) {\n    node.error(\"singleMode is \" + singleMode);\n    node.error(\"singleMode_highestdevice is \" + singleMode_highestdevice);\n    node.error(\"inputLimit is \" + inputLimit);\n    node.error(\"outputLimit is \" + outputLimit);\n    node.error(\"Power_A is \" + Power_A);\n    node.error(\"Power_B is \" + Power_B);    \n}\n*/\n\n\n\n// Build the two messages\nlet msg1 = {\n    method: \"POST\",\n    url: server1,\n    headers: { \"Content-Type\": \"application/json\" },\n    payload: data1,\n    req: req,\n    res: res\n};\n\nlet msg2 = {\n    method: \"POST\",\n    url: server2,\n    headers: { \"Content-Type\": \"application/json\" },\n    payload: data2,\n    req: req,\n    res: res\n};\n\n\n\n// Return both messages (to the two HTTP request outputs)\nreturn [msg1, msg2];\n",
         "outputs": 2,
-        "timeout": "",
         "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
         "x": 330,
         "y": 460,
         "wires": [
             [
-                "6bca3b71.54d19c",
-                "b9b74d0.c946db"
+                "5423b2ef.ac5bac",
+                "165be43a.2f0cac"
             ],
             [
-                "868046ae.ffd238",
-                "b9b74d0.c946db"
+                "5cc81e91.59c73",
+                "165be43a.2f0cac"
             ]
         ]
     },
     {
-        "id": "6bca3b71.54d19c",
+        "id": "5423b2ef.ac5bac",
         "type": "http request",
-        "z": "f1534761.26ba3",
+        "z": "3a312453.f7e23c",
         "name": "Call Zendure 1 API",
         "method": "use",
         "ret": "obj",
@@ -222,15 +214,15 @@
         "y": 440,
         "wires": [
             [
-                "c4aeade8.a3cef8",
-                "ead19e80.177bc8"
+                "3aea589e.262988",
+                "c5194ed0.a1db28"
             ]
         ]
     },
     {
-        "id": "868046ae.ffd238",
+        "id": "5cc81e91.59c73",
         "type": "http request",
-        "z": "f1534761.26ba3",
+        "z": "3a312453.f7e23c",
         "name": "Call Zendure 2 API",
         "method": "use",
         "ret": "obj",
@@ -244,15 +236,15 @@
         "y": 480,
         "wires": [
             [
-                "c4aeade8.a3cef8",
-                "ead19e80.177bc8"
+                "3aea589e.262988",
+                "c5194ed0.a1db28"
             ]
         ]
     },
     {
-        "id": "99faebe8.09e788",
+        "id": "6099f061.898ce8",
         "type": "http response",
-        "z": "f1534761.26ba3",
+        "z": "3a312453.f7e23c",
         "name": "Send POST Response",
         "statusCode": "",
         "headers": {},
@@ -261,9 +253,9 @@
         "wires": []
     },
     {
-        "id": "c4aeade8.a3cef8",
+        "id": "3aea589e.262988",
         "type": "join",
-        "z": "f1534761.26ba3",
+        "z": "3a312453.f7e23c",
         "name": "Join Responses",
         "mode": "custom",
         "build": "array",
@@ -284,15 +276,15 @@
         "y": 460,
         "wires": [
             [
-                "99faebe8.09e788",
-                "af140bcc.8f4068"
+                "6099f061.898ce8",
+                "4ffa9cdd.4e5544"
             ]
         ]
     },
     {
-        "id": "b9b74d0.c946db",
+        "id": "165be43a.2f0cac",
         "type": "debug",
-        "z": "f1534761.26ba3",
+        "z": "3a312453.f7e23c",
         "name": "",
         "active": false,
         "tosidebar": true,
@@ -305,9 +297,9 @@
         "wires": []
     },
     {
-        "id": "2637c1c3.6c7b56",
+        "id": "2c7aa6af.428d12",
         "type": "debug",
-        "z": "f1534761.26ba3",
+        "z": "3a312453.f7e23c",
         "name": "",
         "active": false,
         "tosidebar": true,
@@ -320,9 +312,9 @@
         "wires": []
     },
     {
-        "id": "f0e1a13a.e3be1",
+        "id": "f5fb6bab.a9da1",
         "type": "debug",
-        "z": "f1534761.26ba3",
+        "z": "3a312453.f7e23c",
         "name": "",
         "active": false,
         "tosidebar": true,
@@ -335,9 +327,9 @@
         "wires": []
     },
     {
-        "id": "af140bcc.8f4068",
+        "id": "4ffa9cdd.4e5544",
         "type": "debug",
-        "z": "f1534761.26ba3",
+        "z": "3a312453.f7e23c",
         "name": "",
         "active": false,
         "tosidebar": true,
@@ -350,9 +342,9 @@
         "wires": []
     },
     {
-        "id": "81625e8c.a241c8",
+        "id": "a2ebb2d6.c26e1",
         "type": "debug",
-        "z": "f1534761.26ba3",
+        "z": "3a312453.f7e23c",
         "name": "",
         "active": false,
         "tosidebar": true,
@@ -365,9 +357,9 @@
         "wires": []
     },
     {
-        "id": "ead19e80.177bc8",
+        "id": "c5194ed0.a1db28",
         "type": "debug",
-        "z": "f1534761.26ba3",
+        "z": "3a312453.f7e23c",
         "name": "",
         "active": false,
         "tosidebar": true,
@@ -380,9 +372,9 @@
         "wires": []
     },
     {
-        "id": "c48a5186.72dfa",
+        "id": "8c18a8c4.384df",
         "type": "comment",
-        "z": "f1534761.26ba3",
+        "z": "3a312453.f7e23c",
         "name": "## Instructies ##  -  Proxy van HA Gielz Zendure-HA-zenSDK naar 2x Zendure SF2400AC",
         "info": "- Zendure-zenSDK-proxy -\n- versie 20251220\n- https://github.com/gast777/Zendure-zenSDK-proxy\n\n\n\n#### Instructies ####\n\nDe Gielz automatisering voor Zendure ( https://github.com/Gielz1986/Zendure-HA-zenSDK ) is heel mooi en nuttig om een Zendure thuisbatterij die de ZenSDK API ondersteunt, lokaal te besturen, waarbij geen cloud comminicatie nodig is. De standaard Gielz automatisering ondersteunt echter slechts 1 Zendure device (omvormer).\n\nDeze Node-Red flow maakt het mogelijk de Gielz automatisering te gebruiken met twee Zendure devices, zoals 2x Solarflow 2400AC.\n\nNa importeren van deze Node-Red flow in je Node-Red server, kun je je eigen IP adressen en de serienummers van je twee Zendure devices invullen in de Node-Red flow. Hieronder staat aangegeven waar je dat kunt doen.\n\nVervolgens moet je ook een paar kleine aanpassingen doen in de Gielz automatisering in HomeAssistant, ten opzichte van de normale situatie met 1 device zonder deze proxy. \n\n\n### Node-Red ###\n\n- Vul in het blok \"Vul hier de Zendure IP adressen en serienummers in\" de IP adressen en de serienummers van de Zendure devices in.\n\n\n\n### HomeAssistant ###\n\n- Op het HA Dashboard, vul het IP adres en poort van de Node-Red proxy in voor \"Zendure 2400 AC IP-adres\" (input_text.zendure_2400_ac_ip_adres). Bijvoorbeeld: 192.168.x.x:1880\n\nOudere versies: In configuration.yaml, vul het IP adres en poort van de Node-Red HTTP proxy in op de plaats van het 2400 AC device IP adres.\n\n- In configuration.yaml, onder alle rest_command items, voeg deze HTTP regels toe:\n    headers:\n      Content-Type: application/json\n      Content-Encoding: identity\n\nVoorbeeld:\n\n  zendure_stop_met_ontladen:\n    url: http://{{ states('input_text.zendure_2400_ac_ip_adres') }}/properties/write\n    method: POST\n    headers:\n      Content-Type: application/json\n      Content-Encoding: identity\n    payload: '{\"sn\":\"{{sn}}\",\"properties\":{\"acMode\": 2, \"outputLimit\": 0 }}'\n\nHiermee wordt de json content niet gecomprimeerd door HA en kan de Node-Red HTTP-in node het lezen. Zonder deze aanpassing zullen de POST opdrachten niet werken.\n\n- In configuration.yaml, verander hier de \"min: -2400\" en \"max: 2400\" naar \"min: -4800\" en \"max 4800\":\n\ninput_number:\n  zendure_2400_ac_handmatig_vermogen:\n    name: Zendure 2400 AC Handmatig Vermogen\n    min: -2400\n    max: 2400\n    step: 1\n    mode: box\n    unit_of_measurement: \"W\"\n\nDaarmee kun je handmatig laden/leveren tot 4800W in plaats van 2400W.\n\n- In automations.yaml, zoek en vervang alle\ncap = 2400\nvoor\ncap = 4800\n\nHiermee wordt het maximale vermogen verhoogd naar het maximale wat de 2x SolarFlow 2400AC's (oftewel een virtuele SolarFlow 4800AC) aankunnen.\n\n\n\n### Features ###\n\n\n- SoC balancering - De SoC (state of charge) van de twee devices wordt dicht bij elkaar gehouden doordat de volste batterij het snelst ontlaadt en de leegste batterij het snelst oplaadt. Bij gelijke SoC laden ze beide even snel.\n- Herhaling van instructies om te laden/ontladen, zodat SoC balancing tussen de Zendures ook werkt voor Handmatige mode.\n- Single Mode - Bij lagere vermogens laadt/ontlaadt slechts een van de Zendures tegelijk. Dit wordt afgewisseld aan de hand van de SoC van de beide devices, waardoor de SoC waardes gebalanceerd blijven.\n- In Single Mode overschakelen naar ander device laden/ontladen bij meer dan 1% punt verschil in SoC (standaard bij 2% verschil). Hierdoor wordt minder vaak overgeschakeld.\n\n\n### Vereisten ###\n\n- 2x Zendure SolarFlow 2400 AC (2x Zendure SolarFlow 800 Pro zal ook werken als je \"let maxPower = 2400\" in het blok \"Vul hier de Zendure IP adressen en serienummers in\" verandert naar \"let maxPower = 800\").\n- Zorg dat op beide Zendures hetzelfde maximale en minimale laadpercentage (SoC percentages) ingesteld staan.\n- Beide Zendures moeten hetzelfde aantal batterijen hebben.\n- De beide Zendures en de Node-Red server moeten een vast IP adres hebben.\n- Beide Zendures moeten beschikbaar zijn en werken.\n\n\n### Beperkingen ###\n\n- Bij een instructie van 0 Watt laden levert een Zendure device soms rond de 20 Watt. Dit is momenteel Zendure gedrag en geen probleem.\n- In Single Mode overschakelen naar ander device bij meer dan 1% punt verschil in SoC wordt aleen toegepast als geen van de devices een SoC limiet heeft bereikt.\n\n\n\n\n",
         "x": 330,
@@ -390,9 +382,9 @@
         "wires": []
     },
     {
-        "id": "427f083d.76a508",
+        "id": "9eaa2918.8e1398",
         "type": "inject",
-        "z": "f1534761.26ba3",
+        "z": "3a312453.f7e23c",
         "name": "Initialize",
         "repeat": "",
         "crontab": "",
@@ -405,14 +397,14 @@
         "y": 100,
         "wires": [
             [
-                "691c8847.815ac8"
+                "f3cbccb4.36d65"
             ]
         ]
     },
     {
-        "id": "691c8847.815ac8",
+        "id": "f3cbccb4.36d65",
         "type": "function",
-        "z": "f1534761.26ba3",
+        "z": "3a312453.f7e23c",
         "name": "Vul hier de Zendure IP adressen en serienummers in",
         "func": "\n\n//===============================================================\n//== Vul hier de Zendure device IP adressen en serienummers in ==\n//===============================================================\nlet snZendure1 = \"HOA1Nxxxxxxxxxx\"\nlet snZendure2 = \"HOA1Nxxxxxxxxxx\"\n\nlet ipZendure1 = \"192.168.x.x\"\nlet ipZendure2 = \"192.168.x.x\"\n\n\n\n//===============================================================\n//\n//\n//===============================================================\n// Optioneel tweakbare variabelen (wees voorzichtig)\n\nlet maxPower = 2400 // for SF2400AC devices\n//let maxPower = 800 // for SF800Pro devices\nlet singleMode_enable = 1 // Default 1; to use single mode operation at lower power (1 = yes, 0 = no)\nlet singleMode_upperlimit_percent = 80 // Default 80% of maxPower; above which single mode is switched off\nlet singleMode_lowerlimit_percent = 40 // Default 40% of maxPower; below which single mode is switched on\nlet singleMode_change_device_diff = 2 // Default 2%; Must be 1 or higher; How many percent point the passive device needs to be higher/lower than the active one for it to become \n                                      // the active device. Set to 1 to disable the delayed switchover.\nlet balancingFactor = 1.15 // Default 1.15; this lets the device that needs to charge/discharge faster (in dual mode)\n                           // for balancing, to do it faster to reach balance earlier.\n                           // Must be 1 or higher.\nlet manualMode_messageRepeat = 1 // 1: yes, 0: no; Default 1; In non-NOM situation (manual mode), SoC balancing between devices does not work if this is disabled, because \n                                 // the distribution of power happens only on every message with power value (charge/discharge) which is sent. With Manual mode, the power message\n                                 // is sent only at the beginning. This option enables repeating of the message so that power distribution over the devices will be done again.\n//===============================================================\n\n\n//Calculate singleMode thresholds power (Watt)\nlet singleMode_upperlimit = singleMode_upperlimit_percent/100 * maxPower\nlet singleMode_lowerlimit = singleMode_lowerlimit_percent/100 * maxPower\n\n// Save to global variables\nflow.set('snZendure1', snZendure1)\nflow.set('snZendure2', snZendure2)\nflow.set('ipZendure1', ipZendure1)\nflow.set('ipZendure2', ipZendure2)\nflow.set('maxPower', maxPower)\nflow.set('singleMode_enable', singleMode_enable)\nflow.set('singleMode_upperlimit', singleMode_upperlimit)\nflow.set('singleMode_lowerlimit', singleMode_lowerlimit)\nflow.set('balancingFactor', balancingFactor)\nflow.set('manualMode_messageRepeat', manualMode_messageRepeat)\nflow.set('singleMode_change_device_diff', singleMode_change_device_diff)\n\nreturn msg;",
         "outputs": 1,
@@ -424,9 +416,9 @@
         ]
     },
     {
-        "id": "b4b1742a.abfac",
+        "id": "e2d5e713.0a3b1",
         "type": "function",
-        "z": "f1534761.26ba3",
+        "z": "3a312453.f7e23c",
         "name": "Set URL",
         "func": "\n\n// read IP addresses from global variable\nvar ipZendure1 = flow.get('ipZendure1')||1;\nvar ipZendure2 = flow.get('ipZendure2')||1;\n\n\n// Define target servers\nlet server1 = \"http://\" + ipZendure1 + \"/properties/report\";\nlet server2 = \"http://\" + ipZendure2 + \"/properties/report\";\n\n// Keep a reference to req/res for later response\nlet req = msg.req;\nlet res = msg.res;\n\n// The incoming POST body\nlet data = msg.payload;\n\n// Make copies of the payload so we don't overwrite it\nlet data1 = JSON.parse(JSON.stringify(data));\n\n// Build the message\nlet msg1 = {\n    method: \"GET\",\n    url: server1,\n    headers: { \"Content-Type\": \"application/json\" },\n    payload: data1,\n    req: req,\n    res: res\n};\nlet msg2 = {\n    method: \"GET\",\n    url: server2,\n    headers: { \"Content-Type\": \"application/json\" },\n    payload: data1,\n    req: req,\n    res: res\n};\n\n\n\nreturn [msg1, msg2];",
         "outputs": 2,
@@ -435,23 +427,23 @@
         "y": 280,
         "wires": [
             [
-                "20d4d6.87e0932a",
-                "2637c1c3.6c7b56"
+                "1aff08e7.0a1067",
+                "2c7aa6af.428d12"
             ],
             [
-                "8ae813f4.8c3e6"
+                "2eb9ba4e.e23d06"
             ]
         ]
     },
     {
-        "id": "5f143287.685b24",
+        "id": "5047e3ef.e6c234",
         "type": "inject",
-        "z": "f1534761.26ba3",
+        "z": "3a312453.f7e23c",
         "name": "Trigger messageRepeat",
         "repeat": "60",
         "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
+        "once": true,
+        "onceDelay": "60",
         "topic": "",
         "payload": "",
         "payloadType": "date",
@@ -459,14 +451,14 @@
         "y": 660,
         "wires": [
             [
-                "844e44ea.109c6"
+                "c3e07eee.f3d9c8"
             ]
         ]
     },
     {
-        "id": "2c71fcea.114644",
+        "id": "505630e.724c8d",
         "type": "debug",
-        "z": "f1534761.26ba3",
+        "z": "3a312453.f7e23c",
         "name": "",
         "active": false,
         "tosidebar": true,
@@ -479,30 +471,26 @@
         "wires": []
     },
     {
-        "id": "844e44ea.109c6",
+        "id": "c3e07eee.f3d9c8",
         "type": "function",
-        "z": "f1534761.26ba3",
+        "z": "3a312453.f7e23c",
         "name": "Resend POST",
-        "func": "\n/*\nThis block will repeat power the messages to the Node-Red proxy, so that SoC balancing of power will be re-calculated and updated.\nThis is useful for manual mode because that will just send one message and then SoC balancing does not work over longer time.\nIt will keep repeating messages when power is non-zero. For zero power messages there will be no repeat.\n*/\n\n\nvar manualMode_messageRepeat = flow.get('manualMode_messageRepeat')||1;\nvar repeat = 1\n\nif (manualMode_messageRepeat === 0) {\n    return null;\n}\n\nvar latestPowerMessage_timestamp_epoch = flow.get('latestPowerMessage_timestamp_epoch')||1\n\n\n//node.error(\"latestPowerMessage_timestamp_epoch is \" + latestPowerMessage_timestamp_epoch);\n\nvar time = Math.floor(Date.now() / 1000)\nlet latestPowerMessage_age = time - latestPowerMessage_timestamp_epoch\n\nif (latestPowerMessage_age < 30) { // do not send message is younger than 30 seconds\n    return null;\n}\n\nvar latestPowerMessage_host = flow.get('latestPowerMessage_host')||\"localhost:1880\";\nvar latestPowerMessage = flow.get('latestPowerMessage')||null;\nlet data = latestPowerMessage\n\n\nif (typeof data.repeat != \"undefined\" ) {\n    repeat = data.repeat + 1;\n    \n}\n\nif (typeof data.properties != \"undefined\" ) {\n\n        if (typeof data.properties.inputLimit != \"undefined\") {\n            if (data.properties.inputLimit === 0) {\n                return null;\n            }\n        }\n        if (typeof data.properties.outputLimit != \"undefined\") {\n            if (data.properties.outputLimit === 0) {\n                return null;\n            }\n        }\n        \n        \n       // Build the message\n        data.repeat = repeat  // mark the packet that it is a repeat message and how often repeated\n        var url = \"http://\" + latestPowerMessage_host // fixed: made url variable\n\n        msg = {\n            method: \"POST\",\n            url: url,\n            headers: { \"Content-Type\": \"application/json\" },\n            payload: data,\n        };\n\n        return msg;\n}\n\nreturn null;",
+        "func": "\n/*\nThis block will repeat power the messages to the Node-Red proxy, so that SoC balancing of power will be re-calculated and updated.\nThis is useful for manual mode because that will just send one message and then SoC balancing does not work over longer time.\nIt will keep repeating messages when power is non-zero. For zero power messages there will be no repeat.\n*/\n\n\nvar manualMode_messageRepeat = flow.get('manualMode_messageRepeat')||1;\nvar repeat = 1\n\nif (manualMode_messageRepeat === 0) {\n    return null;\n}\n\nvar latestPowerMessage_timestamp_epoch = flow.get('latestPowerMessage_timestamp_epoch')||1\n\n\n//node.error(\"latestPowerMessage_timestamp_epoch is \" + latestPowerMessage_timestamp_epoch);\n\nvar time = Math.floor(Date.now() / 1000)\nlet latestPowerMessage_age = time - latestPowerMessage_timestamp_epoch\n\nif (latestPowerMessage_age < 30) { // do not send message is younger than 30 seconds\n    return null;\n}\n\nvar latestPowerMessage_host = flow.get('latestPowerMessage_host')||\"localhost:1880\";\nvar latestPowerMessage = flow.get('latestPowerMessage');\n\nif (!latestPowerMessage) {\n    return null;\n}\n\nlet data = latestPowerMessage\n\n\nif (typeof data.repeat != \"undefined\" ) {\n    repeat = data.repeat + 1;\n    \n}\n\nif (typeof data.properties != \"undefined\" ) {\n\n        if (typeof data.properties.inputLimit != \"undefined\") {\n            if (data.properties.inputLimit === 0) {\n                return null;\n            }\n        }\n        if (typeof data.properties.outputLimit != \"undefined\") {\n            if (data.properties.outputLimit === 0) {\n                return null;\n            }\n        }\n        \n        \n       // Build the message\n        data.repeat = repeat  // mark the packet that it is a repeat message and how often repeated\n        var url = \"http://\" + latestPowerMessage_host // fixed: made url variable\n\n        msg = {\n            method: \"POST\",\n            url: url,\n            headers: { \"Content-Type\": \"application/json\" },\n            payload: data,\n        };\n\n        return msg;\n}\n\nreturn null;",
         "outputs": 1,
-        "timeout": "",
         "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
         "x": 360,
         "y": 660,
         "wires": [
             [
-                "7973b413.25d63c",
-                "2c71fcea.114644"
+                "4205f0cc.926988",
+                "505630e.724c8d"
             ]
         ]
     },
     {
-        "id": "7973b413.25d63c",
+        "id": "4205f0cc.926988",
         "type": "http request",
-        "z": "f1534761.26ba3",
+        "z": "3a312453.f7e23c",
         "name": "Send HTTP",
         "method": "use",
         "ret": "obj",
@@ -519,9 +507,9 @@
         ]
     },
     {
-        "id": "c179038f.c8e588",
+        "id": "2ea3413.8e91f3e",
         "type": "comment",
-        "z": "f1534761.26ba3",
+        "z": "3a312453.f7e23c",
         "name": "Repeat POST for manualMode SoC balancing",
         "info": "This part is the rest api proxy used to receive the POST request from HA (Gielz) and forward it to both Zedure devices.\n\n\nTo do:\n- add timestamps and check for age in this block.\n- run it periodically (from trigger or configurable sleep in a loop)\n- repeat only if power is not zero",
         "x": 190,
