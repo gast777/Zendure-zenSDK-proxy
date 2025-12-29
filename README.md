@@ -145,11 +145,11 @@ localhost:1880/endpoint<br/>
 ## Nieuw in versie 20251229 ##
 - Voor betere real-time monitoring van de proxy en de verdeling van het vermogen over de twee Zendures, zijn er enkele extra items toegevoegd in payload.properties van de response op de GET request (REST API). Deze zijn in HomeAssistant uit te lezen en te monitoren.
 
-payload.properties.electricLevel_1 - Laadpercentage van de Zendure 1<br/>
-payload.properties.electricLevel_2 - Laadpercentage van de Zendure 2<br/>
-payload.properties.latestPowerCmd - Het vermogen van de meest recente opdracht aan de proxy om te laden of ontladen<br/>
-payload.properties.latestPowerCmd_1 - Het vermogen van de meest recente opdracht aan de Zendure 1 om te laden of ontladen<br/>
-payload.properties.latestPowerCmd_2 - Het vermogen van de meest recente opdracht aan de Zendure 2 om te laden of ontladen<br/>
+*payload.properties.electricLevel_1* - Laadpercentage van de Zendure 1<br/>
+*payload.properties.electricLevel_2* - Laadpercentage van de Zendure 2<br/>
+*payload.properties.latestPowerCmd* - Het vermogen van de meest recente opdracht aan de proxy om te laden of ontladen<br/>
+*payload.properties.latestPowerCmd_1* - Het vermogen van de meest recente opdracht aan de Zendure 1 om te laden of ontladen<br/>
+*payload.properties.latestPowerCmd_2* - Het vermogen van de meest recente opdracht aan de Zendure 2 om te laden of ontladen<br/>
 <br/>
 Om deze in Homeassistant te monitoren, kan bijvoorbeeld het volgende toegevoegd worden aan configuration.yaml. Daarna kunnen deze toegevoegd worden aan een dashboard.
 
