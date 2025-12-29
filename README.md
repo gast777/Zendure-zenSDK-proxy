@@ -56,6 +56,9 @@ Oudere versies van de Gielz ZenSDK: In configuration.yaml, vul het IP adres en p
 <br/>
 
 - [ ] In configuration.yaml, onder alle rest_command items, voeg deze HTTP regels toe:
+
+NB: vanaf de Februari 2026 versie van de Gielz ZenSDK zal deze stap niet meer nodig zijn.
+
 ```
     headers:
       Content-Type: application/json
