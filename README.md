@@ -197,7 +197,9 @@ Voeg het volgende toe:
         device_class: power
 ```
 
+Deze entiteiten kunnen vervolgens aan het dashboard worden toegevoegd als in het volgende voorbeeld.
 
+![Preview](images/proxy-bediening-monitoring.png) 
 
 
 
