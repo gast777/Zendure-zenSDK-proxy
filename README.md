@@ -206,6 +206,53 @@ Deze entiteiten kunnen vervolgens aan het dashboard worden toegevoegd als in het
 
 
 
+<br/>
+<br/>Tip: Om andere gegevens van de individuele Zendures uit te lezen, die minder real-time hoeven te zijn, kun je een minder frequente REST polling toevoegen, rechtstreeks naar de Zendure devices IP adressen.<br/>
+<br/>
+Voorbeeld:
+<br/>
+
+```
+rest:
+<..snip..>
+
+  - resource: http://192.168.x.x/properties/report
+    scan_interval: 60
+    sensor:
+
+      - name: "Zendure 1 Omvormer Temperatuur"
+        value_template: >
+          {% set maxTemp = value_json['properties']['hyperTmp'] | int %}
+          {{ (maxTemp - 2731) / 10.0 }}
+        unique_id: Zendure_1_Omvormer_Temperatuur
+        unit_of_measurement: "°C"
+        state_class: measurement
+        device_class: temperature
+        icon: mdi:thermometer
+
+      - name: "Zendure 1 Omvormer Serienummer"
+        unique_id: Zendure_1_Omvormer_Serienummer
+        value_template: "{{ value_json.sn }}"
+
+  - resource: http://192.168.x.y/properties/report
+    scan_interval: 60
+    sensor:
+
+      - name: "Zendure 2 Omvormer Temperatuur"
+        value_template: >
+          {% set maxTemp = value_json['properties']['hyperTmp'] | int %}
+          {{ (maxTemp - 2731) / 10.0 }}
+        unique_id: Zendure_2_Omvormer_Temperatuur
+        unit_of_measurement: "°C"
+        state_class: measurement
+        device_class: temperature
+        icon: mdi:thermometer
+
+      - name: "Zendure 2 Omvormer Serienummer"
+        unique_id: Zendure_2_Omvormer_Serienummer
+        value_template: "{{ value_json.sn }}"
+        
+```
 
 
 
