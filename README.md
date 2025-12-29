@@ -73,6 +73,8 @@ Voorbeeld:
     payload: '{"sn":"{{sn}}","properties":{"acMode": 2, "outputLimit": 0 }}'
 ```
 
+NB: Let op de juiste inspringing van de tekst. 
+
 Hiermee wordt de json content niet gecomprimeerd door HA en kan de Node-Red HTTP-in node het lezen. Zonder deze aanpassing zullen de POST opdrachten niet werken.<br/>
 <br/>
 
