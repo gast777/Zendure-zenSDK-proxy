@@ -13,8 +13,8 @@ Deze Node-Red flow vormt een proxy server die het mogelijk maakt de Gielz automa
 
 ![Preview](images/proxy-HA-Zendure-diagram.png)   
 
- <br/>
- <br/>
+<br/>
+<br/>
 
 
 Het werkt als volgt: De HA (Gielz) zal met de proxy praten, in plaats van met een Zendure. De proxy praat met de twee Zendure devices. Vanuit HA (Gielz) gezien lijkt het nog steeds alsof er maar 1 Zendure device is, maar dan wel eentje die twee keer zo veel vermogen aan kan. De proxy verdeelt het vermogen dat HA (Gielz) aanstuurt netjes over de twee Zendures.
@@ -105,7 +105,7 @@ cap = 4800
 ```
 Hiermee wordt het maximale vermogen verhoogd naar het maximale wat de 2x SolarFlow 2400AC's (oftewel een virtuele SolarFlow 4800AC) aankunnen.
 
-
+<br/>
 ## Node-Red als HomeAssistant Add-on ##
 
 Indien Node-Red op de HomeAssistant server zelf is geinstalleerd als Add-on, volg deze stappen om de flow direct te laten werken:<br/>
@@ -119,13 +119,14 @@ Indien Node-Red op de HomeAssistant server zelf is geinstalleerd als Add-on, vol
 
 2) Op het HA Dashboard, configureer als "Zendure 2400 AC IP-adres": <br />
 localhost:1880/endpoint<br/>
-
+<br/>
 
 ## Features ##
 - SoC balancering - De SoC (state of charge) van de twee devices wordt dicht bij elkaar gehouden doordat de volste batterij het snelst ontlaadt en de leegste batterij het snelst oplaadt. Bij gelijke SoC laden ze beide even snel.
 - Herhaling van instructies om te laden/ontladen, zodat SoC balancing tussen de Zendures ook werkt voor Handmatige mode.
 - Single Mode - Bij lagere vermogens laadt/ontlaadt slechts een van de Zendures tegelijk. Dit wordt afgewisseld aan de hand van de SoC van de beide devices, waardoor de SoC waardes gebalanceerd blijven.
 - In Single Mode overschakelen naar ander device laden/ontladen bij meer dan 1% punt verschil in SoC (standaard bij 2% verschil). Hierdoor wordt minder vaak overgeschakeld.
+<br/>
 
 ## Vereisten ## 
 - 2x Zendure SolarFlow 2400 AC (2x Zendure SolarFlow 800 Pro zal ook werken als je "let maxPower = 2400" verandert naar "let maxPower = 800" in het blok "Vul hier de Zendure IP adressen en serienummers in").
@@ -133,11 +134,13 @@ localhost:1880/endpoint<br/>
 - Beide Zendures moeten hetzelfde aantal batterijen hebben.
 - De beide Zendures en de Node-Red server moeten een vast IP adres hebben.
 - Beide Zendures moeten beschikbaar zijn en werken.
+<br/>
 
 ## Beperkingen ##
 - Bij een instructie van 0 Watt laden levert een Zendure device soms rond de 20 Watt. Dit is momenteel Zendure gedrag en geen probleem.
 - In Single Mode overschakelen naar ander device bij meer dan 1% punt verschil in SoC wordt aleen toegepast als geen van de devices een SoC limiet heeft bereikt.
 - Met Node-Red 4.0.9 zijn er door een gebruiker problemen gerapporteerd, die met versie 4.1.2 niet meer optraden (thanks [Freemann](https://tweakers.net/gallery/45846/)). Node-Red versie 4.1.1 is ook getest en werkt prima.
+<br/>
 
 ## Nieuw in versie 20251229 ##
 - Voor betere real-time monitoring van de proxy en de verdeling van het vermogen over de twee Zendures, zijn er enkele extra items toegevoegd in payload.properties van de response op de GET request (REST API). Deze zijn in HomeAssistant uit te lezen en te monitoren.
