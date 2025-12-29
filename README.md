@@ -139,6 +139,63 @@ localhost:1880/endpoint<br/>
 - In Single Mode overschakelen naar ander device bij meer dan 1% punt verschil in SoC wordt aleen toegepast als geen van de devices een SoC limiet heeft bereikt.
 - Met Node-Red 4.0.9 zijn er door een gebruiker problemen gerapporteerd, die met versie 4.1.2 niet meer optraden (thanks [Freemann](https://tweakers.net/gallery/45846/)). Node-Red versie 4.1.1 is ook getest en werkt prima.
 
+## Nieuw in versie 20251229 ##
+- Voor betere real-time monitoring van de proxy en de verdeling van het vermogen over de twee Zendures, zijn er enkele extra items toegevoegd in payload.properties van de response op de GET request (REST API). Deze zijn in HomeAssistant uit te lezen en te monitoren.
+
+payload.properties.electricLevel_1 - Laadpercentage van de Zendure 1<br/>
+payload.properties.electricLevel_2 - Laadpercentage van de Zendure 2<br/>
+payload.properties.latestPowerCmd - Het vermogen van de meest recente opdracht aan de proxy om te laden of ontladen<br/>
+payload.properties.latestPowerCmd_1 - Het vermogen van de meest recente opdracht aan de Zendure 1 om te laden of ontladen<br/>
+payload.properties.latestPowerCmd_2 - Het vermogen van de meest recente opdracht aan de Zendure 2 om te laden of ontladen<br/>
+<br/>
+Om deze in Homeassistant te monitoren, kan bijvoorbeeld het volgende toegevoegd worden aan configuration.yaml. Daarna kunnen deze toegevoegd worden aan een dahboard.
+
+Onder deze bestaande rest configuratie van Gielz:
+```
+rest:
+  - resource_template: "http://{{ states('input_text.zendure_2400_ac_ip_adres') }}/properties/report"
+    scan_interval: 1
+    sensor:
+```
+Voeg het volgende toe:
+```
+## Hieronder niet verwijderen bij upgrade van Gielz
+
+      - name: "Zendure 1 Laadpercentage"
+        value_template: "{{ value_json['properties']['electricLevel_1'] }}"
+        device_class: battery
+        unit_of_measurement: "%"
+        state_class: measurement
+        unique_id: Zendure_1_Laadpercentage
+
+      - name: "Zendure 2 Laadpercentage"
+        value_template: "{{ value_json['properties']['electricLevel_2'] }}"
+        device_class: battery
+        unit_of_measurement: "%"
+        state_class: measurement
+        unique_id: Zendure_2_Laadpercentage
+
+      - name: "Latest power command"
+        value_template: "{{ value_json['properties']['latestPowerCmd'] | int }}"
+        unique_id: latest_power_command
+        unit_of_measurement: "W"
+        state_class: measurement
+        device_class: power
+
+      - name: "Latest power command Zendure 1"
+        value_template: "{{ value_json['properties']['latestPowerCmd_1'] | int }}"
+        unique_id: latest_power_command_1
+        unit_of_measurement: "W"
+        state_class: measurement
+        device_class: power
+
+      - name: "Latest power command Zendure 2"
+        value_template: "{{ value_json['properties']['latestPowerCmd_2'] | int }}"
+        unique_id: latest_power_command_2
+        unit_of_measurement: "W"
+        state_class: measurement
+        device_class: power
+```
 
 
 
