@@ -148,7 +148,7 @@ payload.properties.latestPowerCmd - Het vermogen van de meest recente opdracht a
 payload.properties.latestPowerCmd_1 - Het vermogen van de meest recente opdracht aan de Zendure 1 om te laden of ontladen<br/>
 payload.properties.latestPowerCmd_2 - Het vermogen van de meest recente opdracht aan de Zendure 2 om te laden of ontladen<br/>
 <br/>
-Om deze in Homeassistant te monitoren, kan bijvoorbeeld het volgende toegevoegd worden aan configuration.yaml. Daarna kunnen deze toegevoegd worden aan een dahboard.
+Om deze in Homeassistant te monitoren, kan bijvoorbeeld het volgende toegevoegd worden aan configuration.yaml. Daarna kunnen deze toegevoegd worden aan een dashboard.
 
 Onder deze bestaande rest configuratie van Gielz:
 ```
