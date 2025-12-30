@@ -202,7 +202,7 @@ Voeg het volgende toe:
 
 Deze entiteiten kunnen vervolgens aan het dashboard worden toegevoegd als in het volgende voorbeeld.
 
-![Preview](images/proxy-bediening-monitoring.png) 
+![Preview](images/batterijbediening.gif) 
 
 
 
