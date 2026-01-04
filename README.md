@@ -104,8 +104,8 @@ door
 cap = 4800
 ```
 Hiermee wordt het maximale vermogen verhoogd naar het maximale wat de 2x SolarFlow 2400AC's (oftewel een virtuele SolarFlow 4800AC) aankunnen.
-
 <br/>
+
 ## Node-Red als HomeAssistant Add-on ##
 
 Indien Node-Red op de HomeAssistant server zelf is geinstalleerd als Add-on, volg deze stappen om de flow direct te laten werken:<br/>
