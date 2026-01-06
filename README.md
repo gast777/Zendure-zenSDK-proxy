@@ -52,7 +52,6 @@ Als Node-Red op de HomeAssistant server zelf is geinstalleerd als Add-On, vul in
 ![Preview](images/HA-gielz-ip-port-AddOn.png) 
 
 
-Oudere versies van de Gielz ZenSDK: In configuration.yaml, vul het IP adres en poort van de Node-Red HTTP proxy in op de plaats van het 2400 AC device IP adres.<br/>
 <br/>
 
 - [ ] In configuration.yaml, onder alle rest_command items, voeg deze HTTP regels toe:
@@ -82,6 +81,9 @@ Hiermee wordt de json content niet gecomprimeerd door HA en kan de Node-Red HTTP
 <br/>
 
 - [ ] In configuration.yaml, verander hier de "min: -2400" en "max: 2400" naar "min: -4800" en "max: 4800":
+
+NB: vanaf de Februari 2026 versie van de Gielz ZenSDK zal deze stap niet meer nodig zijn.
+
 ```
 input_number:
   zendure_2400_ac_handmatig_vermogen:
@@ -103,7 +105,11 @@ door
 ```
 cap = 4800
 ```
+NB: vanaf de Februari 2026 versie van de Gielz ZenSDK zal deze stap niet meer nodig zijn.
+
 Hiermee wordt het maximale vermogen verhoogd naar het maximale wat de 2x SolarFlow 2400AC's (oftewel een virtuele SolarFlow 4800AC) aankunnen.
+
+
 <br/>
 
 ## Node-Red als HomeAssistant Add-on ##
