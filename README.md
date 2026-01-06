@@ -1,6 +1,6 @@
 # Zendure-zenSDK-proxy
 
-versie 20251229
+versie 20260106
 
 
 ## Instructies ##
@@ -254,8 +254,10 @@ rest:
         
 ```
 
+## Nieuw in versie 20260106 ##
 
-
-
+- Optimalisaties voor laden en ontladen rondom de minSoc en tegen de 100% Soc.
+- De singleMode_upperlimit_percent default is verhoogd van 80% naar 90% (van 2400 Watt). Boven deze waarde gaat hij dual mode gebruiken, dus beide Zendures tegelijk laden/ontladen. De singleMode_lowerlimit_percent, waaronder single mode altijd gebruikt wordt is 40% gebleven.
+- De messageRepeat interval voor de POST opdrachten is verlaagd van 60 naar 30 seconden. In handmatige modus zal de opdracht daardoor elke 30 seconden herhaald worden, zodat het vermogen opnieuw verdeeld kan worden op basis van de SoC van beide devices op dat moment. Het herhalen wordt gestopt indien er 30 seconden geen GET messages vanuit HomeAssistant zijn ontvangen, die normaliter elke 1 seconde aankomen. Dit voorkomt het blijven herhalen van de POST opdrachten wanneer de Node-Red proxy niet meer gebruikt wordt door HomeAssistant.
 
 
