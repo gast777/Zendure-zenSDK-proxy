@@ -82,7 +82,6 @@ Hiermee wordt de json content niet gecomprimeerd door HA en kan de Node-Red HTTP
 
 - [ ] In configuration.yaml, verander hier de "min: -2400" en "max: 2400" naar "min: -4800" en "max: 4800":
 
-NB: vanaf de Februari 2026 versie van de Gielz ZenSDK zal deze stap niet meer nodig zijn.
 
 ```
 input_number:
@@ -105,10 +104,36 @@ door
 ```
 cap = 4800
 ```
-NB: vanaf de Februari 2026 versie van de Gielz ZenSDK zal deze stap niet meer nodig zijn.
 
 Hiermee wordt het maximale vermogen verhoogd naar het maximale wat de 2x SolarFlow 2400AC's (oftewel een virtuele SolarFlow 4800AC) aankunnen.
 
+<br/>
+
+- [ ] Optioneel: Als je het vermogen wilt aanpassen van de drop-down opties "Opladen met 2400 Watt" en "Ontladen met 2400 Watt", dan kun je het vermogen hieronder aanpassen in configuration.yaml. Verander de inputLimit/outputLimit van 2400 naar de gewenste waarde, bijvoorbeeld 4800 of 4500.
+
+NB: Bij 4500 Watt is er nog wat bewegingsruimte over om de SoC percentages van de beide Zendures te balanceren, indien gewenst.
+
+```
+  zendure_snel_laden:
+    url: http://{{ states('input_text.zendure_2400_ac_ip_adres') }}/properties/write
+    method: POST
+    headers:
+      Content-Type: application/json
+      Content-Encoding: identity
+    payload: '{"sn":"{{sn}}","properties":{"acMode": 1, "inputLimit": 2400 }}'  <<<<<<< hier
+```
+
+```
+  zendure_snel_ontladen:
+    url: http://{{ states('input_text.zendure_2400_ac_ip_adres') }}/properties/write
+    method: POST
+    headers:
+      Content-Type: application/json
+      Content-Encoding: identity
+    payload: '{"sn":"{{sn}}","properties":{"acMode": 2, "outputLimit": 2400 }}'  <<<<<<< hier
+```
+
+Tevens zou je de namen van de opties "Opladen met 2400 Watt" en "Ontladen met 2400 Watt" kunnen veranderen in zowel configuration.yaml als automations.yaml.
 
 <br/>
 
@@ -148,8 +173,13 @@ localhost:1880/endpoint<br/>
 - Met Node-Red 4.0.9 zijn er door een gebruiker problemen gerapporteerd, die met versie 4.1.2 niet meer optraden (thanks [Freemann](https://tweakers.net/gallery/45846/)). Node-Red versie 4.1.1 is ook getest en werkt prima.
 <br/>
 
-## Nieuw in versie 20251229 ##
-- Voor betere real-time monitoring van de proxy en inzicht te krijgen in hoe het vermogen verdeeld wordt over de twee Zendures, zijn er enkele extra items toegevoegd in payload.properties van de response op de GET request (REST API). Deze zijn beschikbaar in HomeAssistant en kunnen op een dashboard geplaatst worden.
+## Monitoring ##
+
+Om real-time te kunnen monitoren met welk vermogen de proxy opdracht wordt geven te laden/ontladen en hoe dat vervolgens over de beide Zendure devices verdeeld wordt, worden er wat extra gegevens toegevoegd aan de bestaande [REST API van Zendure](https://github.com/Zendure/zenSDK/blob/main/docs/en_properties.md). Ook worden de SoC percentages van beide Zendure devices meegestuurd. 
+
+De Node-Red proxy voegt deze nieuwe attributen toe aan de bestaande reply messages op de GET requests, die elke seconde gedaan worden door de Gielz REST configuratie. Om deze gevens op je HomeAssistant Dashboard te kunnen zetten, volg onderstaand voorbeeld.
+
+De toegevoegde attributen zijn:
 
 *payload.properties.electricLevel_1* - Laadpercentage van de Zendure 1<br/>
 *payload.properties.electricLevel_2* - Laadpercentage van de Zendure 2<br/>
@@ -206,14 +236,14 @@ Voeg het volgende toe:
         device_class: power
 ```
 
-Deze entiteiten kunnen vervolgens aan het dashboard worden toegevoegd als in het volgende voorbeeld.
+Deze entiteiten kunnen vervolgens aan het dashboard worden toegevoegd en gemonitord zoals in het volgende voorbeeld.
 
 ![Preview](images/batterijbediening.gif) 
 
 
 
 <br/>
-<br/>Tip: Om andere gegevens van de individuele Zendures uit te lezen, die minder real-time hoeven te zijn, kun je een minder frequente REST polling toevoegen, rechtstreeks naar de Zendure devices IP adressen.<br/>
+<br/>Tip: Om andere gegevens van de individuele Zendure devices uit te lezen, die minder real-time hoeven te zijn, kun je een minder frequente REST polling toevoegen, rechtstreeks naar de Zendure devices IP adressen.<br/>
 <br/>
 Voorbeeld:
 <br/>
@@ -226,6 +256,10 @@ rest:
     scan_interval: 60
     sensor:
 
+      - name: "Zendure 1 Omvormer Serienummer"
+        unique_id: Zendure_1_Omvormer_Serienummer
+        value_template: "{{ value_json.sn }}"
+
       - name: "Zendure 1 Omvormer Temperatuur"
         value_template: >
           {% set maxTemp = value_json['properties']['hyperTmp'] | int %}
@@ -236,13 +270,14 @@ rest:
         device_class: temperature
         icon: mdi:thermometer
 
-      - name: "Zendure 1 Omvormer Serienummer"
-        unique_id: Zendure_1_Omvormer_Serienummer
-        value_template: "{{ value_json.sn }}"
 
   - resource: http://192.168.x.y/properties/report
     scan_interval: 60
     sensor:
+
+      - name: "Zendure 2 Omvormer Serienummer"
+        unique_id: Zendure_2_Omvormer_Serienummer
+        value_template: "{{ value_json.sn }}"
 
       - name: "Zendure 2 Omvormer Temperatuur"
         value_template: >
@@ -254,9 +289,6 @@ rest:
         device_class: temperature
         icon: mdi:thermometer
 
-      - name: "Zendure 2 Omvormer Serienummer"
-        unique_id: Zendure_2_Omvormer_Serienummer
-        value_template: "{{ value_json.sn }}"
         
 ```
 
