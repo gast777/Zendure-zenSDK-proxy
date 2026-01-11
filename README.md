@@ -217,21 +217,21 @@ Voeg het volgende toe:
         state_class: measurement
         unique_id: Zendure_2_Laadpercentage
 
-      - name: "Latest power command"
+      - name: "Vermogensopdracht"
         value_template: "{{ value_json['properties']['latestPowerCmd'] | int }}"
         unique_id: latest_power_command
         unit_of_measurement: "W"
         state_class: measurement
         device_class: power
 
-      - name: "Latest power command Zendure 1"
+      - name: "Vermogensopdracht Zendure 1"
         value_template: "{{ value_json['properties']['latestPowerCmd_1'] | int }}"
         unique_id: latest_power_command_1
         unit_of_measurement: "W"
         state_class: measurement
         device_class: power
 
-      - name: "Latest power command Zendure 2"
+      - name: "Vermogensopdracht Zendure 2"
         value_template: "{{ value_json['properties']['latestPowerCmd_2'] | int }}"
         unique_id: latest_power_command_2
         unit_of_measurement: "W"
