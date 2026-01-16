@@ -70,7 +70,7 @@ Hiermee wordt het maximale vermogen verhoogd naar het maximale wat de 2x SolarFl
 
 - [ ] In configuration.yaml, onder alle rest_command items, voeg deze HTTP regels toe:
 
-_NB: vanaf de Februari 2026 versie van de Gielz ZenSDK is deze stap niet meer nodig._
+<ins>_NB: vanaf de Februari 2026 versie van de Gielz ZenSDK is deze stap niet meer nodig._</ins>
 
 ```
     headers:
@@ -96,7 +96,7 @@ Hiermee wordt de json content niet gecomprimeerd door HA en kan de Node-Red HTTP
 
 - [ ] In configuration.yaml, verander hier de "min: -2400" en "max: 2400" naar "min: -4800" en "max: 4800":
 
-_NB: vanaf de Februari 2026 versie van de Gielz ZenSDK is deze stap niet meer nodig._
+<ins>_NB: vanaf de Februari 2026 versie van de Gielz ZenSDK is deze stap niet meer nodig._</ins>
 
 ```
 input_number:
