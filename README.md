@@ -309,6 +309,6 @@ Tip: om te zien welke attributen er beschikbaar zijn om te monitoren, kun je in 
 
 ## Nieuw in versie 20260110 ##
 
-- Enkele optimalisaties voor laden rond de minSoc. Van de SoC waarde van de beide Zendures wordt het gemiddelde genomen, normaliter naar beneden afgerond en naar HomeAssistant gestuurd. Enkel wanneer 1 van de 2 Zendures "Leeg" is (socLimit == 2), dan wordt SoC waarde even naar boven afgerond, zodat de niet lege Zendure nog verder wordt ontladen tot beide "Leeg" zijn. Tevens wordt in dat geval altijd singleMode gebruikt (slechts 1 Zendure ontlaadt, alle vermogen gaat naar die Zendure).
+- Enkele optimalisaties voor laden rond de minSoc. Van de SoC waarde van de beide Zendures wordt het gemiddelde genomen, normaliter naar beneden afgerond en naar HomeAssistant gestuurd. Enkel wanneer 1 van de 2 Zendures "Leeg" is (socLimit == 2, dus de minSoc is bereikt), dan wordt SoC waarde even naar boven afgerond, zodat de andere, nog niet lege Zendure nog verder wordt ontladen tot beide "Leeg" zijn. Tevens wordt in dat geval altijd singleMode gebruikt (slechts 1 Zendure ontlaadt, alle vermogen gaat naar die Zendure). Hierdoor wordt op beide Zendures netjes de minSoc bereikt (ingesteld laagste SoC percentage). Ook van onderaf, wanneer de Minimale SOC bescherming van de Gielz automatisering aan het werk gaat, wordt netjes de minSoc bereikt op beide devices.
 
 
