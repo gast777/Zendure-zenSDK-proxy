@@ -369,7 +369,7 @@ Tip: om te zien welke attributen er beschikbaar zijn om te monitoren, kun je in 
 
 - In Single Mode (slechts een Zendure laadt/ontlaadt tegelijkertijd) wordt nu het passieve device na 5 minuten in slaapmodus/standby (smartMode = 0, "Opslaan in Flash") gezet. 
 - In Single Mode wordt nu standaard pas overgeschakeld naar het andere device als het verschil in laadpercentage 5% is (singleMode_change_device_diff). Hierdoor zal het slapende device in singleMode minder snel actief gemaakt worden.
-- Er worden extra gegevens door de proxy naar HomeAssistant gestuurd, via de response op de GET request van Gielz (elke seconde). Zie Monitoring hier boven voor details.
+- Er worden extra gegevens door de proxy naar HomeAssistant gestuurd, via de response op de GET request van Gielz (elke seconde). Zie *Monitoring* hier boven voor details.
 - De singleMode_upperlimit_percent default is verhoogd van 90% naar 100% (van 2400 Watt). Boven deze waarde gaat hij dual mode gebruiken, dus beide Zendures tegelijk laden/ontladen. De singleMode_lowerlimit_percent, waaronder single mode altijd gebruikt wordt is 40% gebleven.
   
   
