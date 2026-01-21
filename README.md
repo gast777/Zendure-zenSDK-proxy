@@ -1,6 +1,6 @@
 # Zendure-zenSDK-proxy
 
-versie 20260110
+versie 20260122
 
 
 ## Instructies ##
@@ -32,7 +32,7 @@ Vervolgens moet je ook een paar kleine aanpassingen doen in de Gielz automatiser
 - [ ] Vul in het blok "Vul hier de Zendure IP adressen en serienummers in" de IP adressen en de serienummers van de Zendure devices in.<br/>
 <br/>
 
-![Preview](images/node-red-flow-image.png) 
+![Preview](images/node-red-flow-image2.png) 
 
 <br/>
 
@@ -169,7 +169,14 @@ De toegevoegde attributen zijn:
 *payload.properties.latestPowerCmd* - Het vermogen van de meest recente opdracht aan de proxy om te laden of ontladen<br/>
 *payload.properties.latestPowerCmd_1* - Het vermogen van de meest recente opdracht aan de Zendure 1 om te laden of ontladen<br/>
 *payload.properties.latestPowerCmd_2* - Het vermogen van de meest recente opdracht aan de Zendure 2 om te laden of ontladen<br/>
+*payload.properties.socStatus_1* - Indicatie of het Zendure 1 device geforceerd aan het opladen is vanwege kalibratie. Waarden: 0: No, 1: Calibrating<br/>
+*payload.properties.socStatus_2* - Indicatie of het Zendure 2 device geforceerd aan het opladen is vanwege kalibratie. Waarden: 0: No, 1: Calibrating<br/>
+*payload.properties.smartMode_1* - smartMode status van Zendure 1. Waarden: 0: Smartmode uit (schrijven naar Flash), 1: Smartmode aan (schrijven naar RAM)<br/>
+*payload.properties.smartMode_2* - smartMode status van Zendure 1. Waarden: 0: Smartmode uit (schrijven naar Flash), 1: Smartmode aan (schrijven naar RAM)<br/>
+*payload.properties.activeDevice* - Actief device. Waarden: 0: Beide, 1: Zendure 1, 2: Zendure 2 <br/>
 <br/>
+
+
 Om deze in Homeassistant te monitoren, kan het volgende toegevoegd worden aan configuration.yaml. Daarna kunnen deze toegevoegd worden aan een dashboard.
 
 Onder deze bestaande rest configuratie van Gielz:
@@ -188,35 +195,81 @@ Voeg het volgende toe:
         device_class: battery
         unit_of_measurement: "%"
         state_class: measurement
-        unique_id: Zendure_1_Laadpercentage
+        unique_id: Zendure_proxy_Laadpercentage_1
 
       - name: "Zendure 2 Laadpercentage"
         value_template: "{{ value_json['properties']['electricLevel_2'] }}"
         device_class: battery
         unit_of_measurement: "%"
         state_class: measurement
-        unique_id: Zendure_2_Laadpercentage
+        unique_id: Zendure_proxy_Laadpercentage_2
 
       - name: "Vermogensopdracht"
         value_template: "{{ value_json['properties']['latestPowerCmd'] | int }}"
-        unique_id: latest_power_command
+        unique_id: Zendure_proxy_latest_power_command
         unit_of_measurement: "W"
         state_class: measurement
         device_class: power
 
       - name: "Vermogensopdracht Zendure 1"
         value_template: "{{ value_json['properties']['latestPowerCmd_1'] | int }}"
-        unique_id: latest_power_command_1
+        unique_id: Zendure_proxy_latest_power_command_1
         unit_of_measurement: "W"
         state_class: measurement
         device_class: power
 
       - name: "Vermogensopdracht Zendure 2"
         value_template: "{{ value_json['properties']['latestPowerCmd_2'] | int }}"
-        unique_id: latest_power_command_2
+        unique_id: Zendure_proxy_latest_power_command_2
         unit_of_measurement: "W"
         state_class: measurement
         device_class: power
+
+      - name: "Zendure 1 Kalibratie bezig"
+        value_template: >
+          {% set states = {0: "Nee", 1: "Kalibreren"} %}
+          {% set packState = value_json['properties']['socStatus_1'] | int %}
+          {{ states.get(packState, "Onbekend") }}
+        unique_id: Zendure_proxy_SOC_Status_1
+        icon: mdi:battery-heart-variant
+
+      - name: "Zendure 2 Kalibratie bezig"
+        value_template: >
+          {% set states = {0: "Nee", 1: "Kalibreren"} %}
+          {% set packState = value_json['properties']['socStatus_2'] | int %}
+          {{ states.get(packState, "Onbekend") }}
+        unique_id: Zendure_proxy_SOC_Status_2
+        icon: mdi:battery-heart-variant
+
+      - name: "Zendure 1 Opslagmodus"
+        value_template: >
+          {% set states = {1: "Opslaan in RAM", 0: "Opslaan in Flash"} %}
+          {% set packState = value_json['properties']['smartMode_1'] | int %}
+          {{ states.get(packState, "Onbekend") }}
+        unique_id: Zendure_proxy_Opslagmodus_1
+        icon: mdi:floppy
+
+      - name: "Zendure 2 Opslagmodus"
+        value_template: >
+          {% set states = {1: "Opslaan in RAM", 0: "Opslaan in Flash"} %}
+          {% set packState = value_json['properties']['smartMode_2'] | int %}
+          {{ states.get(packState, "Onbekend") }}
+        unique_id: Zendure_proxy_Opslagmodus_2
+        icon: mdi:floppy
+
+      - name: "Zendure Actief Device"
+        value_template: >
+          {% set active_device = value_json['properties']['activeDevice'] | int %}
+          {% if active_device == 0 %}
+           Beide
+          {% elif active_device == 1 %}
+           Zendure 1
+          {% elif active_device == 2 %}
+           Zendure 2
+          {% endif %}
+        unique_id: Zendure_proxy_active_device
+        icon: mdi:battery
+
 ```
 
 Deze entiteiten kunnen vervolgens aan het dashboard worden toegevoegd en gemonitord zoals in het volgende voorbeeld.
@@ -311,4 +364,10 @@ Tip: om te zien welke attributen er beschikbaar zijn om te monitoren, kun je in 
 
 - Enkele optimalisaties voor laden rond de minSoc. Van de SoC waarde van de beide Zendures wordt het gemiddelde genomen, normaliter naar beneden afgerond en naar HomeAssistant gestuurd. Enkel wanneer 1 van de 2 Zendures "Leeg" is (socLimit == 2, dus de minSoc is bereikt), dan wordt SoC waarde even naar boven afgerond, zodat de andere, nog niet lege Zendure nog verder wordt ontladen tot beide "Leeg" zijn. Tevens wordt in dat geval altijd singleMode gebruikt (slechts 1 Zendure ontlaadt, alle vermogen gaat naar die Zendure). Hierdoor wordt op beide Zendures netjes de minSoc bereikt (ingesteld laagste SoC percentage). Ook van onderaf, wanneer de Minimale SOC bescherming van de Gielz automatisering aan het werk gaat, wordt netjes de minSoc bereikt op beide devices.
 
+## Nieuw in versie 20260121 ##
 
+- In singleMode (slechts een Zendure laadt/ontlaadt tegelijkertijd) wordt nu het passieve device na 5 minuten in slaapmodus/standby (smartMode = 0, "Opslaan in Flash") gezet. 
+- In singleMode wordt nu standaard pas overgeschakeld naar het andere device als het verschil in laadpercentage 5% is. Hierdoor zal het slapen device in singleMode minder snel actief gemaakt worden.
+- Er worden extra gegevens door de proxy naar HomeAssistant gestuurd, met de response op de GET request van Gielz (elke seconde). Zie *Monitoring* hier boven voor details.
+
+  
