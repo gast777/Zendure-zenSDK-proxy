@@ -336,7 +336,8 @@ Tip: om te zien welke attributen er beschikbaar zijn om te monitoren, kun je in 
 - SoC balancering - De SoC (state of charge) van de twee devices wordt dicht bij elkaar gehouden doordat de volste batterij het snelst ontlaadt en de leegste batterij het snelst oplaadt. Bij gelijke SoC laden ze beide even snel.
 - Herhaling van instructies om te laden/ontladen, zodat SoC balancing tussen de Zendures ook werkt voor Handmatige mode.
 - Single Mode - Bij lagere vermogens laadt/ontlaadt slechts een van de Zendures tegelijk. Dit wordt afgewisseld aan de hand van de SoC van de beide devices, waardoor de SoC waardes gebalanceerd blijven.
-- In Single Mode overschakelen naar ander device laden/ontladen bij meer dan 1% punt verschil in SoC (standaard bij 2% verschil). Hierdoor wordt minder vaak overgeschakeld.
+- In Single Mode wordt het passieve device (degene die op dat moment niet laadt of ontlaadt) na 5 minuten op standby gezet (smartMode = 0, "Opslaan in Flash").
+- In Single Mode wordt naar het andere device overgeschakeld wanneer het verschil in SoC 5% is. Hierdoor wordt minder vaak overgeschakeld van actief device.
 <br/>
 
 ## Vereisten ## 
@@ -367,7 +368,8 @@ Tip: om te zien welke attributen er beschikbaar zijn om te monitoren, kun je in 
 ## Nieuw in versie 20260121 ##
 
 - In singleMode (slechts een Zendure laadt/ontlaadt tegelijkertijd) wordt nu het passieve device na 5 minuten in slaapmodus/standby (smartMode = 0, "Opslaan in Flash") gezet. 
-- In singleMode wordt nu standaard pas overgeschakeld naar het andere device als het verschil in laadpercentage 5% is. Hierdoor zal het slapen device in singleMode minder snel actief gemaakt worden.
-- Er worden extra gegevens door de proxy naar HomeAssistant gestuurd, met de response op de GET request van Gielz (elke seconde). Zie *Monitoring* hier boven voor details.
-
+- In singleMode wordt nu standaard pas overgeschakeld naar het andere device als het verschil in laadpercentage 5% is. Hierdoor zal het slapende device in singleMode minder snel actief gemaakt worden.
+- Er worden extra gegevens door de proxy naar HomeAssistant gestuurd, via de response op de GET request van Gielz (elke seconde). Zie Monitoring hier boven voor details.
+- De singleMode_upperlimit_percent default is verhoogd van 90% naar 100% (van 2400 Watt). Boven deze waarde gaat hij dual mode gebruiken, dus beide Zendures tegelijk laden/ontladen. De singleMode_lowerlimit_percent, waaronder single mode altijd gebruikt wordt is 40% gebleven.
+  
   
