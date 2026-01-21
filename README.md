@@ -169,8 +169,8 @@ De toegevoegde attributen zijn:
 *payload.properties.latestPowerCmd* - Het vermogen van de meest recente opdracht aan de proxy om te laden of ontladen<br/>
 *payload.properties.latestPowerCmd_1* - Het vermogen van de meest recente opdracht aan de Zendure 1 om te laden of ontladen<br/>
 *payload.properties.latestPowerCmd_2* - Het vermogen van de meest recente opdracht aan de Zendure 2 om te laden of ontladen<br/>
-*payload.properties.socStatus_1* - Indicatie of het Zendure 1 device geforceerd aan het opladen is vanwege kalibratie. Waarden: 0: No, 1: Calibrating<br/>
-*payload.properties.socStatus_2* - Indicatie of het Zendure 2 device geforceerd aan het opladen is vanwege kalibratie. Waarden: 0: No, 1: Calibrating<br/>
+*payload.properties.socStatus_1* - Indicatie of het Zendure 1 device geforceerd aan het opladen is vanwege kalibratie. Waarden: 0: Nee, 1: Kalibreren<br/>
+*payload.properties.socStatus_2* - Indicatie of het Zendure 2 device geforceerd aan het opladen is vanwege kalibratie. Waarden: 0: Nee, 1: Kalibreren<br/>
 *payload.properties.smartMode_1* - smartMode status van Zendure 1. Waarden: 0: Smartmode uit (schrijven naar Flash), 1: Smartmode aan (schrijven naar RAM)<br/>
 *payload.properties.smartMode_2* - smartMode status van Zendure 1. Waarden: 0: Smartmode uit (schrijven naar Flash), 1: Smartmode aan (schrijven naar RAM)<br/>
 *payload.properties.activeDevice* - Actief device. Waarden: 0: Beide, 1: Zendure 1, 2: Zendure 2 <br/>
