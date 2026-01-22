@@ -374,7 +374,7 @@ Tip: om te zien welke attributen er beschikbaar zijn om te monitoren, kun je in 
   
 ## Nieuw in versie 20260123 ##
 
-- Issue opgelost waarbij tijdens ontladen in Single Mode altijd de device wissel bij 1% plaatsvond, in plaats van de correcte 5%.
+- Issue opgelost waarbij tijdens ontladen in Single Mode altijd de device wissel bij 1% verschil in SoC plaatsvond, in plaats van de correcte 5%.
 - In Single Mode tijdens de device wissel worden nu gedurende 20 seconden tijdelijk beide devices gebruikt, zodat de wissel soepeler verloopt, omdat het slapende device wat tijd nodig heeft om te starten.
 
 
