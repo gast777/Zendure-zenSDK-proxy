@@ -1,6 +1,6 @@
 # Zendure-zenSDK-proxy
 
-versie 20260122
+versie 20260123
 
 
 ## Instructies ##
@@ -372,4 +372,9 @@ Tip: om te zien welke attributen er beschikbaar zijn om te monitoren, kun je in 
 - Er worden extra gegevens door de proxy naar HomeAssistant gestuurd, via de response op de GET request van Gielz (elke seconde). Zie *Monitoring* hier boven voor details.
 - De singleMode_upperlimit_percent default is verhoogd van 90% naar 100% (van 2400 Watt). Boven deze waarde gaat hij dual mode gebruiken, dus beide Zendures tegelijk laden/ontladen. De singleMode_lowerlimit_percent, waaronder single mode altijd gebruikt wordt is 40% gebleven.
   
-  
+## Nieuw in versie 20260123 ##
+
+- Issue opgelost waarbij tijdens ontladen in Single Mode altijd de device wissel bij 1% plaatsvond, in plaats van de correcte 5%.
+- In Single Mode tijdens de device wissel worden nu gedurende 20 seconden tijdelijk beide devices gebruikt, zodat de wissel soepeler verloopt, omdat het slapende device wat tijd nodig heeft om te starten.
+
+
