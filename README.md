@@ -188,7 +188,8 @@ rest:
 ```
 Voeg het volgende toe:
 ```
-## Hieronder niet verwijderen bij upgrade van Gielz
+####### Hieronder niet verwijderen bij upgrade van Gielz
+####### ZENDURE PROXY SENSOREN ####### 
 
       - name: "Zendure 1 Laadpercentage"
         value_template: "{{ value_json['properties']['electricLevel_1'] }}"
@@ -269,6 +270,42 @@ Voeg het volgende toe:
           {% endif %}
         unique_id: Zendure_proxy_active_device
         icon: mdi:battery
+
+      - name: "Zendure 1 SOC-limiet Status"
+        value_template: >
+          {% set states = {0: "Normale werking", 1: "Laadlimiet bereikt", 2: "Ontlaadlimiet bereikt"} %}
+          {% set packState = value_json['properties']['socLimit'] | int %}
+          {{ states.get(packState, "Onbekend") }}
+        unique_id: Zendure_proxy_soc_limiet_status_1
+        icon: >
+         {% if this.state == 'Normale werking' %}
+          mdi:battery-medium
+         {% elif this.state == 'Laadlimiet bereikt' %}
+          mdi:battery-high
+         {% elif this.state == 'Ontlaadlimiet bereikt' %}
+          mdi:battery-low
+         {% else %}
+          mdi:battery-outline
+         {% endif %}
+
+      - name: "Zendure 2 SOC-limiet Status"
+        value_template: >
+          {% set states = {0: "Normale werking", 1: "Laadlimiet bereikt", 2: "Ontlaadlimiet bereikt"} %}
+          {% set packState = value_json['properties']['socLimit'] | int %}
+          {{ states.get(packState, "Onbekend") }}
+        unique_id: Zendure_proxy_soc_limiet_status_2
+        icon: >
+         {% if this.state == 'Normale werking' %}
+          mdi:battery-medium
+         {% elif this.state == 'Laadlimiet bereikt' %}
+          mdi:battery-high
+         {% elif this.state == 'Ontlaadlimiet bereikt' %}
+          mdi:battery-low
+         {% else %}
+          mdi:battery-outline
+         {% endif %}
+
+####### EINDE ZENDURE PROXY SENSOREN ####### 
 
 ```
 
