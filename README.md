@@ -1,6 +1,6 @@
 # Zendure-zenSDK-proxy
 
-versie 20260123
+versie 20260125
 
 
 ## Instructies ##
@@ -376,5 +376,11 @@ Tip: om te zien welke attributen er beschikbaar zijn om te monitoren, kun je in 
 
 - Issue opgelost waarbij tijdens ontladen in Single Mode altijd de device wissel bij 1% verschil in SoC plaatsvond, in plaats van de correcte 5%.
 - In Single Mode tijdens de device wissel worden nu gedurende 20 seconden tijdelijk beide devices gebruikt, zodat de wissel soepeler verloopt, omdat het slapende device wat tijd nodig heeft om te starten.
+
+## Nieuw in versie 20260123 ##
+
+- In Single Mode tijdens de device wissel en bij de overgang van Single Mode naar Dual Mode (twee devices actief), worden nu gedurende 30 seconden tijdelijk beide devices gebruikt, zodat het bijschakelen van een standby device soepel verloopt. In het begin neemt het al actieve device 95% van het vermogen, zodat de andere kan opstarten uit standby zonder merkbare dip in het vermogen.
+- Support voor nieuwe attributen toegevoegd: "Zendure 1 SOC-limiet Status" en "Zendure 2 SOC-limiet Status" om de socLimit van beide devices te kunnen monitoren in HomeAssistant.
+- Support voor het configureren van de Zendures via HomeAssistent (Max. Ontlaadvermogen, Max. Oplaadvermogen, Ingesteld Ontlaadvermogen, Ingesteld Oplaadvermogen). Voorbereid voor de Gielz Maart 2026 versie.
 
 
