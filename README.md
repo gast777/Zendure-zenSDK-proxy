@@ -274,7 +274,7 @@ Voeg het volgende toe:
       - name: "Zendure 1 SOC-limiet Status"
         value_template: >
           {% set states = {0: "Normale werking", 1: "Laadlimiet bereikt", 2: "Ontlaadlimiet bereikt"} %}
-          {% set packState = value_json['properties']['socLimit'] | int %}
+          {% set packState = value_json['properties']['socLimit_1'] | int %}
           {{ states.get(packState, "Onbekend") }}
         unique_id: Zendure_proxy_soc_limiet_status_1
         icon: >
@@ -291,7 +291,7 @@ Voeg het volgende toe:
       - name: "Zendure 2 SOC-limiet Status"
         value_template: >
           {% set states = {0: "Normale werking", 1: "Laadlimiet bereikt", 2: "Ontlaadlimiet bereikt"} %}
-          {% set packState = value_json['properties']['socLimit'] | int %}
+          {% set packState = value_json['properties']['socLimit_2'] | int %}
           {{ states.get(packState, "Onbekend") }}
         unique_id: Zendure_proxy_soc_limiet_status_2
         icon: >
