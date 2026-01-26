@@ -23,7 +23,7 @@ Het vermogen wordt op intelligente wijze verdeeld over de Zendures. Als er een v
 
 Na importeren van deze Node-Red flow in je Node-Red server, kun je de IP adressen en de serienummers van je twee Zendure devices invullen. Hieronder staat aangegeven waar je dat kunt doen.
 
-Vervolgens moet je ook een paar kleine aanpassingen doen in de Gielz automatisering in HomeAssistant, zoals in onderstaande instructies te zien is. Daarna kan hij aan het werk :)<br/>
+Vervolgens moet je een paar eenvoudige instellingen doen in de Gielz automatisering in HomeAssistant, zoals in onderstaande instructies te zien is. Daarna kan hij aan het werk :)<br/>
 <br/>
 
 ### Node-Red ###
