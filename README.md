@@ -125,7 +125,7 @@ rest:
     scan_interval: 1
     sensor:
 ```
-Voeg het volgende toe:
+Voeg de volgende sensoren toe:
 ```
 ####### Hieronder niet verwijderen bij upgrade van Gielz
 ####### ZENDURE PROXY SENSOREN ####### 
