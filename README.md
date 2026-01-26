@@ -55,6 +55,7 @@ Als Node-Red op de HomeAssistant server zelf is geinstalleerd als Add-On, vul in
 <br/>
 
 - [ ] In automations.yaml, zoek en vervang alle
+
 ```
 cap = 2400
 ```
@@ -64,6 +65,9 @@ cap = 4800
 ```
 
 Hiermee wordt het maximale vermogen verhoogd naar het maximale wat de 2x SolarFlow 2400AC's (oftewel een virtuele SolarFlow 4800AC) aankunnen.
+
+<ins>_NB: vanaf de Maart 2026 versie van de Gielz ZenSDK is deze stap niet meer nodig.<br/>In plaats daarvan kan het maximale vermogen ingesteld worden op het dashboard via de invulvelden input_number.zendure_2400_ac_max_ontlaadvermogen en input_number.zendure_2400_ac_max_oplaadvermogen._</ins>
+
 
 <br/>
 
@@ -113,6 +117,8 @@ Daarmee kun je handmatig laden/leveren tot 4800W in plaats van 2400W.<br/>
 
 
 - [ ] Optioneel: Als je het vermogen wilt aanpassen van de drop-down opties "Opladen met 2400 Watt" en "Ontladen met 2400 Watt", dan kun je het vermogen hieronder aanpassen in configuration.yaml. Verander de inputLimit/outputLimit van 2400 naar de gewenste waarde, bijvoorbeeld 4800 of 4500.
+
+<ins>_NB: vanaf de Maart 2026 versie van de Gielz ZenSDK is deze stap niet meer nodig._</ins>
 
 NB: Bij 4500 Watt is er nog wat bewegingsruimte over om de SoC percentages van de beide Zendures te balanceren, indien gewenst.
 
