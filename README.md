@@ -39,7 +39,7 @@ Vervolgens moet je ook een paar kleine aanpassingen doen in de Gielz automatiser
 ### HomeAssistant ###
 <br/>
 
-<ins>_Deze instructie gaat ervan uit dat je minimaal de Februari versie van de Gielz ZenSDK gebruikt. Mocht je een eerdere versie gebruiken, update de Gielz dan eerst._<ins>
+<ins>_Deze instructie gaat ervan uit dat je minimaal de Februari 2026 versie van de Gielz ZenSDK gebruikt. Mocht je een eerdere versie gebruiken, update de Gielz dan eerst._<ins>
 
 <br/>
 
