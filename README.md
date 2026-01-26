@@ -116,7 +116,7 @@ De toegevoegde attributen zijn als volgt.<br/>
 <br/>
 
 
-Om deze in Homeassistant te monitoren, voeg het volgende toe aan configuration.yaml. Daarna kunnen deze toegevoegd worden aan een dashboard.
+Om deze in HomeAssistant te monitoren, voeg het volgende toe aan configuration.yaml. Daarna kunnen deze toegevoegd worden aan een dashboard.
 
 Onder deze bestaande rest configuratie van Gielz:
 ```
