@@ -162,7 +162,7 @@ Om real-time te kunnen monitoren met welk vermogen de proxy opdracht wordt geven
 
 De Node-Red proxy voegt deze nieuwe attributen toe aan de bestaande reply messages op de GET requests, die elke seconde gedaan worden door de Gielz REST configuratie. Om deze gevens op je HomeAssistant Dashboard te kunnen zetten, volg onderstaand voorbeeld.
 
-De toegevoegde attributen zijn:<br/>
+De toegevoegde attributen zijn als volgt.<br/>
 
  | Attribuut | Beschrijving |
  |-----------|-------------|
