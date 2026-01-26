@@ -174,8 +174,8 @@ De toegevoegde attributen zijn:
 *payload.properties.smartMode_1* - smartMode status van Zendure 1. Waarden: 0: Smartmode uit (schrijven naar Flash), 1: Smartmode aan (schrijven naar RAM)<br/>
 *payload.properties.smartMode_2* - smartMode status van Zendure 1. Waarden: 0: Smartmode uit (schrijven naar Flash), 1: Smartmode aan (schrijven naar RAM)<br/>
 *payload.properties.activeDevice* - Actief device. Waarden: 0: Beide, 1: Zendure 1, 2: Zendure 2<br/>
-*payload.properties.socLimit_1* - SOC-limiet Status van het Zendure 1 device<br/>
-*payload.properties.socLimit_2* - SOC-limiet Status van het Zendure 2 device<br/>
+*payload.properties.socLimit_1* - SOC-limiet Status van het Zendure 1 device. Waarden: 0: Normal state, 1: Charge limit reached, 2: Discharge limit reached<br/>
+*payload.properties.socLimit_2* - SOC-limiet Status van het Zendure 2 device. Waarden: 0: Normal state, 1: Charge limit reached, 2: Discharge limit reached<br/>
 <br/>
 
 
