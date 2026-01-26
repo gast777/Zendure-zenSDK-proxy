@@ -173,7 +173,9 @@ De toegevoegde attributen zijn:
 *payload.properties.socStatus_2* - Indicatie of het Zendure 2 device geforceerd aan het opladen is vanwege kalibratie. Waarden: 0: Nee, 1: Kalibreren<br/>
 *payload.properties.smartMode_1* - smartMode status van Zendure 1. Waarden: 0: Smartmode uit (schrijven naar Flash), 1: Smartmode aan (schrijven naar RAM)<br/>
 *payload.properties.smartMode_2* - smartMode status van Zendure 1. Waarden: 0: Smartmode uit (schrijven naar Flash), 1: Smartmode aan (schrijven naar RAM)<br/>
-*payload.properties.activeDevice* - Actief device. Waarden: 0: Beide, 1: Zendure 1, 2: Zendure 2 <br/>
+*payload.properties.activeDevice* - Actief device. Waarden: 0: Beide, 1: Zendure 1, 2: Zendure 2<br/>
+*payload.properties.socLimit_1* - SOC-limiet Status van het Zendure 1 device<br/>
+*payload.properties.socLimit_2* - SOC-limiet Status van het Zendure 2 device<br/>
 <br/>
 
 
