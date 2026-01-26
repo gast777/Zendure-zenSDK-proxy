@@ -162,20 +162,22 @@ Om real-time te kunnen monitoren met welk vermogen de proxy opdracht wordt geven
 
 De Node-Red proxy voegt deze nieuwe attributen toe aan de bestaande reply messages op de GET requests, die elke seconde gedaan worden door de Gielz REST configuratie. Om deze gevens op je HomeAssistant Dashboard te kunnen zetten, volg onderstaand voorbeeld.
 
-De toegevoegde attributen zijn:
+De toegevoegde attributen zijn:<br/>
 
-*payload.properties.electricLevel_1* - Laadpercentage van de Zendure 1<br/>
-*payload.properties.electricLevel_2* - Laadpercentage van de Zendure 2<br/>
-*payload.properties.latestPowerCmd* - Het vermogen van de meest recente opdracht aan de proxy om te laden of ontladen<br/>
-*payload.properties.latestPowerCmd_1* - Het vermogen van de meest recente opdracht aan de Zendure 1 om te laden of ontladen<br/>
-*payload.properties.latestPowerCmd_2* - Het vermogen van de meest recente opdracht aan de Zendure 2 om te laden of ontladen<br/>
-*payload.properties.socStatus_1* - Indicatie of het Zendure 1 device geforceerd aan het opladen is vanwege kalibratie. Waarden: 0: Nee, 1: Kalibreren<br/>
-*payload.properties.socStatus_2* - Indicatie of het Zendure 2 device geforceerd aan het opladen is vanwege kalibratie. Waarden: 0: Nee, 1: Kalibreren<br/>
-*payload.properties.smartMode_1* - smartMode status van Zendure 1. Waarden: 0: Smartmode uit (schrijven naar Flash), 1: Smartmode aan (schrijven naar RAM)<br/>
-*payload.properties.smartMode_2* - smartMode status van Zendure 1. Waarden: 0: Smartmode uit (schrijven naar Flash), 1: Smartmode aan (schrijven naar RAM)<br/>
-*payload.properties.activeDevice* - Actief device. Waarden: 0: Beide, 1: Zendure 1, 2: Zendure 2<br/>
-*payload.properties.socLimit_1* - SOC-limiet Status van het Zendure 1 device. Waarden: 0: Normale werking, 1: Oplaadlimiet bereikt, 2: Ontlaadlimiet bereikt<br/>
-*payload.properties.socLimit_2* - SOC-limiet Status van het Zendure 2 device. Waarden: 0: Normale werking, 1: Oplaadlimiet bereikt, 2: Ontlaadlimiet bereikt<br/>
+ | Attribuut | Beschrijving |
+ |-----------|-------------|
+ | `payload.properties.electricLevel_1` | Laadpercentage van de Zendure 1 |
+ | `payload.properties.electricLevel_2` | Laadpercentage van de Zendure 2 |
+ | `payload.properties.latestPowerCmd` | Het vermogen van de meest recente opdracht aan de proxy om te laden of ontladen |
+ | `payload.properties.latestPowerCmd_1` | Het vermogen van de meest recente opdracht aan de Zendure 1 om te laden of ontladen |
+ | `payload.properties.latestPowerCmd_2` | Het vermogen van de meest recente opdracht aan de Zendure 2 om te laden of ontladen |
+ | `payload.properties.socStatus_1` | Indicatie of het Zendure 1 device geforceerd aan het opladen is vanwege kalibratie.<br/>Waarden: 0: Nee, 1: Kalibreren |
+ | `payload.properties.socStatus_2` | Indicatie of het Zendure 2 device geforceerd aan het opladen is vanwege kalibratie.<br/>Waarden: 0: Nee, 1: Kalibreren |
+ | `payload.properties.smartMode_1` | smartMode status van Zendure 1.<br/>Waarden: 0: Smartmode uit (schrijven naar Flash), 1: Smartmode aan (schrijven naar RAM) |
+ | `payload.properties.smartMode_2` | smartMode status van Zendure 1.<br/>Waarden: 0: Smartmode uit (schrijven naar Flash), 1: Smartmode aan (schrijven naar RAM) |
+ | `payload.properties.activeDevice` | Actief device.<br/>Waarden: 0: Beide, 1: Zendure 1, 2: Zendure 2 |
+ | `payload.properties.socLimit_1` | SOC-limiet Status van het Zendure 1 device.<br/>Waarden: 0: Normale werking, 1: Oplaadlimiet bereikt, 2: Ontlaadlimiet bereikt |
+ | `payload.properties.socLimit_2` | SOC-limiet Status van het Zendure 2 device.<br/>Waarden: 0: Normale werking, 1: Oplaadlimiet bereikt, 2: Ontlaadlimiet bereikt |
 <br/>
 
 
