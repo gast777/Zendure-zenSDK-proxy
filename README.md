@@ -128,8 +128,8 @@ rest:
 Voeg de volgende sensoren toe:
 ```
 ####### Hieronder niet verwijderen bij upgrade van Gielz
-####### ZENDURE PROXY SENSOREN ####### 
 
+####### ZENDURE PROXY SENSOREN ####### 
       - name: "Zendure 1 Laadpercentage"
         value_template: "{{ value_json['properties']['electricLevel_1'] }}"
         device_class: battery
