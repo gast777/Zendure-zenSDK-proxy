@@ -360,4 +360,6 @@ Tip: om te zien welke attributen er beschikbaar zijn om te monitoren, kun je in 
 - Support voor nieuwe attributen toegevoegd: "Zendure 1 SOC-limiet Status" en "Zendure 2 SOC-limiet Status" om de socLimit van beide devices te kunnen monitoren in HomeAssistant.
 - Support voor het configureren van de Zendures via HomeAssistent (Max. Ontlaadvermogen, Max. Oplaadvermogen, Ingesteld Ontlaadvermogen, Ingesteld Oplaadvermogen). Voorbereid voor de Gielz Maart 2026 versie.
 
+## Nieuw in versie 20260130 ##
 
+- Issue opgelost waarbij in Single Mode soms het standby device onnodig actief gemaakt werd.
