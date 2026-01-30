@@ -118,7 +118,7 @@ De toegevoegde attributen zijn als volgt.<br/>
 
 Om deze in HomeAssistant te monitoren, voeg het volgende toe aan configuration.yaml. Daarna kunnen deze toegevoegd worden aan een dashboard.
 
-Onder deze bestaande rest configuratie van Gielz:
+Onder deze bestaande REST configuratie van Gielz:
 ```
 rest:
   - resource_template: "http://{{ states('input_text.zendure_2400_ac_ip_adres') }}/properties/report"
@@ -314,7 +314,7 @@ Tip: om te zien welke attributen er beschikbaar zijn om te monitoren, kun je in 
 - Single Mode - Bij lagere vermogens laadt/ontlaadt slechts een van de Zendures tegelijk. Dit wordt afgewisseld aan de hand van de SoC van de beide devices, waardoor de SoC waardes gebalanceerd blijven.
 - In Single Mode wordt het passieve device (degene die op dat moment niet laadt of ontlaadt) na 5 minuten op standby gezet (smartMode = 0, "Opslaan in Flash").
 - In Single Mode wordt naar het andere device overgeschakeld wanneer het verschil in SoC 5% is. Hierdoor wordt minder vaak overgeschakeld van actief device.
-- Bij het overschakelen naar het andere device of van Single Mode naar Dual Mode overschakelen, wordt tijdens de overgangsperiode twee devices gebruikt. In het begin neemt het reeds actieve device 95% van het vermogen, zodat de andere de tijd heeft om op te starten.
+- Bij het overschakelen naar het andere device of van Single Mode naar Dual Mode overschakelen, worden tijdens de overgangsperiode twee devices gebruikt. In het begin neemt het reeds actieve device 95% van het vermogen, zodat de andere de tijd heeft om op te starten.
 <br/>
 
 ## Vereisten ## 
