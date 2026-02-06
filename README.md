@@ -333,37 +333,7 @@ rest:
 <br/>
 
 
-## Nieuw in versie 20260106 ##
-
-- Optimalisaties voor laden en ontladen rondom de minSoc en tegen de 100% Soc.
-- De singleMode_upperlimit_percent default is verhoogd van 80% naar 90% (van 2400 Watt). Boven deze waarde gaat hij dual mode gebruiken, dus beide Zendures tegelijk laden/ontladen. De singleMode_lowerlimit_percent, waaronder single mode altijd gebruikt wordt is 40% gebleven.
-- De messageRepeat interval voor de POST opdrachten is verlaagd van 60 naar 30 seconden. In handmatige modus zal de opdracht daardoor elke 30 seconden herhaald worden, zodat het vermogen opnieuw verdeeld kan worden op basis van de SoC van beide devices op dat moment. Het herhalen wordt gestopt indien er 30 seconden geen GET messages vanuit HomeAssistant zijn ontvangen, die normaliter elke 1 seconde aankomen. Dit voorkomt het blijven herhalen van de POST opdrachten wanneer de Node-Red proxy niet meer gebruikt wordt door HomeAssistant.
-
-## Nieuw in versie 20260110 ##
-
-- Enkele optimalisaties voor laden rond de minSoc. Van de SoC waarde van de beide Zendures wordt het gemiddelde genomen, normaliter naar beneden afgerond en naar HomeAssistant gestuurd. Enkel wanneer 1 van de 2 Zendures "Leeg" is (socLimit == 2, dus de minSoc is bereikt), dan wordt SoC waarde even naar boven afgerond, zodat de andere, nog niet lege Zendure nog verder wordt ontladen tot beide "Leeg" zijn. Tevens wordt in dat geval altijd singleMode gebruikt (slechts 1 Zendure ontlaadt, alle vermogen gaat naar die Zendure). Hierdoor wordt op beide Zendures netjes de minSoc bereikt (ingesteld laagste SoC percentage). Ook van onderaf, wanneer de Minimale SOC bescherming van de Gielz automatisering aan het werk gaat, wordt netjes de minSoc bereikt op beide devices.
-
-## Nieuw in versie 20260122 ##
-
-- In Single Mode (slechts een Zendure laadt/ontlaadt tegelijkertijd) wordt nu het passieve device na 5 minuten in slaapmodus/standby (smartMode = 0, "Opslaan in Flash") gezet. 
-- In Single Mode wordt nu standaard pas overgeschakeld naar het andere device als het verschil in laadpercentage 5% is (singleMode_change_device_diff). Hierdoor zal het slapende device in singleMode minder snel actief gemaakt worden.
-- Er worden extra gegevens door de proxy naar HomeAssistant gestuurd, via de response op de GET request van Gielz (elke seconde). Zie *Monitoring* hier boven voor details.
-- De singleMode_upperlimit_percent default is verhoogd van 90% naar 100% (van 2400 Watt). Boven deze waarde gaat hij dual mode gebruiken, dus beide Zendures tegelijk laden/ontladen. De singleMode_lowerlimit_percent, waaronder single mode altijd gebruikt wordt is 40% gebleven.
-  
-## Nieuw in versie 20260123 ##
-
-- Issue opgelost waarbij tijdens ontladen in Single Mode altijd de device wissel bij 1% verschil in SoC plaatsvond, in plaats van de correcte 5%.
-- In Single Mode tijdens de device wissel worden nu gedurende 20 seconden tijdelijk beide devices gebruikt, zodat de wissel soepeler verloopt, omdat het slapende device wat tijd nodig heeft om te starten.
-
-## Nieuw in versie 20260125 ##
-
-- In Single Mode tijdens de device wissel en bij de overgang van Single Mode naar Dual Mode (twee devices actief), worden nu gedurende 30 seconden tijdelijk beide devices gebruikt, zodat het bijschakelen van een standby device soepel verloopt. In het begin neemt het al actieve device 95% van het vermogen, zodat de andere kan opstarten uit standby zonder merkbare dip in het vermogen.
-- Support voor nieuwe attributen toegevoegd: "Zendure 1 SOC-limiet Status" en "Zendure 2 SOC-limiet Status" om de socLimit van beide devices te kunnen monitoren in HomeAssistant.
-- Support voor het configureren van de Zendures via HomeAssistent (Max. Ontlaadvermogen, Max. Oplaadvermogen, Ingesteld Ontlaadvermogen, Ingesteld Oplaadvermogen). Voorbereid voor de Gielz Maart 2026 versie.
-
-## Nieuw in versie 20260130 ##
-
-- Issue opgelost waarbij in Single Mode soms het standby device onnodig actief gemaakt werd.
+## - Release-notes - ##
 
 ## Nieuw in versie 20260201 ##
 
