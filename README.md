@@ -319,7 +319,7 @@ rest:
 <br/>
 
 ## Vereisten ## 
-- 2x Zendure SolarFlow 2400 AC (2x Zendure SolarFlow 800 Pro zal in principe ook werken).
+- 2x Zendure SolarFlow 2400 AC of 2x Zendure SolarFlow 800 Pro/Plus.
 - Zorg dat op beide Zendures hetzelfde maximale en minimale laadpercentage (SoC percentages) ingesteld staan.
 - Beide Zendures moeten hetzelfde aantal batterijen hebben.
 - De beide Zendures en de Node-Red server moeten een vast IP adres hebben.
