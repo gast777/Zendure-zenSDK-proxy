@@ -1,6 +1,6 @@
 # Zendure-zenSDK-proxy
 
-versie 20260201
+versie 20260206
 
 
 ## Instructies ##
@@ -372,3 +372,9 @@ rest:
 - Het Max. Oplaadvermogen en Max. Ontlaadvermogen kunnen nu verschillend zijn en de proxy zal daar rekening mee houden.
 - Als het Max. Oplaadvermogen en Max. Ontlaadvermogen verschillend zijn, zal ook het absolute vermogen afgeleid van de singleMode_upperlimit_percent en singleMode_lowerlimit_percent verschillend zijn. De limieten zijn standaard respectievelijk 100% en 40% van het max vermogen voor opladen of ontladen. De absolute waarden zullen nu dus per richting kunnen verschillen met het max vermogen. Deze bepalen waneer er wordt omgeschakeld tussen 1 of 2 devices tegelijk gebruiken om te laden/ontladen.
 - Als het het Max. Oplaadvermogen of Max. Ontlaadvermogen niet hetzelfde zijn ingesteld op de beide Zendure devices, zal er nu een waarschuwing gelogd worden in Node-Red. Bij het aanpassen van deze waarden via HomeAssistant (Gielz), kan deze waarschuwing eenmalig in Node-Red getoond worden op het moment van instellen. Als deze daarna niet meer terugkomt is alles in orde en kan dit genegeerd worden.
+
+## Nieuw in versie 20260206 ##
+
+- In Node-Red wordt nu een duidelijke waarschuwing in het debug venster gegeven als de twee Zendure devices niet hetzelfde ingesteld zijn wat betreft Minimale/Maximale Laadpercentage (SoC%) of Minimale/Maximale Oplaadvermogen/Ontlaadvermogen. Om onnodige meldingen te voorkomen op het moment van aanpassen van deze instellingen, verschijnen deze logs niet direct, maar pas als de error situatie een tijdje aanwezig is.
+- Kleine optimalisaties in gedrag.
+
