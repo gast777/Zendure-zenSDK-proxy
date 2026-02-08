@@ -1,6 +1,6 @@
 # Zendure-zenSDK-proxy
 
-versie 20260206
+versie 20260208
 
 
 ## Instructies ##
@@ -113,6 +113,8 @@ De toegevoegde attributen zijn als volgt.<br/>
  | `properties.activeDevice` | Actief device.<br/>Waarden: 0: Beide, 1: Zendure 1, 2: Zendure 2 |
  | `properties.socLimit_1` | SOC-limiet Status van het Zendure 1 device.<br/>Waarden: 0: Normale werking, 1: Oplaadlimiet bereikt, 2: Ontlaadlimiet bereikt |
  | `properties.socLimit_2` | SOC-limiet Status van het Zendure 2 device.<br/>Waarden: 0: Normale werking, 1: Oplaadlimiet bereikt, 2: Ontlaadlimiet bereikt |
+ | `properties.hyperTmp_1` | Omvormertemperatuur van het Zendure 1 device. |
+ | `properties.hyperTmp_2` | Omvormertemperatuur van het Zendure 2 device. |
 <br/>
 
 
@@ -347,3 +349,6 @@ rest:
 - In Node-Red wordt nu een duidelijke waarschuwing in het debug venster gegeven als de twee Zendure devices niet hetzelfde ingesteld zijn wat betreft Minimale/Maximale Laadpercentage (SoC%) of Minimale/Maximale Oplaadvermogen/Ontlaadvermogen. Om onnodige meldingen te voorkomen op het moment van aanpassen van deze instellingen, verschijnen deze logs niet direct, maar pas als de error situatie een tijdje aanwezig is.
 - Kleine optimalisaties in gedrag.
 
+## Nieuw in versie 20260208 ##
+
+- Vanaf nu wordt de omvormertemperatuur voor de beide Zendures standaard meegestuurd. Ook is de sensor daarvoor toegevoegd aan de lijst onder [Monitoring](https://github.com/gast777/Zendure-zenSDK-proxy/edit/main/README.md#monitoring).
