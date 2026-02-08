@@ -331,9 +331,6 @@ Deze entiteiten kunnen vervolgens aan het dashboard worden toegevoegd en gemonit
 - In Node-Red wordt nu een duidelijke waarschuwing in het debug venster gegeven als de twee Zendure devices niet hetzelfde ingesteld zijn wat betreft Minimale/Maximale Laadpercentage (SoC%) of Minimale/Maximale Oplaadvermogen/Ontlaadvermogen. Om onnodige meldingen te voorkomen op het moment van aanpassen van deze instellingen, verschijnen deze logs niet direct, maar pas als de error situatie een tijdje aanwezig is.
 - Kleine optimalisaties in gedrag.
 
-## Nieuw in versie 20260208 ##
-
-- Vanaf nu wordt de omvormertemperatuur voor de beide Zendures standaard meegestuurd. Ook is de sensor daarvoor toegevoegd aan de lijst onder [Monitoring](https://github.com/gast777/Zendure-zenSDK-proxy/tree/main?tab=readme-ov-file#monitoring).
-
 ## Nieuw in versie 20260209 ##
-- Vanaf nu wordt de het serienummer voor de beide Zendure omvormers standaard meegestuurd. Ook is de sensor daarvoor toegevoegd aan de lijst onder [Monitoring](https://github.com/gast777/Zendure-zenSDK-proxy/tree/main?tab=readme-ov-file#monitoring).
+- Vanaf nu worden de omvormertemperatuur en de serienummers van de beide Zendures standaard meegestuurd. Ook zijn de sensoren daarvoor toegevoegd aan de lijst onder [Monitoring](https://github.com/gast777/Zendure-zenSDK-proxy/tree/main?tab=readme-ov-file#monitoring).
+
