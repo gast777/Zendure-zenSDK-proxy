@@ -121,7 +121,7 @@ De toegevoegde attributen zijn als volgt.<br/>
 <br/>
 
 
-Om deze in HomeAssistant te monitoren, voeg het volgende toe aan configuration.yaml. Daarna kunnen deze toegevoegd worden aan een dashboard.
+Om deze in HomeAssistant te monitoren, voeg het volgende toe aan configuration.yaml of aan de package die [Gielz](https://github.com/Gielz1986/Zendure-HA-zenSDK) beschikbaar stelt (vanaf de Maart 2026 versie). Daarna kunnen deze toegevoegd worden aan een dashboard.
 
 Onder deze bestaande REST configuratie van Gielz:
 ```
