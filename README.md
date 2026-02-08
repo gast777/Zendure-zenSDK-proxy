@@ -351,4 +351,4 @@ rest:
 
 ## Nieuw in versie 20260208 ##
 
-- Vanaf nu wordt de omvormertemperatuur voor de beide Zendures standaard meegestuurd. Ook is de sensor daarvoor toegevoegd aan de lijst onder [Monitoring](https://github.com/gast777/Zendure-zenSDK-proxy/edit/main/README.md#monitoring).
+- Vanaf nu wordt de omvormertemperatuur voor de beide Zendures standaard meegestuurd. Ook is de sensor daarvoor toegevoegd aan de lijst onder [Monitoring](https://github.com/gast777/Zendure-zenSDK-proxy/tree/main?tab=readme-ov-file#monitoring).
