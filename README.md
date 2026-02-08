@@ -332,5 +332,5 @@ Deze entiteiten kunnen vervolgens aan het dashboard worden toegevoegd en gemonit
 - Kleine optimalisaties in gedrag.
 
 ## Nieuw in versie 20260209 ##
-- Vanaf nu worden de omvormertemperatuur en de serienummers van de beide Zendures standaard meegestuurd. Ook zijn de sensoren daarvoor toegevoegd aan de lijst onder [Monitoring](https://github.com/gast777/Zendure-zenSDK-proxy/tree/main?tab=readme-ov-file#monitoring).
+- Vanaf nu worden de omvormertemperatuur en de serienummers van de beide Zendures standaard meegestuurd via de REST API. Ook zijn de sensoren daarvoor toegevoegd aan de lijst onder [Monitoring](https://github.com/gast777/Zendure-zenSDK-proxy/tree/main?tab=readme-ov-file#monitoring).
 
