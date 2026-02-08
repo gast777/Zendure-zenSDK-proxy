@@ -244,6 +244,26 @@ Voeg de volgende sensoren toe:
           mdi:battery-outline
          {% endif %}
 
+      - name: "Zendure 1 Omvormer Temperatuur"
+        value_template: >
+          {% set maxTemp = value_json['properties']['hyperTmp_1'] | int %}
+          {{ (maxTemp - 2731) / 10.0 }}
+        unique_id: Zendure_proxy_Omvormer_Temperatuur_1
+        unit_of_measurement: "°C"
+        state_class: measurement
+        device_class: temperature
+        icon: mdi:thermometer
+
+      - name: "Zendure 2 Omvormer Temperatuur"
+        value_template: >
+          {% set maxTemp = value_json['properties']['hyperTmp_2'] | int %}
+          {{ (maxTemp - 2731) / 10.0 }}
+        unique_id: Zendure_proxy_Omvormer_Temperatuur_2
+        unit_of_measurement: "°C"
+        state_class: measurement
+        device_class: temperature
+        icon: mdi:thermometer
+
 ####### EINDE ZENDURE PROXY SENSOREN ####### 
 
 ```
@@ -256,7 +276,7 @@ Deze entiteiten kunnen vervolgens aan het dashboard worden toegevoegd en gemonit
 
 <br/>
 <br/>
-**Tip**: Om andere gegevens van de individuele Zendure devices uit te lezen, die minder real-time hoeven te zijn, kun je een minder frequente REST polling toevoegen, rechtstreeks naar de Zendure devices IP adressen.<br/>
+**Tip**: Om eventueel nog andere gegevens van de individuele Zendure devices uit te lezen, die minder real-time hoeven te zijn, kun je een minder frequente REST polling toevoegen, rechtstreeks naar de Zendure devices IP adressen.<br/>
 <br/>
 Voorbeeld:
 <br/>
@@ -273,16 +293,6 @@ rest:
         unique_id: Zendure_1_Omvormer_Serienummer
         value_template: "{{ value_json.sn }}"
 
-      - name: "Zendure 1 Omvormer Temperatuur"
-        value_template: >
-          {% set maxTemp = value_json['properties']['hyperTmp'] | int %}
-          {{ (maxTemp - 2731) / 10.0 }}
-        unique_id: Zendure_1_Omvormer_Temperatuur
-        unit_of_measurement: "°C"
-        state_class: measurement
-        device_class: temperature
-        icon: mdi:thermometer
-
 
   - resource: http://192.168.x.y/properties/report
     scan_interval: 60
@@ -291,16 +301,6 @@ rest:
       - name: "Zendure 2 Omvormer Serienummer"
         unique_id: Zendure_2_Omvormer_Serienummer
         value_template: "{{ value_json.sn }}"
-
-      - name: "Zendure 2 Omvormer Temperatuur"
-        value_template: >
-          {% set maxTemp = value_json['properties']['hyperTmp'] | int %}
-          {{ (maxTemp - 2731) / 10.0 }}
-        unique_id: Zendure_2_Omvormer_Temperatuur
-        unit_of_measurement: "°C"
-        state_class: measurement
-        device_class: temperature
-        icon: mdi:thermometer
 
         
 ```
