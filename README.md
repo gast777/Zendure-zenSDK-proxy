@@ -1,6 +1,6 @@
 # Zendure-zenSDK-proxy
 
-versie 20260208
+versie 20260209
 
 
 ## Instructies ##
@@ -290,38 +290,8 @@ Deze entiteiten kunnen vervolgens aan het dashboard worden toegevoegd en gemonit
 
 <br/>
 <br/>
-**Tip**: Om eventueel nog andere gegevens van de individuele Zendure devices uit te lezen, die minder real-time hoeven te zijn, kun je een minder frequente REST polling toevoegen, rechtstreeks naar de Zendure devices IP adressen.<br/>
-<br/>
-Voorbeeld:
-<br/>
-
-```
-rest:
-<..snip..>
-
-  - resource: http://192.168.x.x/properties/report
-    scan_interval: 60
-    sensor:
-
-      - name: "Zendure 1 Omvormer Serienummer"
-        unique_id: Zendure_1_Omvormer_Serienummer
-        value_template: "{{ value_json.sn }}"
 
 
-  - resource: http://192.168.x.y/properties/report
-    scan_interval: 60
-    sensor:
-
-      - name: "Zendure 2 Omvormer Serienummer"
-        unique_id: Zendure_2_Omvormer_Serienummer
-        value_template: "{{ value_json.sn }}"
-
-        
-```
-<br/>
-**Tip**: om te zien welke attributen er beschikbaar zijn om te monitoren, kun je in Node-Red de debug node (groen blokje) even aanzetten die verbonden is met het blok "GET Response handling". Vervolgens verschijnen de messages rechts in het debug venster (de tab met het kevertje). Deze messages kun je uitvouwen om te zien welke informatie erin meegestuurd wordt.
-<br/>
-<br/>
 
 ## Features ##
 - SoC balancering - De SoC (state of charge, laadpercentage) van de twee devices wordt dicht bij elkaar gehouden doordat de volste batterij het snelst ontlaadt en de leegste batterij het snelst oplaadt. Bij gelijke SoC laden ze beide even snel.
@@ -364,3 +334,6 @@ rest:
 ## Nieuw in versie 20260208 ##
 
 - Vanaf nu wordt de omvormertemperatuur voor de beide Zendures standaard meegestuurd. Ook is de sensor daarvoor toegevoegd aan de lijst onder [Monitoring](https://github.com/gast777/Zendure-zenSDK-proxy/tree/main?tab=readme-ov-file#monitoring).
+
+## Nieuw in versie 20260209 ##
+- Vanaf nu wordt de het serienummer voor de beide Zendure omvormers standaard meegestuurd. Ook is de sensor daarvoor toegevoegd aan de lijst onder [Monitoring](https://github.com/gast777/Zendure-zenSDK-proxy/tree/main?tab=readme-ov-file#monitoring).
