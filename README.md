@@ -115,6 +115,8 @@ De toegevoegde attributen zijn als volgt.<br/>
  | `properties.socLimit_2` | SOC-limiet Status van het Zendure 2 device.<br/>Waarden: 0: Normale werking, 1: Oplaadlimiet bereikt, 2: Ontlaadlimiet bereikt |
  | `properties.hyperTmp_1` | Omvormertemperatuur van het Zendure 1 device. |
  | `properties.hyperTmp_2` | Omvormertemperatuur van het Zendure 2 device. |
+ | `sn_1` | Serienummer van de omvormer van het Zendure 1 device. |
+ | `sn_2` | Serienummer van de omvormer van het Zendure 2 device. |
 <br/>
 
 
@@ -265,6 +267,16 @@ Voeg de volgende sensoren toe:
         state_class: measurement
         device_class: temperature
         icon: mdi:thermometer
+
+      - name: "Zendure 1 Serienummer"
+        unique_id: Zendure_proxy_Serienummer_1
+        value_template: "{{ value_json.sn_1 }}"
+        icon: mdi:identifier
+
+      - name: "Zendure 2 Serienummer"
+        unique_id: Zendure_proxy_Serienummer_2
+        value_template: "{{ value_json.sn_2 }}"
+        icon: mdi:identifier
 
 ####### EINDE ZENDURE PROXY SENSOREN ####### 
 
