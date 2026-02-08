@@ -1,9 +1,6 @@
 # Zendure-zenSDK-proxy
 
-versie 20260209
 
-
-## Instructies ##
 
 De Gielz automatisering voor Zendure ( https://github.com/Gielz1986/Zendure-HA-zenSDK ) werkt heel goed om een Zendure thuisbatterij die de ZenSDK API ondersteunt, lokaal aan te sturen, waarbij geen cloud communicatie nodig is. Een beperking van de Gielz automatisering is echter dat die slechts 1 Zendure device (omvormer) ondersteunt.
 
@@ -25,6 +22,10 @@ Node-Red kan gemakkelijk als een Add-On geinstalleerd worden in HomeAssistant. N
 
 Vervolgens moet je een paar eenvoudige instellingen doen voor de Gielz automatisering in HomeAssistant, zoals in onderstaande instructies te zien is. Daarna kan hij aan het werk :)<br/>
 <br/>
+
+
+
+## Instructies ##
 
 ### Node-Red ###
 <br/>
@@ -316,7 +317,12 @@ Deze entiteiten kunnen vervolgens aan het dashboard worden toegevoegd en gemonit
 <br/>
 
 
-## - Release-notes - ##
+## Versie ##
+
+Huidige versie: 20260209
+<br/>
+
+# Release-notes #
 
 ## Nieuw in versie 20260201 ##
 
