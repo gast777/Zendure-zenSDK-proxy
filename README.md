@@ -11,7 +11,7 @@ Deze Node-Red flow vormt een proxy server die het mogelijk maakt de Gielz automa
 
 <br/>
 
-![Preview](images/proxy-HA-Zendure-diagram.png)   
+![Preview](images/proxy-HA-Zendure-diagram-pimped.png)   
 
 <br/>
 <br/>
