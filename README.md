@@ -1,10 +1,11 @@
 # Zendure-zenSDK-proxy
 
 
+De [Gielz-automatisering](https://github.com/Gielz1986/Zendure-HA-zenSDK) voor Zendure werkt goed om een Zendure thuisbatterij (die de ZenSDK API ondersteunt) lokaal te bedienen via Home Assistant. Hierdoor is de batterij niet meer afhankelijk van een verbinding met de cloud.
 
-De [Gielz automatisering](https://github.com/Gielz1986/Zendure-HA-zenSDK) voor Zendure werkt heel goed om een Zendure thuisbatterij die de ZenSDK API ondersteunt, lokaal aan te sturen via HomeAssistant. Daarbij is de werking van de batterij niet meer afhankelijk van communicatie met de cloud. Een beperking van de Gielz automatisering is echter dat die normaal slechts 1 Zendure device (omvormer) ondersteunt.
+Een nadeel is dat de Gielz-automatisering normaal maar één Zendure-apparaat (omvormer) tegelijk ondersteunt.
 
-Deze Node-Red flow vormt een proxy server waarmee een set van twee Zendure devices, zoals 2x [SolarFlow 2400AC](https://www.zendure.nl/products/zendure-solarflow-2400-ac), met de Gielz automatisering aangestuurd kunnen worden. De proxy simuleert dan een virtuele SolarFlow 4800AC.
+Deze Node-RED flow lost dat op. Het werkt als een tussenstation (proxy server) waarmee je twee Zendure-apparaten, bijvoorbeeld 2x [SolarFlow 2400AC](https://www.zendure.nl/products/zendure-solarflow-2400-ac), kunt aansturen alsof het één apparaat is. De flow laat ze samenwerken als een virtuele SolarFlow 4800AC.
 
 <br/>
 
@@ -18,16 +19,16 @@ Het werkt als volgt: De HA (Gielz) zal met de proxy praten, in plaats van met ee
 
 Het vermogen wordt op intelligente wijze verdeeld over de Zendures. Als er een verschil is in SoC (State of Charge, batterij % Laadpercentage) van de twee Zendures, zal degene met het laagste SoC sneller laden of de volste juist sneller ontladen. Zo blijft de de SoC van de beide Zendures dicht bij elkaar. Tevens zal bij lagere vermogens slechts 1 van de twee Zendures tegelijk gaan laden/ontladen, om redenen van efficiency.
 
-Node-Red kan gemakkelijk als een Add-On geinstalleerd worden in HomeAssistant. Na importeren van deze Node-Red Zendure Proxy flow in je Node-Red server, kun je de IP adressen en de serienummers van je twee Zendure devices invullen. Hieronder staat aangegeven waar je dat kunt doen.
+Node-RED kan gemakkelijk als een Add-On geinstalleerd worden in Home Assistant. Na importeren van deze Node-RED Zendure Proxy flow in je Node-RED server, kun je de IP adressen en de serienummers van je twee Zendure devices invullen. Hieronder staat aangegeven waar je dat kunt doen.
 
-Vervolgens moet je een paar eenvoudige instellingen doen voor de Gielz automatisering in HomeAssistant, zoals in onderstaande instructies te zien is. Daarna kan hij aan het werk :)<br/>
+Vervolgens moet je een paar eenvoudige instellingen doen voor de Gielz automatisering in Home Assistant, zoals in onderstaande instructies te zien is. Daarna kan hij aan het werk :)<br/>
 <br/>
 
 
 
 ## Instructies ##
 
-### Node-Red ###
+### Node-RED ###
 <br/>
 
 - [ ] Vul in het blok "Vul hier de Zendure IP adressen en serienummers in" de IP adressen en de serienummers van de Zendure devices in.<br/>
@@ -37,14 +38,14 @@ Vervolgens moet je een paar eenvoudige instellingen doen voor de Gielz automatis
 
 <br/>
 
-### HomeAssistant ###
+### Home Assistant ###
 <br/>
 
 <ins>_Deze instructie gaat ervan uit dat je minimaal de Februari 2026 versie van de Gielz ZenSDK gebruikt. Mocht je een eerdere versie gebruiken, update de Gielz dan eerst._<ins>
 
 <br/>
 
-- [ ] Op een HA Dashboard heb je als het goed is reeds het invulveld "Zendure 2400 AC IP-adres" beschikbaar, als onderdeel van de Gielz instructies. Zo niet, voeg die alsnog toe. Vul het IP adres en poort van de Node-Red proxy in voor "Zendure 2400 AC IP-adres" (input_text.zendure_2400_ac_ip_adres). Bijvoorbeeld: 192.168.x.x:1880
+- [ ] Op een HA Dashboard heb je als het goed is reeds het invulveld "Zendure 2400 AC IP-adres" beschikbaar, als onderdeel van de Gielz instructies. Zo niet, voeg die alsnog toe. Vul het IP adres en poort van de Node-RED proxy in voor "Zendure 2400 AC IP-adres" (input_text.zendure_2400_ac_ip_adres). Bijvoorbeeld: 192.168.x.x:1880
 
 ![Preview](images/HA-gielz-ip-port.png) 
 
@@ -52,7 +53,7 @@ Als in de blokken "API Proxy In" staat "The url will be relative to /endpoint", 
 
 ![Preview](images/HA-gielz-ip-port-endpoint.png) 
 
-Als Node-Red op de HomeAssistant server zelf is geinstalleerd als Add-On, vul in "localhost:1880/endpoint".
+Als Node-RED op de Home Assistant server zelf is geinstalleerd als Add-On, vul in "localhost:1880/endpoint".
 
 ![Preview](images/HA-gielz-ip-port-AddOn.png) 
 
@@ -76,16 +77,16 @@ Hiermee wordt het maximale vermogen verhoogd naar het maximale wat de 2x SolarFl
 <br/>
 
 
-## Node-Red als HomeAssistant Add-on ##
+## Node-RED als Home Assistant Add-on ##
 
-Indien Node-Red op de HomeAssistant server zelf is geinstalleerd als Add-on, volg deze stappen om de flow direct te laten werken:<br/>
+Indien Node-RED op de Home Assistant server zelf is geinstalleerd als Add-on, volg deze stappen om de flow direct te laten werken:<br/>
 
-1) HomeAssistant Add-On Configuratie van Node-Red:
+1) Home Assistant Add-On Configuratie van Node-RED:
 - Zet "ssl" uit
 - Zet "Show unused optional configuration options" aan
 - Zet "leave_front_door_open" aan
 - Save de configuratie
-- Herstart Node-Red<br/>
+- Herstart Node-RED<br/>
 
 2) Op het HA Dashboard, configureer als "Zendure 2400 AC IP-adres": <br />
 localhost:1880/endpoint<br/>
@@ -94,9 +95,9 @@ localhost:1880/endpoint<br/>
 
 ## Monitoring ##
 
-Om real-time de status van de twee Zendure devices achter de Proxy te kunnen monitoren, stuurt de Proxy behalve de bestaande attributen van de [REST API van Zendure](https://github.com/Zendure/zenSDK/blob/main/docs/en_properties.md) ook nog extra attributen mee. Deze kunnen in HomeAssistant toegevoegd worden en op het dashboard geplaatst worden. Bijvoorbeeld om inzicht te hebben met welk vermogen de proxy opdracht wordt gegeven te laden/ontladen en hoe dat vervolgens over de beide Zendure devices verdeeld wordt. Of om bijvoorbeeld de SoC percentages van beide Zendure devices te kunnen zien. 
+Om real-time de status van de twee Zendure devices achter de Proxy te kunnen monitoren, stuurt de Proxy behalve de bestaande attributen van de [REST API van Zendure](https://github.com/Zendure/zenSDK/blob/main/docs/en_properties.md) ook nog extra attributen mee. Deze kunnen in Home Assistant toegevoegd worden en op het dashboard geplaatst worden. Bijvoorbeeld om inzicht te hebben met welk vermogen de proxy opdracht wordt gegeven te laden/ontladen en hoe dat vervolgens over de beide Zendure devices verdeeld wordt. Of om bijvoorbeeld de SoC percentages van beide Zendure devices te kunnen zien. 
 
-De Node-Red proxy voegt deze nieuwe attributen toe aan de bestaande reply messages op de GET requests, die elke seconde gedaan worden door de Gielz REST configuratie.
+De Node-RED proxy voegt deze nieuwe attributen toe aan de bestaande reply messages op de GET requests, die elke seconde gedaan worden door de Gielz REST configuratie.
 
 De toegevoegde attributen zijn als volgt.<br/>
 
@@ -121,7 +122,7 @@ De toegevoegde attributen zijn als volgt.<br/>
 <br/>
 
 
-Om deze in HomeAssistant te monitoren, voeg het volgende toe aan configuration.yaml of aan de package die [Gielz](https://github.com/Gielz1986/Zendure-HA-zenSDK) beschikbaar stelt (vanaf de Maart 2026 versie). Daarna kunnen deze toegevoegd worden aan een dashboard.
+Om deze in Home Assistant te monitoren, voeg het volgende toe aan configuration.yaml of aan de package die [Gielz](https://github.com/Gielz1986/Zendure-HA-zenSDK) beschikbaar stelt (vanaf de Maart 2026 versie). Daarna kunnen deze toegevoegd worden aan een dashboard.
 
 Onder deze bestaande REST configuratie van Gielz:
 ```
@@ -307,13 +308,13 @@ Deze entiteiten kunnen vervolgens aan het dashboard worden toegevoegd en gemonit
 - 2x Zendure SolarFlow 2400 AC of 2x Zendure SolarFlow 800 Pro/Plus.
 - Zorg dat op beide Zendures hetzelfde maximale en minimale laadpercentage (SoC percentages) ingesteld staan.
 - Beide Zendures moeten hetzelfde aantal batterijen hebben.
-- De beide Zendures en de Node-Red server moeten een vast IP adres hebben.
+- De beide Zendures en de Node-RED server moeten een vast IP adres hebben.
 - Beide Zendures moeten beschikbaar zijn en werken.
 <br/>
 
 ## Beperkingen ##
 - Bij een instructie van 0 Watt laden levert een Zendure device soms rond de 20 Watt. Dit is momenteel Zendure gedrag en geen probleem. Dit wordt op 0 gezet zodra het passieve device automatisch op standby gezet wordt (smartMode = 0, "Opslaan in Flash").
-- Met Node-Red 4.0.9 zijn er door een gebruiker problemen gerapporteerd, die met versie 4.1.2 niet meer optraden (thanks [Freemann](https://tweakers.net/gallery/45846/)). Node-Red versie 4.1.1 en 4.1.4 zijn ook getest en werken prima.
+- Met Node-RED 4.0.9 zijn er door een gebruiker problemen gerapporteerd, die met versie 4.1.2 niet meer optraden (thanks [Freemann](https://tweakers.net/gallery/45846/)). Node-RED versie 4.1.1 en 4.1.4 zijn ook getest en werken prima.
 <br/>
 
 
@@ -326,15 +327,15 @@ Huidige versie: 20260211
 
 ## Nieuw in versie 20260201 ##
 
-- De product string due via de GET requests wordt doorgegeven aan HomeAssistant (in properties.product) zal nu in plaats van "PROXY-NODE-RED" de daadwerkelijke product string van de Zendure devices zijn, zoals "solarFlow2400AC". Deze verandering is nodig omdat vanaf de Gielz Maart 2026 versie deze string gebruikt zal worden om de capaciteit van de batterijen te bepalen.
+- De product string due via de GET requests wordt doorgegeven aan Home Assistant (in properties.product) zal nu in plaats van "PROXY-NODE-RED" de daadwerkelijke product string van de Zendure devices zijn, zoals "solarFlow2400AC". Deze verandering is nodig omdat vanaf de Gielz Maart 2026 versie deze string gebruikt zal worden om de capaciteit van de batterijen te bepalen.
 - Het maximale vermogen dat aan de devices gevraagd zal worden, wordt nu automatisch aangepast aan het ingestelde Max. Oplaadvermogen en Max. Ontlaadvermogen. Dit kan nu afwijken van 4800 Watt. Als bijvoorbeeld 3600 Watt als Max. Oplaadvermogen wordt ingesteld, zal op beide Zendure devices 1800 Watt (ieder de helft) ingesteld worden. Ook zal de proxy dan maximaal 1800 Watt aan ieder device vragen te laden en daarmee rekening houden bij het verdelen van het vermogen.
 - Het Max. Oplaadvermogen en Max. Ontlaadvermogen kunnen nu verschillend zijn en de proxy zal daar rekening mee houden.
 - Als het Max. Oplaadvermogen en Max. Ontlaadvermogen verschillend zijn, zal ook het absolute vermogen afgeleid van de singleMode_upperlimit_percent en singleMode_lowerlimit_percent verschillend zijn. De limieten zijn standaard respectievelijk 100% en 40% van het max vermogen voor opladen of ontladen. De absolute waarden zullen nu dus per richting kunnen verschillen met het max vermogen. Deze bepalen waneer er wordt omgeschakeld tussen 1 of 2 devices tegelijk gebruiken om te laden/ontladen.
-- Als het het Max. Oplaadvermogen of Max. Ontlaadvermogen niet hetzelfde zijn ingesteld op de beide Zendure devices, zal er nu een waarschuwing gelogd worden in Node-Red. Bij het aanpassen van deze waarden via HomeAssistant (Gielz), kan deze waarschuwing eenmalig in Node-Red getoond worden op het moment van instellen. Als deze daarna niet meer terugkomt is alles in orde en kan dit genegeerd worden.
+- Als het het Max. Oplaadvermogen of Max. Ontlaadvermogen niet hetzelfde zijn ingesteld op de beide Zendure devices, zal er nu een waarschuwing gelogd worden in Node-RED. Bij het aanpassen van deze waarden via HomeAssistant (Gielz), kan deze waarschuwing eenmalig in Node-RED getoond worden op het moment van instellen. Als deze daarna niet meer terugkomt is alles in orde en kan dit genegeerd worden.
 
 ## Nieuw in versie 20260206 ##
 
-- In Node-Red wordt nu een duidelijke waarschuwing in het debug venster gegeven als de twee Zendure devices niet hetzelfde ingesteld zijn wat betreft Minimale/Maximale Laadpercentage (SoC%) of Minimale/Maximale Oplaadvermogen/Ontlaadvermogen. Om onnodige meldingen te voorkomen op het moment van aanpassen van deze instellingen, verschijnen deze logs niet direct, maar pas als de error situatie een tijdje aanwezig is.
+- In Node-RED wordt nu een duidelijke waarschuwing in het debug venster gegeven als de twee Zendure devices niet hetzelfde ingesteld zijn wat betreft Minimale/Maximale Laadpercentage (SoC%) of Minimale/Maximale Oplaadvermogen/Ontlaadvermogen. Om onnodige meldingen te voorkomen op het moment van aanpassen van deze instellingen, verschijnen deze logs niet direct, maar pas als de error situatie een tijdje aanwezig is.
 - Kleine optimalisaties in gedrag.
 
 ## Nieuw in versie 20260209 ##
