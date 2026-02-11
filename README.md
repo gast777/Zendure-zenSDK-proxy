@@ -2,9 +2,9 @@
 
 
 
-De Gielz automatisering voor Zendure ( https://github.com/Gielz1986/Zendure-HA-zenSDK ) werkt heel goed om een Zendure thuisbatterij die de ZenSDK API ondersteunt, lokaal aan te sturen via HomeAssistant. Daarbij is de werking van de batterij niet meer afhankelijk van communicatie met de cloud. Een beperking van de Gielz automatisering is echter dat die slechts 1 Zendure device (omvormer) ondersteunt.
+De Gielz automatisering voor Zendure ( https://github.com/Gielz1986/Zendure-HA-zenSDK ) werkt heel goed om een Zendure thuisbatterij die de ZenSDK API ondersteunt, lokaal aan te sturen via HomeAssistant. Daarbij is de werking van de batterij niet meer afhankelijk van communicatie met de cloud. Een beperking van de Gielz automatisering is echter dat die normaal slechts 1 Zendure device (omvormer) ondersteunt.
 
-Deze Node-Red flow vormt een proxy server waarmee twee Zendure devices, zoals 2x SolarFlow 2400AC, met de Gielz automatisering aangestuurd kunnen worden. De proxy simuleert dan een virtuele SolarFlow 4800AC.
+Deze Node-Red flow vormt een proxy server waarmee een set van twee Zendure devices, zoals 2x SolarFlow 2400AC, met de Gielz automatisering aangestuurd kunnen worden. De proxy simuleert dan een virtuele SolarFlow 4800AC.
 
 <br/>
 
