@@ -212,6 +212,8 @@ Voeg de volgende sensoren toe:
            Zendure 1
           {% elif active_device == 2 %}
            Zendure 2
+          {% elif active_device == -1 %}
+           Geen
           {% endif %}
         unique_id: Zendure_proxy_active_device
         icon: mdi:battery
