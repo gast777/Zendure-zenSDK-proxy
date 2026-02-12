@@ -206,14 +206,12 @@ Voeg de volgende sensoren toe:
       - name: "Zendure Actief Device"
         value_template: >
           {% set active_device = value_json['properties']['activeDevice'] | int %}
-          {% if active_device == 0 %}
-           Beide
-          {% elif active_device == 1 %}
-           Zendure 1
-          {% elif active_device == 2 %}
-           Zendure 2
-          {% elif active_device == -1 %}
+          {% if active_device == -1 %}
            Geen
+          {% elif active_device == 0 %}
+           Beide
+          {% else %}
+           Zendure {{ active_device }}
           {% endif %}
         unique_id: Zendure_proxy_active_device
         icon: mdi:battery
