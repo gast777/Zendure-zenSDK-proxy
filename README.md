@@ -31,7 +31,7 @@ Vervolgens moet je een paar eenvoudige instellingen doen voor de Gielz automatis
 ### Node-RED ###
 <br/>
 
-- [ ] Vul in het blok "Vul hier de Zendure IP adressen en serienummers in" de IP adressen en de serienummers van de Zendure devices in.<br/>
+- [ ] Vul in het blok "===> Vul hier de Zendure IP adressen in <===" de IP adressen van de beide Zendure devices in.<br/>
 <br/>
 
 ![Preview](images/node-red-flow-image2.png) 
