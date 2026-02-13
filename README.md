@@ -31,7 +31,7 @@ Vervolgens moet je een paar eenvoudige instellingen doen voor de Gielz automatis
 ### Node-RED ###
 <br/>
 
-- [ ] Vul in het blok "===> Vul hier de Zendure IP adressen in <===" de IP adressen van de beide Zendure devices in.<br/>
+- [ ] Vul in het blok "===> Vul hier de Zendure IP adressen in <===" (in het rode vierkant in het plaatje hieronder) de IP adressen van de beide Zendure devices in. Vervolgens click je op de rode knop "Deploy" rechts boven in Node-RED om de flow te activeren.<br/>
 <br/>
 
 ![Preview](images/node-red-flow-image2.png) 
