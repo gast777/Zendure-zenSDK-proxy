@@ -348,3 +348,6 @@ Huidige versie: 20260212
 ## Nieuw in versie 20260212 ##
 - _Actief Device_ toont nu _Geen_ wanneer de huidige vermogensopdracht nul is. Om dit correct te tonen in Home Assistant is ook de REST sensor "Zendure Actief Device" aangepast. De nieuwe benodigde REST sensor configuratie is hierboven te zien onder [Monitoring](https://github.com/gast777/Zendure-zenSDK-proxy/tree/main?tab=readme-ov-file#monitoring).
 
+## Nieuw in versie 20260213 ##
+- Vanaf deze versie hoeven de serienummers niet meer ingevuld te worden bij installatie van de Node-RED flow. Alleen de beide IP adressen moeten ingevuld worden, in het blok "===> Vul hier de Zendure IP adressen in <===". Node-RED zal nu zelf de serienummers van de twee Zendures uitlezen en gebruiken.
+
