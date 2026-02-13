@@ -339,7 +339,7 @@ Huidige versie: 20260212
 - Kleine optimalisaties in gedrag.
 
 ## Nieuw in versie 20260209 ##
-- Vanaf nu worden de omvormertemperatuur en de serienummers van de beide Zendures standaard meegestuurd via de REST API en zijn dus beschikbaar in HomeAssistant. Ook zijn de sensoren daarvoor toegevoegd aan de lijst onder [Monitoring](https://github.com/gast777/Zendure-zenSDK-proxy/tree/main?tab=readme-ov-file#monitoring).
+- Vanaf nu worden de omvormertemperatuur en de serienummers van de beide Zendures standaard meegestuurd via de REST API en zijn dus beschikbaar in Home Assistant. Ook zijn de sensoren daarvoor toegevoegd aan de lijst onder [Monitoring](https://github.com/gast777/Zendure-zenSDK-proxy/tree/main?tab=readme-ov-file#monitoring).
 
 ## Nieuw in versie 20260211 ##
 - Enkele checks toegevoegd om nuttige foutmeldingen te kunnen geven wanneer nodig.
