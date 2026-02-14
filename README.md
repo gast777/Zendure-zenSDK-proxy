@@ -72,6 +72,9 @@ Bijvoorbeeld voor 2x SolarFlow 2400 kun je hem op max 4800 Watt zetten.
 
 ![Preview](images/max-power-setting.png) 
 
+
+Hiermee is de installatie gereed. Je kunt hem nu in gebruik nemen door een aansturing te kiezen op het dashboard drop-down menu `input_select.zendure_2400_ac_modus_selecteren`. Kies bijvoorbeeld "Snel opladen" om te testen of dat werkt.
+<br/>
 <br/>
 
 
