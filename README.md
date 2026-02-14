@@ -309,7 +309,7 @@ Deze entiteiten kunnen vervolgens aan het dashboard worden toegevoegd en gemonit
 <br/>
 
 ## Vereisten ## 
-- 2x Zendure SolarFlow 2400 AC of 2x Zendure SolarFlow 800 Pro/Plus.
+- 2x Zendure SolarFlow 2400 AC (2x Zendure SolarFlow 800 Plus/Pro, SolarFlow 1600 AC+ of SolarFlow 2400 AC+/Pro zijn ook compatibel, nog niet getest).
 - Zorg dat op beide Zendures hetzelfde maximale en minimale laadpercentage (SoC percentages) ingesteld staan.
 - Beide Zendures moeten hetzelfde aantal batterijen hebben.
 - De beide Zendures en de Node-RED server moeten een vast IP adres hebben.
@@ -319,6 +319,7 @@ Deze entiteiten kunnen vervolgens aan het dashboard worden toegevoegd en gemonit
 ## Beperkingen ##
 - Bij een instructie van 0 Watt laden levert een Zendure device soms rond de 20 Watt. Dit is momenteel Zendure gedrag en geen probleem. Dit wordt op 0 gezet zodra het passieve device automatisch op standby gezet wordt (smartMode = 0, "Opslaan in Flash").
 - Met Node-RED 4.0.9 zijn er door een gebruiker problemen gerapporteerd, die met versie 4.1.2 niet meer optraden (thanks [Freemann](https://tweakers.net/gallery/45846/)). Node-RED versie 4.1.1 en 4.1.4 zijn ook getest en werken prima.
+- Zonnepanelen direct via DC aangesloten op de Zendures zijn niet ondersteund/getest.
 <br/>
 
 
