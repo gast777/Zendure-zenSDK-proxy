@@ -322,7 +322,7 @@ Deze entiteiten kunnen vervolgens aan het dashboard worden toegevoegd en gemonit
 
 ## Versie ##
 
-Huidige versie: 20260212
+Huidige versie: 20260213
 <br/>
 
 # Release-notes #
