@@ -62,6 +62,8 @@ Als Node-RED op de Home Assistant server zelf is geinstalleerd als Add-On, vul i
 ![Preview](images/HA-gielz-ip-port-AddOn.png) 
 
 
+Na deze stap zouden de sensoren van Gielz in Home Assistant al moeten werken.
+
 <br/>
 
 - [ ] Stap 2: Op het dashboard, stel het maximale vermogen in via de invulvelden `input_number.zendure_2400_ac_max_ontlaadvermogen` en `input_number.zendure_2400_ac_max_oplaadvermogen`.
