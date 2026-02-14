@@ -66,7 +66,7 @@ Als Node-RED op de Home Assistant server zelf is geinstalleerd als Add-On, vul i
 
 - [ ] Stap 2: Op het dashboard, stel het maximale vermogen in via de invulvelden `input_number.zendure_2400_ac_max_ontlaadvermogen` en `input_number.zendure_2400_ac_max_oplaadvermogen`.
 
-Bijvoorbeeld voor 2x SolarFlow 2400 zet je hem op max 4800 Watt.
+Bijvoorbeeld voor 2x SolarFlow 2400 kun je hem op max 4800 Watt zetten.
 
 ![Preview](images/max-power-setting.png) 
 
