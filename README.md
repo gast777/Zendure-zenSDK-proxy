@@ -45,11 +45,11 @@ Hiervoor importeer je eerst de flow Zendure-proxy-Node-Red-flow.json in Node-RED
 ### Home Assistant ###
 <br/>
 
-<ins>_Deze instructie gaat ervan uit dat je minimaal de Februari 2026 versie van de Gielz ZenSDK gebruikt. Mocht je een eerdere versie gebruiken, update de Gielz dan eerst._<ins>
+<ins>_Deze instructie gaat ervan uit dat je minimaal de Maart 2026 versie van de Gielz ZenSDK gebruikt. Mocht je een eerdere versie gebruiken, update de Gielz dan eerst._<ins>
 
 <br/>
 
-- [ ] Op een HA Dashboard heb je als het goed is reeds het invulveld "Zendure 2400 AC IP-adres" (input_text.zendure_2400_ac_ip_adres) beschikbaar, als onderdeel van de Gielz instructies. Zo niet, voeg die alsnog toe. Vul het IP adres en poort van de Node-RED proxy daar in. Bijvoorbeeld: 192.168.x.x:1880
+- [ ] Stap 1: Op een HA Dashboard heb je als het goed is reeds het invulveld "Zendure 2400 AC IP-adres" (input_text.zendure_2400_ac_ip_adres) beschikbaar, als onderdeel van de Gielz instructies. Zo niet, voeg die alsnog toe. Vul het IP adres en poort van de Node-RED proxy daar in. Bijvoorbeeld: 192.168.x.x:1880
 
 ![Preview](images/HA-gielz-ip-port.png) 
 
@@ -64,19 +64,11 @@ Als Node-RED op de Home Assistant server zelf is geinstalleerd als Add-On, vul i
 
 <br/>
 
-- [ ] In automations.yaml, zoek en vervang alle
+- [ ] Stap 2: Op het dashboard, stel het maximale vermogen in via de invulvelden `input_number.zendure_2400_ac_max_ontlaadvermogen` en `input_number.zendure_2400_ac_max_oplaadvermogen`.
 
-```
-cap = 2400
-```
-door
-```
-cap = 4800
-```
+Bijvoorbeeld voor 2x SolarFlow 2400 zet je hem op max 4800 Watt.
 
-Hiermee wordt het maximale vermogen verhoogd naar het maximale wat de 2x SolarFlow 2400AC's (oftewel een virtuele SolarFlow 4800AC) samen aankunnen.
-
-<ins>_NB: vanaf de Maart 2026 versie van de Gielz ZenSDK is deze stap niet meer nodig.<br/>In plaats daarvan kan het maximale vermogen ingesteld worden op het dashboard via de invulvelden `input_number.zendure_2400_ac_max_ontlaadvermogen` en `input_number.zendure_2400_ac_max_oplaadvermogen`._</ins>
+![Preview](images/max-power-setting.png) 
 
 <br/>
 
