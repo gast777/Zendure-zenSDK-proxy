@@ -154,6 +154,34 @@ Voeg de volgende sensoren toe:
         state_class: measurement
         device_class: power
 
+      - name: "Zendure 1 Vermogen Aansturing"
+        value_template: >
+          {% set opladen = value_json['properties']['outputPackPower_1'] | int %}
+          {% set ontladen = - (value_json['properties']['packInputPower_1'] | int) %}
+          {% if opladen != 0 %}
+            {{ opladen }}
+          {% else %}
+            {{ ontladen }}
+          {% endif %}
+        unique_id: Zendure_proxy_Vermogen_Aansturing_1
+        unit_of_measurement: "W"
+        state_class: measurement
+        device_class: power
+
+      - name: "Zendure 2 Vermogen Aansturing"
+        value_template: >
+          {% set opladen = value_json['properties']['outputPackPower_2'] | int %}
+          {% set ontladen = - (value_json['properties']['packInputPower_2'] | int) %}
+          {% if opladen != 0 %}
+            {{ opladen }}
+          {% else %}
+            {{ ontladen }}
+          {% endif %}
+        unique_id: Zendure_proxy_Vermogen_Aansturing_2
+        unit_of_measurement: "W"
+        state_class: measurement
+        device_class: power
+
       - name: "Zendure 1 Kalibratie bezig"
         value_template: >
           {% set states = {0: "Nee", 1: "Kalibreren"} %}
