@@ -362,7 +362,7 @@ Nu kan het feest beginnen!
 
 ## Versie ##
 
-Huidige versie: 20260213
+Huidige versie: 20260215
 <br/>
 
 # Release-notes #
@@ -392,4 +392,10 @@ Huidige versie: 20260213
 
 ## Nieuw in versie 20260213 ##
 - Vanaf deze versie hoeven de serienummers niet meer te worden ingevuld bij installatie van de Node-RED flow. Alleen de beide IP adressen moeten ingevuld worden. Node-RED zal nu zelf de serienummers van de twee Zendures uitlezen en gebruiken.
+
+## Nieuw in versie 20260215 ##
+- "Zendure 1 Vermogen Aansturing" en "Zendure 2 Vermogen Aansturing" zijn nu toegevoegd aan de sensoren voor Home Assistant.
+- De outputPackPower en packInputPower wordt nu voor beide Zendures meegestuurd door de proxy.
+
+
 
