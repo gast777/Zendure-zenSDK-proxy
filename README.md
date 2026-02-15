@@ -266,13 +266,16 @@ Voeg de volgende sensoren toe:
 ####### EINDE ZENDURE PROXY SENSOREN ####### 
 ```
 
-Deze entiteiten kunnen vervolgens aan het dashboard worden toegevoegd en gemonitord zoals in het volgende voorbeeld.
+Na herstart van Home Assistant kunnen deze entiteiten vervolgens aan het dashboard worden toegevoegd en gemonitord.
 
-![Preview](images/batterijbediening.gif) 
+Nu kan het feest beginnen!
 
 <br/>
+<br/>
 
-Ter referentie, de toegevoegde attributen hebben de volgende specificaties:<br/>
+### Proxy attributen specificatie ###
+
+<br/>
 
  | Attribuut | Beschrijving |
  |-----------|-------------|
