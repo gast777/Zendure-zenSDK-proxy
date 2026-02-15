@@ -51,15 +51,15 @@ Hiervoor importeer je eerst de flow Zendure-proxy-Node-Red-flow.json in Node-RED
 
 - [ ] Stap 1: Op een HA Dashboard heb je als het goed is reeds het invulveld "Zendure 2400 AC IP-adres" (`input_text.zendure_2400_ac_ip_adres`) beschikbaar, als onderdeel van de Gielz instructies. Zo niet, voeg die alsnog toe. Vul het IP adres en poort van de Node-RED proxy daar in. Bijvoorbeeld: 192.168.x.x:1880
 
-![Preview](images/HA-gielz-ip-port.png) 
+<img src="https://github.com/gast777/Zendure-zenSDK-proxy/blob/main/images/HA-gielz-ip-port.png" width="50%">
 
 Als in de blokken "API Proxy In" staat "The url will be relative to /endpoint", dan vul hier in IP_adres:poort/endpoint 
 
-![Preview](images/HA-gielz-ip-port-endpoint.png) 
+<img src="https://github.com/gast777/Zendure-zenSDK-proxy/blob/main/images/HA-gielz-ip-port-endpoint.png" width="50%"> 
 
 Als Node-RED op de Home Assistant server zelf is geinstalleerd als Add-On, vul in "localhost:1880/endpoint".
 
-![Preview](images/HA-gielz-ip-port-AddOn.png) 
+<img src="https://github.com/gast777/Zendure-zenSDK-proxy/blob/main/images/HA-gielz-ip-port-AddOn.png" width="50%">
 
 
 Na deze stap zouden de sensoren van Gielz in Home Assistant al moeten werken.
@@ -70,7 +70,7 @@ Na deze stap zouden de sensoren van Gielz in Home Assistant al moeten werken.
 
 Bijvoorbeeld voor 2x SolarFlow 2400 kun je hem op max 4800 Watt zetten.
 
-![Preview](images/max-power-setting.png) 
+<img src="https://github.com/gast777/Zendure-zenSDK-proxy/blob/main/images/max-power-setting.png" width="50%">
 
 
 Hiermee is de installatie gereed. Je kunt hem nu in gebruik nemen door een aansturing te kiezen op het dashboard drop-down menu `input_select.zendure_2400_ac_modus_selecteren`. Kies bijvoorbeeld "Snel opladen" om te testen of dat werkt.
