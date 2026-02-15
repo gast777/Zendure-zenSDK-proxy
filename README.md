@@ -127,7 +127,7 @@ Om deze in Home Assistant te monitoren, voegen we de extra sensoren toe aan de c
 
 ### Instructie ###
 
-Tussen deze regels in de configuration.yaml of de package (zendure_ha_zensdk_gielz1986.yaml) van Gielz:
+Tussen de volgende regels in de configuration.yaml of de package (zendure_ha_zensdk_gielz1986.yaml) van Gielz:
 ```
 ####### BEGIN - Plaats hier je Node-RED sensoren tussen van https://github.com/gast777/Zendure-zenSDK-proxy - BEGIN #######
 
