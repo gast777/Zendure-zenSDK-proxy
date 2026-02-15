@@ -123,20 +123,22 @@ De toegevoegde attributen zijn als volgt.<br/>
 <br/>
 
 
-Om deze in Home Assistant te monitoren, voeg het volgende toe aan configuration.yaml of aan de package die [Gielz](https://github.com/Gielz1986/Zendure-HA-zenSDK) beschikbaar stelt (vanaf de Maart 2026 versie). Daarna kunnen deze toegevoegd worden aan een dashboard.
+Om deze in Home Assistant te monitoren, voegen we de extra sensoren toe aan de configuration.yaml of aan de package die [Gielz](https://github.com/Gielz1986/Zendure-HA-zenSDK) beschikbaar stelt. Daarna kunnen deze toegevoegd worden aan een dashboard.
 
-Onder deze bestaande REST configuratie van Gielz:
+### Instructie ###
+
+Tussen deze regels in de REST configuratie van Gielz in de configuration.yaml of de package:
 ```
-rest:
-  - resource_template: "http://{{ states('input_text.zendure_2400_ac_ip_adres') }}/properties/report"
-    scan_interval: 1
-    sensor:
+####### BEGIN - Plaats hier je Node-RED sensoren tussen van https://github.com/gast777/Zendure-zenSDK-proxy - BEGIN #######
+
+
+
+####### EIND - Plaats hier je Node-RED sensoren tussen van https://github.com/gast777/Zendure-zenSDK-proxy - EIND ####### 
 ```
 Voeg de volgende sensoren toe:
 ```
-####### Hieronder niet verwijderen bij upgrade van Gielz
+####### ZENDURE PROXY SENSOREN #######
 
-####### ZENDURE PROXY SENSOREN ####### 
       - name: "Zendure 1 Laadpercentage"
         value_template: "{{ value_json['properties']['electricLevel_1'] }}"
         device_class: battery
@@ -282,7 +284,6 @@ Voeg de volgende sensoren toe:
         icon: mdi:identifier
 
 ####### EINDE ZENDURE PROXY SENSOREN ####### 
-
 ```
 
 Deze entiteiten kunnen vervolgens aan het dashboard worden toegevoegd en gemonitord zoals in het volgende voorbeeld.
