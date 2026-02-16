@@ -397,7 +397,12 @@ rest:
         icon: mdi:battery-alert
         
 ```
+NB: voeg geen hoog frequente polling toe, om de Zendure devices niet te overbelasten met te veel verzoeken.
+<br/>
+<br/>
 NB: van de attributen in bovenstaand voorbeeld wordt reeds de laagste (slechtste) waarde van de beide devices door de proxy doorgegeven in het reguliere attribuut (rssi / is_error) van het virtuele device. Dus als er een probleem is, zul je dat ook zonder deze extra configuratie kunnen zien.
+
+
 <br/>
 <br/>
 
