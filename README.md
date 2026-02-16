@@ -328,6 +328,80 @@ Nu kan het feest beginnen!
  | `sn_1` | Serienummer van de omvormer van het Zendure 1 device. |
  | `sn_2` | Serienummer van de omvormer van het Zendure 2 device. |
 <br/>
+<br/>
+
+### Nog meer per device monitoren? ###
+
+Wil je nog meer details per device monitoren, die niet per device door de proxy worden doorgegeven en die minder real-time hoeven te zijn? Dan kun je eenvoudig een minder frequente REST polling toevoegen, rechtstreeks naar de Zendure devices IP adressen.<br/>
+
+<br/>
+Voorbeeld:
+<br/>
+
+```
+rest:
+
+  - resource: http://192.168.x.x/properties/report
+    scan_interval: 120
+    sensor:
+
+      - name: "Zendure 1 Signaalsterkte"
+        value_template: >
+          {% set rssi = value_json['properties']['rssi'] | int(-100) %}
+          {% if rssi >= -60 %}
+            Uitstekend
+          {% elif rssi >= -70 %}
+            Goed
+          {% elif rssi >= -80 %}
+            Zwak
+          {% else %}
+            Slecht
+          {% endif %}
+        unique_id: Zendure_1_Signaalsterkte
+        icon: mdi:wifi
+
+      - name: "Zendure 1 Error"
+        value_template: >
+          {% set states = {0: "Geen meldingen", 1: "Zie Zendure APP"} %}
+          {% set packState = value_json['properties']['is_error'] | int %}
+          {{ states.get(packState, "Onbekend") }}
+        unique_id: Zendure_1_Error
+        icon: mdi:battery-alert
+
+
+  - resource: http://192.168.x.y/properties/report
+    scan_interval: 120
+    sensor:
+
+      - name: "Zendure 2 Signaalsterkte"
+        value_template: >
+          {% set rssi = value_json['properties']['rssi'] | int(-100) %}
+          {% if rssi >= -60 %}
+            Uitstekend
+          {% elif rssi >= -70 %}
+            Goed
+          {% elif rssi >= -80 %}
+            Zwak
+          {% else %}
+            Slecht
+          {% endif %}
+        unique_id: Zendure_2_Signaalsterkte
+        icon: mdi:wifi
+
+      - name: "Zendure 2 Error"
+        value_template: >
+          {% set states = {0: "Geen meldingen", 1: "Zie Zendure APP"} %}
+          {% set packState = value_json['properties']['is_error'] | int %}
+          {{ states.get(packState, "Onbekend") }}
+        unique_id: Zendure_2_Error
+        icon: mdi:battery-alert
+        
+```
+<br/>
+
+**Tip**: om te zien welke attributen er beschikbaar zijn om te monitoren, kun je in Node-Red de debug node (groen blokje) even aanzetten die verbonden is met het blok "GET Response handling". Vervolgens verschijnen de messages rechts in het debug venster (de tab met het kevertje). Deze messages kun je uitvouwen om te zien welke informatie erin meegestuurd wordt.
+<br/>
+<br/>
 
 
 
