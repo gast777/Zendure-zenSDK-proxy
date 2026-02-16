@@ -332,7 +332,7 @@ Nu kan het feest beginnen!
 
 ### Nog meer per device monitoren? ###
 
-Het is onwaarschijnlijk, maar wil je nog meer details per device monitoren, die niet per device door de proxy worden doorgegeven en die minder real-time hoeven te zijn? Dan kun je eenvoudig een minder frequente REST polling toevoegen in je configuration.yaml, rechtstreeks naar de Zendure devices IP adressen.<br/>
+Het is onwaarschijnlijk, maar zou je nog meer details per device willen monitoren, die niet per device door de proxy worden doorgegeven en die minder real-time hoeven te zijn? Dan kun je eenvoudig een minder frequente REST polling toevoegen in je configuration.yaml, rechtstreeks naar de Zendure devices IP adressen.<br/>
 
 <br/>
 Voorbeeld:
