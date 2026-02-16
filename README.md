@@ -332,7 +332,7 @@ Nu kan het feest beginnen!
 
 ### Nog meer per device monitoren? ###
 
-Wil je nog meer details per device monitoren, die niet per device door de proxy worden doorgegeven en die minder real-time hoeven te zijn? Dan kun je eenvoudig een minder frequente REST polling toevoegen in je configuration.yaml, rechtstreeks naar de Zendure devices IP adressen.<br/>
+Het is onwaarschijnlijk, maar wil je nog meer details per device monitoren, die niet per device door de proxy worden doorgegeven en die minder real-time hoeven te zijn? Dan kun je eenvoudig een minder frequente REST polling toevoegen in je configuration.yaml, rechtstreeks naar de Zendure devices IP adressen.<br/>
 
 <br/>
 Voorbeeld:
@@ -397,6 +397,8 @@ rest:
         icon: mdi:battery-alert
         
 ```
+NB: van de attributen in bovenstaand voorbeeld wordt reeds de laagste (slechtste) waarde van de beide devices door de proxy doorgegeven in het reguliere attribuut (rssi / is_error) van het virtuele device. Dus als er een probleem is, zul je dat ook zonder deze extra configuratie kunnen zien.
+<br/>
 <br/>
 
 **Tip**: om te zien welke attributen er beschikbaar zijn om te monitoren, kun je in Node-RED de debug node (groen blokje) even aanzetten die verbonden is met het blok "GET Response handling". Vervolgens verschijnen de messages rechts in het debug venster (de tab met het kevertje). Deze messages kun je uitvouwen om te zien welke informatie erin meegestuurd wordt.
