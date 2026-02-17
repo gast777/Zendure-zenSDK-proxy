@@ -429,6 +429,74 @@ NB: van de attributen in bovenstaand voorbeeld wordt reeds de laagste (slechtste
 <br/>
 <br/>
 
+<details>
+<summary>Voor de feature Synchroon Laden, open deze sectie.</summary>
+
+
+Met Synchroon Laden kun je forceren dat beide Zendure devices steeds met hetzelfde vermogen opladen of ontladen. Niet iedereen zal hier behoefte aan hebben, maar in bepaalde gevallen kan het wenselijk zijn om deze mogelijkheid te hebben.
+
+Synchroon Laden kan eenvoudig bediend worden via een toggle switch op het dashboard.
+
+Hoe te installeren:
+
+1) De REST sensoren van Monitoring moeten geinstalleerd zijn in de Gielz package of in de configuration.yaml. Het handigste is om de package te gebruiken. Zie de instructie van Gielz hoe die te installeren.
+2) Voeg de volgende items toe aan configuration.yaml
+
+```
+
+template:
+
+  - switch:
+      - name: "Synchroon Laden"
+        unique_id: Zendure_proxy_equalMode_switch
+        state: >
+          {{ is_state('sensor.synchroon_laden_status', 'Aan') }}
+        icon: >
+          {% if is_state('switch.synchroon_laden', 'on') %}
+            mdi:battery-sync
+          {% else %}
+            mdi:battery-sync-outline
+          {% endif %}
+        turn_on:
+          - service: rest_command.set_equalmode_on
+        turn_off:
+          - service: rest_command.set_equalmode_off
+
+
+rest_command:
+
+  set_equalmode_on:
+    url: http://{{ states('input_text.zendure_2400_ac_ip_adres') }}/properties/write
+    method: POST
+    content_type: "application/json"
+    payload: >
+      {
+        "properties": {
+          "equalMode": {{ 1 }}
+        }
+      }
+
+  set_equalmode_off:
+    url: http://{{ states('input_text.zendure_2400_ac_ip_adres') }}/properties/write
+    method: POST
+    content_type: "application/json"
+    payload: >
+      {
+        "properties": {
+          "equalMode": {{ 0 }}
+        }
+      }
+```
+
+3) Herstart Home Assistant
+4) Zet de toggle switch `Zendure_proxy_equalMode_switch` (Synchroon Laden) op je desktop.
+
+Als je nu de switch _Synchroon Laden_ aan zet, zullen beide Zendures steeds met hetzelfde vermogen laden en ontladen.
+
+</details>
+
+
+
 
 
 <br/>
@@ -497,5 +565,6 @@ Huidige versie: 20260215
 - "Zendure 1 Vermogen Aansturing" en "Zendure 2 Vermogen Aansturing" zijn nu toegevoegd aan de sensoren voor Home Assistant, zie [Monitoring](https://github.com/gast777/Zendure-zenSDK-proxy/tree/main?tab=readme-ov-file#monitoring).
 - De outputPackPower en packInputPower wordt nu voor beide Zendures meegestuurd door de proxy.
 
-
+## Nieuw in versie 20260217 ##
+- Ondersteuning toegevoegd voor "Synchroon Laden". Daarmee kan indien gewenst geforceerd worden dat beide Zendure devices steeds met hetzelfde vermogen laden.
 
