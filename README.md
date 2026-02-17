@@ -261,6 +261,24 @@ Voeg de volgende sensoren toe:
           mdi:battery-outline
          {% endif %}
 
+      - name: "Synchroon Laden Status"
+        unique_id: Zendure_proxy_equalMode
+        value_template: >
+          {% set mode = value_json['properties']['equalMode'] | int %}
+          {% if mode == 1 %}
+            Aan
+          {% elif mode == 0 %}
+            Uit
+          {% else %}
+            Onbekend
+          {% endif %}
+        icon: >
+          {% if value_json['properties']['equalMode'] | int == 1 %}
+            mdi:battery-sync
+          {% else %}
+            mdi:battery-sync-outline
+          {% endif %}
+
       - name: "Zendure 1 Omvormer Temperatuur"
         value_template: >
           {% set maxTemp = value_json['properties']['hyperTmp_1'] | int %}
@@ -325,6 +343,7 @@ Nu kan het feest beginnen!
  | `properties.socLimit_2` | SOC-limiet Status van het Zendure 2 device.<br/>Waarden: 0: Normale werking, 1: Oplaadlimiet bereikt, 2: Ontlaadlimiet bereikt |
  | `properties.hyperTmp_1` | Omvormertemperatuur van het Zendure 1 device. |
  | `properties.hyperTmp_2` | Omvormertemperatuur van het Zendure 2 device. |
+ | `properties.equalMode` | Synchroon Laden Status (read/write) |
  | `sn_1` | Serienummer van de omvormer van het Zendure 1 device. |
  | `sn_2` | Serienummer van de omvormer van het Zendure 2 device. |
 <br/>
