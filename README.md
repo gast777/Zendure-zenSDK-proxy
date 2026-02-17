@@ -446,7 +446,7 @@ Synchroon Laden kan eenvoudig bediend worden via een toggle switch op het dashbo
 
 Hoe te installeren:
 
-1) De REST sensoren van Monitoring moeten geinstalleerd zijn in de Gielz package of in de configuration.yaml. Het handigst is om de Gielz Package te gebruiken. Zie de [instructie van Gielz](https://github.com/Gielz1986/Zendure-HA-zenSDK/tree/main?tab=readme-ov-file#%EF%B8%8F%E2%83%A3-configuratie-en-herstart) hoe die te installeren.
+1) De REST sensoren van [Monitoring](https://github.com/gast777/Zendure-zenSDK-proxy/tree/main?tab=readme-ov-file#monitoring) moeten geinstalleerd zijn in de Gielz package of in de configuration.yaml. Het handigst is om de Gielz Package te gebruiken. Zie de [instructie van Gielz](https://github.com/Gielz1986/Zendure-HA-zenSDK/tree/main?tab=readme-ov-file#%EF%B8%8F%E2%83%A3-configuratie-en-herstart) hoe die te installeren.
 2) Voeg de volgende items toe aan configuration.yaml (niet aan de Package).
 
 ```
@@ -496,7 +496,7 @@ rest_command:
 ```
 
 3) Herstart Home Assistant
-4) Zet de toggle switch `Zendure_proxy_equalMode_switch` (Synchroon Laden) op je desktop.
+4) Zet de toggle switch `Zendure_proxy_equalMode_switch` (Synchroon Laden) op je dashboard.
 
 Als je nu de switch _Synchroon Laden_ aan zet, zullen beide Zendures steeds met hetzelfde vermogen laden en ontladen.
 
