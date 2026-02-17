@@ -349,6 +349,10 @@ Nu kan het feest beginnen!
 <br/>
 <br/>
 
+<details>
+<summary>Nog meer per device monitoren? Open dan deze sectie.</summary>
+
+      
 ### Nog meer per device monitoren? ###
 
 Het is onwaarschijnlijk, maar zou je nog meer details per device willen monitoren, die niet per device door de proxy worden doorgegeven en die minder real-time hoeven te zijn? Dan kun je eenvoudig een minder frequente REST polling toevoegen in je configuration.yaml, rechtstreeks naar de Zendure devices IP adressen.<br/>
@@ -428,10 +432,13 @@ NB: van de attributen in bovenstaand voorbeeld wordt reeds de laagste (slechtste
 **Tip**: om te zien welke attributen er beschikbaar zijn om te monitoren, kun je in Node-RED de debug node (groen blokje) even aanzetten die verbonden is met het blok "Join Responses" of "Call Zendure 1 API". Vervolgens verschijnen de messages rechts in het debug venster (de tab met het kevertje). Deze messages kun je uitvouwen om te zien welke informatie erin meegestuurd wordt.
 <br/>
 <br/>
+</details>
 
 <details>
 <summary>Voor de feature Synchroon Laden, open deze sectie.</summary>
 
+
+### Synchroon Laden ###
 
 Met Synchroon Laden kun je forceren dat beide Zendure devices steeds met hetzelfde vermogen opladen of ontladen. Niet iedereen zal hier behoefte aan hebben, maar in bepaalde gevallen kan het wenselijk zijn om deze mogelijkheid te hebben.
 
