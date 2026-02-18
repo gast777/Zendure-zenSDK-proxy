@@ -339,11 +339,11 @@ Nu kan het feest beginnen!
  | `properties.smartMode_1` | smartMode status van Zendure 1.<br/>Waarden: 0: Smartmode uit (schrijven naar Flash), 1: Smartmode aan (schrijven naar RAM) |
  | `properties.smartMode_2` | smartMode status van Zendure 2.<br/>Waarden: 0: Smartmode uit (schrijven naar Flash), 1: Smartmode aan (schrijven naar RAM) |
  | `properties.activeDevice` | Actief Device.<br/>Waarden: 0: Beide, 1: Zendure 1, 2: Zendure 2, -1: Geen |
+ | `properties.equalMode` | Synchroon Laden Status (read/write).<br/>Waarden: 0: Uit, 1: Aan |
  | `properties.socLimit_1` | SOC-limiet Status van het Zendure 1 device.<br/>Waarden: 0: Normale werking, 1: Oplaadlimiet bereikt, 2: Ontlaadlimiet bereikt |
  | `properties.socLimit_2` | SOC-limiet Status van het Zendure 2 device.<br/>Waarden: 0: Normale werking, 1: Oplaadlimiet bereikt, 2: Ontlaadlimiet bereikt |
  | `properties.hyperTmp_1` | Omvormertemperatuur van het Zendure 1 device. |
  | `properties.hyperTmp_2` | Omvormertemperatuur van het Zendure 2 device. |
- | `properties.equalMode` | Synchroon Laden Status (read/write) |
  | `sn_1` | Serienummer van de omvormer van het Zendure 1 device. |
  | `sn_2` | Serienummer van de omvormer van het Zendure 2 device. |
 <br/>
