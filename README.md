@@ -537,7 +537,7 @@ Als je nu de switch _Synchroon Laden_ aan zet, zullen beide Zendures steeds met 
 
 ## Versie ##
 
-Huidige versie: 20260215
+Huidige versie: 20260219
 <br/>
 
 # Release-notes #
@@ -575,3 +575,6 @@ Huidige versie: 20260215
 ## Nieuw in versie 20260217 ##
 - Ondersteuning toegevoegd voor "Synchroon Laden". Daarmee kan indien gewenst geforceerd worden dat beide Zendure devices steeds met hetzelfde vermogen laden.
 
+## Nieuw in versie 20260219 ##
+- Issue opgelost waarbij de overgang van single mode naar dual mode niet vloeiend verliep
+- Kleine verbeteringen
