@@ -460,7 +460,13 @@ De instelling _Synchroon Laden_ is _Beide Actief_ en waarbij ook nog de beide Ze
 Niet iedereen zal hier behoefte aan hebben, maar in bepaalde gevallen kan het wenselijk zijn om deze mogelijkheden te hebben.
 
 Deze twee instellingen kunnen eenvoudig bediend worden via een toggle switch op het dashboard.
+<br/>
+<br/>
 
+<img src="https://github.com/gast777/Zendure-zenSDK-proxy/blob/main/images/beide-actief_synchroon-laden.png" width="50%">
+
+<br/>
+<br/>
 Hoe te installeren:
 
 1) De REST sensoren van [Monitoring](https://github.com/gast777/Zendure-zenSDK-proxy/tree/main?tab=readme-ov-file#monitoring) moeten geinstalleerd zijn in de Gielz package of in de configuration.yaml. Het handigst is om de Gielz Package te gebruiken. Zie de [instructie van Gielz](https://github.com/Gielz1986/Zendure-HA-zenSDK/tree/main?tab=readme-ov-file#%EF%B8%8F%E2%83%A3-configuratie-en-herstart) hoe die te installeren.
