@@ -537,7 +537,7 @@ Als je nu de switch _Synchroon Laden_ aan zet, zullen beide Zendures steeds met 
 
 ## Versie ##
 
-Huidige versie: 20260219
+Huidige versie: 20260220
 <br/>
 
 # Release-notes #
@@ -578,3 +578,7 @@ Huidige versie: 20260219
 ## Nieuw in versie 20260219 ##
 - Issue opgelost waarbij de overgang van single mode naar dual mode niet vloeiend verliep
 - Kleine verbeteringen
+
+## Nieuw in versie 20260220 ##
+- Vanaf deze versie worden de Zendure attributen _outputHomePower_ en _gridInputPower_ doorgegeven.
+
