@@ -496,7 +496,7 @@ rest_command:
 ```
 
 3) Herstart Home Assistant
-4) Zet de toggle switch `Zendure_proxy_equalMode_switch` (Synchroon Laden) op je dashboard.
+4) Zet de toggle switch `switch.synchroon_laden` op je dashboard.
 
 Als je nu de switch _Synchroon Laden_ aan zet, zullen beide Zendures steeds met hetzelfde vermogen laden en ontladen.
 
