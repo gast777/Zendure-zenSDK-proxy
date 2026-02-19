@@ -455,7 +455,7 @@ NB: van de attributen in bovenstaand voorbeeld wordt reeds de laagste (slechtste
 ### Beide Actief en Synchroon Laden ###
 
 Met de instelling _Beide Actief_ ingeschakeld zullen beide Zendures actief blijven, dus altijd in dual mode blijven. 
-De instelling _Synchroon Laden_ is _Beide Actief_ en waarbij ook nog de beide Zendure devices steeds met hetzelfde vermogen opladen of ontladen.
+De instelling _Synchroon Laden_ is hetzelfde als _Beide Actief_ maar waarbij ook nog de beide Zendure devices steeds met hetzelfde vermogen opladen of ontladen.
 
 Niet iedereen zal hier behoefte aan hebben, maar in bepaalde gevallen kan het wenselijk zijn om deze mogelijkheden te hebben.
 
