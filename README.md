@@ -279,6 +279,19 @@ Voeg de volgende sensoren toe:
             mdi:battery-sync-outline
           {% endif %}
 
+      - name: "Beide Actief Status"
+        unique_id: Zendure_proxy_alwaysDualMode
+        value_template: >
+          {% set mode = value_json['properties']['alwaysDualMode'] | int %}
+          {% if mode == 1 %}
+            Aan
+          {% elif mode == 0 %}
+            Uit
+          {% else %}
+            Onbekend
+          {% endif %}
+        icon: mdi:format-columns
+
       - name: "Zendure 1 Omvormer Temperatuur"
         value_template: >
           {% set maxTemp = value_json['properties']['hyperTmp_1'] | int %}
