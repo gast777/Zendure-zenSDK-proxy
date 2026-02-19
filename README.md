@@ -353,6 +353,7 @@ Nu kan het feest beginnen!
  | `properties.smartMode_2` | smartMode status van Zendure 2.<br/>Waarden: 0: Smartmode uit (schrijven naar Flash), 1: Smartmode aan (schrijven naar RAM) |
  | `properties.activeDevice` | Actief Device.<br/>Waarden: 0: Beide, 1: Zendure 1, 2: Zendure 2, -1: Geen |
  | `properties.equalMode` | Synchroon Laden Status (read/write).<br/>Waarden: 0: Uit, 1: Aan |
+ | `properties.alwaysDualMode` | Beide Actief Status (read/write).<br/>Waarden: 0: Uit, 1: Aan |
  | `properties.socLimit_1` | SOC-limiet Status van het Zendure 1 device.<br/>Waarden: 0: Normale werking, 1: Oplaadlimiet bereikt, 2: Ontlaadlimiet bereikt |
  | `properties.socLimit_2` | SOC-limiet Status van het Zendure 2 device.<br/>Waarden: 0: Normale werking, 1: Oplaadlimiet bereikt, 2: Ontlaadlimiet bereikt |
  | `properties.hyperTmp_1` | Omvormertemperatuur van het Zendure 1 device. |
@@ -448,14 +449,17 @@ NB: van de attributen in bovenstaand voorbeeld wordt reeds de laagste (slechtste
 </details>
 
 <details>
-<summary>Voor de feature Synchroon Laden, open deze sectie.</summary>
+<summary>Voor de features Beide Actief en Synchroon Laden, open deze sectie.</summary>
 
 
-### Synchroon Laden ###
+### Beide Actief en Synchroon Laden ###
 
-Met Synchroon Laden kun je forceren dat beide Zendure devices steeds met hetzelfde vermogen opladen of ontladen. Niet iedereen zal hier behoefte aan hebben, maar in bepaalde gevallen kan het wenselijk zijn om deze mogelijkheid te hebben.
+Met de instelling _Beide Actief_ ingeschakeld zullen beide Zendures actief blijven, dus altijd in dual mode blijven. 
+De instelling _Synchroon Laden_ is _Beide Actief_ en waarbij ook nog de beide Zendure devices steeds met hetzelfde vermogen opladen of ontladen.
 
-Synchroon Laden kan eenvoudig bediend worden via een toggle switch op het dashboard.
+Niet iedereen zal hier behoefte aan hebben, maar in bepaalde gevallen kan het wenselijk zijn om deze mogelijkheid te hebben.
+
+Deze twee instellingen kunnen eenvoudig bediend worden via een toggle switch op het dashboard.
 
 Hoe te installeren:
 
@@ -467,6 +471,17 @@ Hoe te installeren:
 template:
 
   - switch:
+
+      - name: "Beide Actief"
+        unique_id: Zendure_proxy_alwaysDualMode_switch
+        state: >
+          {{ is_state('sensor.beide_actief_status', 'Aan') }}
+        icon: mdi:format-columns
+        turn_on:
+          - service: rest_command.set_alwaysdualmode_on
+        turn_off:
+          - service: rest_command.set_alwaysdualmode_off
+
       - name: "Synchroon Laden"
         unique_id: Zendure_proxy_equalMode_switch
         state: >
@@ -484,6 +499,28 @@ template:
 
 
 rest_command:
+
+  set_alwaysdualmode_on:
+    url: http://{{ states('input_text.zendure_2400_ac_ip_adres') }}/properties/write
+    method: POST
+    content_type: "application/json"
+    payload: >
+      {
+        "properties": {
+          "alwaysDualMode": {{ 1 }}
+        }
+      }
+
+  set_alwaysdualmode_off:
+    url: http://{{ states('input_text.zendure_2400_ac_ip_adres') }}/properties/write
+    method: POST
+    content_type: "application/json"
+    payload: >
+      {
+        "properties": {
+          "alwaysDualMode": {{ 0 }}
+        }
+      }
 
   set_equalmode_on:
     url: http://{{ states('input_text.zendure_2400_ac_ip_adres') }}/properties/write
@@ -509,9 +546,9 @@ rest_command:
 ```
 
 3) Herstart Home Assistant
-4) Zet de toggle switch `switch.synchroon_laden` op je dashboard.
+4) Zet de toggle switches `switch.beide_actief` en `switch.synchroon_laden` op je dashboard.
 
-Als je nu de switch _Synchroon Laden_ aan zet, zullen beide Zendures steeds met hetzelfde vermogen laden en ontladen.
+Als je nu de switch _Beide Actief_ aan zet, zullen beide Zendures actief blijven. Als de switch _Synchroon Laden_ aangezet wordt, zullen beide Zendures ook steeds met hetzelfde vermogen laden en ontladen.
 
 </details>
 
