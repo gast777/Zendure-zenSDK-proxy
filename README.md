@@ -364,10 +364,10 @@ Nu kan het feest beginnen!
 <br/>
 
 <details>
-<summary>Nog meer per device monitoren? Open dan deze sectie.</summary>
+<summary>Optioneel: Nog meer per device monitoren? Open dan deze sectie.</summary>
 
       
-### Nog meer per device monitoren? ###
+### Optioneel: Nog meer per device monitoren? ###
 
 Het is onwaarschijnlijk, maar zou je nog meer details per device willen monitoren, die niet per device door de proxy worden doorgegeven en die minder real-time hoeven te zijn? Dan kun je eenvoudig een minder frequente REST polling toevoegen in je configuration.yaml (of in een aparte package, niet in de Gielz package). Deze verbindt rechtstreeks naar de Zendure devices IP adressen, dus niet via de proxy.<br/>
 
@@ -449,15 +449,15 @@ NB: van de attributen in bovenstaand voorbeeld wordt reeds de laagste (slechtste
 </details>
 
 <details>
-<summary>Voor de features Beide Actief en Synchroon Laden, open deze sectie.</summary>
+<summary>Optioneel: Voor de features Beide Actief en Synchroon Laden, open deze sectie.</summary>
 
 
-### Beide Actief en Synchroon Laden ###
+### Optioneel: Beide Actief en Synchroon Laden ###
 
 Met de instelling _Beide Actief_ ingeschakeld zullen beide Zendures actief blijven, dus altijd in dual mode blijven. 
-De instelling _Synchroon Laden_ is hetzelfde als _Beide Actief_ maar waarbij ook nog de beide Zendure devices steeds met hetzelfde vermogen opladen of ontladen.
+De instelling _Synchroon Laden_ is hetzelfde als _Beide Actief_ maar waarbij dan ook nog de beide Zendure devices steeds met hetzelfde vermogen opladen of ontladen.
 
-Niet iedereen zal hier behoefte aan hebben, maar in bepaalde gevallen kan het wenselijk zijn om deze mogelijkheden te hebben.
+Deze twee features zullen niet zinvol zijn voor 99% van de gebruikers. Echter in bepaalde gevallen zou het wenselijk kunnen zijn om deze mogelijkheden te hebben.
 
 Deze twee instellingen kunnen eenvoudig bediend worden via een toggle switch op het dashboard.
 <br/>
