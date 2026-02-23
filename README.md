@@ -374,6 +374,7 @@ Nu kan het feest beginnen!
  | `properties.hyperTmp_2` | Omvormertemperatuur van het Zendure 2 device. |
  | `sn_1` | Serienummer van de omvormer van het Zendure 1 device. |
  | `sn_2` | Serienummer van de omvormer van het Zendure 2 device. |
+ | `proxyVersion` | Versie van de Proxy. |
 <br/>
 <br/>
 
@@ -607,7 +608,7 @@ Als je nu de switch _Beide Actief_ aan zet, zullen beide Zendures actief blijven
 
 ## Versie ##
 
-Huidige versie: 20260220
+Huidige versie: 20260223
 <br/>
 
 # Release-notes #
@@ -653,3 +654,5 @@ Huidige versie: 20260220
 - Vanaf deze versie worden de Zendure attributen _outputHomePower_ en _gridInputPower_ doorgegeven.
 - Ondersteuning toegevoegd voor "Beide Actief". Daarmee kan indien gewenst geforceerd worden dat altijd beide Zendure devices actief zijn, dus altijd dual mode gebruiken. Ze kunnen daarbij nog wel verschillende vermogens hebben, om de Laadpercentages bij elkaar in de buurt te houden.
 
+## Nieuw in versie 20260223 ##
+- De versie van de Proxy wordt nu via de REST naar Home Assistant gestuurd. De REST sensoren voor Home Assistant om de Proxy versie en de nieuwste beschikbare versie op Github te kunnen zien zijn toegevoegd aan de lijst onder [Monitoring](https://github.com/gast777/Zendure-zenSDK-proxy/tree/main?tab=readme-ov-file#monitoring).
