@@ -322,6 +322,11 @@ Voeg de volgende sensoren toe:
         value_template: "{{ value_json.sn_2 }}"
         icon: mdi:identifier
 
+      - name: "Zendure Proxy Versie"
+        value_template: "{{ value_json.proxyVersion }}"
+        unique_id: Zendure_Proxy_Versie
+        icon: mdi:call-split
+
 ####### EINDE ZENDURE PROXY SENSOREN ####### 
 ```
 
