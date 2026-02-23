@@ -326,6 +326,15 @@ Voeg de volgende sensoren toe:
         value_template: "{{ value_json.proxyVersion }}"
         unique_id: Zendure_Proxy_Versie
         icon: mdi:call-split
+        
+  - resource: https://raw.githubusercontent.com/gast777/Zendure-zenSDK-proxy/main/README.md
+    scan_interval: 43200
+    sensor:
+      - name: "Zendure Proxy Beschikbare Versie"
+        unique_id: zendure_proxy_beschikbare_versie
+        value_template: >-
+          {% set match = value | regex_findall('Huidige versie:\\s*(.+)') %}
+          {{ match[0] | trim if match else 'Unknown' }}
 
 ####### EINDE ZENDURE PROXY SENSOREN ####### 
 ```
