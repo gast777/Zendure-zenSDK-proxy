@@ -327,17 +327,6 @@ Voeg de volgende sensoren toe:
         unique_id: Zendure_Proxy_Versie
         icon: mdi:call-split
 
-  - resource: https://raw.githubusercontent.com/gast777/Zendure-zenSDK-proxy/main/README.md
-    scan_interval: 21600
-    method: GET
-    timeout: 30
-    sensor:
-      - name: "Zendure Proxy Beschikbare Versie"
-        unique_id: zendure_proxy_beschikbare_versie
-        value_template: >-
-          {% set text = value %}
-          {{ text.split('Huidige versie:')[1].split('\n')[0].strip() }}
-
 ####### EINDE ZENDURE PROXY SENSOREN ####### 
 ```
 
