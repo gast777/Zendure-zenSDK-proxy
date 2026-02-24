@@ -646,4 +646,4 @@ Huidige versie: 20260223
 - Ondersteuning toegevoegd voor "Beide Actief". Daarmee kan indien gewenst geforceerd worden dat altijd beide Zendure devices actief zijn, dus altijd dual mode gebruiken. Ze kunnen daarbij nog wel verschillende vermogens hebben, om de Laadpercentages bij elkaar in de buurt te houden.
 
 ## Nieuw in versie 20260223 ##
-- De versie van de Proxy wordt nu via de REST naar Home Assistant gestuurd. De REST sensoren voor Home Assistant om de huidige Proxy versie (sensor.zendure_proxy_versie) en de nieuwste beschikbare versie op Github (sensor.zendure_proxy_beschikbare_versie) te kunnen zien zijn toegevoegd aan de lijst onder [Monitoring](https://github.com/gast777/Zendure-zenSDK-proxy/tree/main?tab=readme-ov-file#monitoring).
+- De versie van de Proxy wordt nu via de REST naar Home Assistant gestuurd. De REST sensor voor Home Assistant om de huidige Proxy versie (sensor.zendure_proxy_versie) te kunnen zien is toegevoegd aan de lijst onder [Monitoring](https://github.com/gast777/Zendure-zenSDK-proxy/tree/main?tab=readme-ov-file#monitoring).
