@@ -107,7 +107,7 @@ Om deze in Home Assistant beschikbaar te maken, voegen we de extra sensoren toe 
 
 ### Instructie ###
 
-Tussen de volgende regels in de configuration.yaml of de package (zendure_ha_zensdk_gielz1986.yaml) van Gielz:
+In de configuration.yaml of de package (zendure_ha_zensdk_gielz1986.yaml) van Gielz staan deze regels om aan de geven waar de Proxy sensoren ingevoegd kunnen worden:
 ```
 ####### BEGIN - Plaats hier je Node-RED sensoren tussen van https://github.com/gast777/Zendure-zenSDK-proxy - BEGIN #######
 
@@ -115,7 +115,7 @@ Tussen de volgende regels in de configuration.yaml of de package (zendure_ha_zen
 
 ####### EIND - Plaats hier je Node-RED sensoren tussen van https://github.com/gast777/Zendure-zenSDK-proxy - EIND ####### 
 ```
-Voeg de volgende sensoren toe:
+Kopieer en plak de volgende sensoren tussen de aangegeven regels:
 ```
 ####### ZENDURE PROXY SENSOREN #######
 
