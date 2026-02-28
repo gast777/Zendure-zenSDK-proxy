@@ -332,6 +332,33 @@ Voeg de volgende sensoren toe:
 
 Na herstart van Home Assistant kunnen deze entiteiten vervolgens aan het dashboard worden toegevoegd en gemonitord.
 
+Om deze sensoren direct in een dasboard te krijgen, kun je een kaart toevoegen en de volgende code erin plakken:
+
+```
+type: entities
+entities:
+  - entity: sensor.vermogensopdracht
+  - entity: sensor.vermogensopdracht_zendure_1
+  - entity: sensor.vermogensopdracht_zendure_2
+  - entity: sensor.zendure_1_vermogen_aansturing
+  - entity: sensor.zendure_2_vermogen_aansturing
+  - entity: sensor.zendure_actief_device
+  - entity: sensor.zendure_1_laadpercentage
+  - entity: sensor.zendure_2_laadpercentage
+  - entity: sensor.zendure_1_soc_limiet_status
+  - entity: sensor.zendure_2_soc_limiet_status
+  - entity: sensor.zendure_1_opslagmodus
+  - entity: sensor.zendure_2_opslagmodus
+  - entity: sensor.zendure_1_kalibratie_bezig
+  - entity: sensor.zendure_2_kalibratie_bezig
+  - entity: sensor.zendure_1_omvormer_temperatuur
+  - entity: sensor.zendure_2_omvormer_temperatuur
+  - entity: sensor.zendure_1_serienummer
+  - entity: sensor.zendure_2_serienummer
+  - entity: sensor.zendure_proxy_versie
+title: Zendure Proxy Sensoren
+```
+
 Nu kan het feest beginnen!
 
 <br/>
