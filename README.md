@@ -156,8 +156,8 @@ Voeg de volgende sensoren toe:
 
       - name: "Zendure 1 Vermogen Aansturing"
         value_template: >
-          {% set opladen = value_json['properties']['outputPackPower_1'] | int %}
-          {% set ontladen = - (value_json['properties']['packInputPower_1'] | int) %}
+          {% set opladen = value_json['properties']['gridInputPower_1'] | int %}
+          {% set ontladen = - (value_json['properties']['outputHomePower_1'] | int) %}
           {% if opladen != 0 %}
             {{ opladen }}
           {% else %}
@@ -170,8 +170,8 @@ Voeg de volgende sensoren toe:
 
       - name: "Zendure 2 Vermogen Aansturing"
         value_template: >
-          {% set opladen = value_json['properties']['outputPackPower_2'] | int %}
-          {% set ontladen = - (value_json['properties']['packInputPower_2'] | int) %}
+          {% set opladen = value_json['properties']['gridInputPower_2'] | int %}
+          {% set ontladen = - (value_json['properties']['outputHomePower_2'] | int) %}
           {% if opladen != 0 %}
             {{ opladen }}
           {% else %}
