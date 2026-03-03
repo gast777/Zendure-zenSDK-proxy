@@ -614,7 +614,7 @@ Als je nu de switch _Beide Actief_ aan zet, zullen beide Zendures actief blijven
 <br/>
 
 ## Vereisten ## 
-- 2x Zendure SolarFlow 2400 AC (2x Zendure SolarFlow 800 Plus/Pro, SolarFlow 1600 AC+ of SolarFlow 2400 AC+/Pro zijn ook compatibel, nog niet getest). In principe zal een combinatie van twee verschillende modellen ook werken (nog niet getest). Wel is het aan te bevelen dat beide devices ongeveer dezelfde hoeveelheid kWh aan batterijopslag hebben.
+- 2x Zendure SolarFlow 2400 AC (2x Zendure SolarFlow 800 Plus/Pro, SolarFlow 1600 AC+ of SolarFlow 2400 AC+/Pro zijn ook compatibel, nog niet getest). In principe zal een combinatie van twee verschillende modellen ook werken (nog niet getest). Wel is het aan te bevelen dat beide devices ongeveer dezelfde hoeveelheid kWh aan batterijopslag en hetzelfde max vermogen hebben.
 - Zorg dat op beide Zendures hetzelfde maximale en minimale laadpercentage (SoC percentages) ingesteld staan.
 - Beide Zendures moeten hetzelfde aantal batterijen hebben of ongeveer dezelfde hoeveelheid kWh aan batterijopslag.
 - De beide Zendures en de Node-RED server moeten een vast IP adres hebben.
