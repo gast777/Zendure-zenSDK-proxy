@@ -261,6 +261,19 @@ Kopieer en plak de volgende sensoren tussen de aangegeven regels:
           mdi:battery-outline
          {% endif %}
 
+      - name: "Dual Mode Demper Status"
+        unique_id: Zendure_proxy_dualModeDamper
+        value_template: >
+          {% set mode = value_json['properties']['dualModeDamper'] | int %}
+          {% if mode == 1 %}
+            Aan
+          {% elif mode == 0 %}
+            Uit
+          {% else %}
+            Onbekend
+          {% endif %}
+        icon: mdi:speedometer-medium
+
       - name: "Synchroon Laden Status"
         unique_id: Zendure_proxy_equalMode
         value_template: >
