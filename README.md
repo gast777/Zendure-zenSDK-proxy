@@ -852,9 +852,12 @@ Deze demper voorkomt dat dual mode direct ingeschakeld wordt bij een kortstondig
 De maximale tijd en hoogte van de demping kan eventueel aangepast worden in de Node-RED flow in het blokje "Vul hier de Zendure IP adressen in". Standaard werkt deze functie maximaal 60 seconden per piek en bij een maximale overschrijding van 150 Watt. Bij een langduriger of hogere vermogenspiek zal wel gewoon naar dual mode overgeschakeld worden. 
 
 Standaardinstelling, aan te passen in het blokje "Vul hier de Zendure IP adressen in":
+
+```
 let dualmode_damper_enable = 0    // Dual-mode Demper staat standaard uit
 let dualmode_damper_timer = 60    // seconden
 let dualmode_damper_amount = 150  // Watt
+```
 
 De status van de Dual Mode Demper kun je zien via de sensor ```sensor.dual_mode_demper_status```. Die is toegevoegd aan de standaard lijst onder [Monitoring](https://github.com/gast777/Zendure-zenSDK-proxy/tree/main?tab=readme-ov-file#monitoring).
 
