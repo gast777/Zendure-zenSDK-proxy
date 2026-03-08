@@ -644,7 +644,7 @@ Als je nu de switch _Beide Actief_ aan zet, zullen beide Zendures actief blijven
 
 ## Versie ##
 
-Huidige versie: 20260228
+Huidige versie: 20260308
 <br/>
 
 # Release-notes #
@@ -697,3 +697,20 @@ Huidige versie: 20260228
 - Nu worden ook de Zendure attributen _outputHomePower_ en _gridInputPower_ ook afzonderlijk voor ieder device doorgegeven via _gridInputPower_1_ / _gridInputPower_2_ en _outputHomePower_1_ / _outputHomePower_2_. Deze worden nu gebruikt voor de Home Assistant sensoren "Zendure 1 Vermogen Aansturing" en "Zendure 2 Vermogen Aansturing", zie [Monitoring](https://github.com/gast777/Zendure-zenSDK-proxy/tree/main?tab=readme-ov-file#monitoring).
 - De berekening van electricLevel (SoC %) die wordt doorgegeven aan Home Assistant is geoptimaliseerd voor een specifieke situatie. Wanneer een van de twee Zendures ruim onder de minSoc zit en de andere erboven, dan zou niet verder ontladen worden en minSoc niet bereikt worden op de hoogste van de twee. Om dat op te lossen wordt nu, alleen in die situatie, in de berekening van de totale SoC (electricLevel) de laagste van de twee SoC waarden vervangen door de minSoc waarde. Het gemiddelde dat doorgegeven wordt aan HA als electricLevel zal dan nog boven minSoc zijn en de hoogste Zendure zal dan toch verder ontladen en netjes op minSoc terecht komen. Daarna zal degene die onder minSoc zit (eventueel later) door de Gielz SoC bescherming ook weer netjes naar het minSoc niveau gebracht worden. De SoC waarden voor de individuele Zendures (Zendure 1 Laadpercentage / Zendure 2 Laadpercentage) zullen wel altijd de werkelijke waarde blijven doorgeven en tonen in Home Assistant.
 
+## Nieuw in versie 20260308 ##
+- Het attribuut "batCalTime" wordt nu meegestuurd indien aanwezig in de data van de Zendure. Het wordt ook per device meegestuurd als batCalTime_1 en batCalTime_2. Als de batCalTime van beide devices gelijk is wordt deze waarde ook via batCalTime meegestuurd. Als ze ongelijk zijn zal batCalTime de waarde -1 krijgen.
+- Het attribuut "gridReverse" wordt nu standaard meegestuurd door de proxy.
+- Optioneel kunnen de "solarPower" attributen worden meegestuurd door de proxy. Dit staat standaard uit. Het kan worden ingeschakeld in het blokje "Vul hier de Zendure IP adressen in" door let solarPowerInfo = 0 aan te passen naar let solarPowerInfo = 1. De attributen zullen zijn: properties.solarPower1/2/3/4/7/8/9/10. De solarPower 1-4 is van Zendure 1 en solarPower 7-10 is van Zendure 2.
+- Optimalisaties in de behandeling van de HTTP GET requests.
+- Nieuwe feature: Dual-mode Demper is nu beschikbaar. Standaard staat deze functie uit. Deze kan ingeschakeld worden via een REST command (indien gewenst via een toggle switch "Dual Mode Demper" op het Home Assistant Dashboard of een automation, binnenkort volgt documentatie hier boven). 
+
+Deze demper voorkomt dat dual mode direct ingeschakeld wordt bij een kortstondige piek tijdens het ontladen. Bijvoorbeeld de korte vermogenspiek van een keukenboiler 's nachts tijdens NOM. Deze demper kan voorkomen dat het niet actieve device onnodig wakker gemaakt wordt uit slaapmodus (smartmode=0) voor een kortstondige vermogenspiek. 
+
+De maximale tijd en hoogte van de demping kan ingesteld worden in de Node-RED flow in het blokje "Vul hier de Zendure IP adressen in". Standaard werkt deze functie maximaal 60 seconden per piek en bij een maximale overschrijding van 150 Watt. Bij een langduriger of hogere vermogenspiek zal wel gewoon naar dual mode overgeschakeld worden. 
+
+Standaardinstelling, aan te passen in het blokje "Vul hier de Zendure IP adressen in":
+let dualmode_damper_enable = 0    // Dual-mode Demper staat standaard uit
+let dualmode_damper_timer = 60    // seconden
+let dualmode_damper_amount = 150  // Watt
+
+De Dual-mode Demper werkt alleen tijdens ontladen, niet tijdens laden.
