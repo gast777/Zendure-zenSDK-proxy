@@ -516,10 +516,11 @@ De status (Aan/Uit) van de Dual Mode Demper kan uitgelezen worden via de sensor 
 
 De maximale tijd en hoogte van de demping kan alleen ingesteld worden in de Node-RED flow in het blokje "Vul hier de Zendure IP adressen in". Standaard werkt deze functie maximaal 60 seconden per piek en bij een maximale overschrijding van 150 Watt. Bij een langduriger of hogere vermogenspiek zal wel gewoon naar dual mode overgeschakeld worden.
 
-Standaardinstellingen, aan te passen in het blokje "Vul hier de Zendure IP adressen in": 
-let dualmode_damper_enable = 0 // Dual-mode Demper staat standaard uit 
-let dualmode_damper_timer = 60 // seconden 
-let dualmode_damper_amount = 150 // Watt
+Standaardinstellingen, aan te passen in het blokje "Vul hier de Zendure IP adressen in": <br/>
+<br/>
+let dualmode_damper_enable = 0 // Dual-mode Demper staat standaard uit <br/>
+let dualmode_damper_timer = 60 // seconden <br/>
+let dualmode_damper_amount = 150 // Watt <br/>
 
 De Dual-mode Demper werkt alleen tijdens ontladen, niet tijdens laden.
 
