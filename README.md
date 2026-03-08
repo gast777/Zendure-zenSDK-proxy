@@ -500,6 +500,144 @@ NB: van de attributen in bovenstaand voorbeeld wordt reeds de laagste (slechtste
 <br/>
 </details>
 
+<br/>
+
+<details>
+<summary>Optioneel: Voor de feature Dual Mode Demper, open deze sectie.</summary>
+
+<br/>
+
+
+### Optioneel: Dual Mode Demper ###
+
+De Dual Mode Demper voorkomt dat dual mode direct ingeschakeld wordt bij een kortstondige piek tijdens het ontladen. Bijvoorbeeld de korte vermogenspiek van een keukenboiler 's nachts tijdens NOM. Deze demper kan voorkomen dat het niet actieve device onnodig wakker gemaakt wordt uit slaapmodus (smartmode=0) voor een kortstondige vermogenspiek.
+
+De status (Aan/Uit) van de Dual Mode Demper kan uitgelezen worden via de sensor __sensor.dual_mode_demper_status__.
+
+De maximale tijd en hoogte van de demping kan alleen ingesteld worden in de Node-RED flow in het blokje "Vul hier de Zendure IP adressen in". Standaard werkt deze functie maximaal 60 seconden per piek en bij een maximale overschrijding van 150 Watt. Bij een langduriger of hogere vermogenspiek zal wel gewoon naar dual mode overgeschakeld worden.
+
+Standaardinstellingen, aan te passen in het blokje "Vul hier de Zendure IP adressen in": 
+let dualmode_damper_enable = 0 // Dual-mode Demper staat standaard uit 
+let dualmode_damper_timer = 60 // seconden 
+let dualmode_damper_amount = 150 // Watt
+
+De Dual-mode Demper werkt alleen tijdens ontladen, niet tijdens laden.
+
+Deze demper kan op verschillende manieren in en uitgeschakeld worden:
+
+#### ==> Via een toggle switch op het dashboard ####
+
+<br/>
+<br/>
+
+<img src="https://github.com/gast777/Zendure-zenSDK-proxy/blob/main/images/DualMode_Demper_toggle.png" width="50%">
+
+<br/>
+<br/>
+Hoe te installeren:
+
+1) De REST sensoren van [Monitoring](https://github.com/gast777/Zendure-zenSDK-proxy/tree/main?tab=readme-ov-file#monitoring) moeten geinstalleerd zijn in de Gielz package of in de configuration.yaml. Het handigst is om de Gielz Package te gebruiken. Zie de [instructie van Gielz](https://github.com/Gielz1986/Zendure-HA-zenSDK/tree/main?tab=readme-ov-file#%EF%B8%8F%E2%83%A3-configuratie-en-herstart) hoe die te installeren.
+2) Voeg de volgende items toe aan configuration.yaml of een aparte package (niet aan de Gielz package).
+
+```
+template:
+
+  - switch:
+
+      - name: "Dual Mode Demper"
+        unique_id: Zendure_proxy_dualModeDamper_switch
+        state: >
+          {{ is_state('sensor.dual_mode_demper_status', 'Aan') }}
+        icon: mdi:speedometer-medium
+        turn_on:
+          - service: rest_command.set_dualmodedamper_on
+        turn_off:
+          - service: rest_command.set_dualmodedamper_off
+
+
+rest_command:
+
+  set_dualmodedamper_on:
+    url: http://{{ states('input_text.zendure_2400_ac_ip_adres') }}/properties/write
+    method: POST
+    content_type: "application/json"
+    payload: >
+      {
+        "properties": {
+          "dualModeDamper": {{ 1 }}
+        }
+      }
+
+  set_dualmodedamper_off:
+    url: http://{{ states('input_text.zendure_2400_ac_ip_adres') }}/properties/write
+    method: POST
+    content_type: "application/json"
+    payload: >
+      {
+        "properties": {
+          "dualModeDamper": {{ 0 }}
+        }
+      }
+```
+
+3) Herstart Home Assistant
+4) Zet de toggle switches `switch.beide_actief` en `switch.synchroon_laden` op je dashboard.
+
+Als je nu de switch _Beide Actief_ aan zet, zullen beide Zendures actief blijven. Als de switch _Synchroon Laden_ aangezet wordt, zullen beide Zendures ook steeds met hetzelfde vermogen laden en ontladen.
+
+
+
+#### ==> Via een automation die de Dual Mode Demper altijd aan houdt ####
+
+Als je de Dual Mode Demper altijd aan wilt laten staan, ook na her-instalatie van de Proxy Node-RED flow en na restart van Node-RED, dan kun je deze automation gebruiken samen met een rest command.
+
+1) Voeg dit rest command toe aan configuration.yaml of een aparte package (niet aan de Gielz package).
+
+```
+rest_command:
+
+  set_dualmodedamper_on:
+    url: http://{{ states('input_text.zendure_2400_ac_ip_adres') }}/properties/write
+    method: POST
+    content_type: "application/json"
+    payload: >
+      {
+        "properties": {
+          "dualModeDamper": {{ 1 }}
+        }
+      }
+```
+
+2) Voeg de volgende automation toe (Settings -> Automations & Scenes, Create New Automation, Edit in Yaml)
+
+```
+alias: Zendure Proxy - Dual Mode Demper altijd aan
+description: ""
+triggers:
+  - trigger: state
+    entity_id:
+      - sensor.dual_mode_demper_status
+    to:
+      - Uit
+conditions: []
+actions:
+  - action: rest_command.set_dualmodedamper_on
+    data: {}
+mode: single
+```
+
+
+#### ==> In de Node-RED flow in het blokje "Vul hier de Zendure IP adressen in" ####
+
+Verander let dualmode_damper_enable = 0 naar let dualmode_damper_enable = 1
+
+Dit moet dan wel weer opnieuw ingesteld worden na upgrade van de Proxy flow in Node-RED.
+
+
+</details>
+
+<br/>
+
 <details>
 <summary>Optioneel: Voor de features Beide Actief en Synchroon Laden, open deze sectie.</summary>
 
