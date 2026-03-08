@@ -859,6 +859,6 @@ let dualmode_damper_timer = 60    // seconden
 let dualmode_damper_amount = 150  // Watt
 ```
 
-De status van de Dual Mode Demper kun je zien via de sensor ```sensor.dual_mode_demper_status```. Die is toegevoegd aan de standaard lijst onder [Monitoring](https://github.com/gast777/Zendure-zenSDK-proxy/tree/main?tab=readme-ov-file#monitoring).
+De status (Aan/Uit) van de Dual Mode Demper kun je zien via de sensor ```sensor.dual_mode_demper_status```. Die is toegevoegd aan de standaard lijst onder [Monitoring](https://github.com/gast777/Zendure-zenSDK-proxy/tree/main?tab=readme-ov-file#monitoring).
 
 De Dual-mode Demper werkt alleen tijdens ontladen, niet tijdens laden.
