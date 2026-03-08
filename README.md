@@ -584,7 +584,7 @@ rest_command:
 ```
 
 3) Herstart Home Assistant
-4) Zet de toggle switche `switch.dual_mode_demper` op je dashboard.
+4) Zet de toggle switch `switch.dual_mode_demper` op je dashboard.
 
 
 
