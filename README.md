@@ -528,9 +528,10 @@ De Dual-mode Demper werkt alleen tijdens ontladen, niet tijdens laden.
 
 Deze demper kan op verschillende manieren in en uitgeschakeld worden:
 
+<br/>
+
 #### ==> Via een toggle switch op het dashboard ####
 
-<br/>
 <br/>
 
 <img src="https://github.com/gast777/Zendure-zenSDK-proxy/blob/main/images/DualMode_Demper_toggle.png" width="50%">
@@ -587,7 +588,7 @@ rest_command:
 4) Zet de toggle switch `switch.dual_mode_demper` op je dashboard.
 
 
-
+<br/>
 
 #### ==> Via een automation die de Dual Mode Demper altijd aan houdt ####
 
@@ -628,10 +629,11 @@ actions:
 mode: single
 ```
 
+<br/>
 
 #### ==> In de Node-RED flow in het blokje "Vul hier de Zendure IP adressen in" ####
 
-Verander let dualmode_damper_enable = 0 naar let dualmode_damper_enable = 1
+Verander ```let dualmode_damper_enable = 0``` naar ```let dualmode_damper_enable = 1```
 
 Dit moet dan wel weer opnieuw ingesteld worden na upgrade van de Proxy flow in Node-RED.
 
