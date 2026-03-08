@@ -583,7 +583,6 @@ rest_command:
 3) Herstart Home Assistant
 4) Zet de toggle switches `switch.beide_actief` en `switch.synchroon_laden` op je dashboard.
 
-Als je nu de switch _Beide Actief_ aan zet, zullen beide Zendures actief blijven. Als de switch _Synchroon Laden_ aangezet wordt, zullen beide Zendures ook steeds met hetzelfde vermogen laden en ontladen.
 
 
 
