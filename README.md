@@ -849,18 +849,18 @@ Huidige versie: 20260308
 - Optimalisaties in de behandeling van de HTTP GET requests.
 - Nieuwe feature: Dual-mode Demper is nu beschikbaar. Standaard staat deze functie uit. Deze kan ingeschakeld worden via een REST command (indien gewenst via een toggle switch "Dual Mode Demper" op het Home Assistant Dashboard of een automation. Voor documentatie, zie hierboven _Optioneel: Voor de feature Dual Mode Demper, open deze sectie_.
 
-Deze demper voorkomt dat dual mode direct ingeschakeld wordt bij een kortstondige piek tijdens het ontladen. Bijvoorbeeld de korte vermogenspiek van een keukenboiler 's nachts tijdens NOM. Deze demper kan voorkomen dat het niet actieve device onnodig wakker gemaakt wordt uit slaapmodus (smartmode=0) voor een kortstondige vermogenspiek. 
+  Deze demper voorkomt dat dual mode direct ingeschakeld wordt bij een kortstondige piek tijdens het ontladen. Bijvoorbeeld de korte vermogenspiek van een keukenboiler 's nachts tijdens NOM. Deze demper kan voorkomen dat het niet actieve device onnodig wakker gemaakt wordt uit slaapmodus (smartmode=0) voor een kortstondige vermogenspiek. 
 
-De maximale tijd en hoogte van de demping kan eventueel aangepast worden in de Node-RED flow in het blokje "Vul hier de Zendure IP adressen in". Standaard werkt deze functie maximaal 60 seconden per piek en bij een maximale overschrijding van 150 Watt. Bij een langduriger of hogere vermogenspiek zal wel gewoon naar dual mode overgeschakeld worden. 
+  De maximale tijd en hoogte van de demping kan eventueel aangepast worden in de Node-RED flow in het blokje "Vul hier de Zendure IP adressen in". Standaard werkt deze functie maximaal 60 seconden per piek en bij een maximale overschrijding van 150 Watt. Bij een langduriger of hogere vermogenspiek zal wel gewoon naar dual mode overgeschakeld worden. 
 
-Standaardinstelling, aan te passen in het blokje "Vul hier de Zendure IP adressen in":
+  Standaardinstelling, aan te passen in het blokje "Vul hier de Zendure IP adressen in":
 
-```
-let dualmode_damper_enable = 0    // Dual-mode Demper staat standaard uit
-let dualmode_damper_timer = 60    // seconden
-let dualmode_damper_amount = 150  // Watt
-```
+  ```
+  let dualmode_damper_enable = 0    // Dual-mode Demper staat standaard uit
+  let dualmode_damper_timer = 60    // seconden
+  let dualmode_damper_amount = 150  // Watt
+  ```
 
-De status (Aan/Uit) van de Dual Mode Demper kun je zien via de sensor ```sensor.dual_mode_demper_status```. Die is toegevoegd aan de standaard lijst onder [Monitoring](https://github.com/gast777/Zendure-zenSDK-proxy/tree/main?tab=readme-ov-file#monitoring).
+  De status (Aan/Uit) van de Dual Mode Demper kun je zien via de sensor ```sensor.dual_mode_demper_status```. Die is toegevoegd aan de standaard lijst onder [Monitoring](https://github.com/gast777/Zendure-zenSDK-proxy/tree/main?tab=readme-ov-file#monitoring).
 
-De Dual-mode Demper werkt alleen tijdens ontladen, niet tijdens laden.
+  De Dual-mode Demper werkt alleen tijdens ontladen, niet tijdens laden.
