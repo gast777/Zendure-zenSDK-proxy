@@ -415,11 +415,12 @@ Nu kan het feest beginnen!
 <br/>
 <br/>
 
-<details>
-<summary>Optioneel: Nog meer per device monitoren? Open dan deze sectie.</summary>
-
-      
 ### Optioneel: Nog meer per device monitoren? ###
+
+<details>
+<summary>Open deze sectie.</summary>
+
+<br/>
 
 Het is onwaarschijnlijk, maar zou je nog meer details per device willen monitoren, die niet per device door de proxy worden doorgegeven en die minder real-time hoeven te zijn? Dan kun je eenvoudig een minder frequente REST polling toevoegen in je configuration.yaml (of in een aparte package, niet in de Gielz package). Deze verbindt rechtstreeks naar de Zendure devices IP adressen, dus niet via de proxy.<br/>
 
@@ -502,13 +503,13 @@ NB: van de attributen in bovenstaand voorbeeld wordt reeds de laagste (slechtste
 
 <br/>
 
+### Optioneel: Dual Mode Demper ###
+
 <details>
-<summary>Optioneel: Voor de feature Dual Mode Demper, open deze sectie.</summary>
+<summary>Open deze sectie.</summary>
 
 <br/>
 
-
-### Optioneel: Dual Mode Demper ###
 
 De Dual Mode Demper voorkomt dat dual mode direct ingeschakeld wordt bij een kortstondige piek tijdens het ontladen. Bijvoorbeeld de korte vermogenspiek van een keukenboiler 's nachts tijdens NOM. Deze demper kan voorkomen dat het niet actieve device onnodig wakker gemaakt wordt uit slaapmodus (smartmode=0) voor een kortstondige vermogenspiek.
 
@@ -642,11 +643,12 @@ Dit moet dan wel weer opnieuw ingesteld worden na upgrade van de Proxy flow in N
 
 <br/>
 
-<details>
-<summary>Optioneel: Voor de features Beide Actief en Synchroon Laden, open deze sectie.</summary>
-
-
 ### Optioneel: Beide Actief en Synchroon Laden ###
+
+<details>
+<summary>Open deze sectie.</summary>
+
+<br/>
 
 Met de instelling _Beide Actief_ ingeschakeld zullen beide Zendures actief blijven, dus altijd in dual mode blijven. 
 De instelling _Synchroon Laden_ is hetzelfde als _Beide Actief_ maar waarbij dan ook nog de beide Zendure devices steeds met hetzelfde vermogen opladen of ontladen.
