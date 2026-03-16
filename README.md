@@ -777,6 +777,7 @@ Als je nu de switch _Beide Actief_ aan zet, zullen beide Zendures actief blijven
 - Zorg dat op beide Zendures hetzelfde maximale en minimale laadpercentage (SoC percentages) ingesteld staan.
 - Beide Zendures moeten hetzelfde aantal batterijen hebben of ongeveer dezelfde hoeveelheid kWh aan batterijopslag.
 - De beide Zendures en de Node-RED server moeten een vast IP adres hebben.
+- Wifi ontvangst moet uitstekend zijn.
 - Beide Zendures moeten beschikbaar zijn en werken.
 <br/>
 
