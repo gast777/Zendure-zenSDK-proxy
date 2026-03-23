@@ -1,5 +1,8 @@
 # Zendure-zenSDK-proxy
 
+**Upstream:** [gast777/Zendure-zenSDK-proxy](https://github.com/gast777/Zendure-zenSDK-proxy). Deze fork ([hemertje/Zendure-zenSDK-proxy](https://github.com/hemertje/Zendure-zenSDK-proxy)) voegt een **async 1×3-flow** toe (`deviceCount` 1–3 in Node-RED) voor review; pull request richting upstream kan daarop geopend worden.
+
+**Uitbreiding:** voor **1, 2 of 3** Zendure-omvormers met dezelfde Gielz-aanpak, zie [README-1x3.md](README-1x3.md) en importeer `Zendure-proxy-Node-Red-flow-1x3-async.json`.
 
 De [Gielz-automatisering](https://github.com/Gielz1986/Zendure-HA-zenSDK) voor Zendure werkt goed om een Zendure thuisbatterij (die de ZenSDK API ondersteunt) lokaal te bedienen via Home Assistant. Hierdoor is de batterij niet meer afhankelijk van een verbinding met de cloud.
 

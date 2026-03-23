@@ -1,0 +1,210 @@
+[
+    {
+        "id": "z1x3tab001",
+        "type": "tab",
+        "label": "Zendure proxy 1x3 (async)",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "z1x3httpget",
+        "type": "http in",
+        "z": "z1x3tab001",
+        "name": "GET /properties/report",
+        "url": "/properties/report",
+        "method": "get",
+        "upload": false,
+        "x": 120,
+        "y": 220,
+        "wires": [
+            [
+                "z1x3fnget"
+            ]
+        ]
+    },
+    {
+        "id": "z1x3fnget",
+        "type": "function",
+        "z": "z1x3tab001",
+        "name": "Async GET 1x3",
+        "func": "function httpJson(method, urlString, body) {\n    const http = require('http');\n    const https = require('https');\n    const u = new URL(urlString);\n    const lib = u.protocol === 'https:' ? https : http;\n    const port = u.port || (u.protocol === 'https:' ? 443 : 80);\n    const pathOnly = u.pathname + u.search;\n    const opts = { hostname: u.hostname, port, path: pathOnly, method, headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, timeout: 15000 };\n    return new Promise((resolve, reject) => {\n        const req = lib.request(opts, (res) => {\n            let raw = '';\n            res.on('data', (c) => { raw += c; });\n            res.on('end', () => {\n                if (res.statusCode && res.statusCode >= 400) {\n                    reject(new Error('HTTP ' + res.statusCode));\n                    return;\n                }\n                try { resolve(raw ? JSON.parse(raw) : {}); } catch (e) { reject(e); }\n            });\n        });\n        req.on('error', reject);\n        req.on('timeout', () => { req.destroy(new Error('timeout')); });\n        if (body && method === 'POST') req.write(JSON.stringify(body));\n        req.end();\n    });\n}\n\nfunction mergeReportN(origs, ctx) {\n    const flow = ctx.flow;\n    const N = origs.length;\n    const latestPowerCmd = flow.get('latestPowerCmd') || 0;\n    const latestPowerCmd_1 = flow.get('latestPowerCmd_1') || 0;\n    const latestPowerCmd_2 = flow.get('latestPowerCmd_2') || 0;\n    const latestPowerCmd_3 = flow.get('latestPowerCmd_3') || 0;\n    const singleMode = flow.get('singleMode') || 0;\n    const singleMode_activedevice = flow.get('singleMode_activedevice') || 0;\n    const singleMode_standby_device_A = flow.get('singleMode_standby_device_A') || 0;\n    const singleMode_standby_device_B = flow.get('singleMode_standby_device_B') || 0;\n    const singleMode_standby_device_C = flow.get('singleMode_standby_device_C') || 0;\n    const dualMode_force_start_timestamp = flow.get('dualMode_force_start_timestamp') || 1;\n    const singleToDualModeTransition_start_timestamp = flow.get('singleToDualModeTransition_start_timestamp') || 1;\n    const singleModeDeviceChangeTranstion_timer = flow.get('singleModeDeviceChangeTranstion_timer') || 1;\n    const equalMode = flow.get('equalMode') || 0;\n    const alwaysDualMode = flow.get('alwaysDualMode') || 0;\n    const solarPowerInfo = flow.get('solarPowerInfo') || 0;\n    const proxyVersion = flow.get('proxyVersion') || '0';\n    const dualmode_damper_enable = flow.get('dualmode_damper_enable') || 0;\n    const currentTime = Math.floor(Date.now() / 1000);\n\n    const sns = [];\n    for (let i = 0; i < N; i++) sns.push(origs[i].sn);\n\n    const values = { properties: {}, original: {} };\n    for (let i = 0; i < N; i++) {\n        values.original[i] = JSON.parse(JSON.stringify(origs[i]));\n    }\n\n    let packData = [];\n    for (let i = 0; i < N; i++) {\n        packData = packData.concat([...values.original[i].packData]);\n    }\n    values.packData = packData;\n\n    const el = [];\n    const chargeMax = [];\n    const inverseMax = [];\n    const socLimitArr = [];\n    const socStatusArr = [];\n    const smartModeArr = [];\n    const hyperTmpArr = [];\n    const minSocArr = [];\n    const socSetArr = [];\n\n    for (let i = 0; i < N; i++) {\n        const p = values.original[i].properties;\n        el[i] = p.electricLevel;\n        chargeMax[i] = p.chargeMaxLimit;\n        inverseMax[i] = p.inverseMaxPower;\n        socLimitArr[i] = p.socLimit;\n        socStatusArr[i] = p.socStatus;\n        smartModeArr[i] = p.smartMode;\n        hyperTmpArr[i] = p.hyperTmp;\n        minSocArr[i] = p.minSoc;\n        socSetArr[i] = p.socSet;\n        flow.set(i === 0 ? 'electricLevel_A' : i === 1 ? 'electricLevel_B' : 'electricLevel_C', el[i]);\n    }\n\n    flow.set('latestGETMessage_timestamp_epoch', currentTime);\n\n    const maxPower_in = Math.min.apply(null, chargeMax);\n    const maxPower_out = Math.min.apply(null, inverseMax);\n    flow.set('maxPower_in', maxPower_in);\n    flow.set('maxPower_out', maxPower_out);\n\n    values.proxyVersion = proxyVersion;\n    const product = values.original[0].product || values.original[N - 1].product;\n    values.product = product;\n\n    let outputLimit = 0;\n    let inputLimit = 0;\n    let outputPackPower = 0;\n    let packInputPower = 0;\n    let gridInputPower = 0;\n    let outputHomePower = 0;\n    for (let i = 0; i < N; i++) {\n        const p = values.original[i].properties;\n        outputLimit += p.outputLimit;\n        inputLimit += p.inputLimit;\n        outputPackPower += p.outputPackPower;\n        packInputPower += p.packInputPower;\n        gridInputPower += p.gridInputPower;\n        outputHomePower += p.outputHomePower;\n    }\n    values.properties.outputLimit = outputLimit;\n    values.properties.inputLimit = inputLimit;\n    values.properties.outputPackPower = outputPackPower;\n    values.properties.packInputPower = packInputPower;\n    values.properties.gridInputPower = gridInputPower;\n    values.properties.outputHomePower = outputHomePower;\n\n    const minSoc = Math.max.apply(null, minSocArr);\n    const socSet = Math.min.apply(null, socSetArr);\n    values.properties.minSoc = minSoc;\n    values.properties.socSet = socSet;\n    for (let i = 0; i < N; i++) {\n        flow.set(i === 0 ? 'minSoc_A' : i === 1 ? 'minSoc_B' : 'minSoc_C', minSocArr[i]);\n        flow.set(i === 0 ? 'socSet_A' : i === 1 ? 'socSet_B' : 'socSet_C', socSetArr[i]);\n    }\n    flow.set('minSoc', minSoc);\n    flow.set('socSet', socSet);\n\n    let socLimit = 0;\n    const all0 = socLimitArr.every((x) => x === 0);\n    const all1 = socLimitArr.every((x) => x === 1);\n    const all2 = socLimitArr.every((x) => x === 2);\n    if (all0) socLimit = 0;\n    else if (all1) socLimit = 1;\n    else if (all2) socLimit = 2;\n    else socLimit = 0;\n    values.properties.socLimit = socLimit;\n    flow.set('socLimit', socLimit);\n    for (let i = 0; i < N; i++) {\n        flow.set(i === 0 ? 'socLimit_A' : i === 1 ? 'socLimit_B' : 'socLimit_C', socLimitArr[i]);\n    }\n\n    let elCalc = el.slice();\n    const atDischargeLimit = socLimitArr.map((s) => s === 2);\n    const xorAnyDischarge = atDischargeLimit.some(Boolean) && !atDischargeLimit.every(Boolean);\n    if (xorAnyDischarge) {\n        for (let i = 0; i < N; i++) {\n            if (atDischargeLimit[i]) elCalc[i] = minSoc / 10;\n        }\n    }\n\n    let electricLevel;\n    const allNearEmpty =\n        xorAnyDischarge && elCalc.every((v) => v <= minSoc / 10 + 1);\n    if (allNearEmpty) {\n        electricLevel = Math.ceil(elCalc.reduce((a, b) => a + b, 0) / N);\n    } else {\n        electricLevel = Math.floor(elCalc.reduce((a, b) => a + b, 0) / N);\n    }\n    values.properties.electricLevel = electricLevel;\n\n    let deviceTransition_active = 0;\n    if (\n        currentTime - singleToDualModeTransition_start_timestamp < singleModeDeviceChangeTranstion_timer + 10 ||\n        currentTime - dualMode_force_start_timestamp < singleModeDeviceChangeTranstion_timer + 10\n    ) {\n        deviceTransition_active = 1;\n    }\n\n    const standbyFlags = [singleMode_standby_device_A, singleMode_standby_device_B, singleMode_standby_device_C].slice(0, N);\n    let smartMode;\n    if (standbyFlags.some((x) => x === 1) || deviceTransition_active === 1) {\n        smartMode = Math.max.apply(null, smartModeArr);\n    } else {\n        smartMode = smartModeArr.reduce((a, b) => a * b, 1);\n    }\n    values.properties.smartMode = smartMode;\n    for (let i = 0; i < N; i++) {\n        flow.set(i === 0 ? 'smartMode_A' : i === 1 ? 'smartMode_B' : 'smartMode_C', smartModeArr[i]);\n    }\n\n    let BatVolt = 0;\n    let remainOutTime = 0;\n    let gridReverseSum = 0;\n    for (let i = 0; i < N; i++) {\n        const p = values.original[i].properties;\n        BatVolt += p.BatVolt;\n        remainOutTime += p.remainOutTime;\n        gridReverseSum += p.gridReverse;\n    }\n    values.properties.BatVolt = BatVolt / N;\n    values.properties.remainOutTime = remainOutTime / N;\n    values.properties.hyperTmp = Math.max.apply(null, hyperTmpArr);\n\n    let chargeMaxLimit = 0;\n    let inverseMaxPower = 0;\n    let packNum = 0;\n    for (let i = 0; i < N; i++) {\n        const p = values.original[i].properties;\n        chargeMaxLimit += p.chargeMaxLimit;\n        inverseMaxPower += p.inverseMaxPower;\n        packNum += p.packNum;\n    }\n    values.properties.chargeMaxLimit = chargeMaxLimit;\n    values.properties.inverseMaxPower = inverseMaxPower;\n    values.properties.packNum = packNum;\n    for (let i = 0; i < N; i++) {\n        flow.set(i === 0 ? 'chargeMaxLimit_A' : i === 1 ? 'chargeMaxLimit_B' : 'chargeMaxLimit_C', chargeMax[i]);\n        flow.set(i === 0 ? 'inverseMaxPower_A' : i === 1 ? 'inverseMaxPower_B' : 'inverseMaxPower_C', inverseMax[i]);\n    }\n\n    values.properties.rssi = Math.min.apply(\n        null,\n        origs.map((o) => o.properties.rssi)\n    );\n    values.properties.is_error = Math.max.apply(\n        null,\n        origs.map((o) => o.properties.is_error)\n    );\n\n    const socStatus = Math.min.apply(null, socStatusArr);\n    values.properties.socStatus = socStatus;\n    for (let i = 0; i < N; i++) {\n        flow.set(i === 0 ? 'socStatus_A' : i === 1 ? 'socStatus_B' : 'socStatus_C', socStatusArr[i]);\n    }\n\n    if (solarPowerInfo === 1 && N <= 2) {\n        values.properties.solarPower1 = values.original[0].properties.solarPower1;\n        values.properties.solarPower2 = values.original[0].properties.solarPower2;\n        values.properties.solarPower3 = values.original[0].properties.solarPower3;\n        values.properties.solarPower4 = values.original[0].properties.solarPower4;\n        values.properties.solarPower7 = values.original[1].properties.solarPower1;\n        values.properties.solarPower8 = values.original[1].properties.solarPower2;\n        values.properties.solarPower9 = values.original[1].properties.solarPower3;\n        values.properties.solarPower10 = values.original[1].properties.solarPower4;\n    } else if (solarPowerInfo === 1 && N === 3) {\n        values.properties.solarPower1 = values.original[0].properties.solarPower1;\n        values.properties.solarPower2 = values.original[0].properties.solarPower2;\n        values.properties.solarPower3 = values.original[0].properties.solarPower3;\n        values.properties.solarPower4 = values.original[0].properties.solarPower4;\n        values.properties.solarPower7 = values.original[1].properties.solarPower1;\n        values.properties.solarPower8 = values.original[1].properties.solarPower2;\n        values.properties.solarPower9 = values.original[1].properties.solarPower3;\n        values.properties.solarPower10 = values.original[1].properties.solarPower4;\n    }\n\n    values.properties.gridReverse = gridReverseSum / N;\n\n    const hasBat = origs.every((o) => 'batCalTime' in o.properties);\n    if (hasBat) {\n        const bts = origs.map((o) => o.properties.batCalTime);\n        const same = bts.every((b) => b === bts[0]);\n        values.properties.batCalTime = same ? bts[0] : -1;\n        for (let i = 0; i < N; i++) {\n            values.properties['batCalTime_' + (i + 1)] = bts[i];\n        }\n    }\n\n    values.sn = '0000-PROXY-0000';\n    for (let i = 0; i < N; i++) {\n        values['product_' + (i + 1)] = values.original[i].product;\n        values['sn_' + (i + 1)] = values.original[i].sn;\n        values.properties['socStatus_' + (i + 1)] = socStatusArr[i];\n        values.properties['socLimit_' + (i + 1)] = socLimitArr[i];\n        values.properties['electricLevel_' + (i + 1)] = el[i];\n        values.properties['hyperTmp_' + (i + 1)] = hyperTmpArr[i];\n        values.properties['smartMode_' + (i + 1)] = smartModeArr[i];\n        values.properties['outputPackPower_' + (i + 1)] = values.original[i].properties.outputPackPower;\n        values.properties['packInputPower_' + (i + 1)] = values.original[i].properties.packInputPower;\n        values.properties['gridInputPower_' + (i + 1)] = values.original[i].properties.gridInputPower;\n        values.properties['outputHomePower_' + (i + 1)] = values.original[i].properties.outputHomePower;\n    }\n\n    values.properties.latestPowerCmd = latestPowerCmd;\n    values.properties.latestPowerCmd_1 = latestPowerCmd_1;\n    values.properties.latestPowerCmd_2 = latestPowerCmd_2;\n    if (N >= 3) values.properties.latestPowerCmd_3 = latestPowerCmd_3;\n\n    let acMode;\n    if (singleMode === 1) {\n        const idx = Math.min(singleMode_activedevice, N - 1);\n        values.properties.acMode = values.original[idx].properties.acMode;\n    } else {\n        let s = 0;\n        for (let i = 0; i < N; i++) s += values.original[i].properties.acMode;\n        values.properties.acMode = Math.floor(s / N);\n    }\n\n    const charging_limit_powerzero =\n        latestPowerCmd > 0 && socLimit === 1 && outputPackPower === 0;\n    const discharging_limit_powerzero =\n        latestPowerCmd < 0 && socLimit === 2 && packInputPower === 0;\n    if (latestPowerCmd === 0 || charging_limit_powerzero || discharging_limit_powerzero) {\n        values.properties.activeDevice = -1;\n    } else if (singleMode === 1) {\n        values.properties.activeDevice = Math.min(singleMode_activedevice, N - 1) + 1;\n    } else {\n        values.properties.activeDevice = 0;\n    }\n\n    values.properties.equalMode = equalMode === 1 ? 1 : 0;\n    values.properties.alwaysDualMode = alwaysDualMode === 1 ? 1 : 0;\n    values.properties.dualModeDamper = dualmode_damper_enable === 1 ? 1 : 0;\n\n    delete values.original;\n    return values;\n}\n\nreturn (async function() {\n    const key = 'http_' + msg._msgid;\n    flow.set(key, { req: msg.req, res: msg.res });\n    function restoreHttp() {\n        const h = flow.get(key);\n        if (h) {\n            msg.req = h.req;\n            msg.res = h.res;\n            flow.set(key, null);\n        }\n    }\n    try {\n        const dc = flow.get('deviceCount');\n        const deviceCount = (dc === 1 || dc === 2 || dc === 3) ? dc : 2;\n        const ips = [flow.get('ipZendure1'), flow.get('ipZendure2'), flow.get('ipZendure3')].slice(0, deviceCount);\n        if (ips.some((ip) => !ip || ip === '0' || ip.indexOf('x.x') !== -1)) {\n            msg.statusCode = 503;\n            msg.payload = { error: 'Configure deviceCount and ipZendure* in Initialize node' };\n            return msg;\n        }\n        const urls = ips.map((ip) => 'http://' + ip + '/properties/report');\n        let origs;\n        try {\n            origs = await Promise.all(urls.map((u) => httpJson('GET', u)));\n        } catch (e) {\n            msg.statusCode = 504;\n            msg.payload = { error: String(e.message || e) };\n            return msg;\n        }\n        for (let i = 0; i < deviceCount; i++) {\n            const sn = origs[i].sn;\n            if (sn) flow.set(i === 0 ? 'snZendure1' : i === 1 ? 'snZendure2' : 'snZendure3', String(sn));\n        }\n        const expect = [flow.get('snZendure1'), flow.get('snZendure2'), flow.get('snZendure3')].slice(0, deviceCount);\n        for (let i = 0; i < deviceCount; i++) {\n            if (expect[i] && expect[i] !== '0' && String(origs[i].sn) !== String(expect[i])) {\n                msg.statusCode = 502;\n                msg.payload = { error: 'Serial mismatch device ' + (i + 1) };\n                return msg;\n            }\n        }\n        msg.payload = mergeReportN(origs, { flow });\n        msg.statusCode = 200;\n        return msg;\n    } finally {\n        restoreHttp();\n    }\n})();\n",
+        "outputs": 1,
+        "noerr": 0,
+        "libs": [],
+        "x": 360,
+        "y": 220,
+        "wires": [
+            [
+                "z1x3respget"
+            ]
+        ]
+    },
+    {
+        "id": "z1x3respget",
+        "type": "http response",
+        "z": "z1x3tab001",
+        "name": "GET response",
+        "statusCode": "",
+        "headers": {},
+        "x": 580,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "z1x3httppost",
+        "type": "http in",
+        "z": "z1x3tab001",
+        "name": "POST /properties/write",
+        "url": "/properties/write",
+        "method": "post",
+        "upload": false,
+        "x": 120,
+        "y": 300,
+        "wires": [
+            [
+                "z1x3fnpost"
+            ]
+        ]
+    },
+    {
+        "id": "z1x3fnpost",
+        "type": "function",
+        "z": "z1x3tab001",
+        "name": "Async POST 1x3",
+        "func": "function httpJson(method, urlString, body) {\n    const http = require('http');\n    const https = require('https');\n    const u = new URL(urlString);\n    const lib = u.protocol === 'https:' ? https : http;\n    const port = u.port || (u.protocol === 'https:' ? 443 : 80);\n    const pathOnly = u.pathname + u.search;\n    const opts = {\n        hostname: u.hostname,\n        port,\n        path: pathOnly,\n        method,\n        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },\n        timeout: 20000\n    };\n    return new Promise((resolve, reject) => {\n        const req = lib.request(opts, (res) => {\n            let raw = '';\n            res.on('data', (c) => {\n                raw += c;\n            });\n            res.on('end', () => {\n                if (res.statusCode && res.statusCode >= 400) {\n                    reject(new Error('HTTP ' + res.statusCode));\n                    return;\n                }\n                try {\n                    resolve(raw ? JSON.parse(raw) : {});\n                } catch (e) {\n                    reject(e);\n                }\n            });\n        });\n        req.on('error', reject);\n        req.on('timeout', () => {\n            req.destroy(new Error('timeout'));\n        });\n        if (body && method === 'POST') {\n            req.write(JSON.stringify(body));\n        }\n        req.end();\n    });\n}\n\nfunction splitLimits(total, n, maxEach) {\n    const base = Math.floor(total / n);\n    const rem = total - base * n;\n    const out = new Array(n).fill(base);\n    for (let i = 0; i < rem; i++) out[i] += 1;\n    for (let i = 0; i < n; i++) {\n        if (out[i] > maxEach) out[i] = maxEach;\n    }\n    return out;\n}\n\nreturn (async function () {\n    const dc = flow.get('deviceCount');\n    const deviceCount = dc === 1 || dc === 2 || dc === 3 ? dc : 2;\n    const ip = [flow.get('ipZendure1'), flow.get('ipZendure2'), flow.get('ipZendure3')].slice(0, deviceCount);\n    const sn = [flow.get('snZendure1'), flow.get('snZendure2'), flow.get('snZendure3')].slice(0, deviceCount);\n    const maxIn = flow.get('maxPower_in') || 2400;\n    const maxOut = flow.get('maxPower_out') || 2400;\n    const balancingFactor = flow.get('balancingFactor') || 1.15;\n    const minSoc = flow.get('minSoc') || 100;\n    const socSet = flow.get('socSet') || 1000;\n    const el = [\n        flow.get('electricLevel_A'),\n        flow.get('electricLevel_B'),\n        flow.get('electricLevel_C')\n    ].slice(0, deviceCount);\n    const socStatus = [\n        flow.get('socStatus_A') || 0,\n        flow.get('socStatus_B') || 0,\n        flow.get('socStatus_C') || 0\n    ].slice(0, deviceCount);\n    const socLimit = [\n        flow.get('socLimit_A') || 0,\n        flow.get('socLimit_B') || 0,\n        flow.get('socLimit_C') || 0\n    ].slice(0, deviceCount);\n\n    const data = msg.payload;\n    if (data.properties && 'equalMode' in data.properties) {\n        flow.set('equalMode', data.properties.equalMode);\n        msg.payload = '';\n        msg.statusCode = 200;\n        return msg;\n    }\n    if (data.properties && 'alwaysDualMode' in data.properties) {\n        flow.set('alwaysDualMode', data.properties.alwaysDualMode);\n        msg.payload = '';\n        msg.statusCode = 200;\n        return msg;\n    }\n    if (data.properties && 'dualModeDamper' in data.properties) {\n        flow.set('dualmode_damper_enable', data.properties.dualModeDamper);\n        msg.payload = '';\n        msg.statusCode = 200;\n        return msg;\n    }\n\n    const servers = ip.map((h) => 'http://' + h + '/properties/write');\n\n    if (deviceCount === 1) {\n        const p = JSON.parse(JSON.stringify(data));\n        p.sn = sn[0];\n        try {\n            await httpJson('POST', servers[0], p);\n        } catch (e) {\n            msg.statusCode = 502;\n            msg.payload = { error: String(e.message || e) };\n            return msg;\n        }\n        msg.payload = '';\n        msg.statusCode = 200;\n        return msg;\n    }\n\n    const currentTime = Math.floor(Date.now() / 1000);\n    let singleMode_upperlimit_in = flow.get('singleMode_upperlimit_in') || maxIn;\n    let singleMode_upperlimit_out = flow.get('singleMode_upperlimit_out') || maxOut;\n    let singleMode_lowerlimit_in = flow.get('singleMode_lowerlimit_in') || maxIn * 0.4;\n    let singleMode_lowerlimit_out = flow.get('singleMode_lowerlimit_out') || maxOut * 0.4;\n\n    const payloads = [];\n    for (let i = 0; i < deviceCount; i++) {\n        payloads.push(JSON.parse(JSON.stringify(data)));\n        payloads[i].sn = sn[i];\n    }\n\n    if (data.properties && 'chargeMaxLimit' in data.properties) {\n        const t = data.properties.chargeMaxLimit;\n        const parts = splitLimits(t, deviceCount, maxIn);\n        for (let i = 0; i < deviceCount; i++) payloads[i].properties.chargeMaxLimit = parts[i];\n    }\n    if (data.properties && 'inverseMaxPower' in data.properties) {\n        const t = data.properties.inverseMaxPower;\n        const parts = splitLimits(t, deviceCount, maxOut);\n        for (let i = 0; i < deviceCount; i++) payloads[i].properties.inverseMaxPower = parts[i];\n    }\n\n    if (data.properties && 'inputLimit' in data.properties) {\n        const inputLimit = data.properties.inputLimit;\n        let Avail = [];\n        for (let i = 0; i < deviceCount; i++) {\n            let a = socSet / 10 - el[i];\n            if (a < 0 || socStatus[i] === 1) a = 0;\n            Avail.push(a);\n        }\n        let powers;\n        const totalAvail = Avail.reduce((s, v) => s + v, 0);\n        if (inputLimit === 0) {\n            powers = new Array(deviceCount).fill(0);\n        } else if (inputLimit < singleMode_lowerlimit_in) {\n            let idx = 0;\n            let minEl = el[0];\n            for (let i = 1; i < deviceCount; i++) {\n                if (el[i] < minEl) {\n                    minEl = el[i];\n                    idx = i;\n                }\n            }\n            powers = new Array(deviceCount).fill(0);\n            powers[idx] = Math.min(inputLimit, maxIn);\n        } else {\n            if (totalAvail <= 0) {\n                powers = new Array(deviceCount).fill(0);\n            } else {\n                powers = new Array(deviceCount).fill(0);\n                let rem = inputLimit;\n                const w = Avail.map((a) => (a / totalAvail) * balancingFactor);\n                const sw = w.reduce((s, v) => s + v, 0);\n                for (let i = 0; i < deviceCount; i++) {\n                    powers[i] = Math.floor((w[i] / sw) * inputLimit);\n                    if (powers[i] > maxIn) powers[i] = maxIn;\n                }\n                let sum = powers.reduce((s, v) => s + v, 0);\n                let j = 0;\n                while (sum < inputLimit && j < deviceCount * 4) {\n                    const k = j % deviceCount;\n                    if (powers[k] < maxIn) {\n                        powers[k] += 1;\n                        sum += 1;\n                    }\n                    j += 1;\n                }\n            }\n        }\n        for (let i = 0; i < deviceCount; i++) payloads[i].properties.inputLimit = powers[i];\n        flow.set('latestPowerCmd', inputLimit);\n        for (let i = 0; i < deviceCount; i++) {\n            flow.set(i === 0 ? 'latestPowerCmd_1' : i === 1 ? 'latestPowerCmd_2' : 'latestPowerCmd_3', powers[i]);\n        }\n    }\n\n    if (data.properties && 'outputLimit' in data.properties) {\n        let outputLimit = data.properties.outputLimit;\n        let Avail = [];\n        for (let i = 0; i < deviceCount; i++) {\n            let a = el[i] - minSoc / 10;\n            if (a < 0 || socStatus[i] === 1) a = 0;\n            Avail.push(a);\n        }\n        let powers;\n        const totalAvail = Avail.reduce((s, v) => s + v, 0);\n        if (outputLimit === 0) {\n            powers = new Array(deviceCount).fill(0);\n        } else if (outputLimit < singleMode_lowerlimit_out) {\n            let idx = 0;\n            let maxEl = el[0];\n            for (let i = 1; i < deviceCount; i++) {\n                if (el[i] > maxEl) {\n                    maxEl = el[i];\n                    idx = i;\n                }\n            }\n            powers = new Array(deviceCount).fill(0);\n            powers[idx] = Math.min(outputLimit, maxOut);\n        } else {\n            if (totalAvail <= 0) {\n                powers = new Array(deviceCount).fill(0);\n            } else {\n                powers = new Array(deviceCount).fill(0);\n                const w = Avail.map((a) => (a / totalAvail) * balancingFactor);\n                const sw = w.reduce((s, v) => s + v, 0);\n                for (let i = 0; i < deviceCount; i++) {\n                    powers[i] = Math.floor((w[i] / sw) * outputLimit);\n                    if (powers[i] > maxOut) powers[i] = maxOut;\n                }\n                let sum = powers.reduce((s, v) => s + v, 0);\n                let j = 0;\n                while (sum < outputLimit && j < deviceCount * 4) {\n                    const k = j % deviceCount;\n                    if (powers[k] < maxOut) {\n                        powers[k] += 1;\n                        sum += 1;\n                    }\n                    j += 1;\n                }\n            }\n        }\n        for (let i = 0; i < deviceCount; i++) payloads[i].properties.outputLimit = powers[i];\n        flow.set('latestPowerCmd', -outputLimit);\n        for (let i = 0; i < deviceCount; i++) {\n            flow.set(i === 0 ? 'latestPowerCmd_1' : i === 1 ? 'latestPowerCmd_2' : 'latestPowerCmd_3', -powers[i]);\n        }\n    }\n\n    if (data.properties && 'acMode' in data.properties) {\n        const m = data.properties.acMode;\n        for (let i = 0; i < deviceCount; i++) payloads[i].properties.acMode = m;\n        flow.set('acMode', m);\n    }\n\n    try {\n        await Promise.all(payloads.map((p, i) => httpJson('POST', servers[i], p)));\n    } catch (e) {\n        msg.statusCode = 502;\n        msg.payload = { error: String(e.message || e) };\n        return msg;\n    }\n    flow.set('latestPowerMessage_timestamp_epoch', currentTime);\n    msg.payload = '';\n    msg.statusCode = 200;\n    return msg;\n})();\n",
+        "outputs": 1,
+        "noerr": 0,
+        "libs": [],
+        "x": 360,
+        "y": 300,
+        "wires": [
+            [
+                "z1x3resppost"
+            ]
+        ]
+    },
+    {
+        "id": "z1x3resppost",
+        "type": "http response",
+        "z": "z1x3tab001",
+        "name": "POST response",
+        "statusCode": "",
+        "headers": {},
+        "x": 580,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "z1x3inj",
+        "type": "inject",
+        "z": "z1x3tab001",
+        "name": "Initialize",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 40,
+        "wires": [
+            [
+                "z1x3init"
+            ]
+        ]
+    },
+    {
+        "id": "z1x3init",
+        "type": "function",
+        "z": "z1x3tab001",
+        "name": "Config IPs + tunables (geen deviceCount overschrijven)",
+        "func": "\n// === Zendure proxy: IP’s en tunables (Gielz / zenSDK) ===\n// deviceCount wordt NIET hier overschreven als die al gezet is (via knoppen \"deviceCount = 1|2|3\").\n// Eerste keer (flow leeg): default deviceCount = 2.\n// Na wijzigingen: Deploy of trigger \"Initialize\".\n\nconst defaultDeviceCount = 2; // alleen als flow.get('deviceCount') nog niet bestaat\n\nif (flow.get('deviceCount') === undefined) {\n    flow.set('deviceCount', defaultDeviceCount);\n}\n\nlet ipZendure1 = '192.168.x.x';\nlet ipZendure2 = '192.168.x.y';\nlet ipZendure3 = '192.168.x.z'; // alleen gebruikt als deviceCount === 3\n\nlet solarPowerInfo = 0;\nlet singleMode_upperlimit_percent = 100;\nlet singleMode_lowerlimit_percent = 40;\nlet singleMode_change_device_diff = 5;\nlet singleMode_delayed_standby_timer = 300;\nlet dualmode_damper_enable = 0;\nlet dualmode_damper_timer = 60;\nlet dualmode_damper_amount = 150;\n\nlet manualMode_messageRepeat = 1;\nlet singleModeDeviceChangeTranstion_timer = 40;\nlet balancingFactor = 1.15;\nlet singleMode_enable = 1;\nlet singleMode_delayed_standby_charging_enable = 1;\nlet singleMode_delayed_standby_discharging_enable = 1;\n\nlet proxyVersion = '20260323-1x3-async';\n\nlet balancingFactor_reduced = ((balancingFactor - 1) / 2) + 1;\n\nflow.set('ipZendure1', ipZendure1);\nflow.set('ipZendure2', ipZendure2);\nflow.set('ipZendure3', ipZendure3);\nflow.set('singleMode_enable', singleMode_enable);\nflow.set('balancingFactor', balancingFactor);\nflow.set('balancingFactor_reduced', balancingFactor_reduced);\nflow.set('manualMode_messageRepeat', manualMode_messageRepeat);\nflow.set('singleMode_change_device_diff', singleMode_change_device_diff);\nflow.set('singleMode_delayed_standby_charging_enable', singleMode_delayed_standby_charging_enable);\nflow.set('singleMode_delayed_standby_discharging_enable', singleMode_delayed_standby_discharging_enable);\nflow.set('singleMode_delayed_standby_timer', singleMode_delayed_standby_timer);\nflow.set('singleModeDeviceChangeTranstion_timer', singleModeDeviceChangeTranstion_timer);\nflow.set('singleMode_upperlimit_percent', singleMode_upperlimit_percent);\nflow.set('singleMode_lowerlimit_percent', singleMode_lowerlimit_percent);\nflow.set('solarPowerInfo', solarPowerInfo);\nflow.set('proxyVersion', proxyVersion);\nflow.set('dualmode_damper_enable', dualmode_damper_enable);\nflow.set('dualmode_damper_timer', dualmode_damper_timer);\nflow.set('dualmode_damper_amount', dualmode_damper_amount);\n\nflow.set('snZendure1', '0');\nflow.set('snZendure2', '0');\nflow.set('snZendure3', '0');\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "libs": [],
+        "x": 360,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "z1x3injN1",
+        "type": "inject",
+        "z": "z1x3tab001",
+        "name": "deviceCount = 1",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "topic": "",
+        "payload": 1,
+        "payloadType": "num",
+        "x": 120,
+        "y": 100,
+        "wires": [
+            [
+                "z1x3setdc"
+            ]
+        ]
+    },
+    {
+        "id": "z1x3injN2",
+        "type": "inject",
+        "z": "z1x3tab001",
+        "name": "deviceCount = 2",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "topic": "",
+        "payload": 2,
+        "payloadType": "num",
+        "x": 120,
+        "y": 130,
+        "wires": [
+            [
+                "z1x3setdc"
+            ]
+        ]
+    },
+    {
+        "id": "z1x3injN3",
+        "type": "inject",
+        "z": "z1x3tab001",
+        "name": "deviceCount = 3",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "topic": "",
+        "payload": 3,
+        "payloadType": "num",
+        "x": 120,
+        "y": 160,
+        "wires": [
+            [
+                "z1x3setdc"
+            ]
+        ]
+    },
+    {
+        "id": "z1x3setdc",
+        "type": "function",
+        "z": "z1x3tab001",
+        "name": "Set deviceCount (1–3)",
+        "func": "// Zet flow.deviceCount op 1, 2 of 3. Payload komt van de Inject-knop (getal).\nconst n = Number(msg.payload);\nif (n === 1 || n === 2 || n === 3) {\n    flow.set('deviceCount', n);\n    node.status({ fill: 'green', shape: 'dot', text: 'N=' + n });\n} else {\n    node.status({ fill: 'red', shape: 'ring', text: 'payload must be 1,2,3' });\n}\nreturn null;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "libs": [],
+        "x": 360,
+        "y": 130,
+        "wires": []
+    },
+    {
+        "id": "z1x3cmt",
+        "type": "comment",
+        "z": "z1x3tab001",
+        "name": "Zendure zenSDK proxy 1–3 devices",
+        "info": "Kies aantal Zendures met de drie inject-knoppen (deviceCount = 1/2/3). Zet IP-adressen in \"Config IPs + tunables\". Eerste deploy: Initialize zet default deviceCount=2 alleen als nog niet gezet. Zie README-1x3.md.",
+        "x": 320,
+        "y": 400,
+        "wires": []
+    }
+]
