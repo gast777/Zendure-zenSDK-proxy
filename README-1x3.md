@@ -43,9 +43,9 @@ Na import zie je **drie inject-knoppen**: `deviceCount = 1`, `= 2`, `= 3`. Die z
 - Voor **maximale gelijkenis** met upstream op **exact 2** Zendures: gebruik **`Zendure-proxy-Node-Red-flow.json`** (origineel).
 - Features die in de originele flow zitten (periodieke POST-repeat, standby smartMode, “Check stuff”, timeout-trigger): zitten **niet** in de async 1×3-tab; voeg die desgewenst handmatig toe of combineer tabs.
 
-## Home Assistant: derde proxy-sensoren (optioneel)
+## Home Assistant: proxy-sensoren voor 1–3 units
 
-Als je `deviceCount === 3` gebruikt, kun je naast de bestaande [gast777 monitoring](https://github.com/gast777/Zendure-zenSDK-proxy) REST-sensoren een derde reeks toevoegen, analoog aan `electricLevel_3`, `latestPowerCmd_3`, `hyperTmp_3`, `sn_3` (zelfde `value_json`-patroon als voor 1 en 2).
+De volledige REST-voorbeelden (inclusief Zendure **3**) staan in [README.md — sectie Monitoring](README.md#monitoring). Patroon per unit: `electricLevel_N`, `latestPowerCmd_N`, `hyperTmp_N`, `sn_N`, enz.
 
 ## Versie
 

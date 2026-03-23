@@ -103,7 +103,7 @@ localhost:1880/endpoint<br/>
 
 Om real-time de status van de **fysieke Zendure(s)** achter de proxy te monitoren, stuurt de proxy naast de standaard-[REST API van Zendure](https://github.com/Zendure/zenSDK/blob/main/docs/en_properties.md)-attributen ook extra velden mee (per device o.a. `electricLevel_1…3`, vermogensopdrachten). Zo zie je hoe het totaal over de actieve units wordt verdeeld.
 
-Zie hier een voorbeeld van extra proxy-sensoren in Home Assistant (schermafbeelding uit de 2-device setup; bij **drie** units kun je analoog sensoren voor `_3` toevoegen — zie [README-1x3.md](README-1x3.md)).
+Voorbeeld van **per-unit** proxy-monitoring (1–3 Zendures): overzicht van laadpercentage en vermogens per unit.
 
 <img src="images/proxy-sensors.png" width="50%">
 
@@ -138,6 +138,13 @@ Kopieer en plak de volgende sensoren tussen de aangegeven regels:
         state_class: measurement
         unique_id: Zendure_proxy_Laadpercentage_2
 
+      - name: "Zendure 3 Laadpercentage"
+        value_template: "{{ value_json['properties']['electricLevel_3'] }}"
+        device_class: battery
+        unit_of_measurement: "%"
+        state_class: measurement
+        unique_id: Zendure_proxy_Laadpercentage_3
+
       - name: "Vermogensopdracht"
         value_template: "{{ value_json['properties']['latestPowerCmd'] | int }}"
         unique_id: Zendure_proxy_latest_power_command
@@ -155,6 +162,13 @@ Kopieer en plak de volgende sensoren tussen de aangegeven regels:
       - name: "Vermogensopdracht Zendure 2"
         value_template: "{{ value_json['properties']['latestPowerCmd_2'] | int }}"
         unique_id: Zendure_proxy_latest_power_command_2
+        unit_of_measurement: "W"
+        state_class: measurement
+        device_class: power
+
+      - name: "Vermogensopdracht Zendure 3"
+        value_template: "{{ value_json['properties']['latestPowerCmd_3'] | int }}"
+        unique_id: Zendure_proxy_latest_power_command_3
         unit_of_measurement: "W"
         state_class: measurement
         device_class: power
@@ -187,6 +201,20 @@ Kopieer en plak de volgende sensoren tussen de aangegeven regels:
         state_class: measurement
         device_class: power
 
+      - name: "Zendure 3 Vermogen Aansturing"
+        value_template: >
+          {% set opladen = value_json['properties']['gridInputPower_3'] | int %}
+          {% set ontladen = - (value_json['properties']['outputHomePower_3'] | int) %}
+          {% if opladen != 0 %}
+            {{ opladen }}
+          {% else %}
+            {{ ontladen }}
+          {% endif %}
+        unique_id: Zendure_proxy_Vermogen_Aansturing_3
+        unit_of_measurement: "W"
+        state_class: measurement
+        device_class: power
+
       - name: "Zendure 1 Kalibratie bezig"
         value_template: >
           {% set states = {0: "Nee", 1: "Kalibreren"} %}
@@ -201,6 +229,14 @@ Kopieer en plak de volgende sensoren tussen de aangegeven regels:
           {% set packState = value_json['properties']['socStatus_2'] | int %}
           {{ states.get(packState, "Onbekend") }}
         unique_id: Zendure_proxy_SOC_Status_2
+        icon: mdi:battery-heart-variant
+
+      - name: "Zendure 3 Kalibratie bezig"
+        value_template: >
+          {% set states = {0: "Nee", 1: "Kalibreren"} %}
+          {% set packState = value_json['properties']['socStatus_3'] | int %}
+          {{ states.get(packState, "Onbekend") }}
+        unique_id: Zendure_proxy_SOC_Status_3
         icon: mdi:battery-heart-variant
 
       - name: "Zendure 1 Opslagmodus"
@@ -219,13 +255,21 @@ Kopieer en plak de volgende sensoren tussen de aangegeven regels:
         unique_id: Zendure_proxy_Opslagmodus_2
         icon: mdi:floppy
 
+      - name: "Zendure 3 Opslagmodus"
+        value_template: >
+          {% set states = {1: "Opslaan in RAM", 0: "Opslaan in Flash"} %}
+          {% set packState = value_json['properties']['smartMode_3'] | int %}
+          {{ states.get(packState, "Onbekend") }}
+        unique_id: Zendure_proxy_Opslagmodus_3
+        icon: mdi:floppy
+
       - name: "Zendure Actief Device"
         value_template: >
           {% set active_device = value_json['properties']['activeDevice'] | int %}
           {% if active_device == -1 %}
            Geen
           {% elif active_device == 0 %}
-           Beide
+           Alle (dual/multi)
           {% else %}
            Zendure {{ active_device }}
           {% endif %}
@@ -255,6 +299,23 @@ Kopieer en plak de volgende sensoren tussen de aangegeven regels:
           {% set packState = value_json['properties']['socLimit_2'] | int %}
           {{ states.get(packState, "Onbekend") }}
         unique_id: Zendure_proxy_soc_limiet_status_2
+        icon: >
+         {% if this.state == 'Normale werking' %}
+          mdi:battery-medium
+         {% elif this.state == 'Laadlimiet bereikt' %}
+          mdi:battery-high
+         {% elif this.state == 'Ontlaadlimiet bereikt' %}
+          mdi:battery-low
+         {% else %}
+          mdi:battery-outline
+         {% endif %}
+
+      - name: "Zendure 3 SOC-limiet Status"
+        value_template: >
+          {% set states = {0: "Normale werking", 1: "Laadlimiet bereikt", 2: "Ontlaadlimiet bereikt"} %}
+          {% set packState = value_json['properties']['socLimit_3'] | int %}
+          {{ states.get(packState, "Onbekend") }}
+        unique_id: Zendure_proxy_soc_limiet_status_3
         icon: >
          {% if this.state == 'Normale werking' %}
           mdi:battery-medium
@@ -330,6 +391,16 @@ Kopieer en plak de volgende sensoren tussen de aangegeven regels:
         device_class: temperature
         icon: mdi:thermometer
 
+      - name: "Zendure 3 Omvormer Temperatuur"
+        value_template: >
+          {% set maxTemp = value_json['properties']['hyperTmp_3'] | int %}
+          {{ (maxTemp - 2731) / 10.0 }}
+        unique_id: Zendure_proxy_Omvormer_Temperatuur_3
+        unit_of_measurement: "°C"
+        state_class: measurement
+        device_class: temperature
+        icon: mdi:thermometer
+
       - name: "Zendure 1 Serienummer"
         unique_id: Zendure_proxy_Serienummer_1
         value_template: "{{ value_json.sn_1 }}"
@@ -338,6 +409,11 @@ Kopieer en plak de volgende sensoren tussen de aangegeven regels:
       - name: "Zendure 2 Serienummer"
         unique_id: Zendure_proxy_Serienummer_2
         value_template: "{{ value_json.sn_2 }}"
+        icon: mdi:identifier
+
+      - name: "Zendure 3 Serienummer"
+        unique_id: Zendure_proxy_Serienummer_3
+        value_template: "{{ value_json.sn_3 }}"
         icon: mdi:identifier
 
       - name: "Zendure Proxy Versie"
@@ -358,22 +434,30 @@ entities:
   - entity: sensor.vermogensopdracht
   - entity: sensor.vermogensopdracht_zendure_1
   - entity: sensor.vermogensopdracht_zendure_2
+  - entity: sensor.vermogensopdracht_zendure_3
   - entity: sensor.zendure_1_vermogen_aansturing
   - entity: sensor.zendure_2_vermogen_aansturing
+  - entity: sensor.zendure_3_vermogen_aansturing
   - entity: sensor.zendure_actief_device
   - entity: sensor.zendure_1_laadpercentage
   - entity: sensor.zendure_2_laadpercentage
+  - entity: sensor.zendure_3_laadpercentage
   - entity: sensor.zendure_1_soc_limiet_status
   - entity: sensor.zendure_2_soc_limiet_status
+  - entity: sensor.zendure_3_soc_limiet_status
   - entity: sensor.zendure_1_opslagmodus
   - entity: sensor.zendure_2_opslagmodus
+  - entity: sensor.zendure_3_opslagmodus
   - entity: sensor.zendure_1_kalibratie_bezig
   - entity: sensor.zendure_2_kalibratie_bezig
+  - entity: sensor.zendure_3_kalibratie_bezig
   - entity: sensor.zendure_1_omvormer_temperatuur
   - entity: sensor.zendure_2_omvormer_temperatuur
+  - entity: sensor.zendure_3_omvormer_temperatuur
   - entity: sensor.dual_mode_demper_status
   - entity: sensor.zendure_1_serienummer
   - entity: sensor.zendure_2_serienummer
+  - entity: sensor.zendure_3_serienummer
   - entity: sensor.zendure_proxy_versie
 title: Zendure Proxy Sensoren
 ```
@@ -385,37 +469,50 @@ Nu kan het feest beginnen!
 
 ### Proxy attributen specificatie ###
 
+Per-unit velden `_*_1` … `_*_3` zijn aanwezig zodra de proxy die units kent (`deviceCount` 1–3 in de 1×3-flow, of vaste 2 in de klassieke JSON).
+
 <br/>
 
  | Attribuut | Beschrijving |
  |-----------|-------------|
  | `properties.electricLevel_1` | Laadpercentage van de Zendure 1 |
  | `properties.electricLevel_2` | Laadpercentage van de Zendure 2 |
+ | `properties.electricLevel_3` | Laadpercentage van de Zendure 3 (aanwezig als `deviceCount` ≥ 3) |
  | `properties.latestPowerCmd` | Het vermogen van de meest recente opdracht aan de proxy om te laden of ontladen |
  | `properties.latestPowerCmd_1` | Het vermogen van de meest recente opdracht aan de Zendure 1 om te laden of ontladen |
  | `properties.latestPowerCmd_2` | Het vermogen van de meest recente opdracht aan de Zendure 2 om te laden of ontladen |
+ | `properties.latestPowerCmd_3` | Idem voor Zendure 3 (indien van toepassing) |
  | `properties.outputHomePower_1` | Vermogen uitgaand naar het net (ontladen) van Zendure 1 |
- | `properties.outputHomePower_2` | Vermogen uitgaand naar het net (ontladen) van Zendure 2 |
+ | `properties.outputHomePower_2` | Idem Zendure 2 |
+ | `properties.outputHomePower_3` | Idem Zendure 3 |
  | `properties.gridInputPower_1` | Vermogen inkomend van het net (laden) van Zendure 1 |
- | `properties.gridInputPower_2` | Vermogen inkomend van het net (laden) van Zendure 2 |
+ | `properties.gridInputPower_2` | Idem Zendure 2 |
+ | `properties.gridInputPower_3` | Idem Zendure 3 |
  | `properties.packInputPower_1` | Vermogen komend vanuit de batterijen (ontladen) van Zendure 1 |
- | `properties.packInputPower_2` | Vermogen komend vanuit de batterijen (ontladen) van Zendure 2 |
+ | `properties.packInputPower_2` | Idem Zendure 2 |
+ | `properties.packInputPower_3` | Idem Zendure 3 |
  | `properties.outputPackPower_1` | Vermogen uitgaand naar de batterijen (laden) van Zendure 1 |
- | `properties.outputPackPower_2` | Vermogen uitgaand naar de batterijen (laden) van Zendure 2 |
+ | `properties.outputPackPower_2` | Idem Zendure 2 |
+ | `properties.outputPackPower_3` | Idem Zendure 3 |
  | `properties.socStatus_1` | Indicatie of het Zendure 1 device geforceerd aan het opladen is vanwege kalibratie.<br/>Waarden: 0: Nee, 1: Kalibreren |
- | `properties.socStatus_2` | Indicatie of het Zendure 2 device geforceerd aan het opladen is vanwege kalibratie.<br/>Waarden: 0: Nee, 1: Kalibreren |
+ | `properties.socStatus_2` | Idem Zendure 2 |
+ | `properties.socStatus_3` | Idem Zendure 3 |
  | `properties.smartMode_1` | smartMode status van Zendure 1.<br/>Waarden: 0: Smartmode uit (schrijven naar Flash), 1: Smartmode aan (schrijven naar RAM) |
- | `properties.smartMode_2` | smartMode status van Zendure 2.<br/>Waarden: 0: Smartmode uit (schrijven naar Flash), 1: Smartmode aan (schrijven naar RAM) |
- | `properties.activeDevice` | Actief Device.<br/>Waarden: 0: Beide, 1: Zendure 1, 2: Zendure 2, -1: Geen |
+ | `properties.smartMode_2` | Idem Zendure 2 |
+ | `properties.smartMode_3` | Idem Zendure 3 |
+ | `properties.activeDevice` | Actief device.<br/>Waarden: 0: alle gekoppelde units in dual/multi-mode, 1: Zendure 1, 2: Zendure 2, 3: Zendure 3 (indien van toepassing), -1: geen |
  | `properties.dualModeDamper` | Dual Mode Demper.<br/>Waarden: 0: Uit, 1: Aan (read/write) |
- | `properties.alwaysDualMode` | Beide Actief. Altijd Dual Mode gebruiken. Single Mode uitgeschakeld.<br/>Waarden: 0: Uit, 1: Aan (read/write) |
- | `properties.equalMode` | Synchroon Laden. Altijd Dual Mode gebruiken en steeds hetzelfde vermogen op beide devices.<br/>Waarden: 0: Uit, 1: Aan (read/write) |
+ | `properties.alwaysDualMode` | “Alle actief” (dual/multi). Altijd alle gekoppelde units in dual mode; single mode uit.<br/>Waarden: 0: Uit, 1: Aan (read/write) |
+ | `properties.equalMode` | Synchroon laden: dual mode met gelijk vermogen op alle actieve units.<br/>Waarden: 0: Uit, 1: Aan (read/write) |
  | `properties.socLimit_1` | SOC-limiet Status van het Zendure 1 device.<br/>Waarden: 0: Normale werking, 1: Oplaadlimiet bereikt, 2: Ontlaadlimiet bereikt |
- | `properties.socLimit_2` | SOC-limiet Status van het Zendure 2 device.<br/>Waarden: 0: Normale werking, 1: Oplaadlimiet bereikt, 2: Ontlaadlimiet bereikt |
+ | `properties.socLimit_2` | Idem Zendure 2 |
+ | `properties.socLimit_3` | Idem Zendure 3 |
  | `properties.hyperTmp_1` | Omvormertemperatuur van het Zendure 1 device. |
- | `properties.hyperTmp_2` | Omvormertemperatuur van het Zendure 2 device. |
+ | `properties.hyperTmp_2` | Idem Zendure 2 |
+ | `properties.hyperTmp_3` | Idem Zendure 3 |
  | `sn_1` | Serienummer van de omvormer van het Zendure 1 device. |
- | `sn_2` | Serienummer van de omvormer van het Zendure 2 device. |
+ | `sn_2` | Idem Zendure 2 |
+ | `sn_3` | Idem Zendure 3 |
  | `proxyVersion` | Versie van de Proxy. |
 <br/>
 <br/>
@@ -490,12 +587,39 @@ rest:
           {{ states.get(packState, "Onbekend") }}
         unique_id: Zendure_2_Error
         icon: mdi:battery-alert
+
+  - resource: http://192.168.x.z/properties/report
+    scan_interval: 120
+    sensor:
+
+      - name: "Zendure 3 Signaalsterkte"
+        value_template: >
+          {% set rssi = value_json['properties']['rssi'] | int(-100) %}
+          {% if rssi >= -60 %}
+            Uitstekend
+          {% elif rssi >= -70 %}
+            Goed
+          {% elif rssi >= -80 %}
+            Zwak
+          {% else %}
+            Slecht
+          {% endif %}
+        unique_id: Zendure_3_Signaalsterkte
+        icon: mdi:wifi
+
+      - name: "Zendure 3 Error"
+        value_template: >
+          {% set states = {0: "Geen meldingen", 1: "Zie Zendure APP"} %}
+          {% set packState = value_json['properties']['is_error'] | int %}
+          {{ states.get(packState, "Onbekend") }}
+        unique_id: Zendure_3_Error
+        icon: mdi:battery-alert
         
 ```
 NB: voeg geen hoog frequente polling toe, om de Zendure devices niet te overbelasten met te veel verzoeken.
 <br/>
 <br/>
-NB: van de attributen in bovenstaand voorbeeld wordt reeds de laagste (slechtste) waarde van de beide devices door de proxy doorgegeven in het reguliere attribuut (rssi / is_error) van het virtuele device. Dus als er een probleem is, zul je dat ook zonder deze extra configuratie kunnen zien.
+NB: van de attributen in bovenstaand voorbeeld wordt reeds de laagste (slechtste) waarde van de **gekozen** devices door de proxy doorgegeven in het reguliere attribuut (rssi / is_error) van het virtuele device. Dus als er een probleem is, zul je dat ook zonder deze extra configuratie kunnen zien.
 
 
 <br/>
@@ -516,7 +640,7 @@ NB: van de attributen in bovenstaand voorbeeld wordt reeds de laagste (slechtste
 <br/>
 
 
-De Dual Mode Demper voorkomt dat dual mode direct ingeschakeld wordt bij een kortstondige piek tijdens het ontladen. Bijvoorbeeld de korte vermogenspiek van een keukenboiler 's nachts tijdens NOM. Deze demper kan voorkomen dat het niet actieve device onnodig wakker gemaakt wordt uit slaapmodus (smartmode=0) voor een kortstondige vermogenspiek.
+De Dual Mode Demper voorkomt dat dual/multi mode direct inschakelt bij een kortstondige piek tijdens het ontladen (typisch **klassieke 2-device** flow). Bijvoorbeeld een korte piek van een keukenboiler. Zo wordt een slapend device niet onnodig wakker (smartMode = 0) voor een korte piek. *(In de 1×3 async-flow zit deze logica niet standaard in dezelfde tab — zie [README-1x3.md](README-1x3.md).)*
 
 De status (Aan/Uit) van de Dual Mode Demper kan uitgelezen worden via de sensor __sensor.dual_mode_demper_status__.
 
@@ -546,7 +670,7 @@ Deze demper kan op verschillende manieren in en uitgeschakeld worden:
 <br/>
 Hoe te installeren:
 
-1) De REST sensoren van [Monitoring](https://github.com/gast777/Zendure-zenSDK-proxy/tree/main?tab=readme-ov-file#monitoring) moeten geinstalleerd zijn in de Gielz package of in de configuration.yaml. Het handigst is om de Gielz Package te gebruiken. Zie de [instructie van Gielz](https://github.com/Gielz1986/Zendure-HA-zenSDK/tree/main?tab=readme-ov-file#%EF%B8%8F%E2%83%A3-configuratie-en-herstart) hoe die te installeren.
+1) De REST sensoren van [Monitoring](#monitoring) moeten geinstalleerd zijn in de Gielz package of in de configuration.yaml. Het handigst is om de Gielz Package te gebruiken. Zie de [instructie van Gielz](https://github.com/Gielz1986/Zendure-HA-zenSDK/tree/main?tab=readme-ov-file#%EF%B8%8F%E2%83%A3-configuratie-en-herstart) hoe die te installeren.
 2) Voeg de volgende items toe aan configuration.yaml of een aparte package (niet aan de Gielz package).
 
 ```
@@ -648,19 +772,19 @@ Dit moet dan wel weer opnieuw ingesteld worden na upgrade van de Proxy flow in N
 
 <br/>
 
-### Optioneel: Beide Actief en Synchroon Laden ###
+### Optioneel: Alle actief (dual/multi) en Synchroon laden ###
 
 <details>
 <summary>Open deze sectie.</summary>
 
 <br/>
 
-Met de instelling _Beide Actief_ ingeschakeld zullen beide Zendures actief blijven, dus altijd in dual mode blijven. 
-De instelling _Synchroon Laden_ is hetzelfde als _Beide Actief_ maar waarbij dan ook nog de beide Zendure devices steeds met hetzelfde vermogen opladen of ontladen.
+Met de instelling **alwaysDualMode** (_in HA vaak nog “Beide Actief” genoemd_) blijven **alle** gekoppelde Zendures actief — dus dual/multi mode, geen single mode.  
+**Synchroon laden** (`equalMode`) is dezelfde basis, maar dan met **gelijk vermogen** op alle actieve units.
 
-Deze twee features zullen niet zinvol zijn voor 99% van de gebruikers. Echter in bepaalde gevallen zou het wenselijk kunnen zijn om deze mogelijkheden te hebben.
+Deze features zijn zeldzaam nodig; ze zijn vooral relevant bij **twee** units in de klassieke flow. Met drie units: alleen gebruiken als je het gedrag echt nodig hebt (en test goed).
 
-Deze twee instellingen kunnen eenvoudig bediend worden via een toggle switch op het dashboard.
+Beide schakelaars bedien je via toggles op het dashboard (namen in YAML hieronder: “Beide Actief” / “Synchroon Laden” — entity-id’s blijven compatibel met bestaande dashboards).
 <br/>
 <br/>
 
@@ -670,7 +794,7 @@ Deze twee instellingen kunnen eenvoudig bediend worden via een toggle switch op 
 <br/>
 Hoe te installeren:
 
-1) De REST sensoren van [Monitoring](https://github.com/gast777/Zendure-zenSDK-proxy/tree/main?tab=readme-ov-file#monitoring) moeten geinstalleerd zijn in de Gielz package of in de configuration.yaml. Het handigst is om de Gielz Package te gebruiken. Zie de [instructie van Gielz](https://github.com/Gielz1986/Zendure-HA-zenSDK/tree/main?tab=readme-ov-file#%EF%B8%8F%E2%83%A3-configuratie-en-herstart) hoe die te installeren.
+1) De REST sensoren van [Monitoring](#monitoring) moeten geinstalleerd zijn in de Gielz package of in de configuration.yaml. Het handigst is om de Gielz Package te gebruiken. Zie de [instructie van Gielz](https://github.com/Gielz1986/Zendure-HA-zenSDK/tree/main?tab=readme-ov-file#%EF%B8%8F%E2%83%A3-configuratie-en-herstart) hoe die te installeren.
 2) Voeg de volgende items toe aan configuration.yaml (niet aan de Gielz package, kan wel in een aparte package).
 
 ```
@@ -755,7 +879,7 @@ rest_command:
 3) Herstart Home Assistant
 4) Zet de toggle switches `switch.beide_actief` en `switch.synchroon_laden` op je dashboard.
 
-Als je nu de switch _Beide Actief_ aan zet, zullen beide Zendures actief blijven. Als de switch _Synchroon Laden_ aangezet wordt, zullen beide Zendures ook steeds met hetzelfde vermogen laden en ontladen.
+Als je **Beide Actief** aan zet, blijven alle gekoppelde Zendures in dual/multi mode actief. Met **Synchroon Laden** aan laden/ontladen alle actieve units met hetzelfde vermogen.
 
 </details>
 
@@ -818,20 +942,20 @@ Huidige versie: 20260308
 - Kleine optimalisaties in gedrag.
 
 ## Nieuw in versie 20260209 ##
-- Vanaf nu worden de omvormertemperatuur en de serienummers van de beide Zendures standaard meegestuurd via de REST API en zijn dus beschikbaar in Home Assistant. Ook zijn de sensoren daarvoor toegevoegd aan de lijst onder [Monitoring](https://github.com/gast777/Zendure-zenSDK-proxy/tree/main?tab=readme-ov-file#monitoring).
+- Vanaf nu worden de omvormertemperatuur en de serienummers van de gekoppelde Zendures standaard meegestuurd via de REST API en zijn dus beschikbaar in Home Assistant. Ook zijn de sensoren daarvoor toegevoegd aan de lijst onder [Monitoring](#monitoring).
 
 ## Nieuw in versie 20260211 ##
 - Enkele checks toegevoegd om nuttige foutmeldingen te kunnen geven wanneer nodig.
 - Instructies blok up-to-date gebracht en vereenvoudigd.
 
 ## Nieuw in versie 20260212 ##
-- _Actief Device_ toont nu _Geen_ wanneer de huidige vermogensopdracht nul is. Om dit correct te tonen in Home Assistant is ook de REST sensor "Zendure Actief Device" aangepast. De nieuwe benodigde REST sensor configuratie is hierboven te zien onder [Monitoring](https://github.com/gast777/Zendure-zenSDK-proxy/tree/main?tab=readme-ov-file#monitoring).
+- _Actief Device_ toont nu _Geen_ wanneer de huidige vermogensopdracht nul is. Om dit correct te tonen in Home Assistant is ook de REST sensor "Zendure Actief Device" aangepast. De nieuwe benodigde REST sensor configuratie is hierboven te zien onder [Monitoring](#monitoring).
 
 ## Nieuw in versie 20260213 ##
 - Vanaf deze versie hoeven de serienummers niet meer te worden ingevuld bij installatie van de Node-RED flow. Alleen de beide IP adressen moeten ingevuld worden. Node-RED zal nu zelf de serienummers van de twee Zendures uitlezen en gebruiken.
 
 ## Nieuw in versie 20260215 ##
-- "Zendure 1 Vermogen Aansturing" en "Zendure 2 Vermogen Aansturing" zijn nu toegevoegd aan de sensoren voor Home Assistant, zie [Monitoring](https://github.com/gast777/Zendure-zenSDK-proxy/tree/main?tab=readme-ov-file#monitoring).
+- "Zendure 1 Vermogen Aansturing" en "Zendure 2 Vermogen Aansturing" zijn nu toegevoegd aan de sensoren voor Home Assistant, zie [Monitoring](#monitoring).
 - De outputPackPower en packInputPower wordt nu voor beide Zendures meegestuurd door de proxy.
 
 ## Nieuw in versie 20260217 ##
@@ -846,10 +970,10 @@ Huidige versie: 20260308
 - Ondersteuning toegevoegd voor "Beide Actief". Daarmee kan indien gewenst geforceerd worden dat altijd beide Zendure devices actief zijn, dus altijd dual mode gebruiken. Ze kunnen daarbij nog wel verschillende vermogens hebben, om de Laadpercentages bij elkaar in de buurt te houden.
 
 ## Nieuw in versie 20260223 ##
-- Het versienummer van de Proxy wordt nu via de REST naar Home Assistant gestuurd. De REST sensor voor Home Assistant om de huidige Proxy versie (sensor.zendure_proxy_versie) te kunnen zien is toegevoegd aan de lijst onder [Monitoring](https://github.com/gast777/Zendure-zenSDK-proxy/tree/main?tab=readme-ov-file#monitoring).
+- Het versienummer van de Proxy wordt nu via de REST naar Home Assistant gestuurd. De REST sensor voor Home Assistant om de huidige Proxy versie (sensor.zendure_proxy_versie) te kunnen zien is toegevoegd aan de lijst onder [Monitoring](#monitoring).
 
 ## Nieuw in versie 20260228 ##
-- Nu worden ook de Zendure attributen _outputHomePower_ en _gridInputPower_ ook afzonderlijk voor ieder device doorgegeven via _gridInputPower_1_ / _gridInputPower_2_ en _outputHomePower_1_ / _outputHomePower_2_. Deze worden nu gebruikt voor de Home Assistant sensoren "Zendure 1 Vermogen Aansturing" en "Zendure 2 Vermogen Aansturing", zie [Monitoring](https://github.com/gast777/Zendure-zenSDK-proxy/tree/main?tab=readme-ov-file#monitoring).
+- Nu worden ook de Zendure attributen _outputHomePower_ en _gridInputPower_ ook afzonderlijk voor ieder device doorgegeven via _gridInputPower_1_ / _gridInputPower_2_ en _outputHomePower_1_ / _outputHomePower_2_. Deze worden nu gebruikt voor de Home Assistant sensoren "Zendure 1 Vermogen Aansturing" en "Zendure 2 Vermogen Aansturing", zie [Monitoring](#monitoring).
 - De berekening van electricLevel (SoC %) die wordt doorgegeven aan Home Assistant is geoptimaliseerd voor een specifieke situatie. Wanneer een van de twee Zendures ruim onder de minSoc zit en de andere erboven, dan zou niet verder ontladen worden en minSoc niet bereikt worden op de hoogste van de twee. Om dat op te lossen wordt nu, alleen in die situatie, in de berekening van de totale SoC (electricLevel) de laagste van de twee SoC waarden vervangen door de minSoc waarde. Het gemiddelde dat doorgegeven wordt aan HA als electricLevel zal dan nog boven minSoc zijn en de hoogste Zendure zal dan toch verder ontladen en netjes op minSoc terecht komen. Daarna zal degene die onder minSoc zit (eventueel later) door de Gielz SoC bescherming ook weer netjes naar het minSoc niveau gebracht worden. De SoC waarden voor de individuele Zendures (Zendure 1 Laadpercentage / Zendure 2 Laadpercentage) zullen wel altijd de werkelijke waarde blijven doorgeven en tonen in Home Assistant.
 
 ## Nieuw in versie 20260308 ##
@@ -871,6 +995,6 @@ Huidige versie: 20260308
   let dualmode_damper_amount = 150  // Watt
   ```
 
-  De status (Aan/Uit) van de Dual Mode Demper kun je zien via de sensor ```sensor.dual_mode_demper_status```. Die is toegevoegd aan de standaard lijst onder [Monitoring](https://github.com/gast777/Zendure-zenSDK-proxy/tree/main?tab=readme-ov-file#monitoring).
+  De status (Aan/Uit) van de Dual Mode Demper kun je zien via de sensor ```sensor.dual_mode_demper_status```. Die is toegevoegd aan de standaard lijst onder [Monitoring](#monitoring).
 
   De Dual-mode Demper werkt alleen tijdens ontladen, niet tijdens laden.
