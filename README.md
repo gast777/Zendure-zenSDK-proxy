@@ -8,21 +8,24 @@ De [Gielz-automatisering](https://github.com/Gielz1986/Zendure-HA-zenSDK) voor Z
 
 Een nadeel is dat de Gielz-automatisering normaal maar één Zendure-apparaat (omvormer) tegelijk ondersteunt.
 
-Deze Node-RED flow lost dat op. Het werkt als een tussenstation (proxy server) waarmee je twee Zendure-apparaten, bijvoorbeeld 2x [SolarFlow 2400AC](https://www.zendure.nl/products/zendure-solarflow-2400-ac), kunt aansturen alsof het één apparaat is. De flow laat ze samenwerken als een virtuele SolarFlow 4800AC.
+Deze Node-RED flow lost dat op. Het werkt als een tussenstation (proxy server) waarmee je **één, twee of drie** Zendure-apparaten (bijv. [SolarFlow 2400AC](https://www.zendure.nl/products/zendure-solarflow-2400-ac)) kunt aansturen alsof het **één** apparaat is richting Home Assistant: één virtuele batterij met het **gecombineerde** vermogen (bijv. 2400 / 4800 / 7200 W bij gelijke units).
+
+- **Klassieke flow** (`Zendure-proxy-Node-Red-flow.json`): bewezen gedrag voor **twee** Zendures (virtuele “4800”).
+- **Uitgebreide flow** (`Zendure-proxy-Node-Red-flow-1x3-async.json`): **1–3** Zendures, `deviceCount` instelbaar in Node-RED — zie [README-1x3.md](README-1x3.md).
 
 <br/>
 
-![Preview](images/proxy-HA-Zendure-diagram-pimped.png)   
+![Architectuur: HA → Proxy → 1 t/m 3 Zendures](images/proxy-HA-Zendure-diagram-1x3.png)   
 
 <br/>
 <br/>
 
 
-Het werkt als volgt: Home Assistant (HA) zal met de proxy praten, in plaats van met een Zendure. De proxy praat met de twee Zendure devices. Vanuit HA (Gielz) gezien lijkt het nog steeds alsof er maar één Zendure device is, maar dan wel eentje die twee keer zo veel vermogen aan kan (een virtuele SolarFlow 4800AC dus). De proxy verdeelt het vermogen dat HA (Gielz) aanstuurt over de twee fysieke Zendures.
+Het werkt als volgt: Home Assistant (HA) praat met de **proxy**, niet rechtstreeks met elke Zendure. De proxy praat met **alle gekozen** fysieke Zendures (1, 2 of 3). Vanuit HA (Gielz) lijkt het nog steeds alsof er maar **één** Zendure-device is, met een maximaal vermogen dat overeenkomt met de som van je units (bijv. 3× 2400 W → 7200 W). De proxy verdeelt het vermogen dat HA aanstuurt over de actieve Zendures.
 
-Het vermogen wordt op intelligente wijze verdeeld over de Zendures. Als er een verschil is in SoC (State of Charge, batterij % Laadpercentage) van de twee Zendures, dan zal degene met de laagste SoC sneller laden of de volste juist sneller ontladen. Zo blijft de SoC van de beide Zendures dicht bij elkaar. Tevens zal bij lagere vermogens slechts één van de twee Zendures tegelijk gaan laden/ontladen, om redenen van efficiency.
+Het vermogen wordt verdeeld over de actieve units. Bij **meerdere** Zendures en verschil in SoC laadt de leegste sneller en ontlaadt de volste sneller, zodat percentages in de buurt blijven. Bij lagere vermogens kan (afhankelijk van de flow) slechts **één** unit tegelijk belast worden om efficiëntie.
 
-Node-RED kan gemakkelijk als een Add-On geinstalleerd worden in Home Assistant. Na importeren van deze Node-RED Zendure Proxy flow, kun je de IP adressen van je twee Zendure devices invullen. Hieronder staat aangegeven waar je dat kunt doen.
+Node-RED kan gemakkelijk als een Add-On geïnstalleerd worden in Home Assistant. Na importeren van de gekozen flow vul je de **IP-adressen** van je Zendure(s) in (en bij de 1×3-flow stel je eerst **deviceCount** in). Hieronder staat het schematisch; details per flow staan bij de importinstructies.
 
 Vervolgens moet je een paar eenvoudige instellingen doen voor de Gielz automatisering in Home Assistant, zoals in onderstaande instructies te zien is. Daarna kan hij aan het werk :)<br/>
 <br/>
@@ -34,14 +37,13 @@ Vervolgens moet je een paar eenvoudige instellingen doen voor de Gielz automatis
 ### Node-RED ###
 <br/>
 
-- [ ] Vul de IP adressen van de beide Zendure devices in, in het blok "**Vul hier de Zendure IP adressen in**" (zie het rode vierkant in het plaatjes hieronder).<br/>
+- [ ] **Kies je flow:** importeer `Zendure-proxy-Node-Red-flow.json` (2 Zendures, klassiek) **of** `Zendure-proxy-Node-Red-flow-1x3-async.json` (1–3 Zendures) via Menu → Import.<br/>
+- [ ] Vul de **IP-adressen** in in het configuratieblok (Initialize / “Vul hier de Zendure IP adressen in” bij de 2-device flow, of **ipZendure1 … ipZendure3** in de Initialize van de 1×3-flow). Klik **Deploy**.
 
-Hiervoor importeer je eerst de flow Zendure-proxy-Node-Red-flow.json in Node-RED via het menu (hamburger rechtsboven) -> Import. Vervolgens open je het blok "**Vul hier de Zendure IP adressen in**" door erop te dubbel clicken. Na invullen van de IP adressen click je op "Done". Daarna click je op de "Deploy" knop rechts boven in Node-RED om de flow te activeren. Daarmee is de Node-RED kant gereed.<br/>
-<br/>
+![Concept: deviceCount 1–3 en IP-config (1×3-flow)](images/node-red-1x3-concept.png)
 
-![Preview](images/node-red-flow-image2.png) 
+*De klassieke 2-device flow heeft een eigen schermopname in de upstream-documentatie; bovenstaand concept geldt voor de **1×3 async**-tab. Bij de 2-device JSON zie je het rode kader rond het IP-blok zoals in de oorspronkelijke README.*
 
-![Preview](images/node-red-ip-addresses.png) 
 <br/>
 <br/>
 
@@ -54,15 +56,15 @@ Hiervoor importeer je eerst de flow Zendure-proxy-Node-Red-flow.json in Node-RED
 
 - [ ] Stap 1: Op een HA Dashboard heb je als het goed is reeds het invulveld "Zendure 2400 AC IP-adres" (`input_text.zendure_2400_ac_ip_adres`) beschikbaar, als onderdeel van de Gielz instructies. Zo niet, voeg die alsnog toe. Vul het IP adres en poort van de Node-RED proxy daar in. Bijvoorbeeld: 192.168.x.x:1880
 
-<img src="https://github.com/gast777/Zendure-zenSDK-proxy/blob/main/images/HA-gielz-ip-port.png" width="50%">
+<img src="images/HA-gielz-ip-port.png" width="50%">
 
 Als in de blokken "API Proxy In" staat "The url will be relative to /endpoint", dan vul hier in IP_adres:poort/endpoint 
 
-<img src="https://github.com/gast777/Zendure-zenSDK-proxy/blob/main/images/HA-gielz-ip-port-endpoint.png" width="50%"> 
+<img src="images/HA-gielz-ip-port-endpoint.png" width="50%"> 
 
 Als Node-RED op de Home Assistant server zelf is geinstalleerd als Add-On, vul in "localhost:1880/endpoint".
 
-<img src="https://github.com/gast777/Zendure-zenSDK-proxy/blob/main/images/HA-gielz-ip-port-AddOn.png" width="50%">
+<img src="images/HA-gielz-ip-port-AddOn.png" width="50%">
 
 
 Na deze stap zouden de sensoren van Gielz in Home Assistant al moeten werken.
@@ -71,9 +73,9 @@ Na deze stap zouden de sensoren van Gielz in Home Assistant al moeten werken.
 
 - [ ] Stap 2: Op het dashboard, stel het maximale vermogen in via de invulvelden `input_number.zendure_2400_ac_max_ontlaadvermogen` en `input_number.zendure_2400_ac_max_oplaadvermogen`.
 
-Bijvoorbeeld voor 2x SolarFlow 2400 kun je hem op max 4800 Watt zetten.
+Stel het maximum passend bij je setup in: bijvoorbeeld **2400 W** (1× 2400), **4800 W** (2× 2400) of **7200 W** (3× 2400).
 
-<img src="https://github.com/gast777/Zendure-zenSDK-proxy/blob/main/images/max-power-setting.png" width="50%">
+<img src="images/max-power-setting.png" width="50%">
 
 
 Hiermee is de installatie gereed. Je kunt hem nu in gebruik nemen door een aansturing te kiezen op het dashboard drop-down menu `input_select.zendure_2400_ac_modus_selecteren`. Kies bijvoorbeeld "Snel opladen" om te testen of dat werkt.
@@ -99,11 +101,11 @@ localhost:1880/endpoint<br/>
 
 ## Monitoring ##
 
-Om real-time de status van de twee Zendure devices achter de Proxy te kunnen monitoren, stuurt de Proxy behalve de bestaande attributen van de [REST API van Zendure](https://github.com/Zendure/zenSDK/blob/main/docs/en_properties.md) ook nog extra attributen mee. Deze kunnen in Home Assistant toegevoegd worden en op het dashboard geplaatst worden. Bijvoorbeeld om inzicht te hebben met welk vermogen de proxy opdracht wordt gegeven te laden/ontladen en hoe dat vervolgens over de beide Zendure devices verdeeld wordt. Of om bijvoorbeeld de SoC percentages van beide Zendure devices te kunnen zien. 
+Om real-time de status van de **fysieke Zendure(s)** achter de proxy te monitoren, stuurt de proxy naast de standaard-[REST API van Zendure](https://github.com/Zendure/zenSDK/blob/main/docs/en_properties.md)-attributen ook extra velden mee (per device o.a. `electricLevel_1…3`, vermogensopdrachten). Zo zie je hoe het totaal over de actieve units wordt verdeeld.
 
-Zie hier de beschikbare extra proxy sensoren in Home Assistant.
+Zie hier een voorbeeld van extra proxy-sensoren in Home Assistant (schermafbeelding uit de 2-device setup; bij **drie** units kun je analoog sensoren voor `_3` toevoegen — zie [README-1x3.md](README-1x3.md)).
 
-<img src="https://github.com/gast777/Zendure-zenSDK-proxy/blob/main/images/proxy-sensors.png" width="50%">
+<img src="images/proxy-sensors.png" width="50%">
 
 
 Om deze in Home Assistant beschikbaar te maken, voegen we de extra sensoren toe aan de configuration.yaml of aan de package die [Gielz](https://github.com/Gielz1986/Zendure-HA-zenSDK) beschikbaar stelt. 
@@ -538,7 +540,7 @@ Deze demper kan op verschillende manieren in en uitgeschakeld worden:
 
 <br/>
 
-<img src="https://github.com/gast777/Zendure-zenSDK-proxy/blob/main/images/DualMode_Demper_toggle.png" width="50%">
+<img src="images/DualMode_Demper_toggle.png" width="50%">
 
 <br/>
 <br/>
@@ -662,7 +664,7 @@ Deze twee instellingen kunnen eenvoudig bediend worden via een toggle switch op 
 <br/>
 <br/>
 
-<img src="https://github.com/gast777/Zendure-zenSDK-proxy/blob/main/images/beide-actief_synchroon-laden.png" width="50%">
+<img src="images/beide-actief_synchroon-laden.png" width="50%">
 
 <br/>
 <br/>
@@ -767,21 +769,23 @@ Als je nu de switch _Beide Actief_ aan zet, zullen beide Zendures actief blijven
 
 
 ## Features ##
-- SoC balancering - De SoC (state of charge, laadpercentage) van de twee devices wordt dicht bij elkaar gehouden doordat de volste batterij het snelst ontlaadt en de leegste batterij het snelst oplaadt. Bij gelijke SoC laden ze beide even snel.
-- Herhaling van instructies om te laden/ontladen, zodat SoC balancing tussen de Zendures ook werkt voor Handmatige mode.
-- Single Mode - Bij lagere vermogens laadt/ontlaadt slechts een van de Zendures tegelijk. Dit wordt afgewisseld aan de hand van de SoC van de beide devices, waardoor de SoC waardes gebalanceerd blijven.
-- In Single Mode wordt het passieve device (degene die op dat moment niet laadt of ontlaadt) na 5 minuten op standby gezet (smartMode = 0, "Opslaan in Flash").
-- In Single Mode wordt naar het andere device overgeschakeld wanneer het verschil in SoC 5% is. Hierdoor wordt minder vaak overgeschakeld van actief device.
-- Bij het overschakelen naar het andere device of van Single Mode naar Dual Mode overschakelen, worden tijdens de overgangsperiode twee devices gebruikt. In het begin krijgt het reeds actieve device 95% van het vermogen toebedeeld, zodat de andere de tijd krijgt om op te starten, voordat die meer vermogen toebedeeld krijgt.
+*Hieronder: gedrag van de **klassieke 2-device** flow (`Zendure-proxy-Node-Red-flow.json`). De **1×3 async**-flow volgt dezelfde ideeën voor GET/POST maar heeft een vereenvoudigde vermogensverdeling (zie [README-1x3.md](README-1x3.md)).*
+
+- SoC-balancering — bij **meerdere** gekoppelde Zendures blijft de SoC (laadpercentage) in de buurt: de volste batterij ontlaadt sneller, de leegste laadt sneller. Bij gelijke SoC laden ze even snel.
+- Herhaling van instructies om te laden/ontladen, zodat SoC-balancering tussen de Zendures ook werkt voor handmatige modus.
+- Single mode — bij lagere vermogens laadt/ontlaadt vaak één Zendure tegelijk; de actieve unit wisselt o.b.v. SoC zodat de waarden in balans blijven.
+- In single mode wordt het passieve device (dat geen vermogen levert) na 5 minuten op standby gezet (smartMode = 0, “Opslaan in Flash”).
+- In single mode wordt naar een andere unit overgeschakeld wanneer het SoC-verschil ~5% is (minder ping-pong).
+- Bij overschakeling tussen units of van single naar dual mode kunnen tijdens de overgang **twee** units tegelijk actief zijn; het reeds actieve device krijgt eerst ~95% van het vermogen zodat de andere kan opstarten.
 <br/>
 
 ## Vereisten ## 
-- 2x Zendure SolarFlow 2400 AC (2x Zendure SolarFlow 800 Plus/Pro, SolarFlow 1600 AC+ of SolarFlow 2400 AC+/Pro zijn ook compatibel, nog niet getest). In principe zal een combinatie van twee verschillende modellen ook werken (nog niet getest). Wel is het aan te bevelen dat beide devices ongeveer dezelfde hoeveelheid kWh aan batterijopslag en hetzelfde max vermogen hebben (bijvoorbeeld een SolarFlow 2400AC en een SolarFlow 2400AC+).
-- Zorg dat op beide Zendures hetzelfde maximale en minimale laadpercentage (SoC percentages) ingesteld staan.
-- Beide Zendures moeten hetzelfde aantal batterijen hebben of ongeveer dezelfde hoeveelheid kWh aan batterijopslag.
-- De beide Zendures en de Node-RED server moeten een vast IP adres hebben.
-- Wifi ontvangst moet uitstekend zijn.
-- Beide Zendures moeten beschikbaar zijn en werken.
+- **Compatibele Zendure-units**, bijv. SolarFlow 2400 AC (ook SolarFlow 800 Plus/Pro, 1600 AC+, 2400 AC+/Pro zijn genoemd als compatibel; combinaties nog niet overal getest). Je kunt **1, 2 of 3** units via de proxy koppelen (klassieke JSON = 2; **1×3** = `deviceCount` in Node-RED; zie [README-1x3.md](README-1x3.md)). Kies voor een zo gelijk mogelijke capaciteit en max. vermogen per unit.
+- Zelfde **min/max laadpercentage** (SoC) op alle actieve Zendures.
+- Zelfde **batterijcapaciteit** of vergelijkbaar kWh-gedrag per unit waar mogelijk.
+- **Vaste IP-adressen** voor alle betrokken Zendures en voor de Node-RED-host (of HA).
+- Goede **WiFi**.
+- Alle gekozen units **online** en werkend.
 <br/>
 
 ## Beperkingen ##
@@ -797,6 +801,8 @@ Huidige versie: 20260308
 <br/>
 
 # Release-notes #
+
+*Onderstaande punten zijn geschreven voor de **klassieke 2-device** proxy; ze blijven relevant als historisch changelog. Voor **1×3** zie [README-1x3.md](README-1x3.md).*
 
 ## Nieuw in versie 20260201 ##
 
