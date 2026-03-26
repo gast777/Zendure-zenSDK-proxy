@@ -790,7 +790,7 @@ Als je nu de switch _Beide Actief_ aan zet, zullen beide Zendures actief blijven
 
 ## Versie ##
 
-Huidige versie: 20260308
+Huidige versie: 20260325
 <br/>
 
 # Release-notes #
@@ -865,3 +865,46 @@ Huidige versie: 20260308
   De status (Aan/Uit) van de Dual Mode Demper kun je zien via de sensor ```sensor.dual_mode_demper_status```. Die is toegevoegd aan de standaard lijst onder [Monitoring](https://github.com/gast777/Zendure-zenSDK-proxy/tree/main?tab=readme-ov-file#monitoring).
 
   De Dual-mode Demper werkt alleen tijdens ontladen, niet tijdens laden.
+
+## Nieuw in versie 20260325 ##
+- Algoritme voor verdeling van het vermogen over de Zendures is aangepast, zodat het beter schaalbaar is naar 3 Zendures.
+- Experimenteel: Support voor drie Zendure devices (nog niet uitgebreid getest). Je kunt nu drie Zendure device IP adressen invullen in het blokje "Vul hier de Zendure IP adressen in".<br/>
+  Voor monitoring in Home Assistant gebruik dan in plaats van de normale Proxy Sensoren deze die voor drie geschikt is (gebruik deze niet met twee Zendures): [Proxy-Sensoren-3-Zendures.txt](https://github.com/gast777/Zendure-zenSDK-proxy/blob/main/Proxy-Sensoren-3-Zendures.txt).
+  Op je Home Assistant dashboard kun je dan deze sensoren toevoegen:<br/>
+  
+  ```
+  type: entities
+  entities:
+    - entity: sensor.vermogensopdracht
+    - entity: sensor.vermogensopdracht_zendure_1
+    - entity: sensor.vermogensopdracht_zendure_2
+    - entity: sensor.vermogensopdracht_zendure_3
+    - entity: sensor.zendure_1_vermogen_aansturing
+    - entity: sensor.zendure_2_vermogen_aansturing
+    - entity: sensor.zendure_3_vermogen_aansturing
+    - entity: sensor.zendure_actief_device
+    - entity: sensor.zendure_1_laadpercentage
+    - entity: sensor.zendure_2_laadpercentage
+    - entity: sensor.zendure_3_laadpercentage
+    - entity: sensor.zendure_1_soc_limiet_status
+    - entity: sensor.zendure_2_soc_limiet_status
+    - entity: sensor.zendure_3_soc_limiet_status
+    - entity: sensor.zendure_1_opslagmodus
+    - entity: sensor.zendure_2_opslagmodus
+    - entity: sensor.zendure_3_opslagmodus
+    - entity: sensor.zendure_1_kalibratie_bezig
+    - entity: sensor.zendure_2_kalibratie_bezig
+    - entity: sensor.zendure_3_kalibratie_bezig
+    - entity: sensor.zendure_1_omvormer_temperatuur
+    - entity: sensor.zendure_2_omvormer_temperatuur
+    - entity: sensor.zendure_3_omvormer_temperatuur
+    - entity: sensor.dual_mode_demper_status
+    - entity: sensor.zendure_1_serienummer
+    - entity: sensor.zendure_2_serienummer
+    - entity: sensor.zendure_3_serienummer
+    - entity: sensor.zendure_proxy_versie
+  title: Zendure Proxy Sensoren
+  ```
+  In deze eerste release voor drie Zendures, zullen alle drie tegelijk actief zijn. Single mode en Dual Mode bij lagere vermogens is nog niet beschikbaar (in de planning). Wel wordt het vermogen zodanig verdeeld over de devices dat de SoC (Laadpercentage) van de drie devices bij elkaar in de buurt blijft.<br/>
+  __NB: als je drie Zendures gebruikt, graag alle problemen die je vindt melden. Deze feature is experimenteel en nog niet getest.__
+
