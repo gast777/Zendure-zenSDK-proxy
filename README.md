@@ -868,7 +868,7 @@ Huidige versie: 20260325
 
 ## Nieuw in versie 20260325 ##
 - Algoritme voor verdeling van het vermogen over de Zendures is aangepast, zodat het beter schaalbaar is naar 3 Zendures.
-- Experimenteel: Support voor drie Zendure devices (nog niet uitgebreid getest). Je kunt nu drie Zendure device IP adressen invullen in het blokje "Vul hier de Zendure IP adressen in".<br/>
+- Experimenteel: Support voor drie Zendure devices (nog niet volledig getest). Je kunt nu drie Zendure device IP adressen invullen in het blokje "Vul hier de Zendure IP adressen in".<br/>
   Voor monitoring in Home Assistant gebruik dan in plaats van de normale Proxy Sensoren deze die voor drie geschikt is (gebruik deze niet met twee Zendures): [Proxy-Sensoren-3-Zendures.txt](https://github.com/gast777/Zendure-zenSDK-proxy/blob/main/Proxy-Sensoren-3-Zendures.txt).
   Op je Home Assistant dashboard kun je dan deze sensoren toevoegen:<br/>
   
