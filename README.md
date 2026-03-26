@@ -909,5 +909,5 @@ Huidige versie: 20260326
   __NB: als je drie Zendures gebruikt, graag alle problemen die je vindt melden. Deze feature is experimenteel en nog niet getest.__
 
 
-## Nieuw in versie 20260325 ##
+## Nieuw in versie 20260326 ##
 - Bugfixes voor de 3 Zendures support
