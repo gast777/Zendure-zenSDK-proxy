@@ -790,7 +790,7 @@ Als je nu de switch _Beide Actief_ aan zet, zullen beide Zendures actief blijven
 
 ## Versie ##
 
-Huidige versie: 20260325
+Huidige versie: 20260326
 <br/>
 
 # Release-notes #
@@ -908,3 +908,6 @@ Huidige versie: 20260325
   In deze eerste release voor drie Zendures, zullen alle drie tegelijk actief zijn. Single mode en Dual Mode bij lagere vermogens is nog niet beschikbaar (in de planning). Wel wordt het vermogen zodanig verdeeld over de devices dat de SoC (Laadpercentage) van de drie devices bij elkaar in de buurt blijft.<br/>
   __NB: als je drie Zendures gebruikt, graag alle problemen die je vindt melden. Deze feature is experimenteel en nog niet getest.__
 
+
+## Nieuw in versie 20260325 ##
+- Bugfixes voor de 3 Zendures support
