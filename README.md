@@ -345,7 +345,7 @@ Kopieer en plak de volgende sensoren tussen de aangegeven regels:
 
 Na herstart van Home Assistant kunnen deze entiteiten vervolgens aan het dashboard worden toegevoegd en gemonitord.
 
-Om deze sensoren direct in een dasboard te krijgen, kun je een kaart toevoegen en de volgende code erin plakken:
+Om deze sensoren direct in een dashboard te krijgen, kun je een kaart toevoegen en de volgende code erin plakken:
 
 ```
 type: entities
@@ -913,5 +913,5 @@ Huidige versie: 20260331
 - Bugfixes voor de 3 Zendures support
 
 ## Nieuw in versie 20260331 ##
-- De status van de Proxy sensor 'Zendure Actief Device' werd niet correct doorgegeven door de Proxy aan Home Asistant. Dat is opgelost in deze versie.
+- De status van de Proxy sensor 'Zendure Actief Device' werd niet correct doorgegeven door de Proxy aan Home Assistant. Dat is opgelost in deze versie.
 
