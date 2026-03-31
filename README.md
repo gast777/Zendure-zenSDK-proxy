@@ -790,7 +790,7 @@ Als je nu de switch _Beide Actief_ aan zet, zullen beide Zendures actief blijven
 
 ## Versie ##
 
-Huidige versie: 20260326
+Huidige versie: 20260331
 <br/>
 
 # Release-notes #
@@ -911,3 +911,7 @@ Huidige versie: 20260326
 
 ## Nieuw in versie 20260326 ##
 - Bugfixes voor de 3 Zendures support
+
+## Nieuw in versie 20260331 ##
+- De status van de Proxy sensor 'Zendure Actief Device' werd niet correct doorgegeven door de Proxy aan Home Asistant. Dat is opgelost in deze versie.
+
