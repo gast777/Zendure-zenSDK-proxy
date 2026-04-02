@@ -133,6 +133,13 @@ Kopieer en plak de volgende sensoren tussen de aangegeven regels:
         state_class: measurement
         unique_id: Zendure_proxy_Laadpercentage_2
 
+      - name: "Zendure 3 Laadpercentage"
+        value_template: "{{ value_json['properties']['electricLevel_3'] }}"
+        device_class: battery
+        unit_of_measurement: "%"
+        state_class: measurement
+        unique_id: Zendure_proxy_Laadpercentage_3
+
       - name: "Vermogensopdracht"
         value_template: "{{ value_json['properties']['latestPowerCmd'] | int }}"
         unique_id: Zendure_proxy_latest_power_command
@@ -150,6 +157,13 @@ Kopieer en plak de volgende sensoren tussen de aangegeven regels:
       - name: "Vermogensopdracht Zendure 2"
         value_template: "{{ value_json['properties']['latestPowerCmd_2'] | int }}"
         unique_id: Zendure_proxy_latest_power_command_2
+        unit_of_measurement: "W"
+        state_class: measurement
+        device_class: power
+
+      - name: "Vermogensopdracht Zendure 3"
+        value_template: "{{ value_json['properties']['latestPowerCmd_3'] | int }}"
+        unique_id: Zendure_proxy_latest_power_command_3
         unit_of_measurement: "W"
         state_class: measurement
         device_class: power
@@ -182,6 +196,20 @@ Kopieer en plak de volgende sensoren tussen de aangegeven regels:
         state_class: measurement
         device_class: power
 
+      - name: "Zendure 3 Vermogen Aansturing"
+        value_template: >
+          {% set opladen = value_json['properties']['gridInputPower_3'] | int %}
+          {% set ontladen = - (value_json['properties']['outputHomePower_3'] | int) %}
+          {% if opladen != 0 %}
+            {{ opladen }}
+          {% else %}
+            {{ ontladen }}
+          {% endif %}
+        unique_id: Zendure_proxy_Vermogen_Aansturing_3
+        unit_of_measurement: "W"
+        state_class: measurement
+        device_class: power
+
       - name: "Zendure 1 Kalibratie bezig"
         value_template: >
           {% set states = {0: "Nee", 1: "Kalibreren"} %}
@@ -196,6 +224,14 @@ Kopieer en plak de volgende sensoren tussen de aangegeven regels:
           {% set packState = value_json['properties']['socStatus_2'] | int %}
           {{ states.get(packState, "Onbekend") }}
         unique_id: Zendure_proxy_SOC_Status_2
+        icon: mdi:battery-heart-variant
+
+      - name: "Zendure 3 Kalibratie bezig"
+        value_template: >
+          {% set states = {0: "Nee", 1: "Kalibreren"} %}
+          {% set packState = value_json['properties']['socStatus_3'] | int %}
+          {{ states.get(packState, "Onbekend") }}
+        unique_id: Zendure_proxy_SOC_Status_3
         icon: mdi:battery-heart-variant
 
       - name: "Zendure 1 Opslagmodus"
@@ -214,15 +250,35 @@ Kopieer en plak de volgende sensoren tussen de aangegeven regels:
         unique_id: Zendure_proxy_Opslagmodus_2
         icon: mdi:floppy
 
+      - name: "Zendure 3 Opslagmodus"
+        value_template: >
+          {% set states = {1: "Opslaan in RAM", 0: "Opslaan in Flash"} %}
+          {% set packState = value_json['properties']['smartMode_3'] | int %}
+          {{ states.get(packState, "Onbekend") }}
+        unique_id: Zendure_proxy_Opslagmodus_3
+        icon: mdi:floppy
+
       - name: "Zendure Actief Device"
         value_template: >
-          {% set active_device = value_json['properties']['activeDevice'] | int %}
-          {% if active_device == -1 %}
-           Geen
-          {% elif active_device == 0 %}
-           Beide
+          {% set active = value_json.get('properties', {}).get('activeDevice') | int(-99) %}
+          {% if active == 0 %}
+            Geen
+          {% elif active == 1 %}
+            Zendure 1
+          {% elif active == 2 %}
+            Zendure 2
+          {% elif active == 3 %}
+            Zendure 1 en 2
+          {% elif active == 4 %}
+            Zendure 3
+          {% elif active == 5 %}
+            Zendure 1 en 3
+          {% elif active == 6 %}
+            Zendure 2 en 3
+          {% elif active == 7 %}
+            Alle
           {% else %}
-           Zendure {{ active_device }}
+            Onbekend
           {% endif %}
         unique_id: Zendure_proxy_active_device
         icon: mdi:battery
@@ -250,6 +306,23 @@ Kopieer en plak de volgende sensoren tussen de aangegeven regels:
           {% set packState = value_json['properties']['socLimit_2'] | int %}
           {{ states.get(packState, "Onbekend") }}
         unique_id: Zendure_proxy_soc_limiet_status_2
+        icon: >
+         {% if this.state == 'Normale werking' %}
+          mdi:battery-medium
+         {% elif this.state == 'Laadlimiet bereikt' %}
+          mdi:battery-high
+         {% elif this.state == 'Ontlaadlimiet bereikt' %}
+          mdi:battery-low
+         {% else %}
+          mdi:battery-outline
+         {% endif %}
+
+      - name: "Zendure 3 SOC-limiet Status"
+        value_template: >
+          {% set states = {0: "Normale werking", 1: "Laadlimiet bereikt", 2: "Ontlaadlimiet bereikt"} %}
+          {% set packState = value_json['properties']['socLimit_3'] | int %}
+          {{ states.get(packState, "Onbekend") }}
+        unique_id: Zendure_proxy_soc_limiet_status_3
         icon: >
          {% if this.state == 'Normale werking' %}
           mdi:battery-medium
@@ -325,6 +398,16 @@ Kopieer en plak de volgende sensoren tussen de aangegeven regels:
         device_class: temperature
         icon: mdi:thermometer
 
+      - name: "Zendure 3 Omvormer Temperatuur"
+        value_template: >
+          {% set maxTemp = value_json['properties']['hyperTmp_3'] | int %}
+          {{ (maxTemp - 2731) / 10.0 }}
+        unique_id: Zendure_proxy_Omvormer_Temperatuur_3
+        unit_of_measurement: "°C"
+        state_class: measurement
+        device_class: temperature
+        icon: mdi:thermometer
+
       - name: "Zendure 1 Serienummer"
         unique_id: Zendure_proxy_Serienummer_1
         value_template: "{{ value_json.sn_1 }}"
@@ -333,6 +416,11 @@ Kopieer en plak de volgende sensoren tussen de aangegeven regels:
       - name: "Zendure 2 Serienummer"
         unique_id: Zendure_proxy_Serienummer_2
         value_template: "{{ value_json.sn_2 }}"
+        icon: mdi:identifier
+
+      - name: "Zendure 3 Serienummer"
+        unique_id: Zendure_proxy_Serienummer_3
+        value_template: "{{ value_json.sn_3 }}"
         icon: mdi:identifier
 
       - name: "Zendure Proxy Versie"
