@@ -433,7 +433,9 @@ Kopieer en plak de volgende sensoren tussen de aangegeven regels:
 
 Na herstart van Home Assistant kunnen deze entiteiten vervolgens aan het dashboard worden toegevoegd en gemonitord.
 
-Om deze sensoren direct in een dashboard te krijgen, kun je een kaart toevoegen en de volgende code erin plakken:
+Om deze sensoren direct in een dashboard te krijgen, kun je een kaart toevoegen en de volgende code erin plakken.
+
+Bij gebruik van 2 Zendures:
 
 ```
 type: entities
@@ -460,6 +462,42 @@ entities:
   - entity: sensor.zendure_proxy_versie
 title: Zendure Proxy Sensoren
 ```
+
+Bij gebruik van 3 Zendures:
+```
+type: entities
+entities:
+  - entity: sensor.vermogensopdracht
+  - entity: sensor.vermogensopdracht_zendure_1
+  - entity: sensor.vermogensopdracht_zendure_2
+  - entity: sensor.vermogensopdracht_zendure_3
+  - entity: sensor.zendure_1_vermogen_aansturing
+  - entity: sensor.zendure_2_vermogen_aansturing
+  - entity: sensor.zendure_3_vermogen_aansturing
+  - entity: sensor.zendure_actief_device
+  - entity: sensor.zendure_1_laadpercentage
+  - entity: sensor.zendure_2_laadpercentage
+  - entity: sensor.zendure_3_laadpercentage
+  - entity: sensor.zendure_1_soc_limiet_status
+  - entity: sensor.zendure_2_soc_limiet_status
+  - entity: sensor.zendure_3_soc_limiet_status
+  - entity: sensor.zendure_1_opslagmodus
+  - entity: sensor.zendure_2_opslagmodus
+  - entity: sensor.zendure_3_opslagmodus
+  - entity: sensor.zendure_1_kalibratie_bezig
+  - entity: sensor.zendure_2_kalibratie_bezig
+  - entity: sensor.zendure_3_kalibratie_bezig
+  - entity: sensor.zendure_1_omvormer_temperatuur
+  - entity: sensor.zendure_2_omvormer_temperatuur
+  - entity: sensor.zendure_3_omvormer_temperatuur
+  - entity: sensor.dual_mode_demper_status
+  - entity: sensor.zendure_1_serienummer
+  - entity: sensor.zendure_2_serienummer
+  - entity: sensor.zendure_3_serienummer
+  - entity: sensor.zendure_proxy_versie
+title: Zendure Proxy Sensoren
+```
+
 
 Nu kan het feest beginnen!
 
