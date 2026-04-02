@@ -5,7 +5,7 @@ De [Gielz-automatisering](https://github.com/Gielz1986/Zendure-HA-zenSDK) voor Z
 
 Een nadeel is dat de Gielz-automatisering normaal maar één Zendure-apparaat (omvormer) tegelijk ondersteunt.
 
-Deze Node-RED flow lost dat op. Het werkt als een tussenstation (proxy server) waarmee je twee Zendure-apparaten, bijvoorbeeld 2x [SolarFlow 2400AC](https://www.zendure.nl/products/zendure-solarflow-2400-ac), kunt aansturen alsof het één apparaat is. De flow laat ze samenwerken als een virtuele SolarFlow 4800AC.
+Deze Node-RED flow lost dat op. Het werkt als een tussenstation (proxy server) waarmee je twee of drie Zendure-apparaten, bijvoorbeeld 2x of 3x [SolarFlow 2400AC](https://www.zendure.nl/products/zendure-solarflow-2400-ac), kunt aansturen alsof het één apparaat is. De flow laat ze samenwerken als een virtuele SolarFlow 4800AC.
 
 <br/>
 
@@ -15,11 +15,11 @@ Deze Node-RED flow lost dat op. Het werkt als een tussenstation (proxy server) w
 <br/>
 
 
-Het werkt als volgt: Home Assistant (HA) zal met de proxy praten, in plaats van met een Zendure. De proxy praat met de twee Zendure devices. Vanuit HA (Gielz) gezien lijkt het nog steeds alsof er maar één Zendure device is, maar dan wel eentje die twee keer zo veel vermogen aan kan (een virtuele SolarFlow 4800AC dus). De proxy verdeelt het vermogen dat HA (Gielz) aanstuurt over de twee fysieke Zendures.
+Het werkt als volgt: Home Assistant (HA) zal met de proxy praten, in plaats van met een Zendure. De proxy praat met de twee of drie Zendure devices. Vanuit HA (Gielz) gezien lijkt het nog steeds alsof er maar één Zendure device is, maar dan wel eentje die twee of drie keer zo veel vermogen aan kan (een virtuele SolarFlow 4800AC dus). De proxy verdeelt het vermogen dat HA (Gielz) aanstuurt over de twee fysieke Zendures.
 
-Het vermogen wordt op intelligente wijze verdeeld over de Zendures. Als er een verschil is in SoC (State of Charge, batterij % Laadpercentage) van de twee Zendures, dan zal degene met de laagste SoC sneller laden of de volste juist sneller ontladen. Zo blijft de SoC van de beide Zendures dicht bij elkaar. Tevens zal bij lagere vermogens slechts één van de twee Zendures tegelijk gaan laden/ontladen, om redenen van efficiency.
+Het vermogen wordt op intelligente wijze verdeeld over de Zendures. Als er een verschil is in SoC (State of Charge, batterij % Laadpercentage) van de Zendures, dan zal degene met de laagste SoC sneller laden of de volste juist sneller ontladen. Zo blijft de SoC van de beide Zendures dicht bij elkaar. Tevens zal bij lagere vermogens slechts één of twee van de Zendures tegelijk gaan laden/ontladen, om redenen van efficiency.
 
-Node-RED kan gemakkelijk als een Add-On geinstalleerd worden in Home Assistant. Na importeren van deze Node-RED Zendure Proxy flow, kun je de IP adressen van je twee Zendure devices invullen. Hieronder staat aangegeven waar je dat kunt doen.
+Node-RED kan gemakkelijk als een Add-On geinstalleerd worden in Home Assistant. Na importeren van deze Node-RED Zendure Proxy flow, kun je de IP adressen van je twee of drie Zendure devices invullen. Hieronder staat aangegeven waar je dat kunt doen.
 
 Vervolgens moet je een paar eenvoudige instellingen doen voor de Gielz automatisering in Home Assistant, zoals in onderstaande instructies te zien is. Daarna kan hij aan het werk :)<br/>
 <br/>
@@ -31,7 +31,7 @@ Vervolgens moet je een paar eenvoudige instellingen doen voor de Gielz automatis
 ### Node-RED ###
 <br/>
 
-- [ ] Vul de IP adressen van de beide Zendure devices in, in het blok "**Vul hier de Zendure IP adressen in**" (zie het rode vierkant in het plaatjes hieronder).<br/>
+- [ ] Vul de IP adressen van de Zendure devices in, in het blok "**Vul hier de Zendure IP adressen in**" (zie het rode vierkant in het plaatjes hieronder).<br/>
 
 Hiervoor importeer je eerst de flow Zendure-proxy-Node-Red-flow.json in Node-RED via het menu (hamburger rechtsboven) -> Import. Vervolgens open je het blok "**Vul hier de Zendure IP adressen in**" door erop te dubbel clicken. Na invullen van de IP adressen click je op "Done". Daarna click je op de "Deploy" knop rechts boven in Node-RED om de flow te activeren. Daarmee is de Node-RED kant gereed.<br/>
 <br/>
@@ -68,7 +68,7 @@ Na deze stap zouden de sensoren van Gielz in Home Assistant al moeten werken.
 
 - [ ] Stap 2: Op het dashboard, stel het maximale vermogen in via de invulvelden `input_number.zendure_2400_ac_max_ontlaadvermogen` en `input_number.zendure_2400_ac_max_oplaadvermogen`.
 
-Bijvoorbeeld voor 2x SolarFlow 2400 kun je hem op max 4800 Watt zetten.
+Bijvoorbeeld voor 2x SolarFlow 2400 kun je hem op max 4800 Watt zetten. Bij 3x SolarFlow 2400 op max 7200 Watt.
 
 <img src="https://github.com/gast777/Zendure-zenSDK-proxy/blob/main/images/max-power-setting.png" width="50%">
 
@@ -96,18 +96,18 @@ localhost:1880/endpoint<br/>
 
 ## Monitoring ##
 
-Om real-time de status van de twee Zendure devices achter de Proxy te kunnen monitoren, stuurt de Proxy behalve de bestaande attributen van de [REST API van Zendure](https://github.com/Zendure/zenSDK/blob/main/docs/en_properties.md) ook nog extra attributen mee. Deze kunnen in Home Assistant toegevoegd worden en op het dashboard geplaatst worden. Bijvoorbeeld om inzicht te hebben met welk vermogen de proxy opdracht wordt gegeven te laden/ontladen en hoe dat vervolgens over de beide Zendure devices verdeeld wordt. Of om bijvoorbeeld de SoC percentages van beide Zendure devices te kunnen zien. 
+Om real-time de status van de Zendure devices achter de Proxy te kunnen monitoren, stuurt de Proxy behalve de bestaande attributen van de [REST API van Zendure](https://github.com/Zendure/zenSDK/blob/main/docs/en_properties.md) ook nog extra attributen mee. Deze kunnen in Home Assistant toegevoegd worden en op het dashboard geplaatst worden. Bijvoorbeeld om inzicht te hebben met welk vermogen de proxy opdracht wordt gegeven te laden/ontladen en hoe dat vervolgens over de Zendure devices verdeeld wordt. Of om bijvoorbeeld de SoC percentages van de individuele Zendure devices te kunnen zien. 
 
 Zie hier de beschikbare extra proxy sensoren in Home Assistant.
 
 <img src="https://github.com/gast777/Zendure-zenSDK-proxy/blob/main/images/proxy-sensors.png" width="50%">
 
 
-Om deze in Home Assistant beschikbaar te maken, voegen we de extra sensoren toe aan de configuration.yaml of aan de package die [Gielz](https://github.com/Gielz1986/Zendure-HA-zenSDK) beschikbaar stelt. 
+Om deze in Home Assistant beschikbaar te maken, voegen we de extra sensoren toe aan de package die [Gielz](https://github.com/Gielz1986/Zendure-HA-zenSDK) beschikbaar stelt. Of in de configuration.yaml, als je die methode gebruikt (de package methode van Gielz is aan te raden).
 
 ### Instructie ###
 
-In de configuration.yaml of de package van Gielz (zendure_ha_zensdk_gielz1986.yaml) staan de volgende regels om aan de geven waar de Proxy sensoren ingevoegd kunnen worden:
+In de package van Gielz (zendure_ha_zensdk_gielz1986.yaml) of de configuration.yaml staan de volgende regels om aan de geven waar de Proxy sensoren ingevoegd kunnen worden:
 ```
 ####### BEGIN - Plaats hier je Node-RED sensoren tussen van https://github.com/gast777/Zendure-zenSDK-proxy - BEGIN #######
 
@@ -431,7 +431,7 @@ Kopieer en plak de volgende sensoren tussen de aangegeven regels:
 ####### EINDE ZENDURE PROXY SENSOREN ####### 
 ```
 
-Na herstart van Home Assistant kunnen deze entiteiten vervolgens aan het dashboard worden toegevoegd en gemonitord.
+Na herstart van Home Assistant kunnen deze entiteiten vervolgens eenvoudig aan het dashboard worden toegevoegd en gemonitord.
 
 Om deze sensoren direct in een dashboard te krijgen, kun je een kaart toevoegen en de volgende code erin plakken.
 
