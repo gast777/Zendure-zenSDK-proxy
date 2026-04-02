@@ -878,7 +878,7 @@ Als je nu de switch _Beide Actief_ aan zet, zullen beide Zendures actief blijven
 
 ## Versie ##
 
-Huidige versie: 20260331
+Huidige versie: 20260402
 <br/>
 
 # Release-notes #
@@ -1003,3 +1003,7 @@ Huidige versie: 20260331
 ## Nieuw in versie 20260331 ##
 - De status van de Proxy sensor 'Zendure Actief Device' werd niet correct doorgegeven door de Proxy aan Home Assistant. Dat is opgelost in deze versie.
 
+## Nieuw in versie 20260402 ##
+- Met 3 Zendures wordt nu ook bij lagere vermogens 1 of 2 devices op 0 vermogen gezet.
+- Bug fixes voor 3 Zendures
+- Vanaf deze versie wordt actief_device op een andere manier doorgegeven. Daarom is het nodig om de Proxy REST sensoren te updaten naar de huidige sensoren (zie hierboven onder [Monitoring](https://github.com/gast777/Zendure-zenSDK-proxy/tree/main?tab=readme-ov-file#monitoring)). Anders toont de sensor.zendure_actief_device niet de correcte informatie.
