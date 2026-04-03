@@ -68,7 +68,7 @@ Na deze stap zouden de sensoren van Gielz in Home Assistant al moeten werken.
 
 - [ ] Stap 2: Op het dashboard, stel het maximale vermogen in via de invulvelden `input_number.zendure_2400_ac_max_ontlaadvermogen` en `input_number.zendure_2400_ac_max_oplaadvermogen`.
 
-Bijvoorbeeld voor 2x SolarFlow 2400 kun je hem op max 4800 Watt zetten. Bij 3x SolarFlow 2400 op max 7200 Watt.
+Bijvoorbeeld voor 2x SolarFlow 2400 kun je hem op max 4800 Watt zetten. Bij 3x SolarFlow 2400 op max 7200 Watt (gebruik dan minimaal de Mei 2026 versie van Gielz).
 
 <img src="https://github.com/gast777/Zendure-zenSDK-proxy/blob/main/images/max-power-setting.png" width="50%">
 
