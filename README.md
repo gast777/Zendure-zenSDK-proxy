@@ -1054,7 +1054,7 @@ Huidige versie: 20260404
 
       ==== Hoe deze gesimuleerde Zendure devices te gebruiken:
       
-      1) directe toegang
+      1) Directe toegang
       curl http://<proxy_ip_adres>:1880/endpoint/testdevice1/properties/report
       of 
       curl http://<proxy_ip_adres>:1880/testdevice1/properties/report
@@ -1062,9 +1062,8 @@ Huidige versie: 20260404
       Vanaf Gielz:
       Verbind met deze gesimuleerde Zendure op "192.168.x.x:1880" of "192.168.x.x:1880/endpoint".
       
-      
       2) Vanaf de Proxy:
-      In het blok "Vul hier de Zendure device IP adressen in", vul in plaats van device IP adressen, de naam van de gesimileerde devices.
+      In het blok "Vul hier de Zendure device IP adressen in", vul in plaats van device IP adressen, de naam van de gesimuleerde devices.
       
       //===============================================================
       //== Vul hier de Zendure device IP adressen in ==
@@ -1074,9 +1073,7 @@ Huidige versie: 20260404
       let ipZendure2 = "testdevice2"
       let ipZendure3 = "testdevice4"
       
-      
       ==== Beschikbare gesimuleerde devices:
-      
       testdevice1 - Solarflow 2400AC
       testdevice2 - Solarflow 2400AC
       testdevice3 - Solarflow 2400AC
