@@ -916,7 +916,7 @@ Als je nu de switch _Beide Actief_ aan zet, zullen beide Zendures actief blijven
 
 ## Versie ##
 
-Huidige versie: 20260402
+Huidige versie: 20260404
 <br/>
 
 # Release-notes #
@@ -1045,3 +1045,39 @@ Huidige versie: 20260402
 - Met 3 Zendures wordt nu ook bij lagere vermogens 1 of 2 devices op 0 vermogen gezet.
 - Bug fixes voor 3 Zendures
 - Vanaf deze versie wordt actief_device op een andere manier doorgegeven. Daarom is het nodig om de Proxy REST sensoren te updaten naar de huidige sensoren (zie hierboven onder [Monitoring](https://github.com/gast777/Zendure-zenSDK-proxy/tree/main?tab=readme-ov-file#monitoring)). Anders toont de sensor.zendure_actief_device niet de correcte informatie.
+
+## Nieuw in versie 20260404 ##
+- Vanaf deze versie zijn gesimuleerde testdevices beschikbaar.
+  In deze Node-RED flow zijn enkele gesimuleerde Zendure devices beschikbaar om te testen.
+  Als er bijvoorbeeld een probleem is, kun je testen of de verbinding tussen de HA Gielz en de Proxy werkt of niet. 
+  Als die goed werkt, dan weet je dat en kun je verder kijken of de verbinding tussen de Proxy en de echte Zendures goed werkt.
+
+      ==== Hoe deze gesimuleerde Zendure devices te gebruiken:
+      
+      1) directe toegang
+      curl http://<proxy_ip_adres>:1880/endpoint/testdevice1/properties/report
+      of 
+      curl http://<proxy_ip_adres>:1880/testdevice1/properties/report
+      
+      Vanaf Gielz:
+      Verbind met deze gesimuleerde Zendure op "192.168.x.x:1880" of "192.168.x.x:1880/endpoint".
+      
+      
+      2) Vanaf de Proxy:
+      In het blok "Vul hier de Zendure device IP adressen in", vul in plaats van device IP adressen, de naam van de gesimileerde devices.
+      
+      //===============================================================
+      //== Vul hier de Zendure device IP adressen in ==
+      //===============================================================
+      
+      let ipZendure1 = "testdevice1"
+      let ipZendure2 = "testdevice2"
+      let ipZendure3 = "testdevice4"
+      
+      
+      ==== Beschikbare gesimuleerde devices:
+      
+      testdevice1 - Solarflow 2400AC
+      testdevice2 - Solarflow 2400AC
+      testdevice3 - Solarflow 2400AC
+      testdevice4 - Solarflow 2400AC+
