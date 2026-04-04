@@ -1055,12 +1055,12 @@ Huidige versie: 20260404
       ==== Hoe deze gesimuleerde Zendure devices te gebruiken:
       
       1) Directe toegang
-      curl http://<proxy_ip_adres>:1880/endpoint/testdevice1/properties/report
+      curl http://<node-red_ip_adres>:1880/endpoint/testdevice1/properties/report
       of 
-      curl http://<proxy_ip_adres>:1880/testdevice1/properties/report
+      curl http://<node-red_ip_adres>:1880/testdevice1/properties/report
       
       Vanaf Gielz:
-      Verbind met deze gesimuleerde Zendure op "192.168.x.x:1880" of "192.168.x.x:1880/endpoint".
+      Verbind met deze gesimuleerde Zendure op "192.168.x.x:1880/testdevice1" of "192.168.x.x:1880/endpoint/testdevice1".
       
       2) Vanaf de Proxy:
       In het blok "Vul hier de Zendure device IP adressen in", vul in plaats van device IP adressen, de naam van de gesimuleerde devices.
