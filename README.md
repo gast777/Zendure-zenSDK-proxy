@@ -1052,6 +1052,8 @@ Huidige versie: 20260404
   Als er bijvoorbeeld een probleem is, kun je testen of de verbinding tussen de HA Gielz en de Proxy werkt of niet. 
   Als die goed werkt, dan weet je dat en kun je verder kijken of de verbinding tussen de Proxy en de echte Zendures goed werkt.
 
+  <img src="https://github.com/gast777/Zendure-zenSDK-proxy/blob/main/images/testdevices.png" width="50%">
+
       ==== Hoe deze gesimuleerde Zendure devices te gebruiken:
       
       1) Directe toegang
@@ -1078,3 +1080,6 @@ Huidige versie: 20260404
       testdevice2 - Solarflow 2400AC
       testdevice3 - Solarflow 2400AC
       testdevice4 - Solarflow 2400AC+
+
+
+
