@@ -901,25 +901,26 @@ Als je nu de switch _Beide Actief_ aan zet, zullen beide Zendures actief blijven
 
 
 ## Features ##
-- SoC balancering - De SoC (state of charge, laadpercentage) van de twee devices wordt dicht bij elkaar gehouden doordat de volste batterij het snelst ontlaadt en de leegste batterij het snelst oplaadt. Bij gelijke SoC laden ze beide even snel.
+- De Proxy kan verbinden met 2 of 3 Zendure devices.
+- SoC balancering - De SoC (state of charge, laadpercentage) van de Zendure devices wordt dicht bij elkaar gehouden doordat de volste batterij het snelst ontlaadt en de leegste batterij het snelst oplaadt. Bij gelijke SoC laden ze even snel.
 - Herhaling van instructies om te laden/ontladen, zodat SoC balancing tussen de Zendures ook werkt voor Handmatige mode.
-- Single Mode - Bij lagere vermogens laadt/ontlaadt slechts een van de Zendures tegelijk. Dit wordt afgewisseld aan de hand van de SoC van de beide devices, waardoor de SoC waardes gebalanceerd blijven.
-- In Single Mode wordt het passieve device (degene die op dat moment niet laadt of ontlaadt) na 5 minuten op standby gezet (smartMode = 0, "Opslaan in Flash").
+- Single Mode - Bij lagere vermogens laadt/ontlaadt slechts een of twee van de Zendures tegelijk. Dit wordt afgewisseld aan de hand van de SoC van de devices, waardoor de SoC waardes bij elkaar in de buurt blijven.
+- In Single Mode wordt een passieve device (degene die op dat moment niet laadt of ontlaadt) na 5 minuten op standby gezet (smartMode = 0, "Opslaan in Flash").
 - In Single Mode wordt naar het andere device overgeschakeld wanneer het verschil in SoC 5% is. Hierdoor wordt minder vaak overgeschakeld van actief device.
 - Bij het overschakelen naar het andere device of van Single Mode naar Dual Mode overschakelen, worden tijdens de overgangsperiode twee devices gebruikt. In het begin krijgt het reeds actieve device 95% van het vermogen toebedeeld, zodat de andere de tijd krijgt om op te starten, voordat die meer vermogen toebedeeld krijgt.
 <br/>
 
 ## Vereisten ## 
-- 2x Zendure SolarFlow 2400 AC (2x Zendure SolarFlow 800 Plus/Pro, SolarFlow 1600 AC+ of SolarFlow 2400 AC+/Pro zijn ook compatibel, nog niet getest). In principe zal een combinatie van twee verschillende modellen ook werken (nog niet getest). Wel is het aan te bevelen dat beide devices ongeveer dezelfde hoeveelheid kWh aan batterijopslag en hetzelfde max vermogen hebben (bijvoorbeeld een SolarFlow 2400AC en een SolarFlow 2400AC+).
-- Zorg dat op beide Zendures hetzelfde maximale en minimale laadpercentage (SoC percentages) ingesteld staan.
+- 2x of 3x Zendure SolarFlow 2400 AC (of SolarFlow 2400 AC+/Pro, SolarFlow 1600 AC+ of Zendure SolarFlow 800 Plus/Pro). In principe zal een combinatie van twee verschillende modellen ook werken. Wel is het aan te bevelen dat beide devices ongeveer dezelfde hoeveelheid kWh aan batterijopslag en hetzelfde max vermogen hebben (bijvoorbeeld een SolarFlow 2400AC en een SolarFlow 2400AC+).
+- Zorg dat op beide Zendures hetzelfde maximale en minimale laadpercentage (SoC percentages) ingesteld staan. Dit kan via de Zendure App.
 - Beide Zendures moeten hetzelfde aantal batterijen hebben of ongeveer dezelfde hoeveelheid kWh aan batterijopslag.
 - De beide Zendures en de Node-RED server moeten een vast IP adres hebben.
 - Wifi ontvangst moet uitstekend zijn.
-- Beide Zendures moeten beschikbaar zijn en werken.
+- Beide Zendures moeten beschikbaar zijn via het netwerk en werken.
 <br/>
 
 ## Beperkingen ##
-- Zonnepanelen direct via DC aangesloten op de Zendures zijn niet ondersteund/getest. Het zou wel kunnen werken, maar is nog niet getest.
+- Zonnepanelen direct via DC aangesloten op de Zendures zijn niet getest. Het zou in principe wel moeten werken.
 - Bij een instructie van 0 Watt laden levert een Zendure device soms rond de 20 Watt. Dit is momenteel Zendure gedrag en geen probleem. Dit wordt op 0 gezet zodra het passieve device automatisch op standby gezet wordt (smartMode = 0, "Opslaan in Flash").
 - Met Node-RED 4.0.9 zijn er door een gebruiker problemen gerapporteerd, die met versie 4.1.2 niet meer optraden (thanks [Freemann](https://tweakers.net/gallery/45846/)). Node-RED versie 4.1.1 en 4.1.4 zijn ook getest en werken prima.
 <br/>
