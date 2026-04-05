@@ -896,7 +896,7 @@ Als je nu de switch _Beide Actief_ aan zet, zullen beide Zendures actief blijven
 <br/>
 <br/>
 
-## Andere documentatie ##
+## Meer documentatie ##
 
 
 ### Automatische Standby mode bij lagere vermogens ###
