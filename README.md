@@ -512,31 +512,42 @@ Nu kan het feest beginnen!
  |-----------|-------------|
  | `properties.electricLevel_1` | Laadpercentage van de Zendure 1 |
  | `properties.electricLevel_2` | Laadpercentage van de Zendure 2 |
+ | `properties.electricLevel_3` | Laadpercentage van de Zendure 3 |
  | `properties.latestPowerCmd` | Het vermogen van de meest recente opdracht aan de proxy om te laden of ontladen |
  | `properties.latestPowerCmd_1` | Het vermogen van de meest recente opdracht aan de Zendure 1 om te laden of ontladen |
  | `properties.latestPowerCmd_2` | Het vermogen van de meest recente opdracht aan de Zendure 2 om te laden of ontladen |
+ | `properties.latestPowerCmd_3` | Het vermogen van de meest recente opdracht aan de Zendure 3 om te laden of ontladen | 
  | `properties.outputHomePower_1` | Vermogen uitgaand naar het net (ontladen) van Zendure 1 |
  | `properties.outputHomePower_2` | Vermogen uitgaand naar het net (ontladen) van Zendure 2 |
+ | `properties.outputHomePower_3` | Vermogen uitgaand naar het net (ontladen) van Zendure 3 |
  | `properties.gridInputPower_1` | Vermogen inkomend van het net (laden) van Zendure 1 |
  | `properties.gridInputPower_2` | Vermogen inkomend van het net (laden) van Zendure 2 |
+ | `properties.gridInputPower_3` | Vermogen inkomend van het net (laden) van Zendure 3 |
  | `properties.packInputPower_1` | Vermogen komend vanuit de batterijen (ontladen) van Zendure 1 |
  | `properties.packInputPower_2` | Vermogen komend vanuit de batterijen (ontladen) van Zendure 2 |
+ | `properties.packInputPower_3` | Vermogen komend vanuit de batterijen (ontladen) van Zendure 3 |
  | `properties.outputPackPower_1` | Vermogen uitgaand naar de batterijen (laden) van Zendure 1 |
  | `properties.outputPackPower_2` | Vermogen uitgaand naar de batterijen (laden) van Zendure 2 |
+ | `properties.outputPackPower_3` | Vermogen uitgaand naar de batterijen (laden) van Zendure 3 |
  | `properties.socStatus_1` | Indicatie of het Zendure 1 device geforceerd aan het opladen is vanwege kalibratie.<br/>Waarden: 0: Nee, 1: Kalibreren |
  | `properties.socStatus_2` | Indicatie of het Zendure 2 device geforceerd aan het opladen is vanwege kalibratie.<br/>Waarden: 0: Nee, 1: Kalibreren |
+ | `properties.socStatus_3` | Indicatie of het Zendure 3 device geforceerd aan het opladen is vanwege kalibratie.<br/>Waarden: 0: Nee, 1: Kalibreren |
  | `properties.smartMode_1` | smartMode status van Zendure 1.<br/>Waarden: 0: Smartmode uit (schrijven naar Flash), 1: Smartmode aan (schrijven naar RAM) |
  | `properties.smartMode_2` | smartMode status van Zendure 2.<br/>Waarden: 0: Smartmode uit (schrijven naar Flash), 1: Smartmode aan (schrijven naar RAM) |
+ | `properties.smartMode_3` | smartMode status van Zendure 3.<br/>Waarden: 0: Smartmode uit (schrijven naar Flash), 1: Smartmode aan (schrijven naar RAM) |
  | `properties.activeDevice` | Actief Device.<br/>Waarden: 0: Beide, 1: Zendure 1, 2: Zendure 2, -1: Geen |
  | `properties.dualModeDamper` | Dual Mode Demper.<br/>Waarden: 0: Uit, 1: Aan (read/write) |
  | `properties.alwaysDualMode` | Beide Actief. Altijd Dual Mode gebruiken. Single Mode uitgeschakeld.<br/>Waarden: 0: Uit, 1: Aan (read/write) |
  | `properties.equalMode` | Synchroon Laden. Altijd Dual Mode gebruiken en steeds hetzelfde vermogen op beide devices.<br/>Waarden: 0: Uit, 1: Aan (read/write) |
  | `properties.socLimit_1` | SOC-limiet Status van het Zendure 1 device.<br/>Waarden: 0: Normale werking, 1: Oplaadlimiet bereikt, 2: Ontlaadlimiet bereikt |
  | `properties.socLimit_2` | SOC-limiet Status van het Zendure 2 device.<br/>Waarden: 0: Normale werking, 1: Oplaadlimiet bereikt, 2: Ontlaadlimiet bereikt |
+ | `properties.socLimit_3` | SOC-limiet Status van het Zendure 3 device.<br/>Waarden: 0: Normale werking, 1: Oplaadlimiet bereikt, 2: Ontlaadlimiet bereikt |
  | `properties.hyperTmp_1` | Omvormertemperatuur van het Zendure 1 device. |
  | `properties.hyperTmp_2` | Omvormertemperatuur van het Zendure 2 device. |
+ | `properties.hyperTmp_3` | Omvormertemperatuur van het Zendure 3 device. |
  | `sn_1` | Serienummer van de omvormer van het Zendure 1 device. |
  | `sn_2` | Serienummer van de omvormer van het Zendure 2 device. |
+ | `sn_3` | Serienummer van de omvormer van het Zendure 3 device. |
  | `proxyVersion` | Versie van de Proxy. |
 <br/>
 <br/>
