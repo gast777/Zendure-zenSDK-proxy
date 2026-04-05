@@ -905,16 +905,16 @@ Bij lage belasting wordt een van de Zendures eerst in standby en dan na 5 minute
 
 Bij 2 Zendures achter de Proxy zijn de standaard grenzen 40% en 100% van het als maximum ingestelde vermogen van 1 device (wat verschillend kan zijn voor opladen en ontladen). Normaliter is dat bij een SF2400AC dus 40% en 100% van 2400 Watt (960W en 2400W):
 
-onder 960W - altijd 1 device
-boven 2400W - altijd 2 devices
-Daar tussenin blijft het zoals het is.
+onder 960W - altijd 1 device<br/>
+boven 2400W - altijd 2 devices<br/>
+Daar tussenin blijft het zoals het is.<br/>
 
-Bij 3 Zendures hetzelfde, maar wat ingewikkelder...
+Bij 3 Zendures hetzelfde, maar wat ingewikkelder:
 
-onder 960W - altijd 1 device
-boven 4800W - altijd 3 devices
-als 1 actief is, boven de 2400W naar 2 devices
-als 3 actief zijn, onder de 1920W (40% van 4800W) naar 2 devices
+onder 960W - altijd 1 device<br/>
+boven 4800W - altijd 3 devices<br/>
+als 1 actief is, boven de 2400W naar 2 devices<br/>
+als 3 actief zijn, onder de 1920W (40% van 4800W) naar 2 devices<br/>
 
 Daarnaast wisselen ze van actief device als het verschil in SoC >=5% wordt. En als ze tegelijk laden/ontladen, balanceert het vermogen, zodat de SoC dicht bij elkaar blijft. 
 
