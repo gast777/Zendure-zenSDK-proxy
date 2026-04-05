@@ -916,7 +916,7 @@ Als je nu de switch _Beide Actief_ aan zet, zullen beide Zendures actief blijven
 
 ## Versie ##
 
-Huidige versie: 20260404
+Huidige versie: 20260405
 <br/>
 
 # Release-notes #
@@ -1080,6 +1080,10 @@ Huidige versie: 20260404
       testdevice2 - Solarflow 2400AC
       testdevice3 - Solarflow 2400AC
       testdevice4 - Solarflow 2400AC+
+
+
+## Nieuw in versie 20260405 ##
+- Met 3 Zendure devices achter de Proxy worden nu ook de standby devices in sleep mode gebracht (smartmode=0, "Opslaan in Flash"). Daarmee komen ze in een diepere standby status voor energie efficiency. Standaard wordt een device 5 minuten nadat hij naar 0 Watt (standby) is gegaan in de slaapstand gebracht, terwijl de andere Zendure devices doorwerken. Tijdens de slaapstand worden de meeste commando's van HA niet doorgestuurd naar het slapende device, zoals bijvoorbeeld acMode, die het relais schakelt. Wanneer het weer nodig is dat het device gaat laden/ontladen, dan zal de actuele acMode (relais stand) op dat moment toegepast worden. Ook de instructies voor 0 Watt vermogen worden niet naar het slapende device gestuurd, zodat het flash geheugen niet onnodig belast wordt.
 
 
 
