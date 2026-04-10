@@ -1124,7 +1124,7 @@ Huidige versie: 20260409
 
 ## Nieuw in versie 20260409 ##
 - Nieuwe variabelen toegevoegd die nodig zijn voor de Mei versie van Gielz.
-- De gesimuleerde testdevices zijn nu beschikbaar in een eigen flow bestand (Zendure-simulated-devices.json), in plaats van in de flow van de Proxy.
+- De gesimuleerde testdevices zijn nu beschikbaar in een eigen flow bestand ([Zendure-simulated-devices.json](https://github.com/gast777/Zendure-zenSDK-proxy/blob/main/Zendure-simulated-devices.json)), in plaats van in de flow van de Proxy.
 - In de gesimuleerde devices verandert de SoC nu realistisch mee bij laden en ontladen.
 - In de gesimuleerde devices flow is nu ook een gesimuleerde HomeWizard P1 meter beschikbaar. Deze meter kan optioneel de live data van je echte HomeWizard P1 meter gebruiken als basis. Daar wordt dan door de gesimuleerde P1 meter de vermogens van de gesimuleerde Zendure batterijen bij opgeteld/afgetrokken. Daarmee heb je een hele realistische simulatie voor als je nog geen batterij in gebruik hebt. Je kunt de Gielz aansturing gebruiken om Nul op de Meter (NOM) te draaien en zien hoe dit (bij benadering) zou verlopen met een echte Zendure batterij.
 
