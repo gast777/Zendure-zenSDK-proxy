@@ -1,0 +1,1044 @@
+[
+    {
+        "id": "85e5c63259e9d7ed",
+        "type": "tab",
+        "label": "Simulated Zendure devices",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "e81c46f7b91c94d8",
+        "type": "http in",
+        "z": "85e5c63259e9d7ed",
+        "name": "testdevice1 - SF2400AC - GET requests in",
+        "url": "/testdevice1/properties/report",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 220,
+        "y": 120,
+        "wires": [
+            [
+                "77cbce13df3bdc37"
+            ]
+        ]
+    },
+    {
+        "id": "7a1b25669df8da41",
+        "type": "http in",
+        "z": "85e5c63259e9d7ed",
+        "name": "testdevice1 - SF2400AC - POST requests in",
+        "url": "/testdevice1/properties/write",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 230,
+        "y": 160,
+        "wires": [
+            [
+                "37a27f810c98c5da"
+            ]
+        ]
+    },
+    {
+        "id": "f1041c1c25a6123f",
+        "type": "http response",
+        "z": "85e5c63259e9d7ed",
+        "name": "Reply",
+        "statusCode": "",
+        "headers": {},
+        "x": 630,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "77cbce13df3bdc37",
+        "type": "function",
+        "z": "85e5c63259e9d7ed",
+        "name": "put payload",
+        "func": "\n\nlet outputLimit = flow.get(\"outputLimit_testdevice1\") || 0;\nlet inputLimit = flow.get(\"inputLimit_testdevice1\") || 0;\n// add delay by using multiple iterations to get the power on the actual device input/output power\nlet outputLimit_previous1 = flow.get(\"outputLimit_previous1_testdevice1\") || 0;\nlet inputLimit_previous1 = flow.get(\"inputLimit_previous1_testdevice1\") || 0;\nlet outputLimit_previous2 = flow.get(\"outputLimit_previous2_testdevice1\") || 0;\nlet inputLimit_previous2 = flow.get(\"inputLimit_previous2_testdevice1\") || 0;\nlet outputLimit_previous3 = flow.get(\"outputLimit_previous2_testdevice1\") || 0;\nlet inputLimit_previous3 = flow.get(\"inputLimit_previous2_testdevice1\") || 0;\nlet outputLimit_applied = flow.get(\"outputLimit_previous3_testdevice1\") || 0;\nlet inputLimit_applied = flow.get(\"inputLimit_previous3_testdevice1\") || 0;\n\n/*\nnode.warn(\"outputLimit: \" + outputLimit);\nnode.warn(\"inputLimit: \" + inputLimit);\nnode.warn(\"outputLimit_previous: \" + outputLimit_previous);\nnode.warn(\"inputLimit_previous: \" + inputLimit_previous);\nnode.warn(\"outputLimit_previous2: \" + outputLimit_previous2);\nnode.warn(\"inputLimit_previous2: \" + inputLimit_previous2);\nnode.warn(\"outputLimit_previous3: \" + outputLimit_previous3);\nnode.warn(\"inputLimit_previous3: \" + inputLimit_previous3);\nnode.warn(\"outputLimit_previous4: \" + outputLimit_previous4);\nnode.warn(\"inputLimit_previous4: \" + inputLimit_previous4);\n*/\n\nlet acMode = flow.get(\"acMode_testdevice1\") || 2;\nlet inverseMaxPower = flow.get(\"inverseMaxPower_testdevice1\") || 2400;\nlet chargeMaxLimit = flow.get(\"chargeMaxLimit_testdevice1\") || 2400;\nlet smartMode = flow.get(\"smartMode_testdevice1\") || 0;\nlet soc = flow.get(\"soc_testdevice1\") ?? 36;\nlet packNum = flow.get(\"packNum_testdevice1\") || 6;\nlet socLimit;\nlet efficiencyOneWay = 0.925\n\n\n\n\nconst chargeEff = 0.93;\nconst dischargeEff = 0.92;\n\n\n\n// limit power to max supported bu device model\nif (outputLimit > inverseMaxPower) {\n    outputLimit = inverseMaxPower;\n}\nif (inputLimit > chargeMaxLimit) {\n    inputLimit = chargeMaxLimit;\n}\n//stop charging/discharging when limit reached (minSoc or socSet /10)\nif (soc >= 100) {\n    inputLimit = 0;\n}\nif (soc <= 10) {\n    outputLimit = 0;\n}\n\nflow.set(\"inputLimit_previous1_testdevice1\", inputLimit);\nflow.set(\"outputLimit_previous1_testdevice1\", outputLimit);\nflow.set(\"inputLimit_previous2_testdevice1\", inputLimit_previous1);\nflow.set(\"outputLimit_previous2_testdevice1\", outputLimit_previous1);\nflow.set(\"inputLimit_previous3_testdevice1\", inputLimit_previous2);\nflow.set(\"outputLimit_previous3_testdevice1\", outputLimit_previous2);\nflow.set(\"inputLimit_previous4_testdevice1\", inputLimit_previous3);\nflow.set(\"outputLimit_previous4_testdevice1\", outputLimit_previous3);\n\nflow.set(\"inputLimit_applied_testdevice1\", inputLimit_applied);\nflow.set(\"outputLimit_applied_testdevice1\", outputLimit_applied);\n\n\n// ---- persistent state ----\nlet lastTs = flow.get(\"lastTs_testdevice1\") ?? Math.floor(Date.now() / 1000);\nlet nowTs = Math.floor(Date.now() / 1000);\n\nlet dt = nowTs - lastTs; // seconds since last run\n\n// charging positive, discharging negative\nlet netPower = inputLimit - outputLimit;\n\nconst capacityKWh = packNum * 2.88; // kWh\n\n// energy change in kWh\nlet deltaKWh = ((netPower * dt) / 3600000);\n\nif (netPower > 0) {\n    deltaKWh *= chargeEff;\n} else {\n    deltaKWh /= dischargeEff;\n}\n\n\n// convert to %\nlet deltaSoc = (deltaKWh / capacityKWh) * 100;\n\nsoc += deltaSoc;\n\n\nif (soc > 100) soc = 100;\nif (soc < 10) soc = 10;\n\n//node.warn(\"exit, soc is \" + soc);\nlet socDisplay = Math.floor(soc);\n\nflow.set(\"soc_testdevice1\", soc);\nflow.set(\"lastTs_testdevice1\", nowTs);\n\n\n// set socStatus (charge limit top/bottom reached or not)\nif (socDisplay === 100) {\n    socLimit = 1;\n} else if (socDisplay <= 10) {\n    socLimit = 2;\n} else {\n    socLimit = 0;\n}\n\n\n// helper\nfunction rand(min, max) {\n    return Math.floor(Math.random() * (max - min + 1)) + min;\n}\n\n// ---- build response ----\nmsg.payload = {\n    timestamp: nowTs + 1,\n    messageId: rand(1, 100),\n    sn: \"testdevice1\",\n    version: 2,\n    product: \"solarFlow2400AC\",\n\n    properties: {\n        heatState: 0,\n        packInputPower: outputLimit_applied,\n        outputPackPower: inputLimit_applied,\n        outputHomePower: outputLimit_applied,\n        remainOutTime: 59940,\n        packState: 0,\n        electricLevel: socDisplay,\n        gridInputPower: inputLimit_applied,\n        solarInputPower: 0,\n    \n        solarPower1: 0,\n        solarPower2: 0,\n        solarPower3: 0,\n        solarPower4: 0,\n        solarPower5: 0,\n        solarPower6: 0,\n    \n        pass: 0,\n        reverseState: 0,\n        socStatus: 0,\n        hyperTmp: 2871,\n        gridOffPower: 0,\n    \n        dcStatus: 0,\n        pvStatus: 0,\n        acStatus: 0,\n        dataReady: 1,\n        gridState: 1,\n    \n        BatVolt: Math.floor(rand(4900, 4950)),\n        socLimit: socLimit,\n        faultLevel: 0,\n        writeRsp: 0,\n        acMode: acMode,\n    \n        inputLimit: inputLimit,\n        outputLimit: outputLimit,\n        socSet: 1000,\n        minSoc: 100,\n    \n        gridStandard: 4,\n        gridReverse: 2,\n        inverseMaxPower: inverseMaxPower,\n    \n        lampSwitch: 1,\n        gridOffMode: 2,\n        IOTState: 2,\n    \n        fanSwitch: 1,\n        fanSpeed: 0,\n        bindstate: 0,\n    \n        VoltWakeup: 0,\n        OldMode: 0,\n        OTAState: 0,\n        LCNState: 0,\n        factoryModeState: 0,\n    \n        ts: 1775285332,\n        tsZone: 14,\n        smartMode: smartMode,\n    \n        chargeMaxLimit: chargeMaxLimit,\n        phaseSwitch: 1,\n        batCalTime: 60,\n        packNum: packNum,\n    \n        rssi: -40,\n        is_error: 0\n            \n    },\n\n\n    packData: [\n    {\n        sn: \"FO4NHMMN02xxxx\",\n        packType: 5,\n        socLevel: socDisplay,\n        state: 0,\n        power: 0,\n        maxTemp: 2881,\n        totalVol: 4920,\n        batcur: 0,\n        maxVol: 328,\n        minVol: 328,\n        softVersion: 4106,\n        heatState: 0\n    },\n    {\n        sn: \"FO4NHMMN02xxxx\",\n        packType: 5,\n        socLevel: socDisplay,\n        state: 0,\n        power: 0,\n        maxTemp: 2851,\n        totalVol: 4910,\n        batcur: 0,\n        maxVol: 327,\n        minVol: 327,\n        softVersion: 4106,\n        heatState: 0\n    },\n    {\n        sn: \"FO4NHMMN02xxxx\",\n        packType: 5,\n        socLevel: socDisplay,\n        state: 0,\n        power: 0,\n        maxTemp: 2861,\n        totalVol: 4920,\n        batcur: 0,\n        maxVol: 328,\n        minVol: 328,\n        softVersion: 4106,\n        heatState: 0\n    },\n        {\n        sn: \"FO4NHMMN02xxxx\",\n        packType: 5,\n        socLevel: socDisplay,\n        state: 0,\n        power: 0,\n        maxTemp: 2881,\n        totalVol: 4920,\n        batcur: 0,\n        maxVol: 328,\n        minVol: 328,\n        softVersion: 4106,\n        heatState: 0\n    },\n    {\n        sn: \"FO4NHMMN02xxxx\",\n        packType: 5,\n        socLevel: socDisplay,\n        state: 0,\n        power: 0,\n        maxTemp: 2851,\n        totalVol: 4910,\n        batcur: 0,\n        maxVol: 327,\n        minVol: 327,\n        softVersion: 4106,\n        heatState: 0\n    },\n    {\n        sn: \"FO4NHMMN02xxxx\",\n        packType: 5,\n        socLevel: socDisplay,\n        state: 0,\n        power: 0,\n        maxTemp: 2861,\n        totalVol: 4920,\n        batcur: 0,\n        maxVol: 328,\n        minVol: 328,\n        softVersion: 4106,\n        heatState: 0\n    }\n]};\n\n\n\n// headers\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 490,
+        "y": 120,
+        "wires": [
+            [
+                "f1041c1c25a6123f"
+            ]
+        ]
+    },
+    {
+        "id": "37a27f810c98c5da",
+        "type": "function",
+        "z": "85e5c63259e9d7ed",
+        "name": "check data",
+        "func": "// Read incoming values\nlet props = msg.payload.properties || {};\n\n// Store values in flow context (simulate device state)\nif (props.outputLimit !== undefined) {\n    flow.set(\"outputLimit_testdevice1\", props.outputLimit);\n}\nif (props.inputLimit !== undefined) {\n    flow.set(\"inputLimit_testdevice1\", props.inputLimit);\n}\nif (props.acMode !== undefined) {\n    flow.set(\"acMode_testdevice1\", props.acMode);\n}\nif (props.inverseMaxPower !== undefined) {\n    flow.set(\"inverseMaxPower_testdevice1\", props.inverseMaxPower);\n}\nif (props.chargeMaxLimit !== undefined) {\n    flow.set(\"chargeMaxLimit_testdevice1\", props.chargeMaxLimit);\n}\nif (props.smartMode !== undefined) {\n    flow.set(\"smartMode_testdevice1\", props.smartMode);\n}\n\n\nif (props.outputLimit > 0) {\n    flow.set(\"inputLimit_testdevice1\", 0);\n} else if (props.inputLimit > 0) {\n    flow.set(\"outputLimit_testdevice1\", 0);\n}\n\n\n// Optional: log what was received\n//node.warn(\"POST received: \" + JSON.stringify(props));\n\n// Build Zendure-like response\nmsg.payload = {\n    success: true,\n    messageId: Math.floor(Math.random() * 100),\n    code: 0\n};\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 490,
+        "y": 160,
+        "wires": [
+            [
+                "449a4a5d6f55b22a"
+            ]
+        ]
+    },
+    {
+        "id": "449a4a5d6f55b22a",
+        "type": "http response",
+        "z": "85e5c63259e9d7ed",
+        "name": "Reply",
+        "statusCode": "",
+        "headers": {},
+        "x": 630,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "678e207c42e5d71a",
+        "type": "comment",
+        "z": "85e5c63259e9d7ed",
+        "name": "Simulated test devices",
+        "info": "===== Simulated Zendure Devices =====\n== versie 20260409 ==\n\nIn deze Node-RED flow zijn enkele gesimuleerde Zendure devices beschikbaar om te testen.\n\nHiermee kun je alvast een Zendure device uitproberen met de Gielz aansturing als je nog geen thuisbatterij hebt. \n\nIn deze flow is ook een gesimuleerde P1 meter beschikbaar.\nDe live data van je echte HomeWizard P1 meter kan optioneel gebruikt worden in de gesimuleerde P1 meter, die vervolgens het vermogen\nvan de gesimuleerde batterij(en) erbij optelt of aftrekt en zo een realistische test kan doen voor Nul Op de Meter (NOM).\n\n\n==== Hoe deze gesimuleerde Zendure devices te gebruiken:\n\n1) Vanaf Gielz:\nVerbind met deze gesimuleerde Zendure op \n<node-red_ip_adres>:1880/testdevice1\nof \n<node-red_ip_adres>:1880/endpoint/testdevice1\n\nDe gesimuleerde HomeWizard P1 kan in het Gielz dashboard ingevuld worden als\n<node-red_ip_adres>:1880/endpoint\nof\n<node-red_ip_adres>:1880\n\nNB: of je wel of niet \"/endpoint\" moet gebruiken hangt af van je installatie.\nJe kunt dit zien bij http-in nodes zoals \"testdevice1 - SF2400AC - GET requests in\". \nAls daarin staat \"The url will be relative to /endpoint.\" dan moet je /endpoint gebruiken in de url.\n\n2) Vanaf de Proxy:\nIn het blok \"Vul hier de Zendure device IP adressen in\", vul in plaats van device IP adressen, de naam \nvan de gesimuleerde devices die je wilt gebruiken.\n\n//===============================================================\n//== Vul hier de Zendure device IP adressen in ==\n//===============================================================\n\nlet ipZendure1 = \"testdevice1\"\nlet ipZendure2 = \"testdevice2\"\nlet ipZendure3 = \"testdevice4\"\n\n==== Beschikbare gesimuleerde devices:\ntestdevice1 - Solarflow 2400AC\ntestdevice2 - Solarflow 2400AC\ntestdevice3 - Solarflow 2400AC\ntestdevice4 - Solarflow 2400AC+\n\n\n3) Directe toegang naar de ZenSDK API (bijv. curl of browser)\nhttp://<node-red_ip_adres>:1880/endpoint/testdevice1/properties/report\nof \nhttp://<node-red_ip_adres>:1880/testdevice1/properties/report",
+        "x": 160,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "d939bc883a780fe9",
+        "type": "http in",
+        "z": "85e5c63259e9d7ed",
+        "name": "P1 - HomeWizard simulated",
+        "url": "/api/v1/data",
+        "method": "get",
+        "upload": false,
+        "skipBodyParsing": false,
+        "swaggerDoc": "",
+        "x": 180,
+        "y": 520,
+        "wires": [
+            [
+                "e255a0637dbdd7ce"
+            ]
+        ]
+    },
+    {
+        "id": "e255a0637dbdd7ce",
+        "type": "function",
+        "z": "85e5c63259e9d7ed",
+        "name": "put payload",
+        "func": "\nlet inputLimit_applied_testdevice1 = flow.get(\"inputLimit_applied_testdevice1\") || 0;\nlet outputLimit_applied_testdevice1 = flow.get(\"outputLimit_applied_testdevice1\") || 0;\nlet inputLimit_applied_testdevice2 = flow.get(\"inputLimit_applied_testdevice2\") || 0;\nlet outputLimit_applied_testdevice2 = flow.get(\"outputLimit_applied_testdevice2\") || 0;\nlet inputLimit_applied_testdevice3 = flow.get(\"inputLimit_applied_testdevice3\") || 0;\nlet outputLimit_applied_testdevice3 = flow.get(\"outputLimit_applied_testdevice3\") || 0;\nlet inputLimit_applied_testdevice4 = flow.get(\"inputLimit_applied_testdevice4\") || 0;\nlet outputLimit_applied_testdevice4 = flow.get(\"outputLimit_applied_testdevice4\") || 0;\n\nlet p1_power = flow.get(\"p1_power\") || 0;\n\nlet outputLimit_total = outputLimit_applied_testdevice1 + outputLimit_applied_testdevice2 + outputLimit_applied_testdevice3 + outputLimit_applied_testdevice4;\nlet inputLimit_total = inputLimit_applied_testdevice1 + inputLimit_applied_testdevice2 + inputLimit_applied_testdevice3 + inputLimit_applied_testdevice4;\n\n// calculate simulated P1 power (real P1 minus the simulated battery power)\nlet power = p1_power + inputLimit_total - outputLimit_total;\n\n\n\n\nmsg.payload = {\n    \"active_power_w\": power\n};\n\n\n// headers\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 490,
+        "y": 520,
+        "wires": [
+            [
+                "d50195ec662a596a"
+            ]
+        ]
+    },
+    {
+        "id": "d50195ec662a596a",
+        "type": "http response",
+        "z": "85e5c63259e9d7ed",
+        "name": "Reply",
+        "statusCode": "",
+        "headers": {},
+        "x": 630,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "a1b34c73f7d33347",
+        "type": "comment",
+        "z": "85e5c63259e9d7ed",
+        "name": "In Gielz, enter as \"192.168.x.x:1880/endpoint\"",
+        "info": "",
+        "x": 890,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "9d14896562a529d5",
+        "type": "comment",
+        "z": "85e5c63259e9d7ed",
+        "name": "In Gielz or Proxy, enter as \"192.168.x.x:1880/endpoint/testdevice1\"",
+        "info": "",
+        "x": 960,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "9fdf91a91bbb75be",
+        "type": "http in",
+        "z": "85e5c63259e9d7ed",
+        "name": "testdevice4 - SF2400AC+ - GET requests in",
+        "url": "/testdevice4/properties/report",
+        "method": "get",
+        "upload": false,
+        "skipBodyParsing": false,
+        "swaggerDoc": "",
+        "x": 230,
+        "y": 360,
+        "wires": [
+            [
+                "a0a46628d9e8d71d"
+            ]
+        ]
+    },
+    {
+        "id": "965d0471357c2e4d",
+        "type": "http in",
+        "z": "85e5c63259e9d7ed",
+        "name": "testdevice4 - SF2400AC+ - POST requests in",
+        "url": "/testdevice4/properties/write",
+        "method": "post",
+        "upload": false,
+        "skipBodyParsing": false,
+        "swaggerDoc": "",
+        "x": 230,
+        "y": 400,
+        "wires": [
+            [
+                "2de8bd6072c00c18"
+            ]
+        ]
+    },
+    {
+        "id": "9548ce369b8f49e8",
+        "type": "http response",
+        "z": "85e5c63259e9d7ed",
+        "name": "Reply",
+        "statusCode": "",
+        "headers": {},
+        "x": 630,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "a0a46628d9e8d71d",
+        "type": "function",
+        "z": "85e5c63259e9d7ed",
+        "name": "put payload",
+        "func": "\n\nlet outputLimit = flow.get(\"outputLimit_testdevice4\") || 0;\nlet inputLimit = flow.get(\"inputLimit_testdevice4\") || 0;\n// add delay by using multiple iterations to get the power on the actual device input/output power\nlet outputLimit_previous1 = flow.get(\"outputLimit_previous1_testdevice4\") || 0;\nlet inputLimit_previous1 = flow.get(\"inputLimit_previous1_testdevice4\") || 0;\nlet outputLimit_previous2 = flow.get(\"outputLimit_previous2_testdevice4\") || 0;\nlet inputLimit_previous2 = flow.get(\"inputLimit_previous2_testdevice4\") || 0;\nlet outputLimit_previous3 = flow.get(\"outputLimit_previous2_testdevice4\") || 0;\nlet inputLimit_previous3 = flow.get(\"inputLimit_previous2_testdevice4\") || 0;\nlet outputLimit_applied = flow.get(\"outputLimit_previous3_testdevice4\") || 0;\nlet inputLimit_applied = flow.get(\"inputLimit_previous3_testdevice4\") || 0;\n\n\n\nlet acMode = flow.get(\"acMode_testdevice4\") || 2;\nlet inverseMaxPower = flow.get(\"inverseMaxPower_testdevice4\") || 2400;\nlet chargeMaxLimit = flow.get(\"chargeMaxLimit_testdevice4\") || 2400;\nlet smartMode = flow.get(\"smartMode_testdevice4\") || 0;\nlet soc = flow.get(\"soc_testdevice4\") ?? 36;\nlet packNum = flow.get(\"packNum_testdevice4\") || 6;\nlet socLimit;\nlet efficiencyOneWay = 0.925\n\n\n\nconst chargeEff = 0.93;\nconst dischargeEff = 0.92;\n\n\n// limit power to max supported by device model\nif (outputLimit > inverseMaxPower) {\n    outputLimit = inverseMaxPower;\n}\nif (inputLimit > chargeMaxLimit) {\n    inputLimit = chargeMaxLimit;\n}\n//stop charging/discharging when limit reached (minSoc or socSet /10)\nif (soc >= 100) {\n    inputLimit = 0;\n}\nif (soc <= 10) {\n    outputLimit = 0;\n}\n\nflow.set(\"inputLimit_previous1_testdevice4\", inputLimit);\nflow.set(\"outputLimit_previous1_testdevice4\", outputLimit);\nflow.set(\"inputLimit_previous2_testdevice4\", inputLimit_previous1);\nflow.set(\"outputLimit_previous2_testdevice4\", outputLimit_previous1);\nflow.set(\"inputLimit_previous3_testdevice4\", inputLimit_previous2);\nflow.set(\"outputLimit_previous3_testdevice4\", outputLimit_previous2);\nflow.set(\"inputLimit_previous4_testdevice4\", inputLimit_previous3);\nflow.set(\"outputLimit_previous4_testdevice4\", outputLimit_previous3);\n\nflow.set(\"inputLimit_applied_testdevice4\", inputLimit_applied);\nflow.set(\"outputLimit_applied_testdevice4\", outputLimit_applied);\n\n\n// ---- persistent state ----\nlet lastTs = flow.get(\"lastTs_testdevice4\") ?? Math.floor(Date.now() / 1000);\nlet nowTs = Math.floor(Date.now() / 1000);\n\nlet dt = nowTs - lastTs; // seconds since last run\n\n// charging positive, discharging negative\nlet netPower = inputLimit - outputLimit;\n\nconst capacityKWh = packNum * 2.88; // kWh\n\n// energy change in kWh\nlet deltaKWh = ((netPower * dt) / 3600000);\n\nif (netPower > 0) {\n    deltaKWh *= chargeEff;\n} else {\n    deltaKWh /= dischargeEff;\n}\n\n\n// convert to %\nlet deltaSoc = (deltaKWh / capacityKWh) * 100;\n\nsoc += deltaSoc;\n\n\nif (soc > 100) soc = 100;\nif (soc < 10) soc = 10;\n\n//node.warn(\"exit, soc is \" + soc);\nlet socDisplay = Math.floor(soc);\n\nflow.set(\"soc_testdevice4\", soc);\nflow.set(\"lastTs_testdevice4\", nowTs);\n\n\n// set socStatus (charge limit top/bottom reached or not)\nif (socDisplay === 100) {\n    socLimit = 1;\n} else if (socDisplay <= 10) {\n    socLimit = 2;\n} else {\n    socLimit = 0;\n}\n\n\n// helper\nfunction rand(min, max) {\n    return Math.floor(Math.random() * (max - min + 1)) + min;\n}\n\n\n// ---- build response ----\nmsg.payload = {\n    timestamp: nowTs + 1,\n    messageId: rand(1, 100),\n    sn: \"testdevice4\",\n    version: 2,\n    product: \"solarFlow2400AC+\",\n\n    properties: {\n        heatState: 0,\n        packInputPower: outputLimit_applied,\n        outputPackPower: inputLimit_applied,\n        outputHomePower: outputLimit_applied,\n        remainOutTime: 927,\n        packState: 2,\n        electricLevel: socDisplay,\n\n        gridInputPower: inputLimit_applied,\n        solarInputPower: 0,\n        solarPower1: 0,\n        solarPower2: 0,\n        solarPower3: 0,\n        solarPower4: 0,\n\n        pass: 0,\n        reverseState: 0,\n        socStatus: 0,\n        hyperTmp: 3081,\n        gridOffPower: 0,\n\n        dcStatus: 1,\n        pvStatus: 0,\n        acStatus: 1,\n        dataReady: 1,\n        gridState: 1,\n\n        BatVolt: 4929,\n        socLimit: socLimit,\n        faultLevel: 0,\n\n        acCouplingState: 57344,\n        offGridState: 0,\n        dryNodeState: 1,\n\n        writeRsp: 0,\n        acMode: acMode,\n\n        inputLimit: inputLimit,\n        outputLimit: outputLimit,\n        socSet: 1000,\n        minSoc: 100,\n\n        gridStandard: 4,\n        gridReverse: 1,\n        inverseMaxPower: inverseMaxPower,\n\n        lampSwitch: 1,\n        gridOffMode: 1,\n        IOTState: 2,\n\n        Fanmode: 1,\n        Fanspeed: 0,\n        bindstate: 0,\n\n        factoryModeState: 0,\n        OTAState: 0,\n        LCNState: 0,\n        oldMode: 0,\n        VoltWakeup: 0,\n\n        ts: 1775243314,\n        tsZone: 14,\n        smartMode: smartMode,\n\n        chargeMaxLimit: chargeMaxLimit,\n        phaseSwitch: 1,\n        batCalTime: 0,\n        packNum: 6,\n\n        rssi: -65,\n        is_error: 0\n    },\n\n\n    packData: [\n        {\n            sn: \"JO4AEP1P020xxxx\",\n            packType: 500,\n            socLevel: socDisplay,\n            state: 2,\n            power: 98,\n            maxTemp: 3061,\n            totalVol: 4930,\n            batcur: 65516,\n            maxVol: 329,\n            minVol: 328,\n            softVersion: 4352\n        },\n        {\n            sn: \"JO4AEP1P020xxxx\",\n            packType: 350,\n            socLevel: socDisplay,\n            state: 2,\n            power: 98,\n            maxTemp: 3061,\n            totalVol: 4930,\n            batcur: 65516,\n            maxVol: 329,\n            minVol: 328,\n            softVersion: 4352\n        },\n        {\n            sn: \"JO4AEP1P020xxxx\",\n            packType: 350,\n            socLevel: socDisplay,\n            state: 2,\n            power: 98,\n            maxTemp: 3061,\n            totalVol: 4930,\n            batcur: 65516,\n            maxVol: 329,\n            minVol: 328,\n            softVersion: 4352\n        },\n        {\n            sn: \"JO4AEP1P020xxxx\",\n            packType: 350,\n            socLevel: socDisplay,\n            state: 2,\n            power: 98,\n            maxTemp: 3061,\n            totalVol: 4930,\n            batcur: 65516,\n            maxVol: 329,\n            minVol: 328,\n            softVersion: 4352\n        },\n        {\n            sn: \"JO4AEP1P020xxxx\",\n            packType: 350,\n            socLevel: socDisplay,\n            state: 2,\n            power: 98,\n            maxTemp: 3061,\n            totalVol: 4930,\n            batcur: 65516,\n            maxVol: 329,\n            minVol: 328,\n            softVersion: 4352\n        },\n        {\n            sn: \"JO4AEP1P020xxxx\",\n            packType: 350,\n            socLevel: socDisplay,\n            state: 2,\n            power: 98,\n            maxTemp: 3061,\n            totalVol: 4930,\n            batcur: 65516,\n            maxVol: 329,\n            minVol: 328,\n            softVersion: 4352\n        }\n\n    ]\n};\n\n\n// headers\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 490,
+        "y": 360,
+        "wires": [
+            [
+                "9548ce369b8f49e8"
+            ]
+        ]
+    },
+    {
+        "id": "2de8bd6072c00c18",
+        "type": "function",
+        "z": "85e5c63259e9d7ed",
+        "name": "check data",
+        "func": "// Read incoming values\nlet props = msg.payload.properties || {};\n\n// Store values in flow context (simulate device state)\nif (props.outputLimit !== undefined) {\n    flow.set(\"outputLimit_testdevice4\", props.outputLimit);\n}\nif (props.inputLimit !== undefined) {\n    flow.set(\"inputLimit_testdevice4\", props.inputLimit);\n}\nif (props.acMode !== undefined) {\n    flow.set(\"acMode_testdevice4\", props.acMode);\n}\nif (props.inverseMaxPower !== undefined) {\n    flow.set(\"inverseMaxPower_testdevice4\", props.inverseMaxPower);\n}\nif (props.chargeMaxLimit !== undefined) {\n    flow.set(\"chargeMaxLimit_testdevice4\", props.chargeMaxLimit);\n}\nif (props.smartMode !== undefined) {\n    flow.set(\"smartMode_testdevice4\", props.smartMode);\n}\n\n\nif (props.outputLimit > 0) {\n    flow.set(\"inputLimit_testdevice4\", 0);\n} else if (props.inputLimit > 0) {\n    flow.set(\"outputLimit_testdevice4\", 0);\n}\n\n\n// Optional: log what was received\n//node.warn(\"POST received: \" + JSON.stringify(props));\n\n// Build Zendure-like response\nmsg.payload = {\n    success: true,\n    messageId: Math.floor(Math.random() * 100),\n    code: 0\n};\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 490,
+        "y": 400,
+        "wires": [
+            [
+                "0437f7d97f637272"
+            ]
+        ]
+    },
+    {
+        "id": "0437f7d97f637272",
+        "type": "http response",
+        "z": "85e5c63259e9d7ed",
+        "name": "Reply",
+        "statusCode": "",
+        "headers": {},
+        "x": 630,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "04dd17867b7ca17b",
+        "type": "inject",
+        "z": "85e5c63259e9d7ed",
+        "name": "Set testdevice1 SoC%",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "10",
+        "payloadType": "num",
+        "x": 180,
+        "y": 760,
+        "wires": [
+            [
+                "4d27e7f8dc12bac4"
+            ]
+        ]
+    },
+    {
+        "id": "4d27e7f8dc12bac4",
+        "type": "function",
+        "z": "85e5c63259e9d7ed",
+        "name": "set the SoC",
+        "func": "let soc = msg.payload;\nnode.warn(\"Setting soc_testdevice1 to \" + soc);\n\nflow.set(\"soc_testdevice1\", soc);\n\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 760,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5e29e3e7034830c0",
+        "type": "http in",
+        "z": "85e5c63259e9d7ed",
+        "name": "testdevice2 - SF2400AC - GET requests in",
+        "url": "/testdevice2/properties/report",
+        "method": "get",
+        "upload": false,
+        "skipBodyParsing": false,
+        "swaggerDoc": "",
+        "x": 220,
+        "y": 200,
+        "wires": [
+            [
+                "4985b5af40724d81"
+            ]
+        ]
+    },
+    {
+        "id": "1398eda692f59cd0",
+        "type": "http in",
+        "z": "85e5c63259e9d7ed",
+        "name": "testdevice2 - SF2400AC - POST requests in",
+        "url": "/testdevice2/properties/write",
+        "method": "post",
+        "upload": false,
+        "skipBodyParsing": false,
+        "swaggerDoc": "",
+        "x": 230,
+        "y": 240,
+        "wires": [
+            [
+                "02412ffc618245ab"
+            ]
+        ]
+    },
+    {
+        "id": "5b7be645f887652d",
+        "type": "http response",
+        "z": "85e5c63259e9d7ed",
+        "name": "Reply",
+        "statusCode": "",
+        "headers": {},
+        "x": 630,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "4985b5af40724d81",
+        "type": "function",
+        "z": "85e5c63259e9d7ed",
+        "name": "put payload",
+        "func": "\n\nlet outputLimit = flow.get(\"outputLimit_testdevice2\") || 0;\nlet inputLimit = flow.get(\"inputLimit_testdevice2\") || 0;\n// add delay by using multiple iterations to get the power on the actual device input/output power\nlet outputLimit_previous1 = flow.get(\"outputLimit_previous1_testdevice2\") || 0;\nlet inputLimit_previous1 = flow.get(\"inputLimit_previous1_testdevice2\") || 0;\nlet outputLimit_previous2 = flow.get(\"outputLimit_previous2_testdevice2\") || 0;\nlet inputLimit_previous2 = flow.get(\"inputLimit_previous2_testdevice2\") || 0;\nlet outputLimit_previous3 = flow.get(\"outputLimit_previous2_testdevice2\") || 0;\nlet inputLimit_previous3 = flow.get(\"inputLimit_previous2_testdevice2\") || 0;\nlet outputLimit_applied = flow.get(\"outputLimit_previous3_testdevice2\") || 0;\nlet inputLimit_applied = flow.get(\"inputLimit_previous3_testdevice2\") || 0;\n\n\n\nlet acMode = flow.get(\"acMode_testdevice2\") || 2;\nlet inverseMaxPower = flow.get(\"inverseMaxPower_testdevice2\") || 2400;\nlet chargeMaxLimit = flow.get(\"chargeMaxLimit_testdevice2\") || 2400;\nlet smartMode = flow.get(\"smartMode_testdevice2\") || 0;\nlet soc = flow.get(\"soc_testdevice2\") ?? 36;\nlet packNum = flow.get(\"packNum_testdevice2\") || 6;\nlet socLimit;\nlet efficiencyOneWay = 0.925\n\n\n\nconst chargeEff = 0.93;\nconst dischargeEff = 0.92;\n\n\n// limit power to max supported by device model\nif (outputLimit > inverseMaxPower) {\n    outputLimit = inverseMaxPower;\n}\nif (inputLimit > chargeMaxLimit) {\n    inputLimit = chargeMaxLimit;\n}\n//stop charging/discharging when limit reached (minSoc or socSet /10)\nif (soc >= 100) {\n    inputLimit = 0;\n}\nif (soc <= 10) {\n    outputLimit = 0;\n}\n\nflow.set(\"inputLimit_previous1_testdevice2\", inputLimit);\nflow.set(\"outputLimit_previous1_testdevice2\", outputLimit);\nflow.set(\"inputLimit_previous2_testdevice2\", inputLimit_previous1);\nflow.set(\"outputLimit_previous2_testdevice2\", outputLimit_previous1);\nflow.set(\"inputLimit_previous3_testdevice2\", inputLimit_previous2);\nflow.set(\"outputLimit_previous3_testdevice2\", outputLimit_previous2);\nflow.set(\"inputLimit_previous4_testdevice2\", inputLimit_previous3);\nflow.set(\"outputLimit_previous4_testdevice2\", outputLimit_previous3);\n\nflow.set(\"inputLimit_applied_testdevice2\", inputLimit_applied);\nflow.set(\"outputLimit_applied_testdevice2\", outputLimit_applied);\n\n\n// ---- persistent state ----\nlet lastTs = flow.get(\"lastTs_testdevice2\") ?? Math.floor(Date.now() / 1000);\nlet nowTs = Math.floor(Date.now() / 1000);\n\nlet dt = nowTs - lastTs; // seconds since last run\n\n// charging positive, discharging negative\nlet netPower = inputLimit - outputLimit;\n\nconst capacityKWh = packNum * 2.88; // kWh\n\n// energy change in kWh\nlet deltaKWh = ((netPower * dt) / 3600000);\n\nif (netPower > 0) {\n    deltaKWh *= chargeEff;\n} else {\n    deltaKWh /= dischargeEff;\n}\n\n\n// convert to %\nlet deltaSoc = (deltaKWh / capacityKWh) * 100;\n\nsoc += deltaSoc;\n\n\nif (soc > 100) soc = 100;\nif (soc < 10) soc = 10;\n\n//node.warn(\"exit, soc is \" + soc);\nlet socDisplay = Math.floor(soc);\n\nflow.set(\"soc_testdevice2\", soc);\nflow.set(\"lastTs_testdevice2\", nowTs);\n\n\n// set socStatus (charge limit top/bottom reached or not)\nif (socDisplay === 100) {\n    socLimit = 1;\n} else if (socDisplay <= 10) {\n    socLimit = 2;\n} else {\n    socLimit = 0;\n}\n\n\n// helper\nfunction rand(min, max) {\n    return Math.floor(Math.random() * (max - min + 1)) + min;\n}\n\n// ---- build response ----\nmsg.payload = {\n    timestamp: nowTs + 1,\n    messageId: rand(1, 100),\n    sn: \"testdevice2\",\n    version: 2,\n    product: \"solarFlow2400AC\",\n\n    properties: {\n        heatState: 0,\n        packInputPower: outputLimit_applied,\n        outputPackPower: inputLimit_applied,\n        outputHomePower: outputLimit_applied,\n        remainOutTime: 59940,\n        packState: 0,\n        electricLevel: socDisplay,\n        gridInputPower: inputLimit_applied,\n        solarInputPower: 0,\n    \n        solarPower1: 0,\n        solarPower2: 0,\n        solarPower3: 0,\n        solarPower4: 0,\n        solarPower5: 0,\n        solarPower6: 0,\n    \n        pass: 0,\n        reverseState: 0,\n        socStatus: 0,\n        hyperTmp: 2871,\n        gridOffPower: 0,\n    \n        dcStatus: 0,\n        pvStatus: 0,\n        acStatus: 0,\n        dataReady: 1,\n        gridState: 1,\n    \n        BatVolt: Math.floor(rand(4900, 4950)),\n        socLimit: socLimit,\n        faultLevel: 0,\n        writeRsp: 0,\n        acMode: acMode,\n    \n        inputLimit: inputLimit,\n        outputLimit: outputLimit,\n        socSet: 1000,\n        minSoc: 100,\n    \n        gridStandard: 4,\n        gridReverse: 2,\n        inverseMaxPower: inverseMaxPower,\n    \n        lampSwitch: 1,\n        gridOffMode: 2,\n        IOTState: 2,\n    \n        fanSwitch: 1,\n        fanSpeed: 0,\n        bindstate: 0,\n    \n        VoltWakeup: 0,\n        OldMode: 0,\n        OTAState: 0,\n        LCNState: 0,\n        factoryModeState: 0,\n    \n        ts: 1775285332,\n        tsZone: 14,\n        smartMode: smartMode,\n    \n        chargeMaxLimit: chargeMaxLimit,\n        phaseSwitch: 1,\n        batCalTime: 60,\n        packNum: packNum,\n    \n        rssi: -40,\n        is_error: 0\n            \n    },\n\n\n    packData: [\n    {\n        sn: \"FO4NHMMN02xxxx\",\n        packType: 5,\n        socLevel: socDisplay,\n        state: 0,\n        power: 0,\n        maxTemp: 2881,\n        totalVol: 4920,\n        batcur: 0,\n        maxVol: 328,\n        minVol: 328,\n        softVersion: 4106,\n        heatState: 0\n    },\n    {\n        sn: \"FO4NHMMN02xxxx\",\n        packType: 5,\n        socLevel: socDisplay,\n        state: 0,\n        power: 0,\n        maxTemp: 2851,\n        totalVol: 4910,\n        batcur: 0,\n        maxVol: 327,\n        minVol: 327,\n        softVersion: 4106,\n        heatState: 0\n    },\n    {\n        sn: \"FO4NHMMN02xxxx\",\n        packType: 5,\n        socLevel: socDisplay,\n        state: 0,\n        power: 0,\n        maxTemp: 2861,\n        totalVol: 4920,\n        batcur: 0,\n        maxVol: 328,\n        minVol: 328,\n        softVersion: 4106,\n        heatState: 0\n    },\n        {\n        sn: \"FO4NHMMN02xxxx\",\n        packType: 5,\n        socLevel: socDisplay,\n        state: 0,\n        power: 0,\n        maxTemp: 2881,\n        totalVol: 4920,\n        batcur: 0,\n        maxVol: 328,\n        minVol: 328,\n        softVersion: 4106,\n        heatState: 0\n    },\n    {\n        sn: \"FO4NHMMN02xxxx\",\n        packType: 5,\n        socLevel: socDisplay,\n        state: 0,\n        power: 0,\n        maxTemp: 2851,\n        totalVol: 4910,\n        batcur: 0,\n        maxVol: 327,\n        minVol: 327,\n        softVersion: 4106,\n        heatState: 0\n    },\n    {\n        sn: \"FO4NHMMN02xxxx\",\n        packType: 5,\n        socLevel: socDisplay,\n        state: 0,\n        power: 0,\n        maxTemp: 2861,\n        totalVol: 4920,\n        batcur: 0,\n        maxVol: 328,\n        minVol: 328,\n        softVersion: 4106,\n        heatState: 0\n    }\n]};\n\n\n\n// headers\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 490,
+        "y": 200,
+        "wires": [
+            [
+                "5b7be645f887652d"
+            ]
+        ]
+    },
+    {
+        "id": "02412ffc618245ab",
+        "type": "function",
+        "z": "85e5c63259e9d7ed",
+        "name": "check data",
+        "func": "// Read incoming values\nlet props = msg.payload.properties || {};\n\n// Store values in flow context (simulate device state)\nif (props.outputLimit !== undefined) {\n    flow.set(\"outputLimit_testdevice2\", props.outputLimit);\n}\nif (props.inputLimit !== undefined) {\n    flow.set(\"inputLimit_testdevice2\", props.inputLimit);\n}\nif (props.acMode !== undefined) {\n    flow.set(\"acMode_testdevice2\", props.acMode);\n}\nif (props.inverseMaxPower !== undefined) {\n    flow.set(\"inverseMaxPower_testdevice2\", props.inverseMaxPower);\n}\nif (props.chargeMaxLimit !== undefined) {\n    flow.set(\"chargeMaxLimit_testdevice2\", props.chargeMaxLimit);\n}\nif (props.smartMode !== undefined) {\n    flow.set(\"smartMode_testdevice2\", props.smartMode);\n}\n\n\nif (props.outputLimit > 0) {\n    flow.set(\"inputLimit_testdevice2\", 0);\n} else if (props.inputLimit > 0) {\n    flow.set(\"outputLimit_testdevice2\", 0);\n}\n\n\n// Optional: log what was received\n//node.warn(\"POST received: \" + JSON.stringify(props));\n\n// Build Zendure-like response\nmsg.payload = {\n    success: true,\n    messageId: Math.floor(Math.random() * 100),\n    code: 0\n};\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 490,
+        "y": 240,
+        "wires": [
+            [
+                "b175a2aef29f06e9"
+            ]
+        ]
+    },
+    {
+        "id": "b175a2aef29f06e9",
+        "type": "http response",
+        "z": "85e5c63259e9d7ed",
+        "name": "Reply",
+        "statusCode": "",
+        "headers": {},
+        "x": 630,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "7734f899503a762b",
+        "type": "http in",
+        "z": "85e5c63259e9d7ed",
+        "name": "testdevice3 - SF2400AC - GET requests in",
+        "url": "/testdevice3/properties/report",
+        "method": "get",
+        "upload": false,
+        "skipBodyParsing": false,
+        "swaggerDoc": "",
+        "x": 220,
+        "y": 280,
+        "wires": [
+            [
+                "7025c55ff6a71e1b"
+            ]
+        ]
+    },
+    {
+        "id": "9d50ee388a9f2d53",
+        "type": "http in",
+        "z": "85e5c63259e9d7ed",
+        "name": "testdevice3 - SF2400AC - POST requests in",
+        "url": "/testdevice3/properties/write",
+        "method": "post",
+        "upload": false,
+        "skipBodyParsing": false,
+        "swaggerDoc": "",
+        "x": 230,
+        "y": 320,
+        "wires": [
+            [
+                "5fd426f34a062268"
+            ]
+        ]
+    },
+    {
+        "id": "78099c109771e785",
+        "type": "http response",
+        "z": "85e5c63259e9d7ed",
+        "name": "Reply",
+        "statusCode": "",
+        "headers": {},
+        "x": 630,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "7025c55ff6a71e1b",
+        "type": "function",
+        "z": "85e5c63259e9d7ed",
+        "name": "put payload",
+        "func": "\n\nlet outputLimit = flow.get(\"outputLimit_testdevice3\") || 0;\nlet inputLimit = flow.get(\"inputLimit_testdevice3\") || 0;\n// add delay by using multiple iterations to get the power on the actual device input/output power\nlet outputLimit_previous1 = flow.get(\"outputLimit_previous1_testdevice3\") || 0;\nlet inputLimit_previous1 = flow.get(\"inputLimit_previous1_testdevice3\") || 0;\nlet outputLimit_previous2 = flow.get(\"outputLimit_previous2_testdevice3\") || 0;\nlet inputLimit_previous2 = flow.get(\"inputLimit_previous2_testdevice3\") || 0;\nlet outputLimit_previous3 = flow.get(\"outputLimit_previous2_testdevice3\") || 0;\nlet inputLimit_previous3 = flow.get(\"inputLimit_previous2_testdevice3\") || 0;\nlet outputLimit_applied = flow.get(\"outputLimit_previous3_testdevice3\") || 0;\nlet inputLimit_applied = flow.get(\"inputLimit_previous3_testdevice3\") || 0;\n\n\n\nlet acMode = flow.get(\"acMode_testdevice3\") || 2;\nlet inverseMaxPower = flow.get(\"inverseMaxPower_testdevice3\") || 2400;\nlet chargeMaxLimit = flow.get(\"chargeMaxLimit_testdevice3\") || 2400;\nlet smartMode = flow.get(\"smartMode_testdevice3\") || 0;\nlet soc = flow.get(\"soc_testdevice3\") ?? 36;\nlet packNum = flow.get(\"packNum_testdevice3\") || 6;\nlet socLimit;\nlet efficiencyOneWay = 0.925\n\n\n\nconst chargeEff = 0.93;\nconst dischargeEff = 0.92;\n\n\n// limit power to max supported by device model\nif (outputLimit > inverseMaxPower) {\n    outputLimit = inverseMaxPower;\n}\nif (inputLimit > chargeMaxLimit) {\n    inputLimit = chargeMaxLimit;\n}\n//stop charging/discharging when limit reached (minSoc or socSet /10)\nif (soc >= 100) {\n    inputLimit = 0;\n}\nif (soc <= 10) {\n    outputLimit = 0;\n}\n\nflow.set(\"inputLimit_previous1_testdevice3\", inputLimit);\nflow.set(\"outputLimit_previous1_testdevice3\", outputLimit);\nflow.set(\"inputLimit_previous2_testdevice3\", inputLimit_previous1);\nflow.set(\"outputLimit_previous2_testdevice3\", outputLimit_previous1);\nflow.set(\"inputLimit_previous3_testdevice3\", inputLimit_previous2);\nflow.set(\"outputLimit_previous3_testdevice3\", outputLimit_previous2);\nflow.set(\"inputLimit_previous4_testdevice3\", inputLimit_previous3);\nflow.set(\"outputLimit_previous4_testdevice3\", outputLimit_previous3);\n\nflow.set(\"inputLimit_applied_testdevice3\", inputLimit_applied);\nflow.set(\"outputLimit_applied_testdevice3\", outputLimit_applied);\n\n\n// ---- persistent state ----\nlet lastTs = flow.get(\"lastTs_testdevice3\") ?? Math.floor(Date.now() / 1000);\nlet nowTs = Math.floor(Date.now() / 1000);\n\nlet dt = nowTs - lastTs; // seconds since last run\n\n// charging positive, discharging negative\nlet netPower = inputLimit - outputLimit;\n\nconst capacityKWh = packNum * 2.88; // kWh\n\n// energy change in kWh\nlet deltaKWh = ((netPower * dt) / 3600000);\n\nif (netPower > 0) {\n    deltaKWh *= chargeEff;\n} else {\n    deltaKWh /= dischargeEff;\n}\n\n\n// convert to %\nlet deltaSoc = (deltaKWh / capacityKWh) * 100;\n\nsoc += deltaSoc;\n\n\nif (soc > 100) soc = 100;\nif (soc < 10) soc = 10;\n\n//node.warn(\"exit, soc is \" + soc);\nlet socDisplay = Math.floor(soc);\n\nflow.set(\"soc_testdevice3\", soc);\nflow.set(\"lastTs_testdevice3\", nowTs);\n\n\n// set socStatus (charge limit top/bottom reached or not)\nif (socDisplay === 100) {\n    socLimit = 1;\n} else if (socDisplay <= 10) {\n    socLimit = 2;\n} else {\n    socLimit = 0;\n}\n\n\n// helper\nfunction rand(min, max) {\n    return Math.floor(Math.random() * (max - min + 1)) + min;\n}\n\n// ---- build response ----\nmsg.payload = {\n    timestamp: nowTs + 1,\n    messageId: rand(1, 100),\n    sn: \"testdevice3\",\n    version: 2,\n    product: \"solarFlow2400AC\",\n\n    properties: {\n        heatState: 0,\n        packInputPower: outputLimit_applied,\n        outputPackPower: inputLimit_applied,\n        outputHomePower: outputLimit_applied,\n        remainOutTime: 59940,\n        packState: 0,\n        electricLevel: socDisplay,\n        gridInputPower: inputLimit_applied,\n        solarInputPower: 0,\n    \n        solarPower1: 0,\n        solarPower2: 0,\n        solarPower3: 0,\n        solarPower4: 0,\n        solarPower5: 0,\n        solarPower6: 0,\n    \n        pass: 0,\n        reverseState: 0,\n        socStatus: 0,\n        hyperTmp: 2871,\n        gridOffPower: 0,\n    \n        dcStatus: 0,\n        pvStatus: 0,\n        acStatus: 0,\n        dataReady: 1,\n        gridState: 1,\n    \n        BatVolt: Math.floor(rand(4900, 4950)),\n        socLimit: socLimit,\n        faultLevel: 0,\n        writeRsp: 0,\n        acMode: acMode,\n    \n        inputLimit: inputLimit,\n        outputLimit: outputLimit,\n        socSet: 1000,\n        minSoc: 100,\n    \n        gridStandard: 4,\n        gridReverse: 2,\n        inverseMaxPower: inverseMaxPower,\n    \n        lampSwitch: 1,\n        gridOffMode: 2,\n        IOTState: 2,\n    \n        fanSwitch: 1,\n        fanSpeed: 0,\n        bindstate: 0,\n    \n        VoltWakeup: 0,\n        OldMode: 0,\n        OTAState: 0,\n        LCNState: 0,\n        factoryModeState: 0,\n    \n        ts: 1775285332,\n        tsZone: 14,\n        smartMode: smartMode,\n    \n        chargeMaxLimit: chargeMaxLimit,\n        phaseSwitch: 1,\n        batCalTime: 60,\n        packNum: packNum,\n    \n        rssi: -40,\n        is_error: 0\n            \n    },\n\n\n    packData: [\n    {\n        sn: \"FO4NHMMN02xxxx\",\n        packType: 5,\n        socLevel: socDisplay,\n        state: 0,\n        power: 0,\n        maxTemp: 2881,\n        totalVol: 4920,\n        batcur: 0,\n        maxVol: 328,\n        minVol: 328,\n        softVersion: 4106,\n        heatState: 0\n    },\n    {\n        sn: \"FO4NHMMN02xxxx\",\n        packType: 5,\n        socLevel: socDisplay,\n        state: 0,\n        power: 0,\n        maxTemp: 2851,\n        totalVol: 4910,\n        batcur: 0,\n        maxVol: 327,\n        minVol: 327,\n        softVersion: 4106,\n        heatState: 0\n    },\n    {\n        sn: \"FO4NHMMN02xxxx\",\n        packType: 5,\n        socLevel: socDisplay,\n        state: 0,\n        power: 0,\n        maxTemp: 2861,\n        totalVol: 4920,\n        batcur: 0,\n        maxVol: 328,\n        minVol: 328,\n        softVersion: 4106,\n        heatState: 0\n    },\n        {\n        sn: \"FO4NHMMN02xxxx\",\n        packType: 5,\n        socLevel: socDisplay,\n        state: 0,\n        power: 0,\n        maxTemp: 2881,\n        totalVol: 4920,\n        batcur: 0,\n        maxVol: 328,\n        minVol: 328,\n        softVersion: 4106,\n        heatState: 0\n    },\n    {\n        sn: \"FO4NHMMN02xxxx\",\n        packType: 5,\n        socLevel: socDisplay,\n        state: 0,\n        power: 0,\n        maxTemp: 2851,\n        totalVol: 4910,\n        batcur: 0,\n        maxVol: 327,\n        minVol: 327,\n        softVersion: 4106,\n        heatState: 0\n    },\n    {\n        sn: \"FO4NHMMN02xxxx\",\n        packType: 5,\n        socLevel: socDisplay,\n        state: 0,\n        power: 0,\n        maxTemp: 2861,\n        totalVol: 4920,\n        batcur: 0,\n        maxVol: 328,\n        minVol: 328,\n        softVersion: 4106,\n        heatState: 0\n    }\n]};\n\n\n\n// headers\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 490,
+        "y": 280,
+        "wires": [
+            [
+                "78099c109771e785"
+            ]
+        ]
+    },
+    {
+        "id": "5fd426f34a062268",
+        "type": "function",
+        "z": "85e5c63259e9d7ed",
+        "name": "check data",
+        "func": "// Read incoming values\nlet props = msg.payload.properties || {};\n\n// Store values in flow context (simulate device state)\nif (props.outputLimit !== undefined) {\n    flow.set(\"outputLimit_testdevice3\", props.outputLimit);\n}\nif (props.inputLimit !== undefined) {\n    flow.set(\"inputLimit_testdevice3\", props.inputLimit);\n}\nif (props.acMode !== undefined) {\n    flow.set(\"acMode_testdevice3\", props.acMode);\n}\nif (props.inverseMaxPower !== undefined) {\n    flow.set(\"inverseMaxPower_testdevice3\", props.inverseMaxPower);\n}\nif (props.chargeMaxLimit !== undefined) {\n    flow.set(\"chargeMaxLimit_testdevice3\", props.chargeMaxLimit);\n}\nif (props.smartMode !== undefined) {\n    flow.set(\"smartMode_testdevice3\", props.smartMode);\n}\n\n\nif (props.outputLimit > 0) {\n    flow.set(\"inputLimit_testdevice3\", 0);\n} else if (props.inputLimit > 0) {\n    flow.set(\"outputLimit_testdevice3\", 0);\n}\n\n\n// Optional: log what was received\n//node.warn(\"POST received: \" + JSON.stringify(props));\n\n// Build Zendure-like response\nmsg.payload = {\n    success: true,\n    messageId: Math.floor(Math.random() * 100),\n    code: 0\n};\n\nmsg.headers = {\n    \"Content-Type\": \"application/json\"\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 490,
+        "y": 320,
+        "wires": [
+            [
+                "d81b6b2c107aaf79"
+            ]
+        ]
+    },
+    {
+        "id": "d81b6b2c107aaf79",
+        "type": "http response",
+        "z": "85e5c63259e9d7ed",
+        "name": "Reply",
+        "statusCode": "",
+        "headers": {},
+        "x": 630,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "6416b09af9f382df",
+        "type": "comment",
+        "z": "85e5c63259e9d7ed",
+        "name": "Note: Use \"/endpoint\" only if http-in node says \"The url will be relative to /endpoint.\"",
+        "info": "",
+        "x": 1010,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "c0b2896c0ec0b2f5",
+        "type": "inject",
+        "z": "85e5c63259e9d7ed",
+        "name": "Set testdevice2 SoC%",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "10",
+        "payloadType": "num",
+        "x": 180,
+        "y": 800,
+        "wires": [
+            [
+                "c6cc60c275653ea8"
+            ]
+        ]
+    },
+    {
+        "id": "c6cc60c275653ea8",
+        "type": "function",
+        "z": "85e5c63259e9d7ed",
+        "name": "set the SoC",
+        "func": "let soc = msg.payload;\nnode.warn(\"Setting soc_testdevice2 to \" + soc);\n\nflow.set(\"soc_testdevice2\", soc);\n\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 800,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "acda2a3bda115512",
+        "type": "inject",
+        "z": "85e5c63259e9d7ed",
+        "name": "Set testdevice3 SoC%",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "10",
+        "payloadType": "num",
+        "x": 180,
+        "y": 840,
+        "wires": [
+            [
+                "f5f5805b3037f418"
+            ]
+        ]
+    },
+    {
+        "id": "f5f5805b3037f418",
+        "type": "function",
+        "z": "85e5c63259e9d7ed",
+        "name": "set the SoC",
+        "func": "let soc = msg.payload;\nnode.warn(\"Setting soc_testdevice3 to \" + soc);\n\nflow.set(\"soc_testdevice3\", soc);\n\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 840,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "fb76a9da372928b4",
+        "type": "inject",
+        "z": "85e5c63259e9d7ed",
+        "name": "Stop testdevice1",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "0",
+        "payloadType": "num",
+        "x": 160,
+        "y": 940,
+        "wires": [
+            [
+                "a0cbba9204be934a"
+            ]
+        ]
+    },
+    {
+        "id": "a0cbba9204be934a",
+        "type": "function",
+        "z": "85e5c63259e9d7ed",
+        "name": "set the Power to zero",
+        "func": "let power = msg.payload;\nnode.warn(\"Setting power of testdevice1 to \" + power);\n\nflow.set(\"inputLimit_applied_testdevice1\", power);\nflow.set(\"outputLimit_applied_testdevice1\", power);\n\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 940,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3ed390558ea467c6",
+        "type": "inject",
+        "z": "85e5c63259e9d7ed",
+        "name": "Stop testdevice2",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "0",
+        "payloadType": "num",
+        "x": 160,
+        "y": 980,
+        "wires": [
+            [
+                "0d8f06833166ee2f"
+            ]
+        ]
+    },
+    {
+        "id": "0d8f06833166ee2f",
+        "type": "function",
+        "z": "85e5c63259e9d7ed",
+        "name": "set the Power to zero",
+        "func": "let power = msg.payload;\nnode.warn(\"Setting power of testdevice2 to \" + power);\n\nflow.set(\"inputLimit_applied_testdevice2\", power);\nflow.set(\"outputLimit_applied_testdevice2\", power);\n\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 980,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c3ab2d80b79d8970",
+        "type": "inject",
+        "z": "85e5c63259e9d7ed",
+        "name": "Stop testdevice3",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "0",
+        "payloadType": "num",
+        "x": 160,
+        "y": 1020,
+        "wires": [
+            [
+                "fd8024d30ba5af39"
+            ]
+        ]
+    },
+    {
+        "id": "fd8024d30ba5af39",
+        "type": "function",
+        "z": "85e5c63259e9d7ed",
+        "name": "set the Power to zero",
+        "func": "let power = msg.payload;\nnode.warn(\"Setting power of testdevice3 to \" + power);\n\nflow.set(\"inputLimit_applied_testdevice3\", power);\nflow.set(\"outputLimit_applied_testdevice3\", power);\n\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 1020,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2ad3745ffc5de4af",
+        "type": "http request",
+        "z": "85e5c63259e9d7ed",
+        "name": "",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 590,
+        "y": 640,
+        "wires": [
+            [
+                "500b793c0174b712"
+            ]
+        ]
+    },
+    {
+        "id": "500b793c0174b712",
+        "type": "function",
+        "z": "85e5c63259e9d7ed",
+        "name": "save real P1 power value",
+        "func": "\n// Read incoming values\nlet data = msg.payload || {};\n\n// Store values in flow context (simulate device state)\nif (data.active_power_w !== undefined) {\n    let p1_power = data.active_power_w;\n    flow.set(\"p1_power\", p1_power);\n\n    node.warn(\"p1_power: \" + p1_power);\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 810,
+        "y": 640,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7f24b0773e6f9bbf",
+        "type": "function",
+        "z": "85e5c63259e9d7ed",
+        "name": "Set real HomeWizard IP address",
+        "func": "\n//===============================================================\n//== Enter the HomeWizard P1 device IP adress here ==\n//===============================================================\n\nlet HomeWizard_ip = \"192.168.x.z\";\n\n\n// Exit if IP addresses are still default\nif (HomeWizard_ip.includes(\"192.168.x\")) {\n    return null;\n}\n\nlet server = \"http://\" + HomeWizard_ip + \"/api/v1/data\";\n\n// Build the message\nlet msg1 = {\n    method: \"GET\",\n    url: server,\n    headers: { \"Content-Type\": \"application/json\" },\n};\n\nreturn msg1;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 640,
+        "wires": [
+            [
+                "2ad3745ffc5de4af"
+            ]
+        ]
+    },
+    {
+        "id": "0fed7c858e6451a5",
+        "type": "inject",
+        "z": "85e5c63259e9d7ed",
+        "d": true,
+        "name": "Trigger",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 640,
+        "wires": [
+            [
+                "7f24b0773e6f9bbf"
+            ]
+        ]
+    },
+    {
+        "id": "f631096a6a3fbf65",
+        "type": "comment",
+        "z": "85e5c63259e9d7ed",
+        "name": "Enable the Trigger node if you wish to get the live data from your real HomeWizard P1",
+        "info": "",
+        "x": 360,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "12796184267b79aa",
+        "type": "inject",
+        "z": "85e5c63259e9d7ed",
+        "name": "Set testdevice4 SoC%",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "10",
+        "payloadType": "num",
+        "x": 180,
+        "y": 880,
+        "wires": [
+            [
+                "49e6b357716f7fa4"
+            ]
+        ]
+    },
+    {
+        "id": "49e6b357716f7fa4",
+        "type": "function",
+        "z": "85e5c63259e9d7ed",
+        "name": "set the SoC",
+        "func": "let soc = msg.payload;\nnode.warn(\"Setting soc_testdevice4 to \" + soc);\n\nflow.set(\"soc_testdevice4\", soc);\n\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 880,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2c61d94ac232ac12",
+        "type": "inject",
+        "z": "85e5c63259e9d7ed",
+        "name": "Stop testdevice4",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "0",
+        "payloadType": "num",
+        "x": 160,
+        "y": 1060,
+        "wires": [
+            [
+                "4b1e1453e20473a3"
+            ]
+        ]
+    },
+    {
+        "id": "4b1e1453e20473a3",
+        "type": "function",
+        "z": "85e5c63259e9d7ed",
+        "name": "set the Power to zero",
+        "func": "let power = msg.payload;\nnode.warn(\"Setting power of testdevice4 to \" + power);\n\nflow.set(\"inputLimit_applied_testdevice4\", power);\nflow.set(\"outputLimit_applied_testdevice4\", power);\n\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 1060,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c15e84e13045b0ba",
+        "type": "comment",
+        "z": "85e5c63259e9d7ed",
+        "name": "Device controls outside of Gielz",
+        "info": "",
+        "x": 190,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "f4267f5b2dab9141",
+        "type": "comment",
+        "z": "85e5c63259e9d7ed",
+        "name": "Simulated Homewizard P1 meter (can be used for testing, smart matching (NOM), if you do not have a home battery in use already).",
+        "info": "",
+        "x": 500,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "943c547e95d1feea",
+        "type": "comment",
+        "z": "85e5c63259e9d7ed",
+        "name": "Optionally this can use the live date from your real Homewizard P1 meter. The simulated devices power will be added/subtracted.",
+        "info": "",
+        "x": 490,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "78efd1bbb0dcbbd9",
+        "type": "inject",
+        "z": "85e5c63259e9d7ed",
+        "name": "Set P1 meter to zero",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "0",
+        "payloadType": "num",
+        "x": 170,
+        "y": 1100,
+        "wires": [
+            [
+                "0bc190af2d5b0cef"
+            ]
+        ]
+    },
+    {
+        "id": "0bc190af2d5b0cef",
+        "type": "function",
+        "z": "85e5c63259e9d7ed",
+        "name": "set the Power to zero",
+        "func": "let power = msg.payload;\nnode.warn(\"Setting P1 base power to \" + power);\n\nflow.set(\"p1_power\", power);\n\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 1100,
+        "wires": [
+            []
+        ]
+    }
+]
