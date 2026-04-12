@@ -1,0 +1,364 @@
+####### ZENDURE PROXY SENSORS #######
+
+
+      - name: "Zendure 1 State of Charge"
+        value_template: "{{ value_json['properties']['electricLevel_1'] }}"
+        device_class: battery
+        unit_of_measurement: "%"
+        state_class: measurement
+        unique_id: zendure_proxy_1_state_of_charge
+
+      - name: "Zendure 2 State of Charge"
+        value_template: "{{ value_json['properties']['electricLevel_2'] }}"
+        device_class: battery
+        unit_of_measurement: "%"
+        state_class: measurement
+        unique_id: zendure_proxy_2_state_of_charge
+
+      - name: "Zendure 3 State of Charge"
+        value_template: "{{ value_json['properties']['electricLevel_3'] }}"
+        device_class: battery
+        unit_of_measurement: "%"
+        state_class: measurement
+        unique_id: zendure_proxy_3_state_of_charge
+
+      - name: "Power Command"
+        value_template: "{{ value_json['properties']['latestPowerCmd'] | int }}"
+        unique_id: zendure_proxy_latest_power_command
+        unit_of_measurement: "W"
+        state_class: measurement
+        device_class: power
+
+      - name: "Zendure 1 Power Command"
+        value_template: "{{ value_json['properties']['latestPowerCmd_1'] | int }}"
+        unique_id: zendure_proxy_1_latest_power_command
+        unit_of_measurement: "W"
+        state_class: measurement
+        device_class: power
+
+      - name: "Zendure 2 Power Command"
+        value_template: "{{ value_json['properties']['latestPowerCmd_2'] | int }}"
+        unique_id: zendure_proxy_2_latest_power_command
+        unit_of_measurement: "W"
+        state_class: measurement
+        device_class: power
+
+      - name: "Zendure 3 Power Command"
+        value_template: "{{ value_json['properties']['latestPowerCmd_3'] | int }}"
+        unique_id: zendure_proxy_3_latest_power_command
+        unit_of_measurement: "W"
+        state_class: measurement
+        device_class: power
+
+      - name: "Zendure 1 Power"
+        value_template: >
+          {% set opladen = value_json['properties']['gridInputPower_1'] | int %}
+          {% set ontladen = - (value_json['properties']['outputHomePower_1'] | int) %}
+          {% if opladen != 0 %}
+            {{ opladen }}
+          {% else %}
+            {{ ontladen }}
+          {% endif %}
+        unique_id: zendure_proxy_1_power
+        unit_of_measurement: "W"
+        state_class: measurement
+        device_class: power
+
+      - name: "Zendure 2 Power"
+        value_template: >
+          {% set opladen = value_json['properties']['gridInputPower_2'] | int %}
+          {% set ontladen = - (value_json['properties']['outputHomePower_2'] | int) %}
+          {% if opladen != 0 %}
+            {{ opladen }}
+          {% else %}
+            {{ ontladen }}
+          {% endif %}
+        unique_id: zendure_proxy_2_power
+        unit_of_measurement: "W"
+        state_class: measurement
+        device_class: power
+
+      - name: "Zendure 3 Power"
+        value_template: >
+          {% set opladen = value_json['properties']['gridInputPower_3'] | int %}
+          {% set ontladen = - (value_json['properties']['outputHomePower_3'] | int) %}
+          {% if opladen != 0 %}
+            {{ opladen }}
+          {% else %}
+            {{ ontladen }}
+          {% endif %}
+        unique_id: zendure_proxy_3_power
+        unit_of_measurement: "W"
+        state_class: measurement
+        device_class: power
+
+      - name: "Zendure 1 Calibrating"
+        value_template: >
+          {% set states = {0: "No", 1: "Yes"} %}
+          {% set packState = value_json['properties']['socStatus_1'] | int %}
+          {{ states.get(packState, "Unknown") }}
+        unique_id: zendure_proxy_1_calibrating
+        icon: mdi:battery-heart-variant
+
+      - name: "Zendure 2 Calibrating"
+        value_template: >
+          {% set states = {0: "No", 1: "Yes"} %}
+          {% set packState = value_json['properties']['socStatus_2'] | int %}
+          {{ states.get(packState, "Unknown") }}
+        unique_id: zendure_proxy_2_calibrating
+        icon: mdi:battery-heart-variant
+
+      - name: "Zendure 3 Calibrating"
+        value_template: >
+          {% set states = {0: "No", 1: "Yes"} %}
+          {% set packState = value_json['properties']['socStatus_3'] | int %}
+          {{ states.get(packState, "Unknown") }}
+        unique_id: zendure_proxy_3_calibrating
+        icon: mdi:battery-heart-variant
+
+      - name: "Zendure 1 Storage Mode"
+        value_template: >
+          {% set states = {1: "RAM Memory", 0: "Flash Memory"} %}
+          {% set packState = value_json['properties']['smartMode_1'] | int %}
+          {{ states.get(packState, "Unknown") }}
+        unique_id: zendure_proxy_1_storage_mode
+        icon: mdi:floppy
+
+      - name: "Zendure 2 Storage Mode"
+        value_template: >
+          {% set states = {1: "RAM Memory", 0: "Flash Memory"} %}
+          {% set packState = value_json['properties']['smartMode_2'] | int %}
+          {{ states.get(packState, "Unknown") }}
+        unique_id: zendure_proxy_2_storage_mode
+        icon: mdi:floppy
+
+      - name: "Zendure 3 Storage Mode"
+        value_template: >
+          {% set states = {1: "RAM Memory", 0: "Flash Memory"} %}
+          {% set packState = value_json['properties']['smartMode_3'] | int %}
+          {{ states.get(packState, "Unknown") }}
+        unique_id: zendure_proxy_3_storage_mode
+        icon: mdi:floppy
+
+      - name: "Zendure Active Device"
+        value_template: >
+          {% set active = value_json.get('properties', {}).get('activeDevice') | int(-99) %}
+          {% if active == 0 %}
+            None
+          {% elif active == 1 %}
+            Zendure 1
+          {% elif active == 2 %}
+            Zendure 2
+          {% elif active == 3 %}
+            Zendure 1 and 2
+          {% elif active == 4 %}
+            Zendure 3
+          {% elif active == 5 %}
+            Zendure 1 and 3
+          {% elif active == 6 %}
+            Zendure 2 and 3
+          {% elif active == 7 %}
+            All
+          {% else %}
+            Unknown
+          {% endif %}
+        unique_id: zendure_proxy_active_device
+        icon: mdi:battery
+
+      - name: "Zendure 1 SOC-limit Status"
+        value_template: >
+          {% set states = {0: "Normal Operation", 1: "Charging Limit Reached", 2: "Discharge Limit Reached"} %}
+          {% set packState = value_json['properties']['socLimit_1'] | int %}
+          {{ states.get(packState, "Unknown") }}
+        unique_id: zendure_proxy_1_soc_limit_status
+        icon: >
+         {% if this.state == 'Normal Operation' %}
+          mdi:battery-medium
+         {% elif this.state == 'Charging Limit Reached' %}
+          mdi:battery-high
+         {% elif this.state == 'Discharge Limit Reached' %}
+          mdi:battery-low
+         {% else %}
+          mdi:battery-outline
+         {% endif %}
+
+      - name: "Zendure 2 SOC-limit Status"
+        value_template: >
+          {% set states = {0: "Normal Operation", 1: "Charging Limit Reached", 2: "Discharge Limit Reached"} %}
+          {% set packState = value_json['properties']['socLimit_2'] | int %}
+          {{ states.get(packState, "Unknown") }}
+        unique_id: zendure_proxy_2_soc_limit_status
+        icon: >
+         {% if this.state == 'Normal Operation' %}
+          mdi:battery-medium
+         {% elif this.state == 'Charging Limit Reached' %}
+          mdi:battery-high
+         {% elif this.state == 'Discharge Limit Reached' %}
+          mdi:battery-low
+         {% else %}
+          mdi:battery-outline
+         {% endif %}
+
+      - name: "Zendure 3 SOC-limit Status"
+        value_template: >
+          {% set states = {0: "Normal Operation", 1: "Charging Limit Reached", 2: "Discharge Limit Reached"} %}
+          {% set packState = value_json['properties']['socLimit_3'] | int %}
+          {{ states.get(packState, "Unknown") }}
+        unique_id: zendure_proxy_3_soc_limit_status
+        icon: >
+         {% if this.state == 'Normal Operation' %}
+          mdi:battery-medium
+         {% elif this.state == 'Charging Limit Reached' %}
+          mdi:battery-high
+         {% elif this.state == 'Discharge Limit Reached' %}
+          mdi:battery-low
+         {% else %}
+          mdi:battery-outline
+         {% endif %}
+
+      - name: "Dual Mode Damper Status"
+        unique_id: zendure_proxy_dualModeDamper
+        value_template: >
+          {% set mode = value_json['properties']['dualModeDamper'] | int %}
+          {% if mode == 1 %}
+            On
+          {% elif mode == 0 %}
+            Off
+          {% else %}
+            Unknown
+          {% endif %}
+        icon: mdi:speedometer-medium
+
+      - name: "Equal Mode Status"
+        unique_id: zendure_proxy_equalMode
+        value_template: >
+          {% set mode = value_json['properties']['equalMode'] | int %}
+          {% if mode == 1 %}
+            On
+          {% elif mode == 0 %}
+            Off
+          {% else %}
+            Unknown
+          {% endif %}
+        icon: >
+          {% if value_json['properties']['equalMode'] | int == 1 %}
+            mdi:battery-sync
+          {% else %}
+            mdi:battery-sync-outline
+          {% endif %}
+
+      - name: "All Active Mode Status"
+        unique_id: zendure_proxy_alwaysDualMode
+        value_template: >
+          {% set mode = value_json['properties']['alwaysDualMode'] | int %}
+          {% if mode == 1 %}
+            On
+          {% elif mode == 0 %}
+            Off
+          {% else %}
+            Unknown
+          {% endif %}
+        icon: mdi:format-columns
+
+      - name: "Zendure 1 Inverter Temperature"
+        value_template: >
+          {% set maxTemp = value_json['properties']['hyperTmp_1'] | int %}
+          {{ (maxTemp - 2731) / 10.0 }}
+        unique_id: zendure_proxy_1_inverter_temperature
+        unit_of_measurement: "°C"
+        state_class: measurement
+        device_class: temperature
+        icon: mdi:thermometer
+
+      - name: "Zendure 2 Inverter Temperature"
+        value_template: >
+          {% set maxTemp = value_json['properties']['hyperTmp_2'] | int %}
+          {{ (maxTemp - 2731) / 10.0 }}
+        unique_id: zendure_proxy_2_inverter_temperature
+        unit_of_measurement: "°C"
+        state_class: measurement
+        device_class: temperature
+        icon: mdi:thermometer
+
+      - name: "Zendure 3 Inverter Temperature"
+        value_template: >
+          {% set maxTemp = value_json['properties']['hyperTmp_3'] | int %}
+          {{ (maxTemp - 2731) / 10.0 }}
+        unique_id: zendure_proxy_3_inverter_temperature
+        unit_of_measurement: "°C"
+        state_class: measurement
+        device_class: temperature
+        icon: mdi:thermometer
+
+      - name: "Zendure 1 Offgrid Mode"
+        value_template: >
+          {% set states = {0: "Normal", 1: "Eco", 2: "Turned Off"} %}
+          {% set packState = value_json.get('properties', {}).get('gridOffMode_1', 2) | int %}
+          {{ states.get(packState, "Unknown") }}
+        unique_id: zendure_proxy_1_offgrid_mode
+        icon: >
+         {% if this.state == 'Normal' %}
+          mdi:power-plug
+         {% elif this.state == 'Eco' %}
+          mdi:power-plug
+         {% elif this.state == 'Turned Off' %}
+          mdi:power-plug-off
+         {% else %}
+          mdi:power-plug-outline
+         {% endif %}
+
+      - name: "Zendure 2 Offgrid Mode"
+        value_template: >
+          {% set states = {0: "Normal", 1: "Eco", 2: "Turned Off"} %}
+          {% set packState = value_json.get('properties', {}).get('gridOffMode_2', 2) | int %}
+          {{ states.get(packState, "Unknown") }}
+        unique_id: zendure_proxy_2_offgrid_mode
+        icon: >
+         {% if this.state == 'Normal' %}
+          mdi:power-plug
+         {% elif this.state == 'Eco' %}
+          mdi:power-plug
+         {% elif this.state == 'Turned Off' %}
+          mdi:power-plug-off
+         {% else %}
+          mdi:power-plug-outline
+         {% endif %}
+
+      - name: "Zendure 3 Offgrid Mode"
+        value_template: >
+          {% set states = {0: "Normal", 1: "Eco", 2: "Turned Off"} %}
+          {% set packState = value_json.get('properties', {}).get('gridOffMode_3', 2) | int %}
+          {{ states.get(packState, "Unknown") }}
+        unique_id: zendure_proxy_3_offgrid_mode
+        icon: >
+         {% if this.state == 'Normal' %}
+          mdi:power-plug
+         {% elif this.state == 'Eco' %}
+          mdi:power-plug
+         {% elif this.state == 'Turned Off' %}
+          mdi:power-plug-off
+         {% else %}
+          mdi:power-plug-outline
+         {% endif %}
+
+      - name: "Zendure 1 Serial Number"
+        unique_id: zendure_proxy_Serienummer_1
+        value_template: "{{ value_json.sn_1 }}"
+        icon: mdi:identifier
+
+      - name: "Zendure 2 Serial Number"
+        unique_id: zendure_proxy_Serienummer_1
+        value_template: "{{ value_json.sn_2 }}"
+        icon: mdi:identifier
+
+      - name: "Zendure 3 Serial Number"
+        unique_id: zendure_proxy_Serienummer_1
+        value_template: "{{ value_json.sn_3 }}"
+        icon: mdi:identifier
+
+      - name: "Zendure Proxy Version"
+        value_template: "{{ value_json.proxyVersion }}"
+        unique_id: zendure_proxy_version
+        icon: mdi:call-split
+
+####### END ZENDURE PROXY SENSORS ####### 
