@@ -19,8 +19,8 @@ entities:
   - entity: sensor.zendure_1_offgrid_mode
   - entity: sensor.zendure_2_offgrid_mode
   - entity: sensor.dual_mode_damper_status
-  - entity: sensor.zendure_1_serienummer
-  - entity: sensor.zendure_2_serienummer
+  - entity: sensor.zendure_1_serial_number
+  - entity: sensor.zendure_2_serial_number
   - entity: sensor.zendure_proxy_version
 title: Zendure Proxy Sensors
 
