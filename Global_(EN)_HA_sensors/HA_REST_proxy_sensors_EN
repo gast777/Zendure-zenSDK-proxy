@@ -342,17 +342,17 @@
          {% endif %}
 
       - name: "Zendure 1 Serial Number"
-        unique_id: zendure_proxy_Serienummer_1
+        unique_id: zendure_proxy_1_Serial
         value_template: "{{ value_json.sn_1 }}"
         icon: mdi:identifier
 
       - name: "Zendure 2 Serial Number"
-        unique_id: zendure_proxy_Serienummer_1
+        unique_id: zendure_proxy_2_Serial
         value_template: "{{ value_json.sn_2 }}"
         icon: mdi:identifier
 
       - name: "Zendure 3 Serial Number"
-        unique_id: zendure_proxy_Serienummer_1
+        unique_id: zendure_proxy_3_Serial
         value_template: "{{ value_json.sn_3 }}"
         icon: mdi:identifier
 
