@@ -507,6 +507,8 @@ entities:
   - entity: sensor.zendure_2_kalibratie_bezig
   - entity: sensor.zendure_1_omvormer_temperatuur
   - entity: sensor.zendure_2_omvormer_temperatuur
+  - entity: sensor.zendure_1_offgrid_modus
+  - entity: sensor.zendure_2_offgrid_modus
   - entity: sensor.dual_mode_demper_status
   - entity: sensor.zendure_1_serienummer
   - entity: sensor.zendure_2_serienummer
@@ -541,6 +543,9 @@ entities:
   - entity: sensor.zendure_1_omvormer_temperatuur
   - entity: sensor.zendure_2_omvormer_temperatuur
   - entity: sensor.zendure_3_omvormer_temperatuur
+  - entity: sensor.zendure_1_offgrid_modus
+  - entity: sensor.zendure_2_offgrid_modus
+  - entity: sensor.zendure_3_offgrid_modus
   - entity: sensor.dual_mode_demper_status
   - entity: sensor.zendure_1_serienummer
   - entity: sensor.zendure_2_serienummer
