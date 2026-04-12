@@ -408,6 +408,57 @@ Kopieer en plak de volgende sensoren tussen de aangegeven regels:
         device_class: temperature
         icon: mdi:thermometer
 
+      - name: "Zendure 1 Offgrid Modus"
+        value_template: >
+          {% set states = {0: "Normaal", 1: "Eco", 2: "Uitgeschakeld"} %}
+          {% set packState = value_json.get('properties', {}).get('gridOffMode_1', 2) | int %}
+          {{ states.get(packState, "Onbekend") }}
+        unique_id: Zendure_proxy_Offgrid_Modus_1
+        icon: >
+         {% if this.state == 'Normaal' %}
+          mdi:power-plug
+         {% elif this.state == 'Eco' %}
+          mdi:power-plug
+         {% elif this.state == 'Uitgeschakeld' %}
+          mdi:power-plug-off
+         {% else %}
+          mdi:power-plug-outline
+         {% endif %}
+
+      - name: "Zendure 2 Offgrid Modus"
+        value_template: >
+          {% set states = {0: "Normaal", 1: "Eco", 2: "Uitgeschakeld"} %}
+          {% set packState = value_json.get('properties', {}).get('gridOffMode_2', 2) | int %}
+          {{ states.get(packState, "Onbekend") }}
+        unique_id: Zendure_proxy_Offgrid_Modus_2
+        icon: >
+         {% if this.state == 'Normaal' %}
+          mdi:power-plug
+         {% elif this.state == 'Eco' %}
+          mdi:power-plug
+         {% elif this.state == 'Uitgeschakeld' %}
+          mdi:power-plug-off
+         {% else %}
+          mdi:power-plug-outline
+         {% endif %}
+
+      - name: "Zendure 3 Offgrid Modus"
+        value_template: >
+          {% set states = {0: "Normaal", 1: "Eco", 2: "Uitgeschakeld"} %}
+          {% set packState = value_json.get('properties', {}).get('gridOffMode_3', 2) | int %}
+          {{ states.get(packState, "Onbekend") }}
+        unique_id: Zendure_proxy_Offgrid_Modus_3
+        icon: >
+         {% if this.state == 'Normaal' %}
+          mdi:power-plug
+         {% elif this.state == 'Eco' %}
+          mdi:power-plug
+         {% elif this.state == 'Uitgeschakeld' %}
+          mdi:power-plug-off
+         {% else %}
+          mdi:power-plug-outline
+         {% endif %}
+
       - name: "Zendure 1 Serienummer"
         unique_id: Zendure_proxy_Serienummer_1
         value_template: "{{ value_json.sn_1 }}"
