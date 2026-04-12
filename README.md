@@ -1006,7 +1006,7 @@ Daarnaast wisselen ze van actief device als het verschil in SoC >=5% wordt. En a
 
 ## Versie ##
 
-Huidige versie: 20260409
+Huidige versie: 20260410
 <br/>
 
 # Release-notes #
@@ -1184,4 +1184,5 @@ Huidige versie: 20260409
 - In de gesimuleerde devices verandert de SoC nu realistisch mee bij laden en ontladen.
 - In de gesimuleerde devices flow is nu ook een gesimuleerde HomeWizard P1 meter beschikbaar. Deze meter kan optioneel de live data van je echte HomeWizard P1 meter gebruiken als basis. Daar wordt dan door de gesimuleerde P1 meter de vermogens van de gesimuleerde Zendure batterijen bij opgeteld/afgetrokken. Daarmee heb je een hele realistische simulatie voor als je nog geen batterij in gebruik hebt. Je kunt de Gielz aansturing gebruiken om Nul op de Meter (NOM) te draaien en zien hoe dit (bij benadering) zou verlopen met een echte Zendure batterij.
 
- 
+## Nieuw in versie 20260410 ##
+- Kleine aanpassing in hoe de status van de offgrid socket wordt doorgereven aan de HA als niet alle devices dezelfde status hebben.
