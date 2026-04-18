@@ -1006,7 +1006,7 @@ Daarnaast wisselen ze van actief device als het verschil in SoC >=5% wordt. En a
 
 ## Versie ##
 
-Huidige versie: 20260414
+Huidige versie: 20260418
 <br/>
 
 # Release-notes #
@@ -1193,3 +1193,5 @@ Huidige versie: 20260414
   De taal van de Proxy Node-RED flow zelf is niet van belang. De flow is exact hetzelfde in beide talen, op de tekst van de uitleg na.
 - De Simulated Devices Node-RED flow heeft nu de mogelijkheid om de gesimuleerde HomeWizard P1 te baseren op een MQTT feed of direct op een Home Assistant entiteit via de Events State node (deze heeft node-red-contrib-home-assistant-websocket nodig, is standaard aanwezig in Node-RED als App geinstalleerd bij Home Assistant). Hiermee kan NOM operatie gesimuleerd worden omdat de gesimuleerde HomeWizard P1 het vermogen van de gesimuleerde devices optelt/aftrekt van de ontvangen vermogenswaarde van de huisaansluiting.
 
+## Nieuw in versie 20260418 ##
+- Issue opgelost waarbij na het in slaapmode zetten van een van de devices, de Proxy een door HA onverwachte waarde van outputPackPower stuurde, waardoor HA een verkeerd commando stuurde. Het effect was dat soms na een wissel van actief device er nog enkele onnodige device wissels plaatsvonden.
