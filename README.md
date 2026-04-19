@@ -1006,7 +1006,7 @@ Daarnaast wisselen ze van actief device als het verschil in SoC >=5% wordt. En a
 
 ## Versie ##
 
-Huidige versie: 20260418
+Huidige versie: 20260419
 <br/>
 
 # Release-notes #
@@ -1195,3 +1195,6 @@ Huidige versie: 20260418
 
 ## Nieuw in versie 20260418 ##
 - Issue opgelost waarbij na het in slaapmode zetten van een van de devices, de Proxy een door HA onverwachte waarde van outputPackPower stuurde, waardoor HA een verkeerd commando stuurde. Het effect was dat soms na een wissel van actief device er nog enkele onnodige device wissels plaatsvonden.
+
+## Nieuw in versie 20260419 ##
+- Issue opgelost waarbij met drie Zendure devices bij ontladen het verkeerde aantal actieve devices gekozen wordt, als de max vermogens voor opladen en ontladen niet hetzelfde ingesteld is. Voor ontladen werden de limieten voor opladen gebruikt.
