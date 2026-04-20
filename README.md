@@ -1006,7 +1006,7 @@ Daarnaast wisselen ze van actief device als het verschil in SoC >=5% wordt. En a
 
 ## Versie ##
 
-Huidige versie: 20260419
+Huidige versie: 20260420
 <br/>
 
 # Release-notes #
@@ -1198,3 +1198,11 @@ Huidige versie: 20260419
 
 ## Nieuw in versie 20260419 ##
 - Issue opgelost waarbij met drie Zendure devices bij ontladen het verkeerde aantal actieve devices gekozen wordt, als de max vermogens voor opladen en ontladen niet hetzelfde ingesteld is. Voor ontladen werden de limieten voor opladen gebruikt.
+
+## Nieuw in versie 20260420 ##
+- Met drie Zendures veranderde het aantal actieve devices niet direct wanneer het vermogen veranderde. Daardoor werd vaak in eerste instantie het vermogen verdeeld over een onjuist aantal devices. Pas bij de volgende vermogensopdracht werd het juiste aantal devices gebruikt.
+- Met drie Zendures werd de acMode waarde altijd van Zendure 1 genomen en naar HA gestuurd, maar die kan soms niet up-to-date zijn als die niet actief is en in slaap mode is gezet. Dit is gecorrigeerd. Nu wordt de acMode altijd van een actieve Zendure genomen.
+- Verbetering in de code die regelt dat niet-actieve devices na een tijdje in slaapmode gezet worden.
+- De Zendures gingen niet naar slaapmode (smartmode=0) na starten van Node-RED en het selecteren van een Modus in de Gielz aansturing. Dit is nu opgelost.
+- De Zendure devices kunnen als ze op nul vermogen worden gezet en smartmode=1, soms ongeveer 20 Watt aangeven als outputPackPower. Hierdoor kan in de aansturing het ontladen soms niet starten. De Proxy zorgt er nu voor dat als acMode=2 (ontladen) en de outputPackPower > 0 is (laden), dat voor outputPackPower dan nul aangegeven wordt. Dit lost dat probleem op.
+
