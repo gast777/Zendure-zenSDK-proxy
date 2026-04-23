@@ -1,0 +1,231 @@
+type: entities
+title: Batteries
+show_header_toggle: false
+entities:
+
+  # =====================
+  # TEMPERATURE SENSORS
+  # =====================
+
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_battery_1_temperature
+        state_not: unknown
+      - entity: sensor.zendure_battery_1_temperature
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_battery_1_temperature
+
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_battery_2_temperature
+        state_not: unknown
+      - entity: sensor.zendure_battery_2_temperature
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_battery_2_temperature
+
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_battery_3_temperature
+        state_not: unknown
+      - entity: sensor.zendure_battery_3_temperature
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_battery_3_temperature
+
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_battery_4_temperature
+        state_not: unknown
+      - entity: sensor.zendure_battery_4_temperature
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_battery_4_temperature
+
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_battery_5_temperature
+        state_not: unknown
+      - entity: sensor.zendure_battery_5_temperature
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_battery_5_temperature
+
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_battery_6_temperature
+        state_not: unknown
+      - entity: sensor.zendure_battery_6_temperature
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_battery_6_temperature
+
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_battery_7_temperature
+        state_not: unknown
+      - entity: sensor.zendure_battery_7_temperature
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_battery_7_temperature
+
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_battery_8_temperature
+        state_not: unknown
+      - entity: sensor.zendure_battery_8_temperature
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_battery_8_temperature
+
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_battery_9_temperature
+        state_not: unknown
+      - entity: sensor.zendure_battery_9_temperature
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_battery_9_temperature
+
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_battery_10_temperature
+        state_not: unknown
+      - entity: sensor.zendure_battery_10_temperature
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_battery_10_temperature
+
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_battery_11_temperature
+        state_not: unknown
+      - entity: sensor.zendure_battery_11_temperature
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_battery_11_temperature
+
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_battery_12_temperature
+        state_not: unknown
+      - entity: sensor.zendure_battery_12_temperature
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_battery_12_temperature
+
+
+  - type: divider
+
+  # =====================
+  # STATE OF CHARGE
+  # =====================
+
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_battery_1_state_of_charge
+        state_not: unknown
+      - entity: sensor.zendure_battery_1_state_of_charge
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_battery_1_state_of_charge
+
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_battery_2_state_of_charge
+        state_not: unknown
+      - entity: sensor.zendure_battery_2_state_of_charge
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_battery_2_state_of_charge
+
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_battery_3_state_of_charge
+        state_not: unknown
+      - entity: sensor.zendure_battery_3_state_of_charge
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_battery_3_state_of_charge
+
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_battery_4_state_of_charge
+        state_not: unknown
+      - entity: sensor.zendure_battery_4_state_of_charge
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_battery_4_state_of_charge
+
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_battery_5_state_of_charge
+        state_not: unknown
+      - entity: sensor.zendure_battery_5_state_of_charge
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_battery_5_state_of_charge
+
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_battery_6_state_of_charge
+        state_not: unknown
+      - entity: sensor.zendure_battery_6_state_of_charge
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_battery_6_state_of_charge
+
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_battery_7_state_of_charge
+        state_not: unknown
+      - entity: sensor.zendure_battery_7_state_of_charge
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_battery_7_state_of_charge
+
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_battery_8_state_of_charge
+        state_not: unknown
+      - entity: sensor.zendure_battery_8_state_of_charge
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_battery_8_state_of_charge
+
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_battery_9_state_of_charge
+        state_not: unknown
+      - entity: sensor.zendure_battery_9_state_of_charge
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_battery_9_state_of_charge
+
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_battery_10_state_of_charge
+        state_not: unknown
+      - entity: sensor.zendure_battery_10_state_of_charge
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_battery_10_state_of_charge
+
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_battery_11_state_of_charge
+        state_not: unknown
+      - entity: sensor.zendure_battery_11_state_of_charge
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_battery_11_state_of_charge
+
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_battery_12_state_of_charge
+        state_not: unknown
+      - entity: sensor.zendure_battery_12_state_of_charge
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_battery_12_state_of_charge
