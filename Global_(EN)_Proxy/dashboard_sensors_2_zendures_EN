@@ -1,0 +1,32 @@
+type: entities
+entities:
+  - entity: sensor.power_command
+  - entity: sensor.zendure_1_power_command
+  - entity: sensor.zendure_2_power_command
+  - entity: sensor.zendure_1_power
+  - entity: sensor.zendure_2_power
+  - entity: sensor.zendure_active_device
+  - entity: sensor.zendure_1_state_of_charge
+  - entity: sensor.zendure_2_state_of_charge
+  - entity: sensor.zendure_1_soc_limit_status
+  - entity: sensor.zendure_2_soc_limit_status
+  - entity: sensor.zendure_1_storage_mode
+  - entity: sensor.zendure_2_storage_mode
+  - entity: sensor.zendure_1_calibrating
+  - entity: sensor.zendure_2_calibrating
+  - entity: sensor.zendure_1_inverter_temperature
+  - entity: sensor.zendure_2_inverter_temperature
+  - entity: sensor.zendure_1_offgrid_mode
+  - entity: sensor.zendure_2_offgrid_mode
+  - entity: sensor.dual_mode_damper_status
+  - entity: sensor.zendure_1_serial_number
+  - entity: sensor.zendure_2_serial_number
+  - entity: sensor.zendure_proxy_version
+title: Zendure Proxy Sensors
+
+
+
+
+
+
+
