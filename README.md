@@ -111,7 +111,7 @@ Een handige manier om de bestanden te editen is door middel van de App "File Edi
 
 ### Instructie ###
 
-In de package van Gielz (zendure_ha_zensdk_gielz1986.yaml) of de configuration.yaml staan de volgende regels om aan de geven waar de Proxy sensoren ingevoegd kunnen worden:
+In de package van Gielz (zendure_gielz1986_xx.yaml) of de configuration.yaml staan de volgende regels om aan de geven waar de Proxy sensoren ingevoegd kunnen worden:
 ```
 ####### BEGIN - Plaats hier je Node-RED sensoren tussen van https://github.com/gast777/Zendure-zenSDK-proxy - BEGIN #######
 
