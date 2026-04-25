@@ -129,75 +129,12 @@ Dan plak de tekst tussen de aangegeven regels in de Gielz package.
 
 Na herstart van Home Assistant kunnen deze entiteiten vervolgens aan het dashboard worden toegevoegd en gemonitord.
 
-Om deze sensoren direct in een dashboard te krijgen, kun je een kaart toevoegen en de volgende code erin plakken.
 
-Bij gebruik van 2 Zendures:
+De volgende stap is om de sensoren op een dashboard te zetten. Daarvoor kun je een kaart (type: entiteiten) toevoegen en de code uit het volgende bestand erin plakken. Neem die van dezelfde taal als in de voorgaande stappen.
 
-```
-type: entities
-entities:
-  - entity: sensor.vermogensopdracht
-  - entity: sensor.vermogensopdracht_zendure_1
-  - entity: sensor.vermogensopdracht_zendure_2
-  - entity: sensor.zendure_1_vermogen_aansturing
-  - entity: sensor.zendure_2_vermogen_aansturing
-  - entity: sensor.zendure_actief_device
-  - entity: sensor.zendure_1_laadpercentage
-  - entity: sensor.zendure_2_laadpercentage
-  - entity: sensor.zendure_1_soc_limiet_status
-  - entity: sensor.zendure_2_soc_limiet_status
-  - entity: sensor.zendure_1_opslagmodus
-  - entity: sensor.zendure_2_opslagmodus
-  - entity: sensor.zendure_1_kalibratie_bezig
-  - entity: sensor.zendure_2_kalibratie_bezig
-  - entity: sensor.zendure_1_omvormer_temperatuur
-  - entity: sensor.zendure_2_omvormer_temperatuur
-  - entity: sensor.zendure_1_offgrid_modus
-  - entity: sensor.zendure_2_offgrid_modus
-  - entity: sensor.dual_mode_demper_status
-  - entity: sensor.zendure_1_serienummer
-  - entity: sensor.zendure_2_serienummer
-  - entity: sensor.zendure_proxy_versie
-title: Zendure Proxy Sensoren
-```
+Bij gebruik van 2 Zendures, neem de tekst uit het bestand dashboard_sensors_2_zendures_XX. Bij 3 Zendures, neem de tekst uit het bestand dashboard_sensors_3_zendures_XX. 
 
-Bij gebruik van 3 Zendures:
-```
-type: entities
-entities:
-  - entity: sensor.vermogensopdracht
-  - entity: sensor.vermogensopdracht_zendure_1
-  - entity: sensor.vermogensopdracht_zendure_2
-  - entity: sensor.vermogensopdracht_zendure_3
-  - entity: sensor.zendure_1_vermogen_aansturing
-  - entity: sensor.zendure_2_vermogen_aansturing
-  - entity: sensor.zendure_3_vermogen_aansturing
-  - entity: sensor.zendure_actief_device
-  - entity: sensor.zendure_1_laadpercentage
-  - entity: sensor.zendure_2_laadpercentage
-  - entity: sensor.zendure_3_laadpercentage
-  - entity: sensor.zendure_1_soc_limiet_status
-  - entity: sensor.zendure_2_soc_limiet_status
-  - entity: sensor.zendure_3_soc_limiet_status
-  - entity: sensor.zendure_1_opslagmodus
-  - entity: sensor.zendure_2_opslagmodus
-  - entity: sensor.zendure_3_opslagmodus
-  - entity: sensor.zendure_1_kalibratie_bezig
-  - entity: sensor.zendure_2_kalibratie_bezig
-  - entity: sensor.zendure_3_kalibratie_bezig
-  - entity: sensor.zendure_1_omvormer_temperatuur
-  - entity: sensor.zendure_2_omvormer_temperatuur
-  - entity: sensor.zendure_3_omvormer_temperatuur
-  - entity: sensor.zendure_1_offgrid_modus
-  - entity: sensor.zendure_2_offgrid_modus
-  - entity: sensor.zendure_3_offgrid_modus
-  - entity: sensor.dual_mode_demper_status
-  - entity: sensor.zendure_1_serienummer
-  - entity: sensor.zendure_2_serienummer
-  - entity: sensor.zendure_3_serienummer
-  - entity: sensor.zendure_proxy_versie
-title: Zendure Proxy Sensoren
-```
+Als je in totaal meer dan 6 batterij modules hebt, dan kun je ook nog een dashboard kaart toevoegen met de informatie over alle batterijen: dashboard_battery_sensors_XX.
 
 
 Nu kan het feest beginnen!
