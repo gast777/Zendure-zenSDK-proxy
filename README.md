@@ -59,7 +59,7 @@ Als in de blokken "API Proxy In" staat "The url will be relative to /endpoint", 
 
 <img src="https://github.com/gast777/Zendure-zenSDK-proxy/blob/main/images/HA-gielz-ip-port-endpoint.png" width="50%"> 
 
-Als Node-RED op de Home Assistant server zelf is geinstalleerd als Add-On, vul in "localhost:1880/endpoint".
+Als Node-RED op de Home Assistant server zelf is geinstalleerd als App (voorheen 'Add-On'), vul in "localhost:1880/endpoint".
 
 <img src="https://github.com/gast777/Zendure-zenSDK-proxy/blob/main/images/HA-gielz-ip-port-AddOn.png" width="50%">
 
@@ -80,7 +80,7 @@ Hiermee is de installatie gereed. Je kunt hem nu in gebruik nemen door een aanst
 <br/>
 
 
-## Node-RED als Home Assistant Add-on ##
+## Node-RED als Home Assistant App (voorheen 'Add-on') ##
 
 Indien Node-RED op de Home Assistant server zelf is geinstalleerd als Add-on, volg deze stappen om de flow direct te laten werken:<br/>
 
