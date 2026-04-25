@@ -120,7 +120,7 @@ In de package van Gielz (zendure_gielz1986_xx.yaml) of de configuration.yaml sta
 ####### EIND - Plaats hier je Node-RED sensoren tussen van https://github.com/gast777/Zendure-zenSDK-proxy - EIND ####### 
 ```
 
-Neem het bestand HA_REST_proxy_sensors_XX (waar XX de taal aangeeft, NL of EN). De taal van de Proxy sensoren moet dezelfde zijn als die van de Gielz-automatisering die je in gebruik hebt.
+Neem het bestand HA_REST_proxy_sensors_XX (waar XX de taal aangeeft, NL of EN). De taal van de Proxy sensoren moet dezelfde zijn als die van de Gielz-automatisering en dashboard die je in gebruik hebt.
 
 Kopieer de tekst van het bestand, zoals in inderstaand voorbeeld.
 
