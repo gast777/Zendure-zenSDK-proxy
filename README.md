@@ -105,7 +105,9 @@ Zie hier de beschikbare extra proxy sensoren in Home Assistant.
 <img src="https://github.com/gast777/Zendure-zenSDK-proxy/blob/main/images/proxy-sensors.png" width="50%">
 
 
-Om deze in Home Assistant beschikbaar te maken, voegen we de extra sensoren toe aan de package die [Gielz](https://github.com/Gielz1986/Zendure-HA-zenSDK) beschikbaar stelt. Of in de configuration.yaml, als je die methode gebruikt (de package methode van Gielz is aan te raden).
+Om deze in Home Assistant beschikbaar te maken, voegen we de extra sensoren toe aan de package die [Gielz](https://github.com/Gielz1986/Zendure-HA-zenSDK) beschikbaar stelt. Of in de configuration.yaml, als je die methode gebruikt (de package methode van Gielz is aan te raden). 
+
+Een handige manier om de bestanden te editen is door middel van de App "File Editor" in Home Assistant.
 
 ### Instructie ###
 
