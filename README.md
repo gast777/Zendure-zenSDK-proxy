@@ -35,7 +35,7 @@ De Proxy is zowel in het [Nederlands](https://github.com/gast777/Zendure-zenSDK-
 
 - [ ] Vul de IP adressen van de Zendure devices in, in het blok "**Vul hier de Zendure IP adressen in**" (zie het rode vierkant in het plaatjes hieronder).<br/>
 
-Hiervoor importeer je eerst de flow Zendure-proxy-Node-Red-flow.json in Node-RED via het menu (hamburger rechtsboven) -> Import. Vervolgens open je het blok "**Vul hier de Zendure IP adressen in**" door erop te dubbel clicken. Na invullen van de IP adressen click je op de rode "Done" knop. Daarna click je op de rode "Deploy" knop rechts boven in Node-RED om de flow te activeren. Daarmee is de Node-RED kant gereed.<br/>
+Hiervoor importeer je eerst de flow Zendure-proxy-Node-Red-flow_XX.json in Node-RED via het menu (hamburger rechtsboven) -> Import. Vervolgens open je het blok "**Vul hier de Zendure IP adressen in**" door erop te dubbel clicken. Na invullen van de IP adressen click je op de rode "Done" knop. Daarna click je op de rode "Deploy" knop rechts boven in Node-RED om de flow te activeren. Daarmee is de Node-RED kant gereed.<br/>
 <br/>
 
 ![Preview](images/node-red-flow-image2.png) 
