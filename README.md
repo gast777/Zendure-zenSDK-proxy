@@ -23,7 +23,7 @@ Node-RED kan gemakkelijk als een App geinstalleerd worden in Home Assistant. Na 
 
 Vervolgens moet je een paar eenvoudige instellingen doen voor de Gielz automatisering in Home Assistant, zoals in onderstaande instructies te zien is. Daarna kan hij aan het werk :)<br/>
 
-De Proxy is zowel in het Nederlands als in het Engels beschikbaar, net als de Gielz-automatisering. Neem altijd dezelfde taal voor de Proxy als voor de Gielz-automatisering.
+De Proxy is zowel in het [Nederlands](https://github.com/gast777/Zendure-zenSDK-proxy/tree/main/Dutch_(NL)_Proxy) als in het [Engels](https://github.com/gast777/Zendure-zenSDK-proxy/tree/main/Global_(EN)_Proxy) beschikbaar, net als de Gielz-automatisering. Neem altijd dezelfde taal voor de Proxy als voor de Gielz-automatisering.
 <br/>
 
 
