@@ -132,9 +132,9 @@ Na herstart van Home Assistant kunnen deze entiteiten vervolgens aan het dashboa
 
 De volgende stap is om de sensoren op een dashboard te zetten. Daarvoor kun je een kaart (type: entiteiten) toevoegen en de code uit het volgende bestand erin plakken. Neem die van dezelfde taal als in de voorgaande stappen.
 
-Bij gebruik van 2 Zendures, neem de tekst uit het bestand dashboard_sensors_2_zendures_XX. Bij 3 Zendures, neem de tekst uit het bestand dashboard_sensors_3_zendures_XX. 
+Bij gebruik van 2 Zendures, neem de tekst uit het bestand `dashboard_sensors_2_zendures_XX`. Bij 3 Zendures, neem de tekst uit het bestand `dashboard_sensors_3_zendures_XX`. 
 
-Als je in totaal meer dan 6 batterij modules hebt, dan kun je ook nog een dashboard kaart toevoegen met de informatie over alle batterijen: dashboard_battery_sensors_XX.
+Als je in totaal meer dan 6 batterij modules hebt, dan kun je ook nog een dashboard kaart toevoegen met de informatie over alle batterijen: `dashboard_battery_sensors_XX`. Als je vervolgens niet alle batterijen ziet, controleer of je "Batterij Volgorde" hebt ingevuld. Maak die dan even leeg. Eventueel kun je HA herstarten mochten nog niet alle batterijen zichtbaar zijn.
 
 
 Nu kan het feest beginnen!
