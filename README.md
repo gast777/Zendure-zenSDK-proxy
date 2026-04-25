@@ -82,7 +82,7 @@ Hiermee is de basis installatie gereed. Je kunt hem nu in gebruik nemen door een
 
 ## Node-RED als Home Assistant App (voorheen 'Add-on') ##
 
-Indien Node-RED op de Home Assistant server zelf is geinstalleerd als Add-on, volg deze stappen om de flow direct te laten werken:<br/>
+Indien Node-RED op de Home Assistant server zelf is geinstalleerd als App, volg deze stappen om de flow direct te laten werken:<br/>
 
 1) Home Assistant Add-On Configuratie van Node-RED:
 - Zet "ssl" uit
