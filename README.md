@@ -132,11 +132,11 @@ Dan plak de tekst tussen de aangegeven regels in de Gielz package.
 Na herstart van Home Assistant kunnen deze entiteiten vervolgens aan het dashboard worden toegevoegd en gemonitord.
 
 
-De volgende stap is om de sensoren op een dashboard te zetten. Daarvoor kun je een kaart (type: entiteiten) toevoegen en de code uit het volgende bestand erin plakken. Neem die van dezelfde taal als in de voorgaande stappen.
+De volgende stap is om de sensoren op een dashboard te zetten. Daarvoor kun je een kaart (type: entiteiten) toevoegen en de code uit het bestand `dashboard_proxy_sensors_XX` erin plakken. Neem die van dezelfde taal als in de voorgaande stappen.
 
-Bij gebruik van 2 Zendures, neem de tekst uit het bestand `dashboard_sensors_2_zendures_XX`. Bij 3 Zendures, neem de tekst uit het bestand `dashboard_sensors_3_zendures_XX`. 
+Als je in totaal meer dan 6 batterijmodules hebt, dan kun je ook nog een dashboard kaart toevoegen met de informatie over alle batterijen (het standaard Gielz dashboard toont maximaal 6 batterijen): `dashboard_battery_sensors_XX`. 
 
-Als je in totaal meer dan 6 batterijmodules hebt, dan kun je ook nog een dashboard kaart toevoegen met de informatie over alle batterijen: `dashboard_battery_sensors_XX`. Als je vervolgens niet alle batterijen ziet, controleer of je "Batterij Volgorde" hebt ingevuld. Maak die dan even leeg. Eventueel kun je HA herstarten mochten nog niet alle batterijen zichtbaar zijn.
+Als je vervolgens niet meteen alle batterijen ziet, controleer of je "Batterij Volgorde" hebt ingevuld. Maak die dan even leeg. Eventueel kun je HA herstarten mochten nog niet alle batterijen zichtbaar zijn.
 
 
 Nu kan het feest beginnen!
