@@ -136,8 +136,18 @@ De volgende stap is om de sensoren op een dashboard te zetten. Daarvoor kun je e
 
 Als je in totaal meer dan 6 batterijmodules hebt, dan kun je ook nog een dashboard kaart toevoegen met de informatie over alle batterijen (het standaard Gielz dashboard toont maximaal 6 batterijen): `dashboard_battery_sensors_XX`. 
 
-Als je vervolgens niet meteen alle batterijen ziet, controleer of je "Batterij Volgorde" hebt ingevuld. Maak die dan even leeg. Eventueel kun je HA herstarten mochten nog niet alle batterijen zichtbaar zijn.
+Als je vervolgens niet meteen alle batterijen ziet, controleer of je "Batterij Volgorde" hebt ingevuld. Maak die dan leeg. Eventueel kun je HA herstarten mochten nog niet alle batterijen zichtbaar zijn.
 
+_NB: Momenteel werkt "Batterij Volgorde" nog maar tot maximaal 6 batterijen. Wil je het gebruiken met meer dan 6 batterijen, doe dan deze eenvoudige aanpassing in de de Gielz package. Verander in de volgende tekst "11" naar "44":_
+
+```
+input_text:
+  zendure_2400_ac_batterij_volgorde:
+    name: Zendure 2400 AC Batterij Volgorde
+    icon: mdi:flip-vertical
+    max: 11    <<<<<<< verander deze naar 44
+    mode: text
+```
 
 Nu kan het feest beginnen!
 
