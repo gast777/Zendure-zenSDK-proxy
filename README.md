@@ -19,9 +19,11 @@ Het werkt als volgt: Home Assistant (HA) zal met de proxy praten, in plaats van 
 
 Het vermogen wordt op intelligente wijze verdeeld over de Zendures. Als er een verschil is in SoC (State of Charge, batterij % Laadpercentage) van de Zendures, dan zal degene met de laagste SoC sneller laden of de volste juist sneller ontladen. Zo blijft de SoC van de beide Zendures dicht bij elkaar. Tevens zal bij lagere vermogens slechts één of twee van de Zendures tegelijk gaan laden/ontladen, om redenen van efficiency.
 
-Node-RED kan gemakkelijk als een Add-On geinstalleerd worden in Home Assistant. Na importeren van deze Node-RED Zendure Proxy flow, kun je de IP adressen van je twee of drie Zendure devices invullen. Hieronder staat aangegeven waar je dat kunt doen.
+Node-RED kan gemakkelijk als een App geinstalleerd worden in Home Assistant. Na importeren van deze Node-RED Zendure Proxy flow, kun je de IP adressen van je twee of drie Zendure devices invullen. Hieronder staat aangegeven waar je dat kunt doen.
 
 Vervolgens moet je een paar eenvoudige instellingen doen voor de Gielz automatisering in Home Assistant, zoals in onderstaande instructies te zien is. Daarna kan hij aan het werk :)<br/>
+
+De Proxy is zowel in het Nederlands als in het Engels beschikbaar, net als de Gielz-automatisering. Neem altijd dezelfde taal voor de Proxy als voor de Gielz-automatisering.
 <br/>
 
 
