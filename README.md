@@ -120,9 +120,10 @@ In de package van Gielz (zendure_ha_zensdk_gielz1986.yaml) of de configuration.y
 
 Neem het bestand HA_REST_proxy_sensors_XX (waar XX de taal aangeeft, NL of EN). De taal van de Proxy sensoren moet dezelfde zijn als die van de Gielz-automatisering die je in gebruik hebt.
 
-Kopieer de tekst van het bestand.
+Kopieer de tekst van het bestand, zoals in inderstaand voorbeeld.
 
 <img src="https://github.com/gast777/Zendure-zenSDK-proxy/blob/main/images/sensors_rest_copy_NL.png" width="50%">
+
 
 Dan plak de tekst tussen de aangegeven regels in de Gielz package.
 
