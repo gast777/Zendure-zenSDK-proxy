@@ -1,11 +1,6 @@
 type: entities
 title: Batterijen
 entities:
-
-  # =====================
-  # TEMPERATUUR SENSOREN
-  # =====================
-
   - type: conditional
     conditions:
       - entity: sensor.zendure_2400_ac_batterij_1_temperatuur
@@ -14,7 +9,7 @@ entities:
         state_not: unavailable
     row:
       entity: sensor.zendure_2400_ac_batterij_1_temperatuur
-
+      name: Batterij 1 Temperatuur
   - type: conditional
     conditions:
       - entity: sensor.zendure_2400_ac_batterij_2_temperatuur
@@ -23,7 +18,7 @@ entities:
         state_not: unavailable
     row:
       entity: sensor.zendure_2400_ac_batterij_2_temperatuur
-
+      name: Batterij 2 Temperatuur
   - type: conditional
     conditions:
       - entity: sensor.zendure_2400_ac_batterij_3_temperatuur
@@ -32,7 +27,7 @@ entities:
         state_not: unavailable
     row:
       entity: sensor.zendure_2400_ac_batterij_3_temperatuur
-
+      name: Batterij 3 Temperatuur
   - type: conditional
     conditions:
       - entity: sensor.zendure_2400_ac_batterij_4_temperatuur
@@ -41,7 +36,7 @@ entities:
         state_not: unavailable
     row:
       entity: sensor.zendure_2400_ac_batterij_4_temperatuur
-
+      name: Batterij 4 Temperatuur
   - type: conditional
     conditions:
       - entity: sensor.zendure_2400_ac_batterij_5_temperatuur
@@ -50,7 +45,7 @@ entities:
         state_not: unavailable
     row:
       entity: sensor.zendure_2400_ac_batterij_5_temperatuur
-
+      name: Batterij 5 Temperatuur
   - type: conditional
     conditions:
       - entity: sensor.zendure_2400_ac_batterij_6_temperatuur
@@ -59,7 +54,7 @@ entities:
         state_not: unavailable
     row:
       entity: sensor.zendure_2400_ac_batterij_6_temperatuur
-
+      name: Batterij 6 Temperatuur
   - type: conditional
     conditions:
       - entity: sensor.zendure_2400_ac_batterij_7_temperatuur
@@ -68,7 +63,7 @@ entities:
         state_not: unavailable
     row:
       entity: sensor.zendure_2400_ac_batterij_7_temperatuur
-
+      name: Batterij 7 Temperatuur
   - type: conditional
     conditions:
       - entity: sensor.zendure_2400_ac_batterij_8_temperatuur
@@ -77,7 +72,7 @@ entities:
         state_not: unavailable
     row:
       entity: sensor.zendure_2400_ac_batterij_8_temperatuur
-
+      name: Batterij 8 Temperatuur
   - type: conditional
     conditions:
       - entity: sensor.zendure_2400_ac_batterij_9_temperatuur
@@ -86,7 +81,7 @@ entities:
         state_not: unavailable
     row:
       entity: sensor.zendure_2400_ac_batterij_9_temperatuur
-
+      name: Batterij 9 Temperatuur
   - type: conditional
     conditions:
       - entity: sensor.zendure_2400_ac_batterij_10_temperatuur
@@ -95,7 +90,7 @@ entities:
         state_not: unavailable
     row:
       entity: sensor.zendure_2400_ac_batterij_10_temperatuur
-
+      name: Batterij 10 Temperatuur
   - type: conditional
     conditions:
       - entity: sensor.zendure_2400_ac_batterij_11_temperatuur
@@ -104,7 +99,7 @@ entities:
         state_not: unavailable
     row:
       entity: sensor.zendure_2400_ac_batterij_11_temperatuur
-
+      name: Batterij 11 Temperatuur
   - type: conditional
     conditions:
       - entity: sensor.zendure_2400_ac_batterij_12_temperatuur
@@ -113,14 +108,8 @@ entities:
         state_not: unavailable
     row:
       entity: sensor.zendure_2400_ac_batterij_12_temperatuur
-
-
+      name: Batterij 12 Temperatuur
   - type: divider
-
-  # =====================
-  # Laadpercentage
-  # =====================
-
   - type: conditional
     conditions:
       - entity: sensor.zendure_2400_ac_batterij_1_laadpercentage
@@ -129,7 +118,7 @@ entities:
         state_not: unavailable
     row:
       entity: sensor.zendure_2400_ac_batterij_1_laadpercentage
-
+      name: Batterij 1 Laadpercentage
   - type: conditional
     conditions:
       - entity: sensor.zendure_2400_ac_batterij_2_laadpercentage
@@ -138,7 +127,7 @@ entities:
         state_not: unavailable
     row:
       entity: sensor.zendure_2400_ac_batterij_2_laadpercentage
-
+      name: Batterij 2 Laadpercentage
   - type: conditional
     conditions:
       - entity: sensor.zendure_2400_ac_batterij_3_laadpercentage
@@ -147,7 +136,7 @@ entities:
         state_not: unavailable
     row:
       entity: sensor.zendure_2400_ac_batterij_3_laadpercentage
-
+      name: Batterij 3 Laadpercentage
   - type: conditional
     conditions:
       - entity: sensor.zendure_2400_ac_batterij_4_laadpercentage
@@ -156,7 +145,7 @@ entities:
         state_not: unavailable
     row:
       entity: sensor.zendure_2400_ac_batterij_4_laadpercentage
-
+      name: Batterij 4 Laadpercentage
   - type: conditional
     conditions:
       - entity: sensor.zendure_2400_ac_batterij_5_laadpercentage
@@ -165,7 +154,7 @@ entities:
         state_not: unavailable
     row:
       entity: sensor.zendure_2400_ac_batterij_5_laadpercentage
-
+      name: Batterij 5 Laadpercentage
   - type: conditional
     conditions:
       - entity: sensor.zendure_2400_ac_batterij_6_laadpercentage
@@ -174,7 +163,7 @@ entities:
         state_not: unavailable
     row:
       entity: sensor.zendure_2400_ac_batterij_6_laadpercentage
-
+      name: Batterij 6 Laadpercentage
   - type: conditional
     conditions:
       - entity: sensor.zendure_2400_ac_batterij_7_laadpercentage
@@ -183,7 +172,7 @@ entities:
         state_not: unavailable
     row:
       entity: sensor.zendure_2400_ac_batterij_7_laadpercentage
-
+      name: Batterij 7 Laadpercentage
   - type: conditional
     conditions:
       - entity: sensor.zendure_2400_ac_batterij_8_laadpercentage
@@ -192,7 +181,7 @@ entities:
         state_not: unavailable
     row:
       entity: sensor.zendure_2400_ac_batterij_8_laadpercentage
-
+      name: Batterij 8 Laadpercentage
   - type: conditional
     conditions:
       - entity: sensor.zendure_2400_ac_batterij_9_laadpercentage
@@ -201,7 +190,7 @@ entities:
         state_not: unavailable
     row:
       entity: sensor.zendure_2400_ac_batterij_9_laadpercentage
-
+      name: Batterij 9 Laadpercentage
   - type: conditional
     conditions:
       - entity: sensor.zendure_2400_ac_batterij_10_laadpercentage
@@ -210,7 +199,7 @@ entities:
         state_not: unavailable
     row:
       entity: sensor.zendure_2400_ac_batterij_10_laadpercentage
-
+      name: Batterij 10 Laadpercentage
   - type: conditional
     conditions:
       - entity: sensor.zendure_2400_ac_batterij_11_laadpercentage
@@ -219,7 +208,7 @@ entities:
         state_not: unavailable
     row:
       entity: sensor.zendure_2400_ac_batterij_11_laadpercentage
-
+      name: Batterij 11 Laadpercentage
   - type: conditional
     conditions:
       - entity: sensor.zendure_2400_ac_batterij_12_laadpercentage
@@ -228,3 +217,4 @@ entities:
         state_not: unavailable
     row:
       entity: sensor.zendure_2400_ac_batterij_12_laadpercentage
+      name: Batterij 12 Laadpercentage
