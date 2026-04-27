@@ -1,12 +1,6 @@
 type: entities
 title: Batteries
-show_header_toggle: false
 entities:
-
-  # =====================
-  # TEMPERATURE SENSORS
-  # =====================
-
   - type: conditional
     conditions:
       - entity: sensor.zendure_battery_1_temperature
@@ -15,7 +9,7 @@ entities:
         state_not: unavailable
     row:
       entity: sensor.zendure_battery_1_temperature
-
+      name: Battery 1 Temperature
   - type: conditional
     conditions:
       - entity: sensor.zendure_battery_2_temperature
@@ -24,7 +18,7 @@ entities:
         state_not: unavailable
     row:
       entity: sensor.zendure_battery_2_temperature
-
+      name: Battery 2 Temperature
   - type: conditional
     conditions:
       - entity: sensor.zendure_battery_3_temperature
@@ -33,7 +27,7 @@ entities:
         state_not: unavailable
     row:
       entity: sensor.zendure_battery_3_temperature
-
+      name: Battery 3 Temperature
   - type: conditional
     conditions:
       - entity: sensor.zendure_battery_4_temperature
@@ -42,7 +36,7 @@ entities:
         state_not: unavailable
     row:
       entity: sensor.zendure_battery_4_temperature
-
+      name: Battery 4 Temperature
   - type: conditional
     conditions:
       - entity: sensor.zendure_battery_5_temperature
@@ -51,7 +45,7 @@ entities:
         state_not: unavailable
     row:
       entity: sensor.zendure_battery_5_temperature
-
+      name: Battery 5 Temperature
   - type: conditional
     conditions:
       - entity: sensor.zendure_battery_6_temperature
@@ -60,7 +54,7 @@ entities:
         state_not: unavailable
     row:
       entity: sensor.zendure_battery_6_temperature
-
+      name: Battery 6 Temperature
   - type: conditional
     conditions:
       - entity: sensor.zendure_battery_7_temperature
@@ -69,7 +63,7 @@ entities:
         state_not: unavailable
     row:
       entity: sensor.zendure_battery_7_temperature
-
+      name: Battery 7 Temperature
   - type: conditional
     conditions:
       - entity: sensor.zendure_battery_8_temperature
@@ -78,7 +72,7 @@ entities:
         state_not: unavailable
     row:
       entity: sensor.zendure_battery_8_temperature
-
+      name: Battery 8 Temperature
   - type: conditional
     conditions:
       - entity: sensor.zendure_battery_9_temperature
@@ -87,7 +81,7 @@ entities:
         state_not: unavailable
     row:
       entity: sensor.zendure_battery_9_temperature
-
+      name: Battery 9 Temperature
   - type: conditional
     conditions:
       - entity: sensor.zendure_battery_10_temperature
@@ -96,7 +90,7 @@ entities:
         state_not: unavailable
     row:
       entity: sensor.zendure_battery_10_temperature
-
+      name: Battery 10 Temperature
   - type: conditional
     conditions:
       - entity: sensor.zendure_battery_11_temperature
@@ -105,7 +99,7 @@ entities:
         state_not: unavailable
     row:
       entity: sensor.zendure_battery_11_temperature
-
+      name: Battery 11 Temperature
   - type: conditional
     conditions:
       - entity: sensor.zendure_battery_12_temperature
@@ -114,14 +108,8 @@ entities:
         state_not: unavailable
     row:
       entity: sensor.zendure_battery_12_temperature
-
-
+      name: Battery 12 Temperature
   - type: divider
-
-  # =====================
-  # STATE OF CHARGE
-  # =====================
-
   - type: conditional
     conditions:
       - entity: sensor.zendure_battery_1_state_of_charge
@@ -130,7 +118,7 @@ entities:
         state_not: unavailable
     row:
       entity: sensor.zendure_battery_1_state_of_charge
-
+      name: Battery 1 State Of Charge
   - type: conditional
     conditions:
       - entity: sensor.zendure_battery_2_state_of_charge
@@ -139,7 +127,7 @@ entities:
         state_not: unavailable
     row:
       entity: sensor.zendure_battery_2_state_of_charge
-
+      name: Battery 2 State Of Charge
   - type: conditional
     conditions:
       - entity: sensor.zendure_battery_3_state_of_charge
@@ -148,7 +136,7 @@ entities:
         state_not: unavailable
     row:
       entity: sensor.zendure_battery_3_state_of_charge
-
+      name: Battery 3 State Of Charge
   - type: conditional
     conditions:
       - entity: sensor.zendure_battery_4_state_of_charge
@@ -157,7 +145,7 @@ entities:
         state_not: unavailable
     row:
       entity: sensor.zendure_battery_4_state_of_charge
-
+      name: Battery 4 State Of Charge
   - type: conditional
     conditions:
       - entity: sensor.zendure_battery_5_state_of_charge
@@ -166,7 +154,7 @@ entities:
         state_not: unavailable
     row:
       entity: sensor.zendure_battery_5_state_of_charge
-
+      name: Battery 5 State Of Charge
   - type: conditional
     conditions:
       - entity: sensor.zendure_battery_6_state_of_charge
@@ -175,7 +163,7 @@ entities:
         state_not: unavailable
     row:
       entity: sensor.zendure_battery_6_state_of_charge
-
+      name: Battery 6 State Of Charge
   - type: conditional
     conditions:
       - entity: sensor.zendure_battery_7_state_of_charge
@@ -184,7 +172,7 @@ entities:
         state_not: unavailable
     row:
       entity: sensor.zendure_battery_7_state_of_charge
-
+      name: Battery 7 State Of Charge
   - type: conditional
     conditions:
       - entity: sensor.zendure_battery_8_state_of_charge
@@ -193,7 +181,7 @@ entities:
         state_not: unavailable
     row:
       entity: sensor.zendure_battery_8_state_of_charge
-
+      name: Battery 8 State Of Charge
   - type: conditional
     conditions:
       - entity: sensor.zendure_battery_9_state_of_charge
@@ -202,7 +190,7 @@ entities:
         state_not: unavailable
     row:
       entity: sensor.zendure_battery_9_state_of_charge
-
+      name: Battery 9 State Of Charge
   - type: conditional
     conditions:
       - entity: sensor.zendure_battery_10_state_of_charge
@@ -211,7 +199,7 @@ entities:
         state_not: unavailable
     row:
       entity: sensor.zendure_battery_10_state_of_charge
-
+      name: Battery 10 State Of Charge
   - type: conditional
     conditions:
       - entity: sensor.zendure_battery_11_state_of_charge
@@ -220,7 +208,7 @@ entities:
         state_not: unavailable
     row:
       entity: sensor.zendure_battery_11_state_of_charge
-
+      name: Battery 11 State Of Charge
   - type: conditional
     conditions:
       - entity: sensor.zendure_battery_12_state_of_charge
@@ -229,3 +217,4 @@ entities:
         state_not: unavailable
     row:
       entity: sensor.zendure_battery_12_state_of_charge
+      name: Battery 12 State Of Charge
