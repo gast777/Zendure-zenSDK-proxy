@@ -802,5 +802,5 @@ Huidige versie: 20260427
 
 ## Nieuw in versie 20260427 ##
 - Met drie Zendures werd een device dat niet kan laden omdat de Op/Ontlaadlimiet is bereikt toch meegeteld als actief device. Dit is nu aangepast. Er is geen verandering in functionaliteit, maar het dashboard toont nu het correct aantal actieve devices in die situatie.
-- De Home Assistant sensor bestanden zijn aangepast. Deze hebben nu de mogelijkheid om de batterij temperatuur en laadpercentage van meer dan 6 Zendures (max 12 momenteel) op het dashboard te tonen. Daarvoor is het nieuwe bastand dashboard_battery_sensors_XX toegevoegd, waarmee de batterijen op een entiteitenkaart op een dashboard gezet kunnen worden. Hiervoor moet ook de nieuwe HA_REST_proxy_sensors_XX in de Gielz Package geplakt worden.
+- De Home Assistant sensor bestanden zijn aangepast. Deze hebben nu de mogelijkheid om de batterij temperatuur en laadpercentage van meer dan 6 Zendures (max 12 momenteel) op het dashboard te tonen. Daarvoor is het nieuwe bastand dashboard_battery_sensors_XX toegevoegd, waarmee de batterijen op een entiteitenkaart op een dashboard gezet kunnen worden. Hiervoor moet ook de nieuwe HA_REST_proxy_sensors_XX in de Gielz package geplakt worden op de aangegeven plaats  in de package.
 
