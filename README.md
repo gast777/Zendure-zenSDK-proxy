@@ -600,7 +600,7 @@ Daarnaast wisselen ze van actief device als het verschil in SoC >=5% wordt. En a
 
 ## Versie ##
 
-Huidige versie: 20260420
+Huidige versie: 20260427
 <br/>
 
 # Release-notes #
@@ -800,3 +800,5 @@ Huidige versie: 20260420
 - De Zendures gingen niet naar slaapmode (smartmode=0) na starten van Node-RED en het selecteren van een Modus in de Gielz aansturing. Dit is nu opgelost.
 - De Zendure devices kunnen als ze op nul vermogen worden gezet en smartmode=0, soms ongeveer 20 Watt aangeven als outputPackPower. Hierdoor kan in de aansturing het ontladen soms niet starten. De Proxy zorgt er nu voor dat als acMode=2 (ontladen) en de outputPackPower > 0 is (laden), dat voor outputPackPower dan nul aangegeven wordt. De aansturing geeft dan correct 'Standby' aan als status, in plaats van 'Laden'. Dit lost dat probleem op.
 
+## Nieuw in versie 20260427 ##
+- Met drie Zendures werd een device dat niet kan laden omdat de Op/Ontlaadlimiet is bereikt toch meegeteld als actief device. Dit is nu aangepast. Er is geen verandering in functionaliteit, maar het dashboard toont nu het correct aantal actieve devices in die situatie.
