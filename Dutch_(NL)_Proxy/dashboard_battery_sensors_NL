@@ -109,6 +109,60 @@ entities:
     row:
       entity: sensor.zendure_2400_ac_batterij_12_temperatuur
       name: Batterij 12 Temperatuur
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_2400_ac_batterij_13_temperatuur
+        state_not: unknown
+      - entity: sensor.zendure_2400_ac_batterij_13_temperatuur
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_2400_ac_batterij_13_temperatuur
+      name: Batterij 13 Temperatuur
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_2400_ac_batterij_14_temperatuur
+        state_not: unknown
+      - entity: sensor.zendure_2400_ac_batterij_14_temperatuur
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_2400_ac_batterij_14_temperatuur
+      name: Batterij 14 Temperatuur
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_2400_ac_batterij_15_temperatuur
+        state_not: unknown
+      - entity: sensor.zendure_2400_ac_batterij_15_temperatuur
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_2400_ac_batterij_15_temperatuur
+      name: Batterij 15 Temperatuur
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_2400_ac_batterij_16_temperatuur
+        state_not: unknown
+      - entity: sensor.zendure_2400_ac_batterij_16_temperatuur
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_2400_ac_batterij_16_temperatuur
+      name: Batterij 16 Temperatuur
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_2400_ac_batterij_17_temperatuur
+        state_not: unknown
+      - entity: sensor.zendure_2400_ac_batterij_17_temperatuur
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_2400_ac_batterij_17_temperatuur
+      name: Batterij 17 Temperatuur
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_2400_ac_batterij_18_temperatuur
+        state_not: unknown
+      - entity: sensor.zendure_2400_ac_batterij_18_temperatuur
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_2400_ac_batterij_18_temperatuur
+      name: Batterij 18 Temperatuur
   - type: divider
   - type: conditional
     conditions:
@@ -218,3 +272,58 @@ entities:
     row:
       entity: sensor.zendure_2400_ac_batterij_12_laadpercentage
       name: Batterij 12 Laadpercentage
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_2400_ac_batterij_13_laadpercentage
+        state_not: unknown
+      - entity: sensor.zendure_2400_ac_batterij_13_laadpercentage
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_2400_ac_batterij_13_laadpercentage
+      name: Batterij 13 Laadpercentage
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_2400_ac_batterij_14_laadpercentage
+        state_not: unknown
+      - entity: sensor.zendure_2400_ac_batterij_14_laadpercentage
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_2400_ac_batterij_14_laadpercentage
+      name: Batterij 14 Laadpercentage
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_2400_ac_batterij_15_laadpercentage
+        state_not: unknown
+      - entity: sensor.zendure_2400_ac_batterij_15_laadpercentage
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_2400_ac_batterij_15_laadpercentage
+      name: Batterij 15 Laadpercentage
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_2400_ac_batterij_16_laadpercentage
+        state_not: unknown
+      - entity: sensor.zendure_2400_ac_batterij_16_laadpercentage
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_2400_ac_batterij_16_laadpercentage
+      name: Batterij 16 Laadpercentage
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_2400_ac_batterij_17_laadpercentage
+        state_not: unknown
+      - entity: sensor.zendure_2400_ac_batterij_17_laadpercentage
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_2400_ac_batterij_17_laadpercentage
+      name: Batterij 17 Laadpercentage
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_2400_ac_batterij_18_laadpercentage
+        state_not: unknown
+      - entity: sensor.zendure_2400_ac_batterij_18_laadpercentage
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_2400_ac_batterij_18_laadpercentage
+      name: Batterij 18 Laadpercentage
+
