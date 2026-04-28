@@ -109,6 +109,60 @@ entities:
     row:
       entity: sensor.zendure_battery_12_temperature
       name: Battery 12 Temperature
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_battery_13_temperature
+        state_not: unknown
+      - entity: sensor.zendure_battery_13_temperature
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_battery_13_temperature
+      name: Battery 13 Temperature
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_battery_14_temperature
+        state_not: unknown
+      - entity: sensor.zendure_battery_14_temperature
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_battery_14_temperature
+      name: Battery 14 Temperature
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_battery_15_temperature
+        state_not: unknown
+      - entity: sensor.zendure_battery_15_temperature
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_battery_15_temperature
+      name: Battery 15 Temperature
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_battery_16_temperature
+        state_not: unknown
+      - entity: sensor.zendure_battery_16_temperature
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_battery_16_temperature
+      name: Battery 16 Temperature
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_battery_17_temperature
+        state_not: unknown
+      - entity: sensor.zendure_battery_17_temperature
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_battery_17_temperature
+      name: Battery 17 Temperature
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_battery_18_temperature
+        state_not: unknown
+      - entity: sensor.zendure_battery_18_temperature
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_battery_18_temperature
+      name: Battery 18 Temperature
   - type: divider
   - type: conditional
     conditions:
@@ -218,3 +272,57 @@ entities:
     row:
       entity: sensor.zendure_battery_12_state_of_charge
       name: Battery 12 State Of Charge
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_battery_13_state_of_charge
+        state_not: unknown
+      - entity: sensor.zendure_battery_13_state_of_charge
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_battery_13_state_of_charge
+      name: Battery 13 State Of Charge
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_battery_14_state_of_charge
+        state_not: unknown
+      - entity: sensor.zendure_battery_14_state_of_charge
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_battery_14_state_of_charge
+      name: Battery 14 State Of Charge
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_battery_15_state_of_charge
+        state_not: unknown
+      - entity: sensor.zendure_battery_15_state_of_charge
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_battery_15_state_of_charge
+      name: Battery 15 State Of Charge
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_battery_16_state_of_charge
+        state_not: unknown
+      - entity: sensor.zendure_battery_16_state_of_charge
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_battery_16_state_of_charge
+      name: Battery 16 State Of Charge
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_battery_17_state_of_charge
+        state_not: unknown
+      - entity: sensor.zendure_battery_17_state_of_charge
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_battery_17_state_of_charge
+      name: Battery 17 State Of Charge
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_battery_18_state_of_charge
+        state_not: unknown
+      - entity: sensor.zendure_battery_18_state_of_charge
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_battery_18_state_of_charge
+      name: Battery 18 State Of Charge
