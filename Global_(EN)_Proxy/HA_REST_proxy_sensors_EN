@@ -462,6 +462,108 @@
         unit_of_measurement: "%"
         state_class: measurement
 
+      - name: "Zendure Battery 13 State Of Charge"
+        value_template: >
+          {% set volgorde_raw = states('input_text.zendure_setting_battery_order') %}
+          {% set packdata = value_json['packData'] %}
+          {% if not packdata %}
+            unknown
+          {% elif volgorde_raw in ['unknown', 'unavailable', ''] %}
+            {{ packdata[12]['socLevel'] }}
+          {% else %}
+            {% set idx = (volgorde_raw.split(';')[12] | int) - 1 %}
+            {{ packdata[idx]['socLevel'] if idx < packdata | length else 'unknown' }}
+          {% endif %}
+        unique_id: "zendure_battery_13_state_of_charge"
+        device_class: battery
+        unit_of_measurement: "%"
+        state_class: measurement
+
+      - name: "Zendure Battery 14 State Of Charge"
+        value_template: >
+          {% set volgorde_raw = states('input_text.zendure_setting_battery_order') %}
+          {% set packdata = value_json['packData'] %}
+          {% if not packdata %}
+            unknown
+          {% elif volgorde_raw in ['unknown', 'unavailable', ''] %}
+            {{ packdata[13]['socLevel'] }}
+          {% else %}
+            {% set idx = (volgorde_raw.split(';')[13] | int) - 1 %}
+            {{ packdata[idx]['socLevel'] if idx < packdata | length else 'unknown' }}
+          {% endif %}
+        unique_id: "zendure_battery_14_state_of_charge"
+        device_class: battery
+        unit_of_measurement: "%"
+        state_class: measurement
+
+      - name: "Zendure Battery 15 State Of Charge"
+        value_template: >
+          {% set volgorde_raw = states('input_text.zendure_setting_battery_order') %}
+          {% set packdata = value_json['packData'] %}
+          {% if not packdata %}
+            unknown
+          {% elif volgorde_raw in ['unknown', 'unavailable', ''] %}
+            {{ packdata[14]['socLevel'] }}
+          {% else %}
+            {% set idx = (volgorde_raw.split(';')[14] | int) - 1 %}
+            {{ packdata[idx]['socLevel'] if idx < packdata | length else 'unknown' }}
+          {% endif %}
+        unique_id: "zendure_battery_15_state_of_charge"
+        device_class: battery
+        unit_of_measurement: "%"
+        state_class: measurement
+
+      - name: "Zendure Battery 16 State Of Charge"
+        value_template: >
+          {% set volgorde_raw = states('input_text.zendure_setting_battery_order') %}
+          {% set packdata = value_json['packData'] %}
+          {% if not packdata %}
+            unknown
+          {% elif volgorde_raw in ['unknown', 'unavailable', ''] %}
+            {{ packdata[15]['socLevel'] }}
+          {% else %}
+            {% set idx = (volgorde_raw.split(';')[15] | int) - 1 %}
+            {{ packdata[idx]['socLevel'] if idx < packdata | length else 'unknown' }}
+          {% endif %}
+        unique_id: "zendure_battery_16_state_of_charge"
+        device_class: battery
+        unit_of_measurement: "%"
+        state_class: measurement
+
+      - name: "Zendure Battery 17 State Of Charge"
+        value_template: >
+          {% set volgorde_raw = states('input_text.zendure_setting_battery_order') %}
+          {% set packdata = value_json['packData'] %}
+          {% if not packdata %}
+            unknown
+          {% elif volgorde_raw in ['unknown', 'unavailable', ''] %}
+            {{ packdata[16]['socLevel'] }}
+          {% else %}
+            {% set idx = (volgorde_raw.split(';')[16] | int) - 1 %}
+            {{ packdata[idx]['socLevel'] if idx < packdata | length else 'unknown' }}
+          {% endif %}
+        unique_id: "zendure_battery_17_state_of_charge"
+        device_class: battery
+        unit_of_measurement: "%"
+        state_class: measurement
+
+      - name: "Zendure Battery 18 State Of Charge"
+        value_template: >
+          {% set volgorde_raw = states('input_text.zendure_setting_battery_order') %}
+          {% set packdata = value_json['packData'] %}
+          {% if not packdata %}
+            unknown
+          {% elif volgorde_raw in ['unknown', 'unavailable', ''] %}
+            {{ packdata[17]['socLevel'] }}
+          {% else %}
+            {% set idx = (volgorde_raw.split(';')[17] | int) - 1 %}
+            {{ packdata[idx]['socLevel'] if idx < packdata | length else 'unknown' }}
+          {% endif %}
+        unique_id: "zendure_battery_18_state_of_charge"
+        device_class: battery
+        unit_of_measurement: "%"
+        state_class: measurement
+
       - name: "Zendure Battery 7 Temperature"
         value_template: >
           {% set volgorde_raw = states('input_text.zendure_setting_battery_order') %}
@@ -563,5 +665,108 @@
         state_class: measurement
         device_class: temperature
         icon: mdi:thermometer
+
+      - name: "Zendure Battery 13 Temperature"
+        value_template: >
+          {% set volgorde_raw = states('input_text.zendure_setting_battery_order') %}
+          {% if volgorde_raw in ['unknown', 'unavailable', ''] %}
+            {% set pack_index = 12 %}
+          {% else %}
+            {% set volgorde = volgorde_raw.split(';') %}
+            {% set pack_index = (volgorde[12] | int) - 1 %}
+          {% endif %}
+          {% set maxTemp = value_json['packData'][pack_index]['maxTemp'] | int %}
+          {{ (maxTemp - 2731) / 10.0 }}
+        unique_id: zendure_battery_13_temperature
+        unit_of_measurement: "°C"
+        state_class: measurement
+        device_class: temperature
+        icon: mdi:thermometer
+
+      - name: "Zendure Battery 14 Temperature"
+        value_template: >
+          {% set volgorde_raw = states('input_text.zendure_setting_battery_order') %}
+          {% if volgorde_raw in ['unknown', 'unavailable', ''] %}
+            {% set pack_index = 13 %}
+          {% else %}
+            {% set volgorde = volgorde_raw.split(';') %}
+            {% set pack_index = (volgorde[13] | int) - 1 %}
+          {% endif %}
+          {% set maxTemp = value_json['packData'][pack_index]['maxTemp'] | int %}
+          {{ (maxTemp - 2731) / 10.0 }}
+        unique_id: zendure_battery_14_temperature
+        unit_of_measurement: "°C"
+        state_class: measurement
+        device_class: temperature
+        icon: mdi:thermometer
+
+      - name: "Zendure Battery 15 Temperature"
+        value_template: >
+          {% set volgorde_raw = states('input_text.zendure_setting_battery_order') %}
+          {% if volgorde_raw in ['unknown', 'unavailable', ''] %}
+            {% set pack_index = 14 %}
+          {% else %}
+            {% set volgorde = volgorde_raw.split(';') %}
+            {% set pack_index = (volgorde[14] | int) - 1 %}
+          {% endif %}
+          {% set maxTemp = value_json['packData'][pack_index]['maxTemp'] | int %}
+          {{ (maxTemp - 2731) / 10.0 }}
+        unique_id: zendure_battery_15_temperature
+        unit_of_measurement: "°C"
+        state_class: measurement
+        device_class: temperature
+        icon: mdi:thermometer
+
+      - name: "Zendure Battery 16 Temperature"
+        value_template: >
+          {% set volgorde_raw = states('input_text.zendure_setting_battery_order') %}
+          {% if volgorde_raw in ['unknown', 'unavailable', ''] %}
+            {% set pack_index = 15 %}
+          {% else %}
+            {% set volgorde = volgorde_raw.split(';') %}
+            {% set pack_index = (volgorde[15] | int) - 1 %}
+          {% endif %}
+          {% set maxTemp = value_json['packData'][pack_index]['maxTemp'] | int %}
+          {{ (maxTemp - 2731) / 10.0 }}
+        unique_id: zendure_battery_16_temperature
+        unit_of_measurement: "°C"
+        state_class: measurement
+        device_class: temperature
+        icon: mdi:thermometer
+
+      - name: "Zendure Battery 17 Temperature"
+        value_template: >
+          {% set volgorde_raw = states('input_text.zendure_setting_battery_order') %}
+          {% if volgorde_raw in ['unknown', 'unavailable', ''] %}
+            {% set pack_index = 16 %}
+          {% else %}
+            {% set volgorde = volgorde_raw.split(';') %}
+            {% set pack_index = (volgorde[16] | int) - 1 %}
+          {% endif %}
+          {% set maxTemp = value_json['packData'][pack_index]['maxTemp'] | int %}
+          {{ (maxTemp - 2731) / 10.0 }}
+        unique_id: zendure_battery_17_temperature
+        unit_of_measurement: "°C"
+        state_class: measurement
+        device_class: temperature
+        icon: mdi:thermometer
+
+      - name: "Zendure Battery 18 Temperature"
+        value_template: >
+          {% set volgorde_raw = states('input_text.zendure_setting_battery_order') %}
+          {% if volgorde_raw in ['unknown', 'unavailable', ''] %}
+            {% set pack_index = 17 %}
+          {% else %}
+            {% set volgorde = volgorde_raw.split(';') %}
+            {% set pack_index = (volgorde[17] | int) - 1 %}
+          {% endif %}
+          {% set maxTemp = value_json['packData'][pack_index]['maxTemp'] | int %}
+          {{ (maxTemp - 2731) / 10.0 }}
+        unique_id: zendure_battery_18_temperature
+        unit_of_measurement: "°C"
+        state_class: measurement
+        device_class: temperature
+        icon: mdi:thermometer
+
 
 ####### END ZENDURE PROXY SENSORS ####### 
