@@ -355,6 +355,21 @@
         value_template: "{{ value_json.sn_3 }}"
         icon: mdi:identifier
 
+      - name: "Zendure 1 IP Address"
+        unique_id: Zendure_proxy_ip_address_1
+        value_template: "{{ value_json.get('properties', {}).get('ipAddress_1', 'unknown') }}"
+        icon: mdi:ip
+
+      - name: "Zendure 2 IP Address"
+        unique_id: Zendure_proxy_ip_address_2
+        value_template: "{{ value_json.get('properties', {}).get('ipAddress_2', 'unknown') }}"
+        icon: mdi:ip
+
+      - name: "Zendure 3 IP Address"
+        unique_id: Zendure_proxy_ip_address_3
+        value_template: "{{ value_json.get('properties', {}).get('ipAddress_3', 'unknown') }}"
+        icon: mdi:ip
+
       - name: "Zendure Proxy Version"
         value_template: "{{ value_json.proxyVersion }}"
         unique_id: zendure_proxy_version
