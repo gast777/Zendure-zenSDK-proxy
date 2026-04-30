@@ -805,5 +805,5 @@ Huidige versie: 20260430
 - De Home Assistant sensor bestanden zijn aangepast. Deze hebben nu de mogelijkheid om de batterij temperatuur en laadpercentage van meer dan 6 Zendures (max 12 momenteel) op het dashboard te tonen. Daarvoor is het nieuwe bastand dashboard_battery_sensors_XX toegevoegd, waarmee de batterijen op een entiteitenkaart op een dashboard gezet kunnen worden. Hiervoor moet ook de nieuwe HA_REST_proxy_sensors_XX in de Gielz package geplakt worden op de aangegeven plaats  in de package.
 
 ## Nieuw in versie 20260430 ##
-- Vanaf deze versie worden de IP adressen van de Zendures door de proxy doorgegeven aam Home Assistant. Ze zijn tevens toegevoegd aan het bestand HA_REST_proxy_sensors_XX, waardoor ze in Home Assistant beschikbaar zijn als sensor.zendure_X_ip_adres (NL versie) of sensor.zendure_X_ip_address (EN versie).
+- Vanaf deze versie worden de IP adressen van de Zendures door de proxy doorgegeven aan Home Assistant. Ze zijn tevens toegevoegd aan het bestand HA_REST_proxy_sensors_XX, waardoor ze in Home Assistant beschikbaar zijn als sensor.zendure_X_ip_adres (NL versie) of sensor.zendure_X_ip_address (EN versie).
 
