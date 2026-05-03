@@ -58,7 +58,7 @@ rest_command:
     content_type: "application/json"
     payload: >
       {
-        "sn": "{{ states('sensor.sensor.zendure_2400_ac_serienummer') }}",
+        "sn": "{{ states('sensor.zendure_2400_ac_serienummer') }}",
         "properties": {
           "gridOffMode": 0
         }
@@ -70,7 +70,7 @@ rest_command:
     content_type: "application/json"
     payload: >
       {
-        "sn": "{{ states('sensor.sensor.zendure_2400_ac_serienummer') }}",
+        "sn": "{{ states('sensor.zendure_2400_ac_serienummer') }}",
         "properties": {
           "gridOffMode": 2
         }
