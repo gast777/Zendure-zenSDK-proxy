@@ -138,7 +138,7 @@ Als je in totaal meer dan 6 batterijmodules hebt, dan kun je ook nog een dashboa
 
 Als je vervolgens niet meteen alle batterijen ziet, controleer of je "Batterij Volgorde" hebt ingevuld. Maak die dan leeg. Eventueel kun je HA herstarten mochten nog niet alle batterijen zichtbaar zijn.
 
-_NB: Momenteel werkt "Batterij Volgorde" nog maar tot maximaal 6 batterijen. Wil je het gebruiken met meer dan 6 batterijen, doe dan deze eenvoudige aanpassing in de de Gielz package. Verander in de volgende tekst "11" naar "44":_
+_NB: Momenteel werkt "Batterij Volgorde" nog maar tot maximaal 6 batterijen. Wil je het gebruiken met meer dan 6 batterijen, doe dan deze kleine aanpassing in de de Gielz package. Verander in de volgende tekst "11" naar "44":_
 
 ```
 input_text:
