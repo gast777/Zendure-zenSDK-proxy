@@ -640,7 +640,7 @@ Huidige versie: 20260503
 
 
 <details>
-<summary>Oudere Release-Notes</summary>
+<summary>Eerdere Release-Notes</summary>
 
 <br/>
 
