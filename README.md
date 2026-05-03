@@ -638,6 +638,13 @@ Huidige versie: 20260503
 
 # Release-notes #
 
+
+<details>
+<summary>Oudere Release-Notes</summary>
+
+<br/>
+
+
 ## Nieuw in versie 20260201 ##
 
 - De product string die via de GET requests wordt doorgegeven aan Home Assistant (in properties.product) zal nu in plaats van "PROXY-NODE-RED" de daadwerkelijke product string van de Zendure devices zijn, zoals "solarFlow2400AC". Deze verandering is nodig omdat vanaf de Gielz Maart 2026 versie deze string gebruikt zal worden om de capaciteit van de batterijen te bepalen.
@@ -839,6 +846,8 @@ Huidige versie: 20260503
 
 ## Nieuw in versie 20260430 ##
 - Vanaf deze versie worden de IP adressen van de Zendures door de proxy doorgegeven aan Home Assistant. Ze zijn tevens toegevoegd aan het bestand HA_REST_proxy_sensors_XX, die in de Gielz package geplakt kan worden op de aangegeven plaats. Daarmee komen ze beschikbaar in Home Assistant als sensor.zendure_X_ip_adres (NL versie) of sensor.zendure_X_ip_address (EN versie).
+
+</details>
 
 ## Nieuw in versie 20260503 ##
 - Als de offgrid sockets (off-grid stopcontacten) op de verschillende Zendure devices in een verschillende stand stonden, dan werd er een waarschuwing geprint in de Proxy (debug venster). Deze waarschuwing is nu verwijderd.
