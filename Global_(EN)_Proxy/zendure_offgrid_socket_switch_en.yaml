@@ -1,0 +1,152 @@
+
+template:
+
+  - switch:
+      - name: "Zendure Offgrid Socket"
+        unique_id: zendure_offgrid_socket
+        state: >
+          {{ 'on' if is_state('sensor.zendure_offgrid_mode', 'Normal') else 'off' }}
+        icon: mdi:power-socket-de
+        turn_on:
+          - service: rest_command.set_zendure_offgrid_socket_on
+        turn_off:
+          - service: rest_command.set_zendure_offgrid_socket_off
+
+  - switch:
+      - name: "Zendure 1 Offgrid Socket"
+        unique_id: zendure_1_offgrid_socket
+        state: >
+          {{ 'on' if is_state('sensor.zendure_1_offgrid_mode', 'Normal') else 'off' }}
+        icon: mdi:power-socket-de
+        turn_on:
+          - service: rest_command.set_zendure_1_offgrid_socket_on
+        turn_off:
+          - service: rest_command.set_zendure_1_offgrid_socket_off
+
+  - switch:
+      - name: "Zendure 2 Offgrid Socket"
+        unique_id: zendure_2_offgrid_socket
+        state: >
+          {{ 'on' if is_state('sensor.zendure_2_offgrid_mode', 'Normal') else 'off' }}
+        icon: mdi:power-socket-de
+        turn_on:
+          - service: rest_command.set_zendure_2_offgrid_socket_on
+        turn_off:
+          - service: rest_command.set_zendure_2_offgrid_socket_off
+
+  - switch:
+      - name: "Zendure 3 Offgrid Socket"
+        unique_id: zendure_3_offgrid_socket
+        state: >
+          {{ 'on' if is_state('sensor.zendure_3_offgrid_mode', 'Normal') else 'off' }}
+        icon: mdi:power-socket-de
+        turn_on:
+          - service: rest_command.set_zendure_3_offgrid_socket_on
+        turn_off:
+          - service: rest_command.set_zendure_3_offgrid_socket_off
+
+
+
+
+rest_command:
+
+
+  set_zendure_offgrid_socket_on:
+    url: "http://{{ states('input_text.zendure_setting_ip_address') }}/properties/write"
+    method: POST
+    content_type: "application/json"
+    payload: >
+      {
+        "sn": "{{ states('sensor.zendure_serial_number') }}",
+        "properties": {
+          "gridOffMode": 0
+        }
+      }
+
+  set_zendure_offgrid_socket_off:
+    url: "http://{{ states('input_text.zendure_setting_ip_address') }}/properties/write"
+    method: POST
+    content_type: "application/json"
+    payload: >
+      {
+        "sn": "{{ states('sensor.zendure_serial_number') }}",
+        "properties": {
+          "gridOffMode": 2
+        }
+      }
+
+
+  set_zendure_1_offgrid_socket_on:
+    url: "http://{{ states('sensor.zendure_1_ip_address') }}/properties/write"
+    method: POST
+    content_type: "application/json"
+    payload: >
+      {
+        "sn": "{{ states('sensor.zendure_1_serial_number') }}",
+        "properties": {
+          "gridOffMode": 0
+        }
+      }
+
+  set_zendure_1_offgrid_socket_off:
+    url: "http://{{ states('sensor.zendure_1_ip_address') }}/properties/write"
+    method: POST
+    content_type: "application/json"
+    payload: >
+      {
+        "sn": "{{ states('sensor.zendure_1_serial_number') }}",
+        "properties": {
+          "gridOffMode": 2
+        }
+      }
+
+
+  set_zendure_2_offgrid_socket_on:
+    url: "http://{{ states('sensor.zendure_2_ip_address') }}/properties/write"
+    method: POST
+    content_type: "application/json"
+    payload: >
+      {
+        "sn": "{{ states('sensor.zendure_2_serial_number') }}",
+        "properties": {
+          "gridOffMode": 0
+        }
+      }
+
+  set_zendure_2_offgrid_socket_off:
+    url: "http://{{ states('sensor.zendure_2_ip_address') }}/properties/write"
+    method: POST
+    content_type: "application/json"
+    payload: >
+      {
+        "sn": "{{ states('sensor.zendure_2_serial_number') }}",
+        "properties": {
+          "gridOffMode": 2
+        }
+      }
+
+
+  set_zendure_3_offgrid_socket_on:
+    url: "http://{{ states('sensor.zendure_3_ip_address') }}/properties/write"
+    method: POST
+    content_type: "application/json"
+    payload: >
+      {
+        "sn": "{{ states('sensor.zendure_3_serial_number') }}",
+        "properties": {
+          "gridOffMode": 0
+        }
+      }
+
+  set_zendure_3_offgrid_socket_off:
+    url: "http://{{ states('sensor.zendure_3_ip_address') }}/properties/write"
+    method: POST
+    content_type: "application/json"
+    payload: >
+      {
+        "sn": "{{ states('sensor.zendure_3_serial_number') }}",
+        "properties": {
+          "gridOffMode": 2
+        }
+      }
+
