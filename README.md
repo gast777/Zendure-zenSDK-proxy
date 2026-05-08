@@ -633,7 +633,7 @@ Daarnaast wisselen ze van actief device als het verschil in SoC >=5% wordt. En a
 
 ## Versie ##
 
-Huidige versie: 20260503
+Huidige versie: 20260508
 <br/>
 
 # Release-notes #
@@ -856,3 +856,7 @@ Huidige versie: 20260503
   Beperking: de offgrid stopcontacten kunnen aan/uit geschakeld worden. De ECO stand is niet beschikbaar via deze schakelaars.
 
   <img src="https://github.com/gast777/Zendure-zenSDK-proxy/blob/main/images/offgrid-sockets-switches.png" width="50%">
+
+## Nieuw in versie 20260508 ##
+- Node-RED dashboard met live debug toegevoegd. In deze versie kun je voor troubleshooting doeleinden naar het Node-RED dashboard browsen. Daar zijn counters te zien, die een mogelijke oorzaak van een probleem duidelijker kunnen maken. Tevens is het mogelijk om live de JSON data te zien die door de proxy wordt ontvangen en verstuurd, voor zowel de GET responses als de POST requests. Het dashboard is bereikbaar via URL `http://<ip-adres>:1880/endpoint/ui/` of `http://<ip-adres>:1880/ui/`
+  Click op de hamburger (drie streepjes) linksboven op het scherm om op de live debug pagina's te komen.
