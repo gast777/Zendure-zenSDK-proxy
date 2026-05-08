@@ -2381,13 +2381,13 @@
     {
         "id": "3a24a90a69554d36",
         "type": "ui_tab",
-        "name": "Zendure Proxy Line Data - POST",
+        "name": "Zendure Proxy Live Data - POST",
         "icon": "dashboard",
         "disabled": false,
         "hidden": false
     },
     {
-        "id": "647839fdd60666d3",
+        "id": "965f05c06c1c9967",
         "type": "global-config",
         "env": [],
         "modules": {
