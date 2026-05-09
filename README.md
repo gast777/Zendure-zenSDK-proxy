@@ -633,7 +633,7 @@ Daarnaast wisselen ze van actief device als het verschil in SoC >=5% wordt. En a
 
 ## Versie ##
 
-Huidige versie: 20260508
+Huidige versie: 20260509
 <br/>
 
 # Release-notes #
@@ -860,3 +860,7 @@ Huidige versie: 20260508
 ## Nieuw in versie 20260508 ##
 - Node-RED dashboard met live debug toegevoegd. In deze versie kun je voor troubleshooting doeleinden naar het Node-RED dashboard browsen. Daar zijn counters te zien, die een mogelijke oorzaak van een probleem duidelijker kunnen maken. Tevens is het mogelijk om live de JSON data te zien die door de proxy wordt ontvangen en verstuurd, voor zowel de GET responses als de POST requests. Het dashboard is bereikbaar via URL `http://<ip-adres>:1880/endpoint/ui/` of `http://<ip-adres>:1880/ui/`
   Click op de hamburger (drie streepjes) linksboven op het scherm om op de live debug pagina's te komen.
+
+## Nieuw in versie 20260509 ##
+- Issue gefixt waarbij de Gielz aansturing in bepaalde situaties veelvuldig probeerde om het (Max) Laadvermogen of Ontlaadvermogen te corrigeren.
+
