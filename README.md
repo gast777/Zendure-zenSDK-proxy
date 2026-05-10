@@ -633,7 +633,7 @@ Daarnaast wisselen ze van actief device als het verschil in SoC >=5% wordt. En a
 
 ## Versie ##
 
-Huidige versie: 20260509
+Huidige versie: 20260510
 <br/>
 
 # Release-notes #
@@ -863,4 +863,7 @@ Huidige versie: 20260509
 
 ## Nieuw in versie 20260509 ##
 - Issue gefixt waarbij de Gielz aansturing in bepaalde situaties veelvuldig probeerde om het (Max) Laadvermogen of Ontlaadvermogen te corrigeren.
+
+## Nieuw in versie 20260510 ##
+- Debug mogelijkheden verbeterd in het Node-RED dashboard (`http://<ip-adres>:1880/endpoint/ui/` of `http://<ip-adres>:1880/ui/`). Het is nu mogelijk om via de web interface een debug te starten en deze optioneel naar een bestand te laten wegschrijven. Dit debug bestand kan vervolgens direct via de web interface gedownload worden en gedelete worden van het systeem. Dit werkt alleen als Node-RED als App (Add-on) bij Home Assistant is geinstalleerd.
 
