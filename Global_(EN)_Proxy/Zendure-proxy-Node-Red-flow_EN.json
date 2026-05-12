@@ -1322,20 +1322,20 @@
         "id": "e32523743b801da3",
         "type": "function",
         "z": "89f1246b4cb51431",
-        "name": "Zendure 1 data to dashboard",
-        "func": "let debug_enable_dashboard = flow.get('debug_enable_dashboard') || 0;\n\nif (debug_enable_dashboard === 0) return null;\n\nvar data = {};\n\n//data.payload = msg.payload?.zendure1?.properties || {};\ndata.payload = msg.payload?.zendure1 || {};\n\nreturn data;",
+        "name": "Zendure 1 GET data to dashboard",
+        "func": "let debug_enable_dashboard = flow.get('debug_enable_dashboard') || 0;\n\nif (debug_enable_dashboard === 0) return null;\n\nvar data = {};\n\n//data.payload = msg.payload?.zendure1?.properties || {};\ndata.payload = msg.payload?.zendure1 || {};\n\n// exit when payload is empty\nif (\n    !data.payload ||\n    (typeof data.payload === \"object\" &&\n        Object.keys(data.payload).length === 0)\n) {\n    return null;\n}\n\nreturn data;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1180,
+        "x": 1200,
         "y": 560,
         "wires": [
             [
-                "04f7cd22c238b044",
-                "8da5d373dab52ee5"
+                "8da5d373dab52ee5",
+                "af3a84f1c4f0fc16"
             ]
         ]
     },
@@ -1343,20 +1343,20 @@
         "id": "a5a22382f30df84b",
         "type": "function",
         "z": "89f1246b4cb51431",
-        "name": "Zendure 2 data to dashboard",
-        "func": "let debug_enable_dashboard = flow.get('debug_enable_dashboard') || 0;\n\nif (debug_enable_dashboard === 0) return null;\n\nvar data = {};\n\n//data.payload = msg.payload?.zendure2?.properties || {};\ndata.payload = msg.payload?.zendure2 || {};\n\nreturn data;",
+        "name": "Zendure 2 GET data to dashboard",
+        "func": "let debug_enable_dashboard = flow.get('debug_enable_dashboard') || 0;\n\nif (debug_enable_dashboard === 0) return null;\n\nvar data = {};\n\n//data.payload = msg.payload?.zendure2?.properties || {};\ndata.payload = msg.payload?.zendure2 || {};\n\n// exit when payload is empty\nif (\n    !data.payload ||\n    (typeof data.payload === \"object\" &&\n        Object.keys(data.payload).length === 0)\n) {\n    return null;\n}\n\n\nreturn data;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1180,
+        "x": 1200,
         "y": 600,
         "wires": [
             [
-                "04f7cd22c238b044",
-                "5feba90f3d2e2d26"
+                "5feba90f3d2e2d26",
+                "af3a84f1c4f0fc16"
             ]
         ]
     },
@@ -1364,20 +1364,20 @@
         "id": "ea86eaec9b36a731",
         "type": "function",
         "z": "89f1246b4cb51431",
-        "name": "Zendure 3 data to dashboard",
-        "func": "let debug_enable_dashboard = flow.get('debug_enable_dashboard') || 0;\n\nif (debug_enable_dashboard === 0) return null;\n\nvar data = {};\n\n//data.payload = msg.payload?.zendure3?.properties || {};\ndata.payload = msg.payload?.zendure3 || {};\n\nreturn data;",
+        "name": "Zendure 3 GET data to dashboard",
+        "func": "let debug_enable_dashboard = flow.get('debug_enable_dashboard') || 0;\n\nif (debug_enable_dashboard === 0) return null;\n\nvar data = {};\n\n//data.payload = msg.payload?.zendure3?.properties || {};\ndata.payload = msg.payload?.zendure3 || {};\n\n// exit when payload is empty\nif (\n    !data.payload ||\n    (typeof data.payload === \"object\" &&\n        Object.keys(data.payload).length === 0)\n) {\n    return null;\n}\n\nreturn data;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1180,
+        "x": 1200,
         "y": 640,
         "wires": [
             [
-                "04f7cd22c238b044",
-                "b30230e938ce7c8e"
+                "b30230e938ce7c8e",
+                "af3a84f1c4f0fc16"
             ]
         ]
     },
@@ -1385,20 +1385,20 @@
         "id": "b77f0f8d28832cfe",
         "type": "function",
         "z": "89f1246b4cb51431",
-        "name": "Zendure data to dashboard",
-        "func": "\nlet debug_enable_dashboard = flow.get('debug_enable_dashboard') || 0;\n\nif (debug_enable_dashboard === 0) return null;\n\nvar data = {};\n\n//data.payload = msg.payload?.properties || {};\ndata.payload = msg.payload || {};\n\nreturn data;",
+        "name": "Zendure GET data to dashboard",
+        "func": "\nlet debug_enable_dashboard = flow.get('debug_enable_dashboard') || 0;\n\nif (debug_enable_dashboard === 0) return null;\n\nvar data = {};\n\n//data.payload = msg.payload?.properties || {};\ndata.payload = msg.payload || {};\n\n// exit when payload is empty\nif (\n    !data.payload ||\n    (typeof data.payload === \"object\" &&\n        Object.keys(data.payload).length === 0)\n) {\n    return null;\n}\n\nreturn data;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1180,
+        "x": 1190,
         "y": 520,
         "wires": [
             [
-                "04f7cd22c238b044",
-                "3e3c8f05e708dade"
+                "3e3c8f05e708dade",
+                "af3a84f1c4f0fc16"
             ]
         ]
     },
@@ -1466,7 +1466,7 @@
         "finalize": "",
         "libs": [],
         "x": 650,
-        "y": 1120,
+        "y": 1100,
         "wires": [
             [
                 "04f7cd22c238b044",
@@ -1487,7 +1487,7 @@
         "finalize": "",
         "libs": [],
         "x": 650,
-        "y": 1160,
+        "y": 1140,
         "wires": [
             [
                 "04f7cd22c238b044",
@@ -1508,7 +1508,7 @@
         "finalize": "",
         "libs": [],
         "x": 650,
-        "y": 1200,
+        "y": 1180,
         "wires": [
             [
                 "04f7cd22c238b044",
@@ -1529,7 +1529,7 @@
         "finalize": "",
         "libs": [],
         "x": 640,
-        "y": 1080,
+        "y": 1060,
         "wires": [
             [
                 "04f7cd22c238b044",
@@ -1549,7 +1549,7 @@
         "overwriteFile": "false",
         "encoding": "none",
         "x": 1360,
-        "y": 1300,
+        "y": 1340,
         "wires": [
             []
         ],
@@ -1559,19 +1559,20 @@
         "id": "04f7cd22c238b044",
         "type": "function",
         "z": "89f1246b4cb51431",
-        "name": "prepare data for writing",
-        "func": "\nlet debug_write_to_file_enabled = flow.get('debug_write_to_file_enabled') || 0;\n\n// exit when write to file is not enabled\nif (debug_write_to_file_enabled === 0) {\n    return null;\n}\n\nif (\n    !msg.payload ||\n    typeof msg.payload !== \"object\" ||\n    Object.keys(msg.payload).length === 0\n) {\n    return null;\n}\n\n// read serial numbers from global variable\nvar snZendure1 = flow.get('snZendure1') || \"0\";\nvar snZendure2 = flow.get('snZendure2') || \"0\";\nvar snZendure3 = flow.get('snZendure3') || \"0\";\n\n\n// add timestamp in epoch to every message payload\nlet currentTime = Math.floor(Date.now() / 1000)\nlet now = new Date();\n\nmsg.payload.debugtimestamp = currentTime;\nmsg.payload.debugtimestamp_human = now;\n\nmsg.payload = JSON.stringify(msg.payload, null, 2);\n\nreturn msg;",
+        "name": "prepare data for writing POST",
+        "func": "\nlet debug_write_to_file_enabled = flow.get('debug_write_to_file_enabled') || 0;\n\n// exit when write to file is not enabled\nif (debug_write_to_file_enabled === 0) {\n    return null;\n}\n\nif (\n    !msg.payload ||\n    typeof msg.payload !== \"object\" ||\n    Object.keys(msg.payload).length === 0\n) {\n    return null;\n}\n\n// add message type GET/POST\nmsg.payload.debug_message_type = \"POST\";\n\n// read serial numbers from global variable\nvar snZendure1 = flow.get('snZendure1') || \"0\";\nvar snZendure2 = flow.get('snZendure2') || \"0\";\nvar snZendure3 = flow.get('snZendure3') || \"0\";\n\n\n// add direction information in debug written to file\nif (typeof msg.payload.sn === \"string\" &&\n    msg.payload.sn.includes(\"PROXY\")) {\n    msg.payload.debug_direction = \"Incoming\";\n} else if (typeof msg.payload.sn === \"string\" &&\n    msg.payload.sn === snZendure1) {\n    msg.payload.debug_direction = \"To Zendure 1\";\n} else if (typeof msg.payload.sn === \"string\" &&\n    msg.payload.sn === snZendure2) {\n    msg.payload.debug_direction = \"To Zendure 2\";\n} else if (typeof msg.payload.sn === \"string\" &&\n    msg.payload.sn === snZendure3) {\n    msg.payload.debug_direction = \"To Zendure 3\";\n}\n\n// add timestamp in epoch to every message payload\nlet currentTime = Math.floor(Date.now() / 1000)\nlet now = new Date();\n\nmsg.payload.debug_timestamp = currentTime;\nmsg.payload.debug_timestamp_human = now;\n\nmsg.payload = JSON.stringify(msg.payload, null, 2);\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1230,
-        "y": 1260,
+        "x": 1250,
+        "y": 1300,
         "wires": [
             [
-                "eab450f88ae39e69"
+                "eab450f88ae39e69",
+                "2ab8ed69c45253bd"
             ]
         ]
     },
@@ -1587,7 +1588,7 @@
         "overwriteFile": "delete",
         "encoding": "none",
         "x": 1370,
-        "y": 1380,
+        "y": 1420,
         "wires": [
             []
         ]
@@ -1614,7 +1615,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 1250,
-        "y": 1340,
+        "y": 1380,
         "wires": [
             [
                 "fc8b038d554155a7"
@@ -1626,8 +1627,8 @@
         "type": "function",
         "z": "89f1246b4cb51431",
         "name": "Standby POST (only to file for now)",
-        "func": "let debug_enable_dashboard = flow.get('debug_enable_dashboard') || 0;\n\nif (debug_enable_dashboard === 0) return null;\n\nvar data = {};\n\n//data.payload = msg.payload?.zendure3?.properties || {};\ndata.payload = msg.payload || {};\n\nreturn data;",
-        "outputs": 1,
+        "func": "let debug_enable_dashboard = flow.get('debug_enable_dashboard') || 0;\n\nif (debug_enable_dashboard === 0) return null;\n\nvar data = {};\n\n// read serial numbers from global variable\nvar snZendure1 = flow.get('snZendure1') || \"0\";\nvar snZendure2 = flow.get('snZendure2') || \"0\";\nvar snZendure3 = flow.get('snZendure3') || \"0\";\n\n//data.payload = msg.payload?.zendure3?.properties || {};\ndata.payload = msg.payload || {};\n\n// add direction information in debug written to file\nif (typeof data.payload.sn === \"string\" &&\n    data.payload.sn.includes(\"PROXY\")) {\n    return [data, data, null, null, null];\n} else if (typeof msg.payload.sn === \"string\" &&\n    data.payload.sn === snZendure1) {\n    return [data, null, data, null, null];\n} else if (typeof msg.payload.sn === \"string\" &&\n    data.payload.sn === snZendure2) {\n    return [data, null, null, data, null];\n} else if (typeof msg.payload.sn === \"string\" &&\n    data.payload.sn === snZendure3) {\n    return [data, null, null, null, data];\n}\n\n\nreturn data;",
+        "outputs": 5,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
@@ -1638,6 +1639,18 @@
         "wires": [
             [
                 "04f7cd22c238b044"
+            ],
+            [
+                "d27025d95d7b5af6"
+            ],
+            [
+                "e433fde54f18ace2"
+            ],
+            [
+                "6cbbe13b48dfc35f"
+            ],
+            [
+                "bce02bbbca4bbb77"
             ]
         ]
     },
@@ -1688,7 +1701,7 @@
         "type": "comment",
         "z": "89f1246b4cb51431",
         "name": "## Instructions ##  -  Proxy from HA Gielz Zendure-HA-zenSDK to 2x or 3x Zendure home batteries (Global / EN)",
-        "info": "- Zendure-zenSDK-proxy -\n- version 20260512\n- https://github.com/gast777/Zendure-zenSDK-proxy\n\n** For instructions, please see https://github.com/gast777/Zendure-zenSDK-proxy **\n\n",
+        "info": "- Zendure-zenSDK-proxy -\n- version 20260512a\n- https://github.com/gast777/Zendure-zenSDK-proxy\n\n** For instructions, please see https://github.com/gast777/Zendure-zenSDK-proxy **\n\n",
         "x": 400,
         "y": 80,
         "wires": []
@@ -1698,7 +1711,7 @@
         "type": "function",
         "z": "89f1246b4cb51431",
         "name": "===> Enter the Zendure IP addresses here <===",
-        "func": "\n\n//===============================================================\n//== Enter the Zendure device IP addresses here ==\n//===============================================================\n\nlet ipZendure1 = \"192.168.x.x\"\nlet ipZendure2 = \"192.168.x.y\"\nlet ipZendure3 = \"\"\n\n// If you use two Zendures, leave the third as is with an empty string:\n// let ipZendure3 = \"\"\n\n// Tip: to use a simulated Zendure test device, in stead of the IP\n// address, enter the name of the simulated device. Run the flow \n// Zendure-simulated-devices.json on the same Node-RED host.\n\n// Example:\n//let ipZendure1 = \"testdevice1\"\n//let ipZendure2 = \"testdevice2\"\n//let ipZendure3 = \"testdevice3\"\n\n// Note: When a Zendure inverter gets replaced, and hence the serial numbers \n// change, then press the button at \"Initialize\" to re-learn the serial numbers.\n\n//===============================================================\n//\n//\n//===============================================================\n// Optionally tweakable variables:\nlet solarPowerInfo = 0                       // Default 0; Set to 1 to send the solarPower information.\nlet singleMode_upperlimit_percent = 100      // Default 100% of maxPower; Above this power level, switch to using both devices for charging/discharging.\nlet singleMode_lowerlimit_percent = 40       // Default 40% of maxPower; Below this power level, switch to using only 1 device for charging/discharging (single mode).\nlet singleMode_change_device_diff = 5        // Default 5%; Must be 1 or higher; Determines at what percentage point difference in state of charge (SoC%) the active device is selected again.\nlet singleMode_delayed_standby_timer = 300   // Default 300; After how many seconds the passive devices are put into standby (smartmode=0, saved to flash).\nlet dualmode_damper_enable = 0               // Default 0; 0: no, 1: yes; Dual mode damper: if the requested power briefly exceeds maxPower, ignore it and do not switch to dual mode yet.\nlet dualmode_damper_timer = 120              // Default 120; How many seconds the dual mode damper remains active.\nlet dualmode_damper_amount = 200             // Default 200; How many watts above maxPower is allowed while the damper is active, without switching to dual mode.\nlet language = \"EN\"\n//let language = \"NL\"\n\n//===============================================================\n//\n//\n//===============================================================\n// Not recommended to modify:\n\nlet manualMode_messageRepeat = 1 // 1: yes, 0: no; Default 1; In non-NOM situation (manual mode), SoC balancing between devices does not work if this is disabled, because \n                                 // the distribution of power happens only on every message with power value (charge/discharge) which is sent. With Manual mode, the power message\n                                 // is sent only at the beginning. This option enables repeating of the message so that power distribution over the devices will be done again.\nlet singleModeDeviceChangeTranstion_timer = 40  // Default 40; for how many seconds we force temporary dual mode when the active device in single mode is changing (for a smoother transition)\nlet balancingFactor = 5 // Default 5; this lets the device that needs to charge/discharge faster (in dual mode)\n                           // for balancing, to do it faster to reach balance earlier.\n                           // Must be 1 or higher.\nlet singleMode_delayed_standby_charging_enable = 1 // 1: yes, 0: no; Default 0; When in SingleMode, let the passive device go to a deep standby (smartMode=0) after some time when charging.\nlet singleMode_delayed_standby_discharging_enable = 1 // 1: yes, 0: no; Default 1; When in SingleMode, let the passive device go to a deep standby (smartMode=0) after some time when discharging.\n\n//===============================================================\n\n// Version\nlet proxyVersion = \"20260512\"\n\n/// Calculate other parameters\n\n// Count how many Zendure devices we have\nlet device_count = 0\nlet count = [ipZendure1, ipZendure2, ipZendure3]\n    .filter(ip => ip !== \"\")\n    .length;\n\ndevice_count = count;\n\n// Save to global variables\nflow.set('ipZendure1', ipZendure1)\nflow.set('ipZendure2', ipZendure2)\nflow.set('ipZendure3', ipZendure3)\nflow.set('device_count', device_count)\nflow.set('balancingFactor', balancingFactor)\nflow.set('manualMode_messageRepeat', manualMode_messageRepeat)\nflow.set('singleMode_change_device_diff', singleMode_change_device_diff)\nflow.set('singleMode_delayed_standby_charging_enable', singleMode_delayed_standby_charging_enable)\nflow.set('singleMode_delayed_standby_discharging_enable', singleMode_delayed_standby_discharging_enable)\nflow.set('singleMode_delayed_standby_timer', singleMode_delayed_standby_timer)\nflow.set('singleModeDeviceChangeTranstion_timer', singleModeDeviceChangeTranstion_timer)\nflow.set('singleMode_upperlimit_percent', singleMode_upperlimit_percent)\nflow.set('singleMode_lowerlimit_percent', singleMode_lowerlimit_percent)\nflow.set('solarPowerInfo', solarPowerInfo)\nflow.set('proxyVersion', proxyVersion)\nflow.set('language', language)\nflow.set('dualmode_damper_enable', dualmode_damper_enable)\nflow.set('dualmode_damper_timer', dualmode_damper_timer)\nflow.set('dualmode_damper_amount', dualmode_damper_amount)\n\nreturn msg;",
+        "func": "\n\n//===============================================================\n//== Enter the Zendure device IP addresses here ==\n//===============================================================\n\nlet ipZendure1 = \"192.168.x.x\"\nlet ipZendure2 = \"192.168.x.y\"\nlet ipZendure3 = \"\"\n\n// If you use two Zendures, leave the third as is with an empty string:\n// let ipZendure3 = \"\"\n\n// Tip: to use a simulated Zendure test device, in stead of the IP\n// address, enter the name of the simulated device. Run the flow \n// Zendure-simulated-devices.json on the same Node-RED host.\n\n// Example:\n//let ipZendure1 = \"testdevice1\"\n//let ipZendure2 = \"testdevice2\"\n//let ipZendure3 = \"testdevice3\"\n\n// Note: When a Zendure inverter gets replaced, and hence the serial numbers \n// change, then press the button at \"Initialize\" to re-learn the serial numbers.\n\n//===============================================================\n//\n//\n//===============================================================\n// Optionally tweakable variables:\nlet solarPowerInfo = 0                       // Default 0; Set to 1 to send the solarPower information.\nlet singleMode_upperlimit_percent = 100      // Default 100% of maxPower; Above this power level, switch to using both devices for charging/discharging.\nlet singleMode_lowerlimit_percent = 40       // Default 40% of maxPower; Below this power level, switch to using only 1 device for charging/discharging (single mode).\nlet singleMode_change_device_diff = 5        // Default 5%; Must be 1 or higher; Determines at what percentage point difference in state of charge (SoC%) the active device is selected again.\nlet singleMode_delayed_standby_timer = 300   // Default 300; After how many seconds the passive devices are put into standby (smartmode=0, saved to flash).\nlet dualmode_damper_enable = 0               // Default 0; 0: no, 1: yes; Dual mode damper: if the requested power briefly exceeds maxPower, ignore it and do not switch to dual mode yet.\nlet dualmode_damper_timer = 120              // Default 120; How many seconds the dual mode damper remains active.\nlet dualmode_damper_amount = 200             // Default 200; How many watts above maxPower is allowed while the damper is active, without switching to dual mode.\nlet language = \"EN\"\n//let language = \"NL\"\n\n//===============================================================\n//\n//\n//===============================================================\n// Not recommended to modify:\n\nlet manualMode_messageRepeat = 1 // 1: yes, 0: no; Default 1; In non-NOM situation (manual mode), SoC balancing between devices does not work if this is disabled, because \n                                 // the distribution of power happens only on every message with power value (charge/discharge) which is sent. With Manual mode, the power message\n                                 // is sent only at the beginning. This option enables repeating of the message so that power distribution over the devices will be done again.\nlet singleModeDeviceChangeTranstion_timer = 40  // Default 40; for how many seconds we force temporary dual mode when the active device in single mode is changing (for a smoother transition)\nlet balancingFactor = 5 // Default 5; this lets the device that needs to charge/discharge faster (in dual mode)\n                           // for balancing, to do it faster to reach balance earlier.\n                           // Must be 1 or higher.\nlet singleMode_delayed_standby_charging_enable = 1 // 1: yes, 0: no; Default 0; When in SingleMode, let the passive device go to a deep standby (smartMode=0) after some time when charging.\nlet singleMode_delayed_standby_discharging_enable = 1 // 1: yes, 0: no; Default 1; When in SingleMode, let the passive device go to a deep standby (smartMode=0) after some time when discharging.\n\n//===============================================================\n\n// Version\nlet proxyVersion = \"20260512a\"\n\n/// Calculate other parameters\n\n// Count how many Zendure devices we have\nlet device_count = 0\nlet count = [ipZendure1, ipZendure2, ipZendure3]\n    .filter(ip => ip !== \"\")\n    .length;\n\ndevice_count = count;\n\n// Save to global variables\nflow.set('ipZendure1', ipZendure1)\nflow.set('ipZendure2', ipZendure2)\nflow.set('ipZendure3', ipZendure3)\nflow.set('device_count', device_count)\nflow.set('balancingFactor', balancingFactor)\nflow.set('manualMode_messageRepeat', manualMode_messageRepeat)\nflow.set('singleMode_change_device_diff', singleMode_change_device_diff)\nflow.set('singleMode_delayed_standby_charging_enable', singleMode_delayed_standby_charging_enable)\nflow.set('singleMode_delayed_standby_discharging_enable', singleMode_delayed_standby_discharging_enable)\nflow.set('singleMode_delayed_standby_timer', singleMode_delayed_standby_timer)\nflow.set('singleModeDeviceChangeTranstion_timer', singleModeDeviceChangeTranstion_timer)\nflow.set('singleMode_upperlimit_percent', singleMode_upperlimit_percent)\nflow.set('singleMode_lowerlimit_percent', singleMode_lowerlimit_percent)\nflow.set('solarPowerInfo', solarPowerInfo)\nflow.set('proxyVersion', proxyVersion)\nflow.set('language', language)\nflow.set('dualmode_damper_enable', dualmode_damper_enable)\nflow.set('dualmode_damper_timer', dualmode_damper_timer)\nflow.set('dualmode_damper_amount', dualmode_damper_amount)\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -2732,7 +2745,7 @@
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
         "x": 1230,
-        "y": 1420,
+        "y": 1460,
         "wires": [
             [
                 "fc8b038d554155a7"
@@ -2771,7 +2784,7 @@
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
         "x": 1230,
-        "y": 1460,
+        "y": 1500,
         "wires": [
             [
                 "fc8b038d554155a7"
@@ -2797,7 +2810,7 @@
         "templateScope": "local",
         "className": "",
         "x": 1220,
-        "y": 1520,
+        "y": 1560,
         "wires": [
             []
         ]
@@ -2917,10 +2930,47 @@
         "templateScope": "local",
         "className": "",
         "x": 1220,
-        "y": 1560,
+        "y": 1600,
         "wires": [
             []
         ]
+    },
+    {
+        "id": "af3a84f1c4f0fc16",
+        "type": "function",
+        "z": "89f1246b4cb51431",
+        "name": "prepare data for writing GET",
+        "func": "\nlet debug_write_to_file_enabled = flow.get('debug_write_to_file_enabled') || 0;\n\n\n// exit when write to file is not enabled\nif (debug_write_to_file_enabled === 0) {\n    return null;\n}\n\nif (\n    !msg.payload ||\n    typeof msg.payload !== \"object\" ||\n    Object.keys(msg.payload).length === 0\n) {\n    return null;\n}\n\n// add message type GET/POST\nmsg.payload.debug_message_type = \"GET\";\n\n// read serial numbers from global variable\nvar snZendure1 = flow.get('snZendure1') || \"0\";\nvar snZendure2 = flow.get('snZendure2') || \"0\";\nvar snZendure3 = flow.get('snZendure3') || \"0\";\n\n\n// add direction information in debug written to file\nif (typeof msg.payload.sn === \"string\" &&\n    msg.payload.sn.includes(\"PROXY\")) {\n    msg.payload.debug_direction = \"To Home Assistant\";\n} else if (typeof msg.payload.sn === \"string\" &&\n    msg.payload.sn === snZendure1) {\n    msg.payload.debug_direction = \"From Zendure 1\";\n} else if (typeof msg.payload.sn === \"string\" &&\n    msg.payload.sn === snZendure2) {\n    msg.payload.debug_direction = \"From Zendure 2\";\n} else if (typeof msg.payload.sn === \"string\" &&\n    msg.payload.sn === snZendure3) {\n    msg.payload.debug_direction = \"From Zendure 3\";\n}\n\n\n// add timestamp in epoch to every message payload\nlet currentTime = Math.floor(Date.now() / 1000)\nlet now = new Date();\n\nmsg.payload.debug_timestamp = currentTime;\nmsg.payload.debug_timestamp_human = now;\n\nmsg.payload = JSON.stringify(msg.payload, null, 2);\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1240,
+        "y": 1260,
+        "wires": [
+            [
+                "eab450f88ae39e69",
+                "2ab8ed69c45253bd"
+            ]
+        ]
+    },
+    {
+        "id": "2ab8ed69c45253bd",
+        "type": "debug",
+        "z": "89f1246b4cb51431",
+        "name": "debug 1",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1540,
+        "y": 1240,
+        "wires": []
     },
     {
         "id": "3acb096abb19fb1b",
@@ -3224,7 +3274,7 @@
         }
     },
     {
-        "id": "1fea4d4d872f98d3",
+        "id": "317835e344ab0ad9",
         "type": "global-config",
         "env": [],
         "modules": {
