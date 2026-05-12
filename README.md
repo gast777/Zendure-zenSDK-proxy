@@ -869,7 +869,7 @@ Huidige versie: 20260512
 
 ## Nieuw in versie 20260512 ##
 - Het debug dashboard gebruikt nu Flowfuse (Dashboard 2.0) nodes. Het dashboard is nu bereikbaar op `http://<node-red_ip_adres>:1880/endpoint/dashboard/zenproxyinfo` of `http://<node-red_ip_adres>:1880/dashboard/zenproxyinfo`.<br/>
-  Bij de installatie is het eenmalig nodig om accord te geven om de Flowfuse Dashboard module te installeren op Node-RED. Daarvoor click je bij de volgende popup op 'Install all' of ga naar Manage Palette om het @flowfuse/node-red-dashboard te installeren.<br/>
+  Bij de installatie is het eenmalig nodig om akkoord te geven om de Flowfuse Dashboard module te installeren op Node-RED. Daarvoor click je bij de volgende popup op 'Install all' of ga naar Manage Palette om het @flowfuse/node-red-dashboard te installeren.<br/>
   
   <img src="https://github.com/gast777/Zendure-zenSDK-proxy/blob/main/images/node-red-flowfuse-popup.png" width="50%">
   <br/>
