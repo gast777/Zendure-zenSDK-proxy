@@ -633,7 +633,7 @@ Daarnaast wisselen ze van actief device als het verschil in SoC >=5% wordt. En a
 
 ## Versie ##
 
-Huidige versie: 20260510
+Huidige versie: 20260512
 <br/>
 
 # Release-notes #
@@ -867,3 +867,11 @@ Huidige versie: 20260510
 ## Nieuw in versie 20260510 ##
 - Debug mogelijkheden verbeterd in het Node-RED dashboard (`http://<ip-adres>:1880/endpoint/ui/` of `http://<ip-adres>:1880/ui/`). Het is nu mogelijk om via de web interface een debug te starten en deze optioneel naar een bestand te laten wegschrijven. Dit debug bestand kan vervolgens direct via de web interface gedownload worden en gedelete worden van het systeem. Dit werkt alleen als Node-RED als App (Add-on) bij Home Assistant is geinstalleerd.
 
+## Nieuw in versie 20260512 ##
+- Het debug dashboard gebruikt nu Flowfuse (Dashboard 2.0) nodes. Het Dashboard is nu bereikbaar op `http://<node-red_ip_adres>:1880/endpoint/dashboard/zenproxyinfo` of `http://<node-red_ip_adres>:1880/dashboard/zenproxyinfo`.<br/>
+  Bij de installatie is het eenmalig nodig om accord te geven om de Flowfuse Dashboard module te installeren op Node-RED. Daarvoor click je bij de volgende popup op 'Install all' of ga naar Manage Palette om het @flowfuse/node-red-dashboard te installeren.<br/>
+  
+  <img src="https://github.com/gast777/Zendure-zenSDK-proxy/blob/main/images/node-red-flowfuse-popup.png" width="50%">
+  <br/>
+  
+  De debug trace pagina's zijn bereikbaar via het hamburgermenu linksboven of rechtstreeks via `http://<node-red_ip_adres>:1880/endpoint/dashboard/zenproxylivedataget` en `http://<node-red_ip_adres>:1880/endpoint/dashboard/zenproxylivedatapost` (eventueel zonder "/endpoint", afhankelijk van de installatie).
