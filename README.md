@@ -640,7 +640,7 @@ Daarnaast wisselen ze van actief device als het verschil in SoC >=5% wordt. En a
 
 ## Versie ##
 
-Huidige versie: 20260512
+Huidige versie: 20260514
 <br/>
 
 # Release-notes #
@@ -882,3 +882,8 @@ Huidige versie: 20260512
   <br/>
   
   De debug trace pagina's zijn bereikbaar via het hamburgermenu linksboven of rechtstreeks via `http://<node-red_ip_adres>:1880/endpoint/dashboard/zenproxylivedataget` en `http://<node-red_ip_adres>:1880/endpoint/dashboard/zenproxylivedatapost` (eventueel zonder "/endpoint", afhankelijk van de installatie).
+
+## Nieuw in versie 20260514 ##
+- Updates aan het Debug Dashboard. De POST data heeft nu een 'Last Updated' veld wat duidelijker maakt wanneer de data ververst is. Tevens is de naam van de pagina's veranderd. Als je al versie 20260512 gebruikt hebt, dan is het aan te raden eerst alle dashboard gerelateerde items te deleten in Node-RED, voor het updaten. Sorry! Dit was eenmalig. Als je dat niet doet is het geen probleem, maar dan zou het Node-RED dashboard misschine niet goed kunnen werken.
+- In de Node-RED flow zijn nu alle Dashboard gerelateerde nodes bij elkaar gezet onderaan, onder de banner: "Below here is only used for the Node-RED Debug Dashboard and may be safely deleted (if needed to save on resources)". Mocht je bang zijn dat het dashboard te veel resources van je systeem vraagt en je toch niet van plan bent het dashboard te gebruiken, dan kun je die nodes nu eenvoudig allemaal tegelijk selecteren en deleten. Daarna zal de Proxy nog gewoon normaal kunnen deployen en functioneren.
+
