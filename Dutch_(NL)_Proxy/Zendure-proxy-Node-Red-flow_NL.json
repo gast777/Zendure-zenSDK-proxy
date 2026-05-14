@@ -1231,8 +1231,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 440,
-        "y": 2260,
+        "x": 140,
+        "y": 2020,
         "wires": [
             [
                 "081ceb1a189467b2"
@@ -1425,7 +1425,7 @@
         "finalize": "",
         "libs": [],
         "x": 160,
-        "y": 2180,
+        "y": 1840,
         "wires": [
             [
                 "61802ec78f835506"
@@ -1445,7 +1445,7 @@
         "finalize": "",
         "libs": [],
         "x": 160,
-        "y": 2260,
+        "y": 1920,
         "wires": [
             [
                 "61802ec78f835506",
@@ -1456,10 +1456,10 @@
                 "62cd0284f0fa37e1",
                 "37aec1a5d327fd8d",
                 "7878fe6b99939a31",
-                "f0e0262241cb6f04",
-                "6452525b14d4c209",
-                "b1d15c935c45ae67",
-                "2d4ddba9f7639080"
+                "3dbabe2553e8efca",
+                "d7342441e08ee2eb",
+                "acb242cd8dd8db69",
+                "8976776db7ad7f31"
             ]
         ]
     },
@@ -1480,7 +1480,7 @@
         "wires": [
             [
                 "1cb18b8ccc9a0a46",
-                "6452525b14d4c209"
+                "d7342441e08ee2eb"
             ]
         ]
     },
@@ -1501,7 +1501,7 @@
         "wires": [
             [
                 "1cb18b8ccc9a0a46",
-                "b1d15c935c45ae67"
+                "acb242cd8dd8db69"
             ]
         ]
     },
@@ -1522,7 +1522,7 @@
         "wires": [
             [
                 "1cb18b8ccc9a0a46",
-                "2d4ddba9f7639080"
+                "8976776db7ad7f31"
             ]
         ]
     },
@@ -1543,7 +1543,7 @@
         "wires": [
             [
                 "1cb18b8ccc9a0a46",
-                "f0e0262241cb6f04"
+                "3dbabe2553e8efca"
             ]
         ]
     },
@@ -1623,7 +1623,7 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 790,
+        "x": 810,
         "y": 2020,
         "wires": [
             [
@@ -1650,16 +1650,16 @@
                 "1cb18b8ccc9a0a46"
             ],
             [
-                "f0e0262241cb6f04"
+                "3dbabe2553e8efca"
             ],
             [
-                "6452525b14d4c209"
+                "d7342441e08ee2eb"
             ],
             [
-                "b1d15c935c45ae67"
+                "acb242cd8dd8db69"
             ],
             [
-                "2d4ddba9f7639080"
+                "8976776db7ad7f31"
             ]
         ]
     },
@@ -1710,7 +1710,7 @@
         "type": "ui-text",
         "z": "28a75879d8c1b346",
         "group": "3acb096abb19fb1b",
-        "order": 2,
+        "order": 1,
         "width": 0,
         "height": 0,
         "name": "Proxy Version",
@@ -1734,7 +1734,7 @@
         "type": "ui-text",
         "z": "28a75879d8c1b346",
         "group": "3acb096abb19fb1b",
-        "order": 3,
+        "order": 2,
         "width": 0,
         "height": 0,
         "name": "Number of Zendures",
@@ -1758,7 +1758,7 @@
         "type": "ui-text",
         "z": "28a75879d8c1b346",
         "group": "3acb096abb19fb1b",
-        "order": 4,
+        "order": 3,
         "width": 0,
         "height": 0,
         "name": "Zendure 1 - Model",
@@ -1782,7 +1782,7 @@
         "type": "ui-text",
         "z": "28a75879d8c1b346",
         "group": "3acb096abb19fb1b",
-        "order": 7,
+        "order": 6,
         "width": 0,
         "height": 0,
         "name": "Zendure 2 - Model",
@@ -1806,7 +1806,7 @@
         "type": "ui-text",
         "z": "28a75879d8c1b346",
         "group": "3acb096abb19fb1b",
-        "order": 10,
+        "order": 9,
         "width": 0,
         "height": 0,
         "name": "Zendure 3 - Model",
@@ -1830,7 +1830,7 @@
         "type": "ui-text",
         "z": "28a75879d8c1b346",
         "group": "3acb096abb19fb1b",
-        "order": 5,
+        "order": 4,
         "width": 0,
         "height": 0,
         "name": "Zendure 1 - S/N",
@@ -1854,7 +1854,7 @@
         "type": "ui-text",
         "z": "28a75879d8c1b346",
         "group": "3acb096abb19fb1b",
-        "order": 11,
+        "order": 10,
         "width": 0,
         "height": 0,
         "name": "Zendure 3 - S/N",
@@ -1878,7 +1878,7 @@
         "type": "ui-text",
         "z": "28a75879d8c1b346",
         "group": "3acb096abb19fb1b",
-        "order": 8,
+        "order": 7,
         "width": 0,
         "height": 0,
         "name": "Zendure 2 - S/N",
@@ -1902,7 +1902,7 @@
         "type": "ui-text",
         "z": "28a75879d8c1b346",
         "group": "3acb096abb19fb1b",
-        "order": 6,
+        "order": 5,
         "width": 0,
         "height": 0,
         "name": "Zendure 1 - IP Address",
@@ -1926,7 +1926,7 @@
         "type": "ui-text",
         "z": "28a75879d8c1b346",
         "group": "3acb096abb19fb1b",
-        "order": 9,
+        "order": 8,
         "width": 0,
         "height": 0,
         "name": "Zendure 2 - IP Address",
@@ -1950,7 +1950,7 @@
         "type": "ui-text",
         "z": "28a75879d8c1b346",
         "group": "3acb096abb19fb1b",
-        "order": 12,
+        "order": 11,
         "width": 0,
         "height": 0,
         "name": "Zendure 3 - IP Address",
@@ -1974,7 +1974,7 @@
         "type": "ui-text",
         "z": "28a75879d8c1b346",
         "group": "0f3aeefe0e81d557",
-        "order": 2,
+        "order": 1,
         "width": 0,
         "height": 0,
         "name": "GET requests received",
@@ -1990,7 +1990,7 @@
         "value": "payload",
         "valueType": "msg",
         "x": 440,
-        "y": 1840,
+        "y": 2160,
         "wires": []
     },
     {
@@ -1998,7 +1998,7 @@
         "type": "ui-text",
         "z": "28a75879d8c1b346",
         "group": "0f3aeefe0e81d557",
-        "order": 3,
+        "order": 2,
         "width": 0,
         "height": 0,
         "name": "GET replies sent",
@@ -2014,7 +2014,7 @@
         "value": "payload",
         "valueType": "msg",
         "x": 420,
-        "y": 1880,
+        "y": 2200,
         "wires": []
     },
     {
@@ -2022,7 +2022,7 @@
         "type": "ui-text",
         "z": "28a75879d8c1b346",
         "group": "0f3aeefe0e81d557",
-        "order": 10,
+        "order": 9,
         "width": 0,
         "height": 0,
         "name": "GET requests timeout",
@@ -2038,7 +2038,7 @@
         "value": "payload",
         "valueType": "msg",
         "x": 440,
-        "y": 1920,
+        "y": 2240,
         "wires": []
     },
     {
@@ -2046,7 +2046,7 @@
         "type": "ui-text",
         "z": "28a75879d8c1b346",
         "group": "0f3aeefe0e81d557",
-        "order": 9,
+        "order": 8,
         "width": 0,
         "height": 0,
         "name": "GET requests dropped - IP config error",
@@ -2062,7 +2062,7 @@
         "value": "payload",
         "valueType": "msg",
         "x": 500,
-        "y": 1960,
+        "y": 2280,
         "wires": []
     },
     {
@@ -2070,7 +2070,7 @@
         "type": "ui-text",
         "z": "28a75879d8c1b346",
         "group": "0f3aeefe0e81d557",
-        "order": 8,
+        "order": 7,
         "width": 0,
         "height": 0,
         "name": "GET requests dropped - S/N missing",
@@ -2086,7 +2086,7 @@
         "value": "payload",
         "valueType": "msg",
         "x": 490,
-        "y": 2000,
+        "y": 2320,
         "wires": []
     },
     {
@@ -2094,7 +2094,7 @@
         "type": "ui-text",
         "z": "28a75879d8c1b346",
         "group": "0f3aeefe0e81d557",
-        "order": 5,
+        "order": 4,
         "width": 0,
         "height": 0,
         "name": "Zendure 1 GET Reply missing",
@@ -2110,7 +2110,7 @@
         "value": "payload",
         "valueType": "msg",
         "x": 470,
-        "y": 2040,
+        "y": 2360,
         "wires": []
     },
     {
@@ -2118,7 +2118,7 @@
         "type": "ui-text",
         "z": "28a75879d8c1b346",
         "group": "0f3aeefe0e81d557",
-        "order": 6,
+        "order": 5,
         "width": 0,
         "height": 0,
         "name": "Zendure 2 GET Reply missing",
@@ -2134,7 +2134,7 @@
         "value": "payload",
         "valueType": "msg",
         "x": 470,
-        "y": 2080,
+        "y": 2400,
         "wires": []
     },
     {
@@ -2142,7 +2142,7 @@
         "type": "ui-text",
         "z": "28a75879d8c1b346",
         "group": "0f3aeefe0e81d557",
-        "order": 7,
+        "order": 6,
         "width": 0,
         "height": 0,
         "name": "Zendure 3 GET Reply missing",
@@ -2158,7 +2158,7 @@
         "value": "payload",
         "valueType": "msg",
         "x": 470,
-        "y": 2120,
+        "y": 2440,
         "wires": []
     },
     {
@@ -2166,7 +2166,7 @@
         "type": "ui-text",
         "z": "28a75879d8c1b346",
         "group": "0f3aeefe0e81d557",
-        "order": 4,
+        "order": 3,
         "width": 0,
         "height": 0,
         "name": "POST requests received",
@@ -2182,7 +2182,7 @@
         "value": "payload",
         "valueType": "msg",
         "x": 450,
-        "y": 2160,
+        "y": 2480,
         "wires": []
     },
     {
@@ -2190,7 +2190,7 @@
         "type": "ui-text",
         "z": "28a75879d8c1b346",
         "group": "8ae1c40cbc33d7dd",
-        "order": 2,
+        "order": 1,
         "width": 0,
         "height": 0,
         "name": "Active Alarms",
@@ -2206,7 +2206,7 @@
         "value": "payload",
         "valueType": "msg",
         "x": 420,
-        "y": 2200,
+        "y": 2520,
         "wires": []
     },
     {
@@ -2216,7 +2216,7 @@
         "group": "0f3aeefe0e81d557",
         "name": "Button: Reset counters to 0",
         "label": "Reset counters to 0",
-        "order": 11,
+        "order": 10,
         "width": 0,
         "height": 0,
         "emulateClick": false,
@@ -2240,8 +2240,8 @@
         "enablePointerup": false,
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
-        "x": 460,
-        "y": 2300,
+        "x": 160,
+        "y": 2060,
         "wires": [
             [
                 "8d0190b19a57fad6"
@@ -2256,7 +2256,7 @@
         "page": "",
         "ui": "",
         "name": "debug GET Zendure",
-        "order": 4,
+        "order": 3,
         "width": 0,
         "height": 0,
         "head": "",
@@ -2266,8 +2266,8 @@
         "resendOnRefresh": true,
         "templateScope": "local",
         "className": "",
-        "x": 440,
-        "y": 1660,
+        "x": 420,
+        "y": 1480,
         "wires": [
             []
         ]
@@ -2280,7 +2280,7 @@
         "page": "",
         "ui": "",
         "name": "debug GET Zendure 1",
-        "order": 4,
+        "order": 3,
         "width": 0,
         "height": 0,
         "head": "",
@@ -2290,8 +2290,8 @@
         "resendOnRefresh": true,
         "templateScope": "local",
         "className": "",
-        "x": 440,
-        "y": 1700,
+        "x": 420,
+        "y": 1520,
         "wires": [
             []
         ]
@@ -2304,7 +2304,7 @@
         "page": "",
         "ui": "",
         "name": "debug GET Zendure 2",
-        "order": 4,
+        "order": 3,
         "width": 0,
         "height": 0,
         "head": "",
@@ -2314,8 +2314,8 @@
         "resendOnRefresh": true,
         "templateScope": "local",
         "className": "",
-        "x": 440,
-        "y": 1740,
+        "x": 420,
+        "y": 1560,
         "wires": [
             []
         ]
@@ -2328,7 +2328,7 @@
         "page": "",
         "ui": "",
         "name": "debug GET Zendure 3",
-        "order": 4,
+        "order": 3,
         "width": 0,
         "height": 0,
         "head": "",
@@ -2338,8 +2338,8 @@
         "resendOnRefresh": true,
         "templateScope": "local",
         "className": "",
-        "x": 440,
-        "y": 1780,
+        "x": 420,
+        "y": 1600,
         "wires": [
             []
         ]
@@ -2351,7 +2351,7 @@
         "group": "ee9aadc88882cebe",
         "name": "Button: Toggle debug",
         "label": "{{payload}}",
-        "order": 2,
+        "order": 1,
         "width": 0,
         "height": 0,
         "emulateClick": false,
@@ -2376,7 +2376,7 @@
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
         "x": 160,
-        "y": 2220,
+        "y": 1880,
         "wires": [
             [
                 "84263c314a5acb3f"
@@ -2388,7 +2388,7 @@
         "type": "ui-text",
         "z": "28a75879d8c1b346",
         "group": "ee9aadc88882cebe",
-        "order": 3,
+        "order": 2,
         "width": 0,
         "height": 0,
         "name": "Text To Home Assistant",
@@ -2404,7 +2404,7 @@
         "value": "",
         "valueType": "str",
         "x": 150,
-        "y": 2000,
+        "y": 2280,
         "wires": []
     },
     {
@@ -2412,7 +2412,7 @@
         "type": "ui-text",
         "z": "28a75879d8c1b346",
         "group": "000b570f7ed659a7",
-        "order": 3,
+        "order": 2,
         "width": 0,
         "height": 0,
         "name": "Text From Zendure 1",
@@ -2428,7 +2428,7 @@
         "value": "",
         "valueType": "str",
         "x": 140,
-        "y": 2040,
+        "y": 2320,
         "wires": []
     },
     {
@@ -2436,7 +2436,7 @@
         "type": "ui-text",
         "z": "28a75879d8c1b346",
         "group": "7e2435bb50a3a587",
-        "order": 3,
+        "order": 2,
         "width": 0,
         "height": 0,
         "name": "Text From Zendure 2",
@@ -2452,7 +2452,7 @@
         "value": "",
         "valueType": "str",
         "x": 140,
-        "y": 2080,
+        "y": 2360,
         "wires": []
     },
     {
@@ -2460,7 +2460,7 @@
         "type": "ui-text",
         "z": "28a75879d8c1b346",
         "group": "5beff52b1dd62285",
-        "order": 3,
+        "order": 2,
         "width": 0,
         "height": 0,
         "name": "Text From Zendure 3",
@@ -2476,7 +2476,7 @@
         "value": "",
         "valueType": "str",
         "x": 140,
-        "y": 2120,
+        "y": 2400,
         "wires": []
     },
     {
@@ -2484,7 +2484,7 @@
         "type": "ui-text",
         "z": "28a75879d8c1b346",
         "group": "e3d2e47c76b12641",
-        "order": 3,
+        "order": 2,
         "width": 0,
         "height": 0,
         "name": "Text Incoming",
@@ -2500,7 +2500,7 @@
         "value": "",
         "valueType": "str",
         "x": 140,
-        "y": 1840,
+        "y": 2120,
         "wires": []
     },
     {
@@ -2508,7 +2508,7 @@
         "type": "ui-text",
         "z": "28a75879d8c1b346",
         "group": "6aa010c7dc5ed30e",
-        "order": 3,
+        "order": 2,
         "width": 0,
         "height": 0,
         "name": "Text To Zendure 1",
@@ -2524,7 +2524,7 @@
         "value": "",
         "valueType": "str",
         "x": 140,
-        "y": 1880,
+        "y": 2160,
         "wires": []
     },
     {
@@ -2532,7 +2532,7 @@
         "type": "ui-text",
         "z": "28a75879d8c1b346",
         "group": "56c44b5468225d23",
-        "order": 3,
+        "order": 2,
         "width": 0,
         "height": 0,
         "name": "Text To Zendure 2",
@@ -2548,7 +2548,7 @@
         "value": "",
         "valueType": "str",
         "x": 140,
-        "y": 1920,
+        "y": 2200,
         "wires": []
     },
     {
@@ -2556,7 +2556,7 @@
         "type": "ui-text",
         "z": "28a75879d8c1b346",
         "group": "a06c33263af43078",
-        "order": 3,
+        "order": 2,
         "width": 0,
         "height": 0,
         "name": "Text To Zendure 3",
@@ -2572,7 +2572,7 @@
         "value": "",
         "valueType": "str",
         "x": 140,
-        "y": 1960,
+        "y": 2240,
         "wires": []
     },
     {
@@ -2582,7 +2582,7 @@
         "group": "e3d2e47c76b12641",
         "name": "Button: Toggle debug",
         "label": "{{payload}}",
-        "order": 2,
+        "order": 1,
         "width": 0,
         "height": 0,
         "emulateClick": false,
@@ -2607,7 +2607,7 @@
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
         "x": 160,
-        "y": 2300,
+        "y": 1960,
         "wires": [
             [
                 "84263c314a5acb3f"
@@ -2621,7 +2621,7 @@
         "group": "000b570f7ed659a7",
         "name": "Button: Toggle write to file",
         "label": "{{payload}}",
-        "order": 2,
+        "order": 1,
         "width": 0,
         "height": 0,
         "emulateClick": false,
@@ -2660,7 +2660,7 @@
         "group": "6aa010c7dc5ed30e",
         "name": "Button: Toggle write to file",
         "label": "{{payload}}",
-        "order": 2,
+        "order": 1,
         "width": 0,
         "height": 0,
         "emulateClick": false,
@@ -2699,7 +2699,7 @@
         "group": "7e2435bb50a3a587",
         "name": "Button: Delete debug file",
         "label": "CLEAR DEBUG FILE",
-        "order": 2,
+        "order": 1,
         "width": 0,
         "height": 0,
         "emulateClick": false,
@@ -2723,7 +2723,7 @@
         "enablePointerup": false,
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
-        "x": 770,
+        "x": 790,
         "y": 2140,
         "wires": [
             [
@@ -2738,7 +2738,7 @@
         "group": "56c44b5468225d23",
         "name": "Button: Delete debug file",
         "label": "CLEAR DEBUG FILE",
-        "order": 2,
+        "order": 1,
         "width": 0,
         "height": 0,
         "emulateClick": false,
@@ -2762,7 +2762,7 @@
         "enablePointerup": false,
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
-        "x": 770,
+        "x": 790,
         "y": 2180,
         "wires": [
             [
@@ -2778,7 +2778,7 @@
         "page": "",
         "ui": "",
         "name": "Download debug file",
-        "order": 2,
+        "order": 1,
         "width": 0,
         "height": 0,
         "head": "",
@@ -2788,7 +2788,7 @@
         "resendOnRefresh": true,
         "templateScope": "local",
         "className": "",
-        "x": 760,
+        "x": 780,
         "y": 2220,
         "wires": [
             []
@@ -2802,7 +2802,7 @@
         "page": "",
         "ui": "",
         "name": "debug POST Zendure",
-        "order": 4,
+        "order": 3,
         "width": 0,
         "height": 0,
         "head": "",
@@ -2813,7 +2813,7 @@
         "templateScope": "local",
         "className": "",
         "x": 440,
-        "y": 1480,
+        "y": 1740,
         "wires": [
             []
         ]
@@ -2826,7 +2826,7 @@
         "page": "",
         "ui": "",
         "name": "debug POST Zendure 1",
-        "order": 4,
+        "order": 3,
         "width": 0,
         "height": 0,
         "head": "",
@@ -2837,7 +2837,7 @@
         "templateScope": "local",
         "className": "",
         "x": 450,
-        "y": 1520,
+        "y": 1860,
         "wires": [
             []
         ]
@@ -2850,7 +2850,7 @@
         "page": "",
         "ui": "",
         "name": "debug POST Zendure 2",
-        "order": 4,
+        "order": 3,
         "width": 0,
         "height": 0,
         "head": "",
@@ -2861,7 +2861,7 @@
         "templateScope": "local",
         "className": "",
         "x": 450,
-        "y": 1560,
+        "y": 1980,
         "wires": [
             []
         ]
@@ -2874,7 +2874,7 @@
         "page": "",
         "ui": "",
         "name": "debug POST Zendure 3",
-        "order": 4,
+        "order": 3,
         "width": 0,
         "height": 0,
         "head": "",
@@ -2885,7 +2885,7 @@
         "templateScope": "local",
         "className": "",
         "x": 450,
-        "y": 1600,
+        "y": 2100,
         "wires": [
             []
         ]
@@ -2898,7 +2898,7 @@
         "page": "",
         "ui": "",
         "name": "Download debug file",
-        "order": 2,
+        "order": 1,
         "width": 0,
         "height": 0,
         "head": "",
@@ -2908,7 +2908,7 @@
         "resendOnRefresh": true,
         "templateScope": "local",
         "className": "",
-        "x": 760,
+        "x": 780,
         "y": 2260,
         "wires": [
             []
@@ -2939,7 +2939,7 @@
         "type": "comment",
         "z": "28a75879d8c1b346",
         "name": "## Instructies ##  -  Proxy van HA Gielz Zendure-HA-zenSDK naar 2x of 3x Zendure thuisbatterijen (Dutch / NL)",
-        "info": "- Zendure-zenSDK-proxy -\n- versie 20260512c\n- https://github.com/gast777/Zendure-zenSDK-proxy\n\n\n\n#### Instructies ####\n\nDe Gielz automatisering voor Zendure ( https://github.com/Gielz1986/Zendure-HA-zenSDK ) is heel mooi en nuttig om een Zendure thuisbatterij die de ZenSDK API ondersteunt, lokaal te besturen, waarbij geen cloud comminicatie nodig is. De standaard Gielz automatisering ondersteunt echter slechts 1 Zendure device (omvormer).\n\nDeze Node-Red flow maakt het mogelijk de Gielz automatisering te gebruiken met twee of drie Zendure devices, zoals 2x of 3x Solarflow 2400AC.\n\nNa importeren van deze Node-Red flow in je Node-Red server, kun je je eigen IP adressen van je Zendure devices invullen in de Node-Red flow. Hieronder staat aangegeven waar je dat kunt doen.\n\nVervolgens moet je een paar eenvoudige instellingen aanpassen op het dashboard in HomeAssistant, ten opzichte van de normale situatie met 1 device zonder deze proxy. \n\n\n### Node-Red ###\n\n- Vul in het blok \"Enter the Zendure IP adresses here\" de IP adressen van de Zendure devices in.\n\n\n### HomeAssistant ###\n\n**Voor up-to-date instructies, kijk op https://github.com/gast777/Zendure-zenSDK-proxy**\n\nVanaf de Maart 2026 versie van de Gielz ZenSDK slechts 2 stappen, beide via het dashboard:\n\n- Op het HA Dashboard, vul het IP adres en poort van de Node-Red proxy in voor \"Zendure 2400 AC IP-adres\" (input_text.zendure_2400_ac_ip_adres). \nBijvoorbeeld: 192.168.x.x:1880 of 192.168.x.x:1880/endpoint\n\n- Vul het \"Maximaal Oplaadvermogen / Ontlaadvermogen\" in op de gewenste waarde, zoals 4800 Watt voor 2x SolarFlow 2400AC of 7200 voor 3x SolarFlow 2400AC, met behulp van de \ninvulvelden input_number.zendure_2400_ac_max_ontlaadvermogen en input_number.zendure_2400_ac_max_oplaadvermogen op het HA dashboard.\n\n\n### Features ###\n\n- SoC balancering - De SoC (state of charge, laadpercentage) van de twee devices wordt dicht bij elkaar gehouden doordat de volste batterij het snelst ontlaadt en de leegste batterij het snelst oplaadt. Bij gelijke SoC laden ze beide even snel.\n- Herhaling van instructies om te laden/ontladen, zodat SoC balancing tussen de Zendures ook werkt voor Handmatige mode.\n- Single Mode - Bij lagere vermogens laadt/ontlaadt slechts een van de Zendures tegelijk. Dit wordt afgewisseld aan de hand van de SoC van de beide devices, waardoor de SoC waardes gebalanceerd blijven.\n- In Single Mode wordt het passieve device (degene die op dat moment niet laadt of ontlaadt) na 5 minuten op standby gezet (smartMode = 0, \"Opslaan in Flash\").\n- In Single Mode wordt naar het andere device overgeschakeld wanneer het verschil in SoC 5% is. Hierdoor wordt minder vaak overgeschakeld van actief device.\n- Bij het overschakelen naar het andere device of van Single Mode naar Dual Mode overschakelen, worden tijdens de overgangsperiode twee devices gebruikt. In het begin krijgt het reeds actieve device 95% van het vermogen toebedeeld, zodat de andere de tijd krijgt om op te starten, voordat die meer vermogen toebedeeld krijgt.\n\n### Vereisten ###\n\n- 2x of 3x Zendure SolarFlow 2400 AC (of SolarFlow 2400 AC+/Pro, SolarFlow 1600 AC+ of Zendure SolarFlow 800 Plus/Pro).\n- Zorg dat op beide Zendures hetzelfde maximale en minimale laadpercentage (SoC percentages) ingesteld staan. Zorg dat op beide Zendures hetzelfde maximale en minimale laadpercentage (SoC percentages) ingesteld staan. Dit kan via de Zendure App.\n- Beide Zendures moeten hetzelfde aantal batterijen hebben.\n- De beide Zendures en de Node-Red server moeten een vast IP adres hebben.\n- Beide Zendures moeten beschikbaar zijn en werken.\n- Wifi ontvangst moet uitstekend zijn.\n\n\n### Beperkingen ###\n\n- Bij een instructie van 0 Watt laden levert een Zendure device soms rond de 20 Watt. Dit is momenteel Zendure gedrag en geen probleem.\n- Met Node-Red 4.0.9 zijn er door een gebruiker problemen gerapporteerd, die met versie 4.1.2 niet meer optraden. Node-Red versie 4.1.1 is ook getest en werkt prima.\n\n\n",
+        "info": "- Zendure-zenSDK-proxy -\n- versie 20260514\n- https://github.com/gast777/Zendure-zenSDK-proxy\n\n\n\n#### Instructies ####\n\nDe Gielz automatisering voor Zendure ( https://github.com/Gielz1986/Zendure-HA-zenSDK ) is heel mooi en nuttig om een Zendure thuisbatterij die de ZenSDK API ondersteunt, lokaal te besturen, waarbij geen cloud comminicatie nodig is. De standaard Gielz automatisering ondersteunt echter slechts 1 Zendure device (omvormer).\n\nDeze Node-Red flow maakt het mogelijk de Gielz automatisering te gebruiken met twee of drie Zendure devices, zoals 2x of 3x Solarflow 2400AC.\n\nNa importeren van deze Node-Red flow in je Node-Red server, kun je je eigen IP adressen van je Zendure devices invullen in de Node-Red flow. Hieronder staat aangegeven waar je dat kunt doen.\n\nVervolgens moet je een paar eenvoudige instellingen aanpassen op het dashboard in HomeAssistant, ten opzichte van de normale situatie met 1 device zonder deze proxy. \n\n\n### Node-Red ###\n\n- Vul in het blok \"Enter the Zendure IP adresses here\" de IP adressen van de Zendure devices in.\n\n\n### HomeAssistant ###\n\n**Voor up-to-date instructies, kijk op https://github.com/gast777/Zendure-zenSDK-proxy**\n\nVanaf de Maart 2026 versie van de Gielz ZenSDK slechts 2 stappen, beide via het dashboard:\n\n- Op het HA Dashboard, vul het IP adres en poort van de Node-Red proxy in voor \"Zendure 2400 AC IP-adres\" (input_text.zendure_2400_ac_ip_adres). \nBijvoorbeeld: 192.168.x.x:1880 of 192.168.x.x:1880/endpoint\n\n- Vul het \"Maximaal Oplaadvermogen / Ontlaadvermogen\" in op de gewenste waarde, zoals 4800 Watt voor 2x SolarFlow 2400AC of 7200 voor 3x SolarFlow 2400AC, met behulp van de \ninvulvelden input_number.zendure_2400_ac_max_ontlaadvermogen en input_number.zendure_2400_ac_max_oplaadvermogen op het HA dashboard.\n\n\n### Features ###\n\n- SoC balancering - De SoC (state of charge, laadpercentage) van de twee devices wordt dicht bij elkaar gehouden doordat de volste batterij het snelst ontlaadt en de leegste batterij het snelst oplaadt. Bij gelijke SoC laden ze beide even snel.\n- Herhaling van instructies om te laden/ontladen, zodat SoC balancing tussen de Zendures ook werkt voor Handmatige mode.\n- Single Mode - Bij lagere vermogens laadt/ontlaadt slechts een van de Zendures tegelijk. Dit wordt afgewisseld aan de hand van de SoC van de beide devices, waardoor de SoC waardes gebalanceerd blijven.\n- In Single Mode wordt het passieve device (degene die op dat moment niet laadt of ontlaadt) na 5 minuten op standby gezet (smartMode = 0, \"Opslaan in Flash\").\n- In Single Mode wordt naar het andere device overgeschakeld wanneer het verschil in SoC 5% is. Hierdoor wordt minder vaak overgeschakeld van actief device.\n- Bij het overschakelen naar het andere device of van Single Mode naar Dual Mode overschakelen, worden tijdens de overgangsperiode twee devices gebruikt. In het begin krijgt het reeds actieve device 95% van het vermogen toebedeeld, zodat de andere de tijd krijgt om op te starten, voordat die meer vermogen toebedeeld krijgt.\n\n### Vereisten ###\n\n- 2x of 3x Zendure SolarFlow 2400 AC (of SolarFlow 2400 AC+/Pro, SolarFlow 1600 AC+ of Zendure SolarFlow 800 Plus/Pro).\n- Zorg dat op beide Zendures hetzelfde maximale en minimale laadpercentage (SoC percentages) ingesteld staan. Zorg dat op beide Zendures hetzelfde maximale en minimale laadpercentage (SoC percentages) ingesteld staan. Dit kan via de Zendure App.\n- Beide Zendures moeten hetzelfde aantal batterijen hebben.\n- De beide Zendures en de Node-Red server moeten een vast IP adres hebben.\n- Beide Zendures moeten beschikbaar zijn en werken.\n- Wifi ontvangst moet uitstekend zijn.\n\n\n### Beperkingen ###\n\n- Bij een instructie van 0 Watt laden levert een Zendure device soms rond de 20 Watt. Dit is momenteel Zendure gedrag en geen probleem.\n- Met Node-Red 4.0.9 zijn er door een gebruiker problemen gerapporteerd, die met versie 4.1.2 niet meer optraden. Node-Red versie 4.1.1 is ook getest en werkt prima.\n\n\n",
         "x": 390,
         "y": 60,
         "wires": []
@@ -2949,7 +2949,7 @@
         "type": "function",
         "z": "28a75879d8c1b346",
         "name": "===> Vul hier de Zendure IP adressen in <===",
-        "func": "\n\n//===============================================================\n//== Vul hier de Zendure device IP adressen in ==\n//===============================================================\n\nlet ipZendure1 = \"192.168.x.x\"\nlet ipZendure2 = \"192.168.x.y\"\nlet ipZendure3 = \"\"\n\n/// Tip: om gesimuleerde Zendure testdevices te gebruiken, vul dan\n/// in plaats van het IP adres, de naam van het testdevice in. \n/// De Zendure-simulated-devices.json flow moet op dezelde Node-RED host draaien.\n\n/// Voorbeeld:\n//let ipZendure1 = \"testdevice1\"\n//let ipZendure2 = \"testdevice2\"\n//let ipZendure3 = \"testdevice3\"\n\n/// Als je twee Zendures gebruikt, laat de derde dan staan als lege string:\n///let ipZendure3 = \"\"\n\n/// NB: Als een Zendure omvormer wordt vervangen en dus het serienummer\n/// wijzigt, druk dan even op Initialize om de serienummers opnieuw\n/// in te lezen.\n//===============================================================\n//\n//\n//===============================================================\n/// Optioneel tweakbare variabelen:\n\nlet solarPowerInfo = 0                       // Default 0; Zet op 1 als de solarPower informatie doorgegeven moet worden.\nlet singleMode_upperlimit_percent = 100      // Default 100% van maxPower; Boven dit vermogen wordt overgeschakeld naar beide devices gebruiken voor laden/ontladen.\nlet singleMode_lowerlimit_percent = 40       // Default 40% van maxPower; Onder dit vermogen wordt overgeschakeld naar 1 device gebruiken voor laden/ontladen (single mode).\nlet singleMode_change_device_diff = 5        // Default 5%; Moet 1 of hoger zijn; Bij hoeveel procentpunt verschil in laadpercentage (SoC%) gewisseld wordt van actief device   \n                                             // in single mode.\nlet singleMode_delayed_standby_timer = 300   // Default 300; na hoeveel seconden het passieve device in single mode in de slaapstand gezet wordt (smartmode=0, Opslaan in Flash)  \nlet dualmode_damper_enable = 0               // Default 0; 0: nee, 1: ja; Dual mode demper: als het gevraagde vermogen even boven de maxpower uit komt, negeer dit en ga nog niet naar dual mode.\nlet dualmode_damper_timer = 120               // Default 120; Hoeveel seconden de dualmode demper actief blijft.\nlet dualmode_damper_amount = 200             // Default 200; Hoeveel Watt over de maxpower gegaan kan worden terwijl de demper actief is, zonder naar dualmode te gaan.\n//let language = \"EN\"\nlet language = \"NL\"\n\n//===============================================================\n//\n//\n//===============================================================\n/// Niet aanbevolen om aan te passen:\n\nlet manualMode_messageRepeat = 1 // 1: yes, 0: no; Default 1; In non-NOM situation (manual mode), SoC balancing between devices does not work if this is disabled, because \n                                 // the distribution of power happens only on every message with power value (charge/discharge) which is sent. With Manual mode, the power message\n                                 // is sent only at the beginning. This option enables repeating of the message so that power distribution over the devices will be done again.\nlet singleModeDeviceChangeTranstion_timer = 40  // Default 40; for how many seconds we force temporary dual mode when the active device in single mode is changing (for a smoother transition)\nlet balancingFactor = 5 // Default 5; this lets the device that needs to charge/discharge faster (in dual mode)\n                           // for balancing, to do it faster to reach balance earlier.\n                           // Must be 1 or higher.\nlet singleMode_delayed_standby_charging_enable = 1 // 1: yes, 0: no; Default 0; When in SingleMode, let the passive device go to a deep standby (smartMode=0) after some time when charging.\nlet singleMode_delayed_standby_discharging_enable = 1 // 1: yes, 0: no; Default 1; When in SingleMode, let the passive device go to a deep standby (smartMode=0) after some time when discharging.\n\n//===============================================================\n\n// Version\nlet proxyVersion = \"20260512c\"\n\n/// Calculate other parameters\n\n// Count how many Zendure devices we have\nlet device_count = 0\nlet count = [ipZendure1, ipZendure2, ipZendure3]\n    .filter(ip => ip !== \"\")\n    .length;\n\ndevice_count = count;\n\n// Save to global variables\nflow.set('ipZendure1', ipZendure1)\nflow.set('ipZendure2', ipZendure2)\nflow.set('ipZendure3', ipZendure3)\nflow.set('device_count', device_count)\nflow.set('balancingFactor', balancingFactor)\nflow.set('manualMode_messageRepeat', manualMode_messageRepeat)\nflow.set('singleMode_change_device_diff', singleMode_change_device_diff)\nflow.set('singleMode_delayed_standby_charging_enable', singleMode_delayed_standby_charging_enable)\nflow.set('singleMode_delayed_standby_discharging_enable', singleMode_delayed_standby_discharging_enable)\nflow.set('singleMode_delayed_standby_timer', singleMode_delayed_standby_timer)\nflow.set('singleModeDeviceChangeTranstion_timer', singleModeDeviceChangeTranstion_timer)\nflow.set('singleMode_upperlimit_percent', singleMode_upperlimit_percent)\nflow.set('singleMode_lowerlimit_percent', singleMode_lowerlimit_percent)\nflow.set('solarPowerInfo', solarPowerInfo)\nflow.set('proxyVersion', proxyVersion)\nflow.set('language', language)\nflow.set('dualmode_damper_enable', dualmode_damper_enable)\nflow.set('dualmode_damper_timer', dualmode_damper_timer)\nflow.set('dualmode_damper_amount', dualmode_damper_amount)\n\nreturn msg;",
+        "func": "\n\n//===============================================================\n//== Vul hier de Zendure device IP adressen in ==\n//===============================================================\n\nlet ipZendure1 = \"192.168.x.x\"\nlet ipZendure2 = \"192.168.x.y\"\nlet ipZendure3 = \"\"\n\n/// Tip: om gesimuleerde Zendure testdevices te gebruiken, vul dan\n/// in plaats van het IP adres, de naam van het testdevice in. \n/// De Zendure-simulated-devices.json flow moet op dezelde Node-RED host draaien.\n\n/// Voorbeeld:\n//let ipZendure1 = \"testdevice1\"\n//let ipZendure2 = \"testdevice2\"\n//let ipZendure3 = \"testdevice3\"\n\n/// Als je twee Zendures gebruikt, laat de derde dan staan als lege string:\n///let ipZendure3 = \"\"\n\n/// NB: Als een Zendure omvormer wordt vervangen en dus het serienummer\n/// wijzigt, druk dan even op Initialize om de serienummers opnieuw\n/// in te lezen.\n//===============================================================\n//\n//\n//===============================================================\n/// Optioneel tweakbare variabelen:\n\nlet solarPowerInfo = 0                       // Default 0; Zet op 1 als de solarPower informatie doorgegeven moet worden.\nlet singleMode_upperlimit_percent = 100      // Default 100% van maxPower; Boven dit vermogen wordt overgeschakeld naar beide devices gebruiken voor laden/ontladen.\nlet singleMode_lowerlimit_percent = 40       // Default 40% van maxPower; Onder dit vermogen wordt overgeschakeld naar 1 device gebruiken voor laden/ontladen (single mode).\nlet singleMode_change_device_diff = 5        // Default 5%; Moet 1 of hoger zijn; Bij hoeveel procentpunt verschil in laadpercentage (SoC%) gewisseld wordt van actief device   \n                                             // in single mode.\nlet singleMode_delayed_standby_timer = 300   // Default 300; na hoeveel seconden het passieve device in single mode in de slaapstand gezet wordt (smartmode=0, Opslaan in Flash)  \nlet dualmode_damper_enable = 0               // Default 0; 0: nee, 1: ja; Dual mode demper: als het gevraagde vermogen even boven de maxpower uit komt, negeer dit en ga nog niet naar dual mode.\nlet dualmode_damper_timer = 120               // Default 120; Hoeveel seconden de dualmode demper actief blijft.\nlet dualmode_damper_amount = 200             // Default 200; Hoeveel Watt over de maxpower gegaan kan worden terwijl de demper actief is, zonder naar dualmode te gaan.\n//let language = \"EN\"\nlet language = \"NL\"\n\n//===============================================================\n//\n//\n//===============================================================\n/// Niet aanbevolen om aan te passen:\n\nlet manualMode_messageRepeat = 1 // 1: yes, 0: no; Default 1; In non-NOM situation (manual mode), SoC balancing between devices does not work if this is disabled, because \n                                 // the distribution of power happens only on every message with power value (charge/discharge) which is sent. With Manual mode, the power message\n                                 // is sent only at the beginning. This option enables repeating of the message so that power distribution over the devices will be done again.\nlet singleModeDeviceChangeTranstion_timer = 40  // Default 40; for how many seconds we force temporary dual mode when the active device in single mode is changing (for a smoother transition)\nlet balancingFactor = 5 // Default 5; this lets the device that needs to charge/discharge faster (in dual mode)\n                           // for balancing, to do it faster to reach balance earlier.\n                           // Must be 1 or higher.\nlet singleMode_delayed_standby_charging_enable = 1 // 1: yes, 0: no; Default 0; When in SingleMode, let the passive device go to a deep standby (smartMode=0) after some time when charging.\nlet singleMode_delayed_standby_discharging_enable = 1 // 1: yes, 0: no; Default 1; When in SingleMode, let the passive device go to a deep standby (smartMode=0) after some time when discharging.\n\n//===============================================================\n\n// Version\nlet proxyVersion = \"20260514\"\n\n/// Calculate other parameters\n\n// Count how many Zendure devices we have\nlet device_count = 0\nlet count = [ipZendure1, ipZendure2, ipZendure3]\n    .filter(ip => ip !== \"\")\n    .length;\n\ndevice_count = count;\n\n// Save to global variables\nflow.set('ipZendure1', ipZendure1)\nflow.set('ipZendure2', ipZendure2)\nflow.set('ipZendure3', ipZendure3)\nflow.set('device_count', device_count)\nflow.set('balancingFactor', balancingFactor)\nflow.set('manualMode_messageRepeat', manualMode_messageRepeat)\nflow.set('singleMode_change_device_diff', singleMode_change_device_diff)\nflow.set('singleMode_delayed_standby_charging_enable', singleMode_delayed_standby_charging_enable)\nflow.set('singleMode_delayed_standby_discharging_enable', singleMode_delayed_standby_discharging_enable)\nflow.set('singleMode_delayed_standby_timer', singleMode_delayed_standby_timer)\nflow.set('singleModeDeviceChangeTranstion_timer', singleModeDeviceChangeTranstion_timer)\nflow.set('singleMode_upperlimit_percent', singleMode_upperlimit_percent)\nflow.set('singleMode_lowerlimit_percent', singleMode_lowerlimit_percent)\nflow.set('solarPowerInfo', solarPowerInfo)\nflow.set('proxyVersion', proxyVersion)\nflow.set('language', language)\nflow.set('dualmode_damper_enable', dualmode_damper_enable)\nflow.set('dualmode_damper_timer', dualmode_damper_timer)\nflow.set('dualmode_damper_amount', dualmode_damper_amount)\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -2976,7 +2976,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 810,
+        "x": 830,
         "y": 2100,
         "wires": [
             [
@@ -2987,10 +2987,10 @@
                 "62cd0284f0fa37e1",
                 "37aec1a5d327fd8d",
                 "7878fe6b99939a31",
-                "f0e0262241cb6f04",
-                "6452525b14d4c209",
-                "b1d15c935c45ae67",
-                "2d4ddba9f7639080"
+                "3dbabe2553e8efca",
+                "d7342441e08ee2eb",
+                "acb242cd8dd8db69",
+                "8976776db7ad7f31"
             ]
         ]
     },
@@ -3002,6 +3002,194 @@
         "info": "",
         "x": 450,
         "y": 1120,
+        "wires": []
+    },
+    {
+        "id": "3dbabe2553e8efca",
+        "type": "function",
+        "z": "28a75879d8c1b346",
+        "name": "Last Updated POST Zendure",
+        "func": "// two tasks:\n// 1) set timestamp and send to Last Updated field\n// 2) send message on for display\n\n\nlet now = new Date();\nlet time = now.toTimeString().split(' ')[0];\n\nlet msg2 = {}\nmsg2.payload = time;\n\nreturn [msg, msg2];",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 460,
+        "y": 1660,
+        "wires": [
+            [
+                "f0e0262241cb6f04"
+            ],
+            [
+                "407af1fac9af3c31"
+            ]
+        ]
+    },
+    {
+        "id": "d7342441e08ee2eb",
+        "type": "function",
+        "z": "28a75879d8c1b346",
+        "name": "Last Updated POST Zendure 1",
+        "func": "// two tasks:\n// 1) set timestamp and send to Last Updated field\n// 2) send message on for display\n\n\nlet now = new Date();\nlet time = now.toTimeString().split(' ')[0];\n\nlet msg2 = {}\nmsg2.payload = time;\n\nreturn [msg, msg2];",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 1780,
+        "wires": [
+            [
+                "6452525b14d4c209"
+            ],
+            [
+                "846670d5fc8f43e3"
+            ]
+        ]
+    },
+    {
+        "id": "acb242cd8dd8db69",
+        "type": "function",
+        "z": "28a75879d8c1b346",
+        "name": "Last Updated POST Zendure 2",
+        "func": "// two tasks:\n// 1) set timestamp and send to Last Updated field\n// 2) send message on for display\n\n\nlet now = new Date();\nlet time = now.toTimeString().split(' ')[0];\n\nlet msg2 = {}\nmsg2.payload = time;\n\nreturn [msg, msg2];",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 1900,
+        "wires": [
+            [
+                "b1d15c935c45ae67"
+            ],
+            [
+                "8567bc4a8cc73970"
+            ]
+        ]
+    },
+    {
+        "id": "8976776db7ad7f31",
+        "type": "function",
+        "z": "28a75879d8c1b346",
+        "name": "Last Updated POST Zendure 3",
+        "func": "// two tasks:\n// 1) set timestamp and send to Last Updated field\n// 2) send message on for display\n\n\nlet now = new Date();\nlet time = now.toTimeString().split(' ')[0];\n\nlet msg2 = {}\nmsg2.payload = time;\n\nreturn [msg, msg2];",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 2020,
+        "wires": [
+            [
+                "2d4ddba9f7639080"
+            ],
+            [
+                "2c26d7f56de3133c"
+            ]
+        ]
+    },
+    {
+        "id": "407af1fac9af3c31",
+        "type": "ui-text",
+        "z": "28a75879d8c1b346",
+        "group": "e3d2e47c76b12641",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "name": "TS POST Zendure",
+        "label": "Last Updated:",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": true,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 430,
+        "y": 1700,
+        "wires": []
+    },
+    {
+        "id": "846670d5fc8f43e3",
+        "type": "ui-text",
+        "z": "28a75879d8c1b346",
+        "group": "6aa010c7dc5ed30e",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "name": "TS POST Zendure 1",
+        "label": "Last Updated:",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": true,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 440,
+        "y": 1820,
+        "wires": []
+    },
+    {
+        "id": "8567bc4a8cc73970",
+        "type": "ui-text",
+        "z": "28a75879d8c1b346",
+        "group": "56c44b5468225d23",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "name": "TS POST Zendure 2",
+        "label": "Last Updated:",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": true,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 440,
+        "y": 1940,
+        "wires": []
+    },
+    {
+        "id": "2c26d7f56de3133c",
+        "type": "ui-text",
+        "z": "28a75879d8c1b346",
+        "group": "a06c33263af43078",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "name": "TS POST Zendure 3",
+        "label": "Last Updated:",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": true,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 440,
+        "y": 2060,
         "wires": []
     },
     {
@@ -3197,7 +3385,7 @@
     {
         "id": "cee4809c33f4d12b",
         "type": "ui-page",
-        "name": "Zendure Proxy Live Data - GET",
+        "name": "Zendure Proxy Debug GET",
         "ui": "c545c83329e7c172",
         "path": "/zenproxylivedataget",
         "icon": "home",
@@ -3233,7 +3421,7 @@
     {
         "id": "98d215f83b753071",
         "type": "ui-page",
-        "name": "Zendure Proxy Live Data - POST",
+        "name": "Zendure Proxy Debug POST",
         "ui": "c545c83329e7c172",
         "path": "/zenproxylivedatapost",
         "icon": "home",
@@ -3306,7 +3494,7 @@
         }
     },
     {
-        "id": "cc710cb4354bc63b",
+        "id": "b5e474a83ad6450f",
         "type": "global-config",
         "env": [],
         "modules": {
