@@ -640,7 +640,7 @@ Daarnaast wisselen ze van actief device als het verschil in SoC >=5% wordt. En a
 
 ## Versie ##
 
-Huidige versie: 20260514
+Huidige versie: 20260518
 <br/>
 
 # Release-notes #
@@ -887,4 +887,9 @@ Huidige versie: 20260514
 - Updates aan het Debug Dashboard. De POST data heeft nu een 'Last Updated' veld wat duidelijker maakt wanneer de data ververst is. Tevens is de naam van de pagina's veranderd. Als je al versie 20260512 gebruikt hebt, dan is het aan te raden eerst alle dashboard gerelateerde items te deleten in Node-RED, voor het updaten. Sorry! Dit was eenmalig. Als je dat niet doet is het geen probleem, maar dan zou het Node-RED dashboard misschien niet goed kunnen werken.
 - In de Node-RED flow zijn nu alle Dashboard gerelateerde nodes bij elkaar gezet onderaan, onder de banner: "Below here is only used for the Node-RED Debug Dashboard and may be safely deleted (if needed to save on resources)". Mocht je bang zijn dat het dashboard te veel resources van je systeem vraagt en je toch niet van plan bent het dashboard te gebruiken, dan kun je die nodes nu eenvoudig allemaal tegelijk selecteren en deleten. Daarna zal de Proxy nog gewoon normaal kunnen deployen en functioneren.
 - De herhaalde POST opdrachten die gestuurd worden als er 20 seconden geen POST opdracht is geweest (vooral gebruikt tijdens handmatig laden/ontladen), hadden het attribuut "repeat" in de json toegevoegd. Deze is nu verwijderd, zodat de POST opdracht geen unsupported attributen heeft waar een Zendure (in de toekomst) een probleem mee zou kunnen hebben.
+
+## Nieuw in versie 20260518 ##
+- Vanaf deze versie worden de POST messages (opdrachten) gecontroleerd op het hebben van een geldig serienummer (payload.sn). Het serienummer moet de string "PROXY" bevatten om geaccepteerd te worden. Dit voorkomt ook een issue waarbij in bepaalde gevallen onnodig even het vermogen naar 0 Watt wordt gezet tijdens opladen of ontladen ("hakkels").
+- De timeout voor het samenvoegen van de GET Responses van de Zendures is verhoogd van 1 naar 2 seconden (in de blokjes "Join Responses"). Bij een aantal gebruikers bleek dat van een van de Zendures soms de Reply meer dan een seconde later dan die van de andere Zendure op de Proxy arriveert. Daardoor werd geen GET Response naar Home Assistant gestuurd. Daarna volgde dan ongeveer 10 seconden zonder verdere GET Responses en een interruptie in de data. Een hogere timeout zou dit in veel gevallen kunnen voorkomen.
+
 
