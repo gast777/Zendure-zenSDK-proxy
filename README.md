@@ -890,6 +890,6 @@ Huidige versie: 20260518
 
 ## Nieuw in versie 20260518 ##
 - Vanaf deze versie worden de POST messages (opdrachten) gecontroleerd op het hebben van een geldig serienummer (payload.sn). Het serienummer moet de string "PROXY" bevatten om geaccepteerd te worden. Dit voorkomt ook een issue waarbij in bepaalde gevallen onnodig even het vermogen naar 0 Watt wordt gezet tijdens opladen of ontladen ("hakkels").
-- De timeout voor het samenvoegen van de GET Responses van de Zendures is verhoogd van 1 naar 2 seconden (in de blokjes "Join Responses"). Bij een aantal gebruikers bleek dat van een van de Zendures soms de Reply meer dan een seconde later dan die van de andere Zendure op de Proxy arriveert. Daardoor werd geen GET Response naar Home Assistant gestuurd. Daarna volgde dan ongeveer 10 seconden zonder verdere GET Responses en een interruptie in de data. Een hogere timeout zou dit in veel gevallen kunnen voorkomen.
+- De timeout voor het samenvoegen van de GET Responses van de Zendures is verhoogd van 1 naar 2 seconden (in de blokjes "Join Responses"). Bij een aantal gebruikers bleek dat van een van de Zendures soms de Reply meer dan een seconde later dan die van de andere Zendure op de Proxy arriveert. Daardoor werd geen GET Response naar Home Assistant gestuurd. Daarna volgde dan ongeveer 10 seconden zonder verdere GET Responses en een interruptie in de data. Een hogere timeout zou dit mogelijk kunnen voorkomen.
 
 
