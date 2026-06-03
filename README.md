@@ -640,7 +640,7 @@ Daarnaast wisselen ze van actief device als het verschil in SoC >=5% wordt. En a
 
 ## Versie ##
 
-Huidige versie: 20260523
+Huidige versie: 20260603
 <br/>
 
 # Release-notes #
@@ -895,3 +895,11 @@ Huidige versie: 20260523
 ## Nieuw in versie 20260523 ##
 - Issue opgelost dat optreedt in NOM modus als een Zendure met direct aangesloten zonnepanelen de batterij vol heeft en in bypass mode gaat leveren aan het grid. Als op dat moment de andere Zendures moeten opladen om de P1 waarde op 0 te houden (NOM), dan deden ze dat niet of met een te laag vermogen. Om dit op te lossen wordt op de in bypass leverende Zendure de outputHomePower op 0 gesteld (of op de laagste van outputHomePower en outputLimit). Het geleverde vermogen door de bypass wordt dan buiten beschouwing gelaten in de totale outputHomePower waarde van alle Zendures samen die naar Gielz HA wordt gestuurd. Er wordt in dit geval dan alleen gridInputPower naar Gielz HA gerapporteerd die klopt met de inputLimit (laad) opdracht. Hierdoor kunnen de Zendures correct opladen en NOM houden terwijl een andere Zendure achter dezelfde proxy tegelijkertijd energie levert in bypass.
 - Op het Node-RED debug dashboard is een counter toegevoegd "POST invalid S/N". Deze telt op wanneer een POST opdracht binnenkomt met een ongeldig serienummer erin. Een serienummer wordt door de proxy als geldig beschouwd als het de string "PROXY" bevat.
+
+## Nieuw in versie 20260523 ##
+- Optimalisatie van het gedrag wanneer micro-omvormers op de offgrid socket zijn aangesloten van een of meerdere Zendures achter de Proxy.
+- Als de bypass actief is ("pass" is 2 of 3) op een van de Zendures, wordt bij leveren dit niet bij de outputHomePower en bij consumeren niet bij de gridInputPower meegeteld in de data die naar Home Assistant gaat. Hierdoor zal Gielz HA hier correct mee omgaan wat betreft aansturing, zodat tijdens NOM wanneer een Zendure via bypass levert (bijvoorbeeld als die 100% vol zit) een andere Zendure dat vermogen zal kunnen laden, zodat de P1 meter netjes rond de nul blijft.
+- De waarden van gridOffPower en solarInputPower worden nu voor elk Zendure device apart doorgegeven aan Home Assistant.
+- Herhaling van de POST message werkte niet als zowel inputLimit als outputLimit wordt gestuurd in dezelfde message, waarvan er een 0 W is. Dit komt niet voor bij de Gielz aansturing, maar kan wel bij zelfbouw met ZenSDK relevant zijn.
+- Van de devices in 'slaap mode' wordt nu gecheckt of het ingestelde vermogen (inputLimit/outputLimit) wel nul is. Zo niet, dan wordt de eerstvolgende vermogensopdracht (0 Watt voor deze devices) ook naar de devices in 'slaap mode' gestuurd. Deze vermogensopdracht zal dan zowel de properties inputLimit, outputLimit als acMode bevatten.
+- De timeout voor het samenvoegen van de GET en POST Responses van de Zendures is verhoogd van 2 naar 3 seconden (in de blokjes "Join Responses").
