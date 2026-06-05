@@ -259,6 +259,19 @@
           {% endif %}
         icon: mdi:format-columns
 
+      - name: "Cached Response"
+        unique_id: zendure_proxy_cachedresponse
+        value_template: >
+          {% set mode = value_json.cachedResponse | default(-1) | int %}
+          {% if mode == 1 %}
+            Yes
+          {% elif mode == 0 %}
+            No
+          {% else %}
+            Unknown
+          {% endif %}
+        icon: mdi:cached
+
       - name: "Zendure 1 Inverter Temperature"
         value_template: >
           {% set maxTemp = value_json['properties']['hyperTmp_1'] | int %}
