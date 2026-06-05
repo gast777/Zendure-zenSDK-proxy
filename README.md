@@ -640,7 +640,7 @@ Daarnaast wisselen ze van actief device als het verschil in SoC >=5% wordt. En a
 
 ## Versie ##
 
-Huidige versie: 20260603
+Huidige versie: 20260605
 <br/>
 
 # Release-notes #
@@ -903,3 +903,7 @@ Huidige versie: 20260603
 - Herhaling van de POST message werkte niet als zowel inputLimit als outputLimit wordt gestuurd in dezelfde message, waarvan er een 0 W is. Dit komt niet voor bij de Gielz aansturing, maar kan wel bij zelfbouw met ZenSDK relevant zijn.
 - Van de devices in 'slaap mode' wordt nu gecheckt of het ingestelde vermogen (inputLimit/outputLimit) wel nul is. Zo niet, dan wordt de eerstvolgende vermogensopdracht (0 Watt voor deze devices) ook naar de devices in 'slaap mode' gestuurd. Deze vermogensopdracht zal dan zowel de properties inputLimit, outputLimit als acMode bevatten.
 - De timeout voor het samenvoegen van de GET en POST Responses van de Zendures is verhoogd van 2 naar 3 seconden (in de blokjes "Join Responses").
+
+## Nieuw in versie 20260605 ##
+- Als er een communicatieprobleem wordt gedetecteerd met de Zendure devices, dan stopt de proxy tijdelijk (15 seconden, instelbaar) met HTTP Requests sturen naar de Zendures. In plaats daarvan wordt de laatste GET Response (uit cache) herhaald. Dit zou in bepaalde gevallen een probleem kunnen oplossen waarbij de Zendure HTTP server unresponsive is geworden. Door de ingelaste pauze zou de Zendure kunnen herstellen. Tevens zal Home Assistant geen interruptie in de communicatie ervaren.
+- De proxy stuurt nu de indicatie mee aan HA of de GET Responses uit de cache komen of niet (payload.cachedResponse). Deze wordt ook opgenomen in de proxy sensoren voor Home Assistant.
