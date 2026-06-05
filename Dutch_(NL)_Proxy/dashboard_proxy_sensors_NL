@@ -77,5 +77,6 @@ entities:
         state: 3x Zendure via PROXY
     row:
       entity: sensor.zendure_3_serienummer
+  - entity: sensor.cached_response
   - entity: sensor.zendure_proxy_versie
     name: Proxy Versie
