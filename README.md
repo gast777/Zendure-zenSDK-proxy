@@ -211,7 +211,7 @@ Nu kan het feest beginnen!
  | `properties.ipAddress_1` | IP adres van het Zendure 1 device |
  | `properties.ipAddress_2` | IP adres van het Zendure 2 device |
  | `properties.ipAddress_3` | IP adres van het Zendure 3 device |
- | `cachedResponse` | Geeft aan of de GET response uit cache gekomen is. Dit gebeurt in het geval van een communicatieprobleem met de Zendures. |
+ | `cachedResponse` | Indicatie of de informatie uit cache gekomen is vanwege een communicatieprobleem met de Zendure devices<br/>Waarden: 0: Nee, 1: Ja |
  | `sn_1` | Serienummer van de omvormer van het Zendure 1 device |
  | `sn_2` | Serienummer van de omvormer van het Zendure 2 device |
  | `sn_3` | Serienummer van de omvormer van het Zendure 3 device |
