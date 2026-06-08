@@ -202,6 +202,9 @@ Nu kan het feest beginnen!
  | `properties.hyperTmp_1` | Omvormertemperatuur van het Zendure 1 device. |
  | `properties.hyperTmp_2` | Omvormertemperatuur van het Zendure 2 device. |
  | `properties.hyperTmp_3` | Omvormertemperatuur van het Zendure 3 device. |
+ | `properties.ipAddress_1` | IP adres van het Zendure 1 device. |
+ | `properties.ipAddress_2` | IP adres van het Zendure 2 device. |
+ | `properties.ipAddress_3` | IP adres van het Zendure 3 device. |
  | `sn_1` | Serienummer van de omvormer van het Zendure 1 device. |
  | `sn_2` | Serienummer van de omvormer van het Zendure 2 device. |
  | `sn_3` | Serienummer van de omvormer van het Zendure 3 device. |
