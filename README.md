@@ -186,6 +186,12 @@ Nu kan het feest beginnen!
  | `properties.outputPackPower_1` | Vermogen uitgaand naar de batterijen (laden) van Zendure 1 |
  | `properties.outputPackPower_2` | Vermogen uitgaand naar de batterijen (laden) van Zendure 2 |
  | `properties.outputPackPower_3` | Vermogen uitgaand naar de batterijen (laden) van Zendure 3 |
+ | `properties.solarInputPower_1` | Vermogen inkomend vanuit de zonnepanelen op Zendure 1 |
+ | `properties.solarInputPower_2` | Vermogen inkomend vanuit de zonnepanelen op Zendure 2 |
+ | `properties.solarInputPower_3` | Vermogen inkomend vanuit de zonnepanelen op Zendure 3 |
+ | `properties.gridOffPower_1` | Vermogen door de offgrid socket van Zendure 1 |
+ | `properties.gridOffPower_2` | Vermogen door de offgrid socket van Zendure 2 |
+ | `properties.gridOffPower_3` | Vermogen door de offgrid socket van Zendure 3 |
  | `properties.socStatus_1` | Indicatie of het Zendure 1 device geforceerd aan het opladen is vanwege kalibratie.<br/>Waarden: 0: Nee, 1: Kalibreren |
  | `properties.socStatus_2` | Indicatie of het Zendure 2 device geforceerd aan het opladen is vanwege kalibratie.<br/>Waarden: 0: Nee, 1: Kalibreren |
  | `properties.socStatus_3` | Indicatie of het Zendure 3 device geforceerd aan het opladen is vanwege kalibratie.<br/>Waarden: 0: Nee, 1: Kalibreren |
