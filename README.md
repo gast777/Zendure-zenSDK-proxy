@@ -650,7 +650,7 @@ Daarnaast wisselen ze van actief device als het verschil in SoC >=5% wordt. En a
 
 ## Versie ##
 
-Huidige versie: 20260605
+Huidige versie: 20260611
 <br/>
 
 # Release-notes #
@@ -917,3 +917,6 @@ Huidige versie: 20260605
 ## Nieuw in versie 20260605 ##
 - Als er een communicatieprobleem wordt gedetecteerd met de Zendure devices, dan stopt de proxy tijdelijk (15 seconden, instelbaar) met HTTP Requests sturen naar de Zendures. In plaats daarvan wordt de laatste GET Response (uit cache) herhaald. Dit zou in bepaalde gevallen een probleem kunnen oplossen waarbij de Zendure HTTP server unresponsive is geworden. Door de ingelaste pauze zou de Zendure kunnen herstellen. Tevens zal Home Assistant geen interruptie in de communicatie ervaren.
 - De proxy stuurt nu de indicatie mee aan HA of de GET Responses uit de cache komen of niet (payload.cachedResponse). Deze wordt ook opgenomen in de proxy sensoren voor Home Assistant.
+
+## Nieuw in versie 20260611 ##
+- Verbeteringen in gedrag tijdens communicatieproblemen met de Zendures.
