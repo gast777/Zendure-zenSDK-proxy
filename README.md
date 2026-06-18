@@ -650,7 +650,7 @@ Daarnaast wisselen ze van actief device als het verschil in SoC >=5% wordt. En a
 
 ## Versie ##
 
-Huidige versie: 20260617
+Huidige versie: 20260618
 <br/>
 
 # Release-notes #
@@ -924,3 +924,6 @@ Huidige versie: 20260617
 ## Nieuw in versie 20260617 ##
 - Rate limiter toegevoegd voor POST messages (max 1 message per 3 seconden)
 - Potentiele workaround fix voor een issue in Zendure V2.0.0 firmware die op bepaalde modellen (bijv. solarFlow800Pro) een ongeldige waarde (16 in plaats van 0) geeft voor "socLimit".
+
+## Nieuw in versie 20260618 ##
+- Workaround fix voor een issue in Zendure V2.0.0 firmware die op bepaalde modellen (bijv. solarFlow800Pro) ongeldige waarden geeft voor "socLimit". In plaats van 0, 1, en 2, geeft die respectievelijk 16, 17 en 18. Deze fix vertaalt die waarden terug naar de correcte waarden, zodat alle logica correct blijft werken.
