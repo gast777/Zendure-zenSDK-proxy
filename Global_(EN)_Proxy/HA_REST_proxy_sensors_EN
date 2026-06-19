@@ -91,6 +91,30 @@
         state_class: measurement
         device_class: power
 
+      - name: "Zendure 1 Power Offgrid Outlet 1"
+        value_template: "{{ value_json.get('properties', {}).get('gridOffPower_1', 0) | int }}"
+        unique_id: zendure_power_offgrid_outlet_1_1
+        unit_of_measurement: "W"
+        state_class: measurement
+        device_class: power
+        icon: mdi:power-plug
+
+      - name: "Zendure 2 Power Offgrid Outlet 1"
+        value_template: "{{ value_json.get('properties', {}).get('gridOffPower_2', 0) | int }}"
+        unique_id: zendure_power_offgrid_outlet_1_2
+        unit_of_measurement: "W"
+        state_class: measurement
+        device_class: power
+        icon: mdi:power-plug
+
+      - name: "Zendure 3 Power Offgrid Outlet 1"
+        value_template: "{{ value_json.get('properties', {}).get('gridOffPower_3', 0) | int }}"
+        unique_id: zendure_power_offgrid_outlet_1_3
+        unit_of_measurement: "W"
+        state_class: measurement
+        device_class: power
+        icon: mdi:power-plug
+
       - name: "Zendure 1 Calibrating"
         value_template: >
           {% set states = {0: "No", 1: "Yes"} %}
