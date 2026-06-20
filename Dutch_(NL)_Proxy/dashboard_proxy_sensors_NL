@@ -77,6 +77,13 @@ entities:
       name: Zendure 1 Vermogen Offgrid Stopcontact
   - type: conditional
     conditions:
+      - entity: sensor.zendure_1_offgrid_modus
+        state: Eco
+    row:
+      entity: sensor.zendure_1_vermogen_offgrid_stopcontact_1
+      name: Zendure 1 Vermogen Offgrid Stopcontact
+  - type: conditional
+    conditions:
       - entity: sensor.zendure_2_offgrid_modus
         state: Normaal
     row:
@@ -84,8 +91,22 @@ entities:
       name: Zendure 2 Vermogen Offgrid Stopcontact
   - type: conditional
     conditions:
+      - entity: sensor.zendure_2_offgrid_modus
+        state: Eco
+    row:
+      entity: sensor.zendure_2_vermogen_offgrid_stopcontact_1
+      name: Zendure 2 Vermogen Offgrid Stopcontact
+  - type: conditional
+    conditions:
       - entity: sensor.zendure_3_offgrid_modus
         state: Normaal
+    row:
+      entity: sensor.zendure_3_vermogen_offgrid_stopcontact_1
+      name: Zendure 3 Vermogen Offgrid Stopcontact
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_3_offgrid_modus
+        state: Eco
     row:
       entity: sensor.zendure_3_vermogen_offgrid_stopcontact_1
       name: Zendure 3 Vermogen Offgrid Stopcontact
