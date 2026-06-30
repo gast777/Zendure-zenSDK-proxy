@@ -650,7 +650,7 @@ Daarnaast wisselen ze van actief device als het verschil in SoC >=5% wordt. En a
 
 ## Versie ##
 
-Huidige versie: 20260618
+Huidige versie: 20260701
 <br/>
 
 # Release-notes #
@@ -927,3 +927,8 @@ Huidige versie: 20260618
 
 ## Nieuw in versie 20260618 ##
 - Workaround fix voor een issue in Zendure V2.0.0 firmware die op bepaalde modellen (bijv. solarFlow800Pro) ongeldige waarden geeft voor "socLimit". In plaats van 0, 1, en 2, geeft die respectievelijk 16, 17 en 18. Deze fix vertaalt die waarden terug naar de correcte waarden, zodat alle logica correct blijft werken.
+
+## Nieuw in versie 20260701 ##
+- De Zendure property "gridState" wordt nu doorgegeven aan Home Assistant. Waarden: 0 (grid disconnected) en 1 (grid connected on all Zendures)
+- De property "proxyNoSleep" (R/W) property wordt nu naar Home Assistant gestuurd. Deze kan via een POST commando gezet worden op de waarden 0 of 1 (standaard 0). Als deze op 1 staat, wordt de niet-actieve Zendure niet meer door de Proxy op slaap mode gezet na 5 minuten. Deze zal aan de standaard proxy sensoren worden toegevoegd en de schakelaar voor HA zal nog worden gedocumenteerd. 
+- De POST message repeat functie is nu uitgeschakeld wanneer de vermogensopdracht gelijk is aan de max oplaad/ontlaadlimiet. Dit was niet nodig omdat balanceren van vermogen op basis van SoC% dan toch niet gebeurt.
