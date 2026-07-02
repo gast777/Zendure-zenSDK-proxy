@@ -283,6 +283,27 @@
           {% endif %}
         icon: mdi:format-columns
 
+      - name: "Proxy No Sleep Mode Status"
+        unique_id: zendure_proxy_nosleep
+        value_template: >
+          {% set mode = value_json.get('properties', {}).get('proxyNoSleep') | int(-1) %}
+          {% if mode == 1 %}
+            On
+          {% elif mode == 0 %}
+            Off
+          {% else %}
+            Unknown
+          {% endif %}
+        icon: >
+          {% set mode = value_json.get('properties', {}).get('proxyNoSleep') | int(-1) %}
+          {% if mode == 1 %}
+            mdi:sleep-off
+          {% elif mode == 0 %}
+            mdi:sleep
+          {% else %}
+            mdi:help-circle-outline
+          {% endif %}
+
       - name: "Cached Response"
         unique_id: zendure_proxy_cachedresponse
         value_template: >
