@@ -87,7 +87,7 @@ After this step, the sensors in the Gielz Dashboard should already work.
 
 For example for 2x SolarFlow 2400+ you can set it to max 4800 Watts. For 3x SolarFlow 2400+ to max 7200 Watts.
 
-<img src="https://github.com/gast777/Zendure-zenSDK-proxy/blob/main/images/max-power-setting.png" width="50%">
+<img src="https://github.com/gast777/Zendure-zenSDK-proxy/blob/main/images/max-power-setting_en.png" width="50%">
 
 
 With this, the base installation is completed. You can now start using it by selecting an operation mode on the Gielz Dashboard, at the drop-down menu "Zendure Operation Mode". For example choose "Quick Charge" to confirm if that works.
