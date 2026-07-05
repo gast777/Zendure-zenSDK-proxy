@@ -55,7 +55,7 @@ Next, open the block "**Enter the Zendure IP addresses here**" by double-clickin
 
 ![Preview](images/node-red-flow-image2_en.png) 
 
-![Preview](images/node-red-ip-addresses.png) 
+![Preview](images/node-red-ip-addresses_en.png) 
 <br/>
 <br/>
 
