@@ -149,7 +149,7 @@ After a restart of Home Assistant, these entities will be available in Home Assi
 
 The next step is to place these sensors on a dashboard. To do that you can add a card (type: entities) and paste the code from the file `dashboard_proxy_sensors_EN` in it. Be sure to take the file from the same language (EN or NL) as in previous steps.
 
-In case you have more than 6 battery packs, which the Gielz Dashboard does not currently support, then you can also add a dashboard card containing the information for all battery packs: `dashboard_battery_sensors_EN`. 
+In case you have more than 6 battery packs in total, which the Gielz Dashboard does not currently support, then you can also add a dashboard card containing the information for all battery packs: `dashboard_battery_sensors_EN`. 
 
 Tip: In case you don't see all the batteries immediately, check if you have the field "Battery Order" filled in. Then empty that field. If needed restart Home Assistant in case still not all batteries are visible.
 
