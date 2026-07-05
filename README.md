@@ -53,7 +53,7 @@ If you get this popup, click on 'Install all'.<br/>
 Next, open the block "**Enter the Zendure IP addresses here**" by double-clicking on it. After entering the IP addresses, click the "Done" button. Then click the red "Deploy" button at the right top in Node-RED to activate the flow. Now the Node-RED part is completed.<br/>
 <br/>
 
-![Preview](images/node-red-flow-image2.png) 
+![Preview](images/node-red-flow-image2_en.png) 
 
 ![Preview](images/node-red-ip-addresses.png) 
 <br/>
