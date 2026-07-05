@@ -117,7 +117,7 @@ For monitoring the real-time status of the Zendure devices behind the Proxy, the
 
 See below the extra available proxy specific sensors in Home Assistant.
 
-<img src="https://github.com/gast777/Zendure-zenSDK-proxy/blob/main/images/proxy-sensors.png" width="50%">
+<img src="https://github.com/gast777/Zendure-zenSDK-proxy/blob/main/images/proxy-sensors_en.png" width="50%">
 
 
 To make these available in Home Assistant, we will add the extra sensors to the package which [Gielz](https://github.com/Gielz1986/Zendure-HA-zenSDK) provides. Or in the configuration.yaml, if you use that method (the package method is recommended). 
