@@ -139,7 +139,7 @@ Take the file HA_REST_proxy_sensors_EN (where EN indicates the language, can be 
 
 Copy the text from the file, as in the example below:
 
-<img src="https://github.com/gast777/Zendure-zenSDK-proxy/blob/main/images/sensors_rest_copy_NL.png" width="75%">
+<img src="https://github.com/gast777/Zendure-zenSDK-proxy/blob/main/images/sensors_rest_copy_EN.png" width="75%">
 
 
 Then paste the text between the indicated lines in the Gielz package file.
