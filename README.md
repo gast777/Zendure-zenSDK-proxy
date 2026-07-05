@@ -68,15 +68,15 @@ Next, open the block "**Enter the Zendure IP addresses here**" by double-clickin
 
 - [ ] Step 1: On the Gielz HA Dashboard you have the field "Zendure IP-address" available at the Settings tab. Enter the IP address and port of the Node-RED proxy there. For example: 192.168.x.x:1880
 
-<img src="https://github.com/gast777/Zendure-zenSDK-proxy/blob/main/images/HA-gielz-ip-port.png" width="50%">
+<img src="https://github.com/gast777/Zendure-zenSDK-proxy/blob/main/images/HA-gielz-ip-port_en.png" width="50%">
 
 If in the blocks for "API Proxy In" it says "The url will be relative to /endpoint", then enter here: IP_address:port/endpoint 
 
-<img src="https://github.com/gast777/Zendure-zenSDK-proxy/blob/main/images/HA-gielz-ip-port-endpoint.png" width="50%"> 
+<img src="https://github.com/gast777/Zendure-zenSDK-proxy/blob/main/images/HA-gielz-ip-port-endpoint_en.png" width="50%"> 
 
 If Node-RED is installed on the Home Assistant server itself as an App (formerly 'Add-On'), enter "localhost:1880/endpoint".
 
-<img src="https://github.com/gast777/Zendure-zenSDK-proxy/blob/main/images/HA-gielz-ip-port-AddOn.png" width="50%">
+<img src="https://github.com/gast777/Zendure-zenSDK-proxy/blob/main/images/HA-gielz-ip-port-AddOn_en.png" width="50%">
 
 
 After this step, the sensors in the Gielz Dashboard should already work.
