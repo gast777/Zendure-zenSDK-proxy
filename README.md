@@ -211,8 +211,8 @@ Now the party can start!
  | `properties.ipAddress_3` | IP address of the Zendure 3 device |
  | `cachedResponse` | Indication if the information came from cache due to a communication issue with the Zendure devices<br/>Values: 0: No, 1: Yes |
  | `sn_1` | Serial number of the inverter of the Zendure 1 device |
- | `sn_2` | Serial number of the inverter of the Zendure 1 device |
- | `sn_3` | Serial number of the inverter of the Zendure 1 device |
+ | `sn_2` | Serial number of the inverter of the Zendure 2 device |
+ | `sn_3` | Serial number of the inverter of the Zendure 3 device |
  | `proxyVersion` | Version of the Proxy |
 <br/>
 <br/>
