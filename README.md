@@ -126,7 +126,7 @@ A convenient way to copy and edit the files in Home Assistant is by using the Ap
 
 ### Instructions ###
 
-In the Gielz package (zendure_gielz1986_xx.yaml) or the configuration.yaml there are the below lines to indicate where the Proxy sensors should be inserted:
+In the Gielz package (zendure_gielz1986_global.yaml) or the configuration.yaml there are the below lines to indicate where the Proxy sensors should be inserted:
 ```
 ####### START - Place here your Node-RED sensors from https://github.com/gast777/Zendure-zenSDK-proxy - START #######
 
