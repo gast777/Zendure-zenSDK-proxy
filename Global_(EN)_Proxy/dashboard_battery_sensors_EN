@@ -326,3 +326,166 @@ entities:
     row:
       entity: sensor.zendure_battery_18_state_of_charge
       name: Battery 18 State Of Charge
+  - type: divider
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_battery_1_cell_balance_status
+        state_not: unknown
+      - entity: sensor.zendure_battery_1_cell_balance_status
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_battery_1_cell_balance_status
+      name: Battery 1 Cell Balance
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_battery_2_cell_balance_status
+        state_not: unknown
+      - entity: sensor.zendure_battery_2_cell_balance_status
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_battery_2_cell_balance_status
+      name: Battery 2 Cell Balance
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_battery_3_cell_balance_status
+        state_not: unknown
+      - entity: sensor.zendure_battery_3_cell_balance_status
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_battery_3_cell_balance_status
+      name: Battery 3 Cell Balance
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_battery_4_cell_balance_status
+        state_not: unknown
+      - entity: sensor.zendure_battery_4_cell_balance_status
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_battery_4_cell_balance_status
+      name: Battery 4 Cell Balance
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_battery_5_cell_balance_status
+        state_not: unknown
+      - entity: sensor.zendure_battery_5_cell_balance_status
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_battery_5_cell_balance_status
+      name: Battery 5 Cell Balance
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_battery_6_cell_balance_status
+        state_not: unknown
+      - entity: sensor.zendure_battery_6_cell_balance_status
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_battery_6_cell_balance_status
+      name: Battery 6 Cell Balance
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_battery_7_cell_balance_status
+        state_not: unknown
+      - entity: sensor.zendure_battery_7_cell_balance_status
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_battery_7_cell_balance_status
+      name: Battery 7 Cell Balance
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_battery_8_cell_balance_status
+        state_not: unknown
+      - entity: sensor.zendure_battery_8_cell_balance_status
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_battery_8_cell_balance_status
+      name: Battery 8 Cell Balance
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_battery_9_cell_balance_status
+        state_not: unknown
+      - entity: sensor.zendure_battery_9_cell_balance_status
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_battery_9_cell_balance_status
+      name: Battery 9 Cell Balance
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_battery_10_cell_balance_status
+        state_not: unknown
+      - entity: sensor.zendure_battery_10_cell_balance_status
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_battery_10_cell_balance_status
+      name: Battery 10 Cell Balance
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_battery_11_cell_balance_status
+        state_not: unknown
+      - entity: sensor.zendure_battery_11_cell_balance_status
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_battery_11_cell_balance_status
+      name: Battery 11 Cell Balance
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_battery_12_cell_balance_status
+        state_not: unknown
+      - entity: sensor.zendure_battery_12_cell_balance_status
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_battery_12_cell_balance_status
+      name: Battery 12 Cell Balance
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_battery_13_cell_balance_status
+        state_not: unknown
+      - entity: sensor.zendure_battery_13_cell_balance_status
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_battery_13_cell_balance_status
+      name: Battery 13 Cell Balance
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_battery_14_cell_balance_status
+        state_not: unknown
+      - entity: sensor.zendure_battery_14_cell_balance_status
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_battery_14_cell_balance_status
+      name: Battery 14 Cell Balance
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_battery_15_cell_balance_status
+        state_not: unknown
+      - entity: sensor.zendure_battery_15_cell_balance_status
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_battery_15_cell_balance_status
+      name: Battery 15 Cell Balance
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_battery_16_cell_balance_status
+        state_not: unknown
+      - entity: sensor.zendure_battery_16_cell_balance_status
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_battery_16_cell_balance_status
+      name: Battery 16 Cell Balance
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_battery_17_cell_balance_status
+        state_not: unknown
+      - entity: sensor.zendure_battery_17_cell_balance_status
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_battery_17_cell_balance_status
+      name: Battery 17 Cell Balance
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_battery_18_cell_balance_status
+        state_not: unknown
+      - entity: sensor.zendure_battery_18_cell_balance_status
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_battery_18_cell_balance_status
+      name: Battery 18 Cell Balance
