@@ -326,4 +326,167 @@ entities:
     row:
       entity: sensor.zendure_2400_ac_batterij_18_laadpercentage
       name: Batterij 18 Laadpercentage
+  - type: divider
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_2400_ac_batterij_1_celbalans_status
+        state_not: unknown
+      - entity: sensor.zendure_2400_ac_batterij_1_celbalans_status
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_2400_ac_batterij_1_celbalans_status
+      name: Batterij 1 Celbalans
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_2400_ac_batterij_2_celbalans_status
+        state_not: unknown
+      - entity: sensor.zendure_2400_ac_batterij_2_celbalans_status
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_2400_ac_batterij_2_celbalans_status
+      name: Batterij 2 Celbalans
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_2400_ac_batterij_3_celbalans_status
+        state_not: unknown
+      - entity: sensor.zendure_2400_ac_batterij_3_celbalans_status
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_2400_ac_batterij_3_celbalans_status
+      name: Batterij 3 Celbalans
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_2400_ac_batterij_4_celbalans_status
+        state_not: unknown
+      - entity: sensor.zendure_2400_ac_batterij_4_celbalans_status
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_2400_ac_batterij_4_celbalans_status
+      name: Batterij 4 Celbalans
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_2400_ac_batterij_5_celbalans_status
+        state_not: unknown
+      - entity: sensor.zendure_2400_ac_batterij_5_celbalans_status
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_2400_ac_batterij_5_celbalans_status
+      name: Batterij 5 Celbalans
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_2400_ac_batterij_6_celbalans_status
+        state_not: unknown
+      - entity: sensor.zendure_2400_ac_batterij_6_celbalans_status
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_2400_ac_batterij_6_celbalans_status
+      name: Batterij 6 Celbalans
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_2400_ac_batterij_7_celbalans_status
+        state_not: unknown
+      - entity: sensor.zendure_2400_ac_batterij_7_celbalans_status
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_2400_ac_batterij_7_celbalans_status
+      name: Batterij 7 Celbalans
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_2400_ac_batterij_8_celbalans_status
+        state_not: unknown
+      - entity: sensor.zendure_2400_ac_batterij_8_celbalans_status
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_2400_ac_batterij_8_celbalans_status
+      name: Batterij 8 Celbalans
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_2400_ac_batterij_9_celbalans_status
+        state_not: unknown
+      - entity: sensor.zendure_2400_ac_batterij_9_celbalans_status
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_2400_ac_batterij_9_celbalans_status
+      name: Batterij 9 Celbalans
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_2400_ac_batterij_10_celbalans_status
+        state_not: unknown
+      - entity: sensor.zendure_2400_ac_batterij_10_celbalans_status
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_2400_ac_batterij_10_celbalans_status
+      name: Batterij 10 Celbalans
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_2400_ac_batterij_11_celbalans_status
+        state_not: unknown
+      - entity: sensor.zendure_2400_ac_batterij_11_celbalans_status
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_2400_ac_batterij_11_celbalans_status
+      name: Batterij 11 Celbalans
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_2400_ac_batterij_12_celbalans_status
+        state_not: unknown
+      - entity: sensor.zendure_2400_ac_batterij_12_celbalans_status
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_2400_ac_batterij_12_celbalans_status
+      name: Batterij 12 Celbalans
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_2400_ac_batterij_13_celbalans_status
+        state_not: unknown
+      - entity: sensor.zendure_2400_ac_batterij_13_celbalans_status
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_2400_ac_batterij_13_celbalans_status
+      name: Batterij 13 Celbalans
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_2400_ac_batterij_14_celbalans_status
+        state_not: unknown
+      - entity: sensor.zendure_2400_ac_batterij_14_celbalans_status
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_2400_ac_batterij_14_celbalans_status
+      name: Batterij 14 Celbalans
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_2400_ac_batterij_15_celbalans_status
+        state_not: unknown
+      - entity: sensor.zendure_2400_ac_batterij_15_celbalans_status
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_2400_ac_batterij_15_celbalans_status
+      name: Batterij 15 Celbalans
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_2400_ac_batterij_16_celbalans_status
+        state_not: unknown
+      - entity: sensor.zendure_2400_ac_batterij_16_celbalans_status
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_2400_ac_batterij_16_celbalans_status
+      name: Batterij 16 Celbalans
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_2400_ac_batterij_17_celbalans_status
+        state_not: unknown
+      - entity: sensor.zendure_2400_ac_batterij_17_celbalans_status
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_2400_ac_batterij_17_celbalans_status
+      name: Batterij 17 Celbalans
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_2400_ac_batterij_18_celbalans_status
+        state_not: unknown
+      - entity: sensor.zendure_2400_ac_batterij_18_celbalans_status
+        state_not: unavailable
+    row:
+      entity: sensor.zendure_2400_ac_batterij_18_celbalans_status
+      name: Batterij 18 Celbalans
 
