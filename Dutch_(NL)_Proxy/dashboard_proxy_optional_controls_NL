@@ -1,0 +1,16 @@
+type: entities
+entities:
+#  - entity: switch.zendure_offgrid_socket
+  - entity: switch.zendure_1_offgrid_socket
+  - entity: switch.zendure_2_offgrid_socket
+  - type: conditional
+    conditions:
+      - entity: sensor.zendure_2400_ac_serienummer
+        state: 3x Zendure via PROXY
+    row:
+      entity: switch.zendure_3_offgrid_socket
+  - entity: switch.proxy_geen_slaapmodus
+  - entity: switch.beide_actief
+  - entity: switch.synchroon_laden
+  - entity: switch.dual_mode_demper
+
