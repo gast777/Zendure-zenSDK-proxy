@@ -1,0 +1,342 @@
+##########################################################################################
+## This package file contains optional yaml elements for the Zendure Proxy.             ##
+##                                                                                      ##
+## To use this, it is required to have the Proxy Monitoring sensors installed           ##
+## in the Gielz package, see instructions:                                              ##
+## https://github.com/gast777/Zendure-zenSDK-proxy/tree/main#instructions-1             ##
+##                                                                                      ##
+## Place this file in the packages folder of Home Assistant.                            ##
+##                                                                                      ##
+## If the packages folder does not exist yet, do the following:                         ##
+## Create the folder packages in Home Assistant (e.g. using the tool "File Editor").    ##
+## Make a backup of your configuration.yaml.                                            ##
+## Then modify your configuration.yaml by adding the below lines:                       ##
+##                                                                                      ##
+##homeassistant:                                                                        ##
+##  packages: !include_dir_named packages                                               ##
+##                                                                                      ##
+##                                                                                      ##
+##########################################################################################
+
+
+
+template:
+
+  - switch:
+  
+      - name: "Dual Mode Damper"
+        unique_id: Zendure_proxy_dualModeDamper_switch
+        state: >
+          {{ is_state('sensor.dual_mode_damper_status', 'On') }}
+        icon: mdi:speedometer-medium
+        turn_on:
+          - service: rest_command.set_dualmodedamper_on
+        turn_off:
+          - service: rest_command.set_dualmodedamper_off
+
+      - name: "All Active"
+        unique_id: Zendure_proxy_alwaysDualMode_switch
+        state: >
+          {{ is_state('sensor.all_active_mode_status', 'On') }}
+        icon: mdi:format-columns
+        turn_on:
+          - service: rest_command.set_alwaysdualmode_on
+        turn_off:
+          - service: rest_command.set_alwaysdualmode_off
+          
+      - name: "Equal Mode Charging"
+        unique_id: Zendure_proxy_equalMode_switch
+        state: >
+          {{ is_state('sensor.equal_mode_status', 'On') }}
+        icon: >
+          {% if is_state('switch.equal_mode_charging', 'on') %}
+            mdi:battery-sync
+          {% else %}
+            mdi:battery-sync-outline
+          {% endif %}
+        turn_on:
+          - service: rest_command.set_equalmode_on
+        turn_off:
+          - service: rest_command.set_equalmode_off
+
+      - name: "Proxy No Sleep Mode"
+        unique_id: zendure_proxy_nosleep_switch
+        state: >
+          {{ is_state('sensor.proxy_no_sleep_mode_status', 'On') }}
+        icon: >
+          {% if is_state('switch.proxy_no_sleep_mode', 'on') %}
+            mdi:sleep-off
+          {% else %}
+            mdi:sleep
+          {% endif %}
+        turn_on:
+          - service: rest_command.set_proxynosleep_on
+        turn_off:
+          - service: rest_command.set_proxynosleep_off
+
+
+
+      - name: "Zendure Offgrid Socket"
+        unique_id: zendure_offgrid_socket
+        state: >
+          {{ 'on' if is_state('sensor.zendure_offgrid_mode', 'Normal') else 'off' }}
+        icon: mdi:power-socket-de
+        turn_on:
+          - service: rest_command.set_zendure_offgrid_socket_on
+        turn_off:
+          - service: rest_command.set_zendure_offgrid_socket_off
+
+      - name: "Zendure 1 Offgrid Socket"
+        unique_id: zendure_1_offgrid_socket
+        state: >
+          {{ 'on' if is_state('sensor.zendure_1_offgrid_mode', 'Normal') else 'off' }}
+        icon: mdi:power-socket-de
+        turn_on:
+          - service: rest_command.set_zendure_1_offgrid_socket_on
+        turn_off:
+          - service: rest_command.set_zendure_1_offgrid_socket_off
+
+      - name: "Zendure 2 Offgrid Socket"
+        unique_id: zendure_2_offgrid_socket
+        state: >
+          {{ 'on' if is_state('sensor.zendure_2_offgrid_mode', 'Normal') else 'off' }}
+        icon: mdi:power-socket-de
+        turn_on:
+          - service: rest_command.set_zendure_2_offgrid_socket_on
+        turn_off:
+          - service: rest_command.set_zendure_2_offgrid_socket_off
+
+      - name: "Zendure 3 Offgrid Socket"
+        unique_id: zendure_3_offgrid_socket
+        state: >
+          {{ 'on' if is_state('sensor.zendure_3_offgrid_mode', 'Normal') else 'off' }}
+        icon: mdi:power-socket-de
+        turn_on:
+          - service: rest_command.set_zendure_3_offgrid_socket_on
+        turn_off:
+          - service: rest_command.set_zendure_3_offgrid_socket_off
+
+
+
+
+
+
+rest_command:
+
+
+  set_zendure_offgrid_socket_on:
+    url: "http://{{ states('input_text.zendure_setting_ip_address') }}/properties/write"
+    method: POST
+    content_type: "application/json"
+    payload: >
+      {
+        "sn": "{{ states('sensor.zendure_serial_number') }}",
+        "properties": {
+          "gridOffMode": 0
+        }
+      }
+
+  set_zendure_offgrid_socket_off:
+    url: "http://{{ states('input_text.zendure_setting_ip_address') }}/properties/write"
+    method: POST
+    content_type: "application/json"
+    payload: >
+      {
+        "sn": "{{ states('sensor.sensor.zendure_serial_number') }}",
+        "properties": {
+          "gridOffMode": 2
+        }
+      }
+
+
+  set_zendure_1_offgrid_socket_on:
+    url: "http://{{ states('sensor.zendure_1_ip_address') }}/properties/write"
+    method: POST
+    content_type: "application/json"
+    payload: >
+      {
+        "sn": "{{ states('sensor.zendure_1_serial_number') }}",
+        "properties": {
+          "gridOffMode": 0
+        }
+      }
+
+  set_zendure_1_offgrid_socket_off:
+    url: "http://{{ states('sensor.zendure_1_ip_address') }}/properties/write"
+    method: POST
+    content_type: "application/json"
+    payload: >
+      {
+        "sn": "{{ states('sensor.zendure_1_serial_number') }}",
+        "properties": {
+          "gridOffMode": 2
+        }
+      }
+
+
+  set_zendure_2_offgrid_socket_on:
+    url: "http://{{ states('sensor.zendure_2_ip_address') }}/properties/write"
+    method: POST
+    content_type: "application/json"
+    payload: >
+      {
+        "sn": "{{ states('sensor.zendure_2_serial_number') }}",
+        "properties": {
+          "gridOffMode": 0
+        }
+      }
+
+  set_zendure_2_offgrid_socket_off:
+    url: "http://{{ states('sensor.zendure_2_ip_address') }}/properties/write"
+    method: POST
+    content_type: "application/json"
+    payload: >
+      {
+        "sn": "{{ states('sensor.zendure_2_serial_number') }}",
+        "properties": {
+          "gridOffMode": 2
+        }
+      }
+
+
+  set_zendure_3_offgrid_socket_on:
+    url: "http://{{ states('sensor.zendure_3_ip_address') }}/properties/write"
+    method: POST
+    content_type: "application/json"
+    payload: >
+      {
+        "sn": "{{ states('sensor.zendure_3_serial_number') }}",
+        "properties": {
+          "gridOffMode": 0
+        }
+      }
+
+  set_zendure_3_offgrid_socket_off:
+    url: "http://{{ states('sensor.zendure_3_ip_address') }}/properties/write"
+    method: POST
+    content_type: "application/json"
+    payload: >
+      {
+        "sn": "{{ states('sensor.zendure_3_serial_number') }}",
+        "properties": {
+          "gridOffMode": 2
+        }
+      }
+
+
+  set_dualmodedamper_on:
+    url: http://{{ states('input_text.zendure_setting_ip_address') }}/properties/write
+    method: POST
+    content_type: "application/json"
+    payload: >
+      {
+        "sn": "{{ states('sensor.zendure_serial_number') }}",
+        "properties": {
+          "dualModeDamper": {{ 1 }}
+        }
+      }
+
+  set_dualmodedamper_off:
+    url: http://{{ states('input_text.zendure_setting_ip_address') }}/properties/write
+    method: POST
+    content_type: "application/json"
+    payload: >
+      {
+        "sn": "{{ states('sensor.zendure_serial_number') }}",
+        "properties": {
+          "dualModeDamper": {{ 0 }}
+        }
+      }
+
+  set_alwaysdualmode_on:
+    url: http://{{ states('input_text.zendure_setting_ip_address') }}/properties/write
+    method: POST
+    content_type: "application/json"
+    payload: >
+      {
+        "sn": "{{ states('sensor.zendure_serial_number') }}",
+        "properties": {
+          "alwaysDualMode": {{ 1 }}
+        }
+      }
+
+  set_alwaysdualmode_off:
+    url: http://{{ states('input_text.zendure_setting_ip_address') }}/properties/write
+    method: POST
+    content_type: "application/json"
+    payload: >
+      {
+        "sn": "{{ states('sensor.zendure_serial_number') }}",
+        "properties": {
+          "alwaysDualMode": {{ 0 }}
+        }
+      }
+      
+  set_equalmode_on:
+    url: http://{{ states('input_text.zendure_setting_ip_address') }}/properties/write
+    method: POST
+    content_type: "application/json"
+    payload: >
+      {
+        "sn": "{{ states('sensor.zendure_serial_number') }}",
+        "properties": {
+          "equalMode": {{ 1 }}
+        }
+      }
+
+  set_equalmode_off:
+    url: http://{{ states('input_text.zendure_setting_ip_address') }}/properties/write
+    method: POST
+    content_type: "application/json"
+    payload: >
+      {
+        "sn": "{{ states('sensor.zendure_serial_number') }}",
+        "properties": {
+          "equalMode": {{ 0 }}
+        }
+      }
+
+  set_proxynosleep_on:
+    url: http://{{ states('input_text.zendure_setting_ip_address') }}/properties/write
+    method: POST
+    content_type: "application/json"
+    payload: >
+      {
+        "sn": "{{ states('sensor.zendure_serial_number') }}",
+        "properties": {
+          "proxyNoSleep": {{ 1 }}
+        }
+      }
+
+  set_proxynosleep_off:
+    url: http://{{ states('input_text.zendure_setting_ip_address') }}/properties/write
+    method: POST
+    content_type: "application/json"
+    payload: >
+      {
+        "sn": "{{ states('sensor.zendure_serial_number') }}",
+        "properties": {
+          "proxyNoSleep": {{ 0 }}
+        }
+      }
+
+
+
+## Available version check
+# rest:
+#
+#    - resource: "https://raw.githubusercontent.com/gast777/Zendure-zenSDK-proxy/main/README.md"
+#      scan_interval: 43200
+#      timeout: 30
+#      headers:
+#        User-Agent: HomeAssistant
+#        Accept: text/plain
+#      sensor:
+#        - name: "Zendure Proxy Available Version"
+#          unique_id: zendure_proxy_available_version
+#          value_template: >
+#            {% if 'Current version:' in value %}
+#              {{ value.split('Current version:')[1].split('\n')[0].strip() }}
+#            {% else %}
+#              unknown
+#            {% endif %}
