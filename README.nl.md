@@ -321,9 +321,9 @@ NB: van de attributen in bovenstaand voorbeeld wordt reeds de laagste (slechtste
 
 De off-grid sockets (stopcontacten) op de Zendures kunnen nu individueel bediend worden vanaf Home Assistant. 
 
-Om de schakelaars te installeren, plaats de package file _zendure_offgrid_socket_switch_xx.yaml_ in de packages directory (_xx_ staat voor de taal, _nl_ of _en_). Gebruik het bestand van dezelfde taal als je Gielz en Proxy sensoren. 
+Om de schakelaars te installeren, plaats de package file _zendure_proxy_optional_controls_xx.yaml_ in de packages directory (_xx_ staat voor de taal, _nl_ of _en_). Gebruik het bestand van dezelfde taal als je Gielz en Proxy sensoren. 
 
-Daarna kun je de schakelaars `switch.zendure_X_offgrid_socket` op je dashboard plaatsen en eventueel de algemene offgrid schakelaar `switch.zendure_offgrid_socket`, die alle schakelaars tegelijk schakelt.
+Daarna kun je de schakelaars `switch.zendure_X_offgrid_socket` op je dashboard plaatsen door de code van de file `dashboard_proxy_optional_controls_XX` in een kaart (type: entiteiten) te plakken.
 
 <br/>
 
@@ -332,7 +332,7 @@ Daarna kun je de schakelaars `switch.zendure_X_offgrid_socket` op je dashboard p
 <br/>
 <br/>
 
-Vereisten: de huidige Proxy sensoren moeten in de Gielz package zijn geplakt (op de aangegeven plek, zie [Monitoring](https://github.com/gast777/Zendure-zenSDK-proxy/blob/main/README.md#monitoring)) en minimaal Proxy versie 20260430 is benodigd.
+Vereisten: de huidige Proxy sensoren moeten in de Gielz package zijn geplakt (op de aangegeven plek, zie [Monitoring](https://github.com/gast777/Zendure-zenSDK-proxy/blob/main/README.nl.md#monitoring)) en minimaal Proxy versie 20260430 is benodigd.
 <br/>
 
 Beperking: de offgrid stopcontacten kunnen aan/uit geschakeld worden. De ECO stand is niet beschikbaar via deze schakelaars.
