@@ -274,7 +274,7 @@ Besides this, they will change active device if the difference in SoC becomes >=
 
 ## Version ##
 
-Current version: 20260701
+Current version: 20260801
 <br/>
 
 
