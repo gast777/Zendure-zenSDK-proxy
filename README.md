@@ -85,7 +85,7 @@ After this step, the sensors in the Gielz Dashboard should already work.
 
 - [ ] Step 2: On the Gielz Dashboard, Settings Tab, set the total maximum power via the fields "Max Discharge Power" and "Max Charge Power".
 
-For example for 2x SolarFlow 2400+ you can set it to max 4800 Watts. For 3x SolarFlow 2400+ to max 7200 Watts.
+For example for 2x SolarFlow 2400AC+ you can set it to max 4800 Watts. For 3x SolarFlow 2400AC+ to max 7200 Watts.
 
 <img src="https://github.com/gast777/Zendure-zenSDK-proxy/blob/main/images/max-power-setting_en.png" width="50%">
 
