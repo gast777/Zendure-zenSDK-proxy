@@ -162,9 +162,9 @@ Now the party can start!
 
 ## Optional: Switching Off-grid sockets on/off ##
 
-Most of the Zendure SolarFlow models have an off-grid socket. This can be switched to on, off or ECO via the Zendure App.
+Most of the Zendure SolarFlow models have an off-grid socket. This can be switched to On, Off or ECO via the Zendure App.
 
-To be able to switch the off-grid sockets of the multiple Zendures on/off directly from Home Assistant, follow these instructions:
+To be able to switch the off-grid sockets of the multiple Zendures On/Off directly from Home Assistant, follow these instructions:
 
 1) Place the file zendure_proxy_optional_controls_en.yaml in your packages directory in Home Assistant.
 
@@ -172,13 +172,13 @@ To be able to switch the off-grid sockets of the multiple Zendures on/off direct
 
 3) Now you have the switches `switch.zendure_1_offgrid_socket`, `switch.zendure_2_offgrid_socket` and, if applicable, `switch.zendure_3_offgrid_socket` available in Home Assistant. 
 
-4) Place these switches `switch.zendure_x_offgrid_socket` on a Dashboard. Now you have them available for switching on or off from Home Assistent. 
+4) Place these switches `switch.zendure_x_offgrid_socket` on a Dashboard. Now you have them available for switching On or Off from Home Assistent. 
 
   <img src="https://github.com/gast777/Zendure-zenSDK-proxy/blob/main/images/offgrid-sockets-switches.png" width="50%">
 <br/>
 
 Note1: This solution requires that you have already installed the yaml code as instructed under [Monitoring](https://github.com/gast777/Zendure-zenSDK-proxy/blob/main/README.md#instructions-1).<br/>
-Note2: This supports switching the sockets on or off. The ECO setting cannot be set, which is a known limitation (with no plan to change it).
+Note2: This supports switching the sockets On or Off. The ECO setting cannot be set, which is a known limitation (with no plan to change it).
 
 
 
