@@ -233,9 +233,10 @@ To be able to switch the off-grid sockets of the multiple Zendures on/off via Ho
 4) Place these switches `switch.zendure_x_offgrid_socket` on a Dashboard. Now you have them available for switching on or off from Home Assistent. 
 
   <img src="https://github.com/gast777/Zendure-zenSDK-proxy/blob/main/images/offgrid-sockets-switches.png" width="50%">
-
 <br/>
-Note: This solution supports switching the sockets on or off. The ECO setting cannot be set, which is a limitation of this solution.
+
+Note1: This solution requires that you have already installed the yaml code as instructed under [Monitoring](https://github.com/gast777/Zendure-zenSDK-proxy/blob/main/README.md#instructions-1).<br/>
+Note2: This supports switching the sockets on or off. The ECO setting cannot be set, which is a known limitation (with no plan to change it).
 
 
 
