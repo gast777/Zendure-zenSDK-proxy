@@ -113,7 +113,7 @@ localhost:1880/endpoint<br/>
 
 ## Monitoring ##
 
-For monitoring the real-time status of the Zendure devices behind the Proxy, the Proxy wil send extra attributes besides the existing attributes of the [Zendure REST API](https://github.com/Zendure/zenSDK/blob/main/docs/en_properties.md). This information can be read by Home Assistant and placed on a dashboard for monitoring the proxy specific items. For example you can see with how much power the proxy lets each Zendure charge or discharge. Or to see the SoC percentages of each individual Zendure device.
+For monitoring the real-time status of the Zendure devices behind the Proxy, the Proxy wil send extra attributes besides the existing attributes of the [Zendure REST API](https://github.com/Zendure/zenSDK/blob/main/docs/en_properties.md). This information can be read by Home Assistant and placed on a dashboard for monitoring the proxy specific items. For example you can see with how much power the proxy lets each Zendure device charge or discharge. Or to see the SoC percentages of each individual Zendure device.
 
 See below the extra available proxy specific sensors in Home Assistant.
 
