@@ -158,6 +158,57 @@ Now the party can start!
 <br/>
 <br/>
 
+
+
+## Optional: Switching Off-grid sockets on/off ##
+
+Most of the Zendure SolarFlow models have an off-grid socket. This can be switched to on, off or ECO via the Zendure App.
+
+To be able to switch the off-grid sockets of the multiple Zendures on/off via Home Assistant, follow these instructions:
+
+1) Place the file zendure_proxy_optional_controls_en.yaml in your packages directory in Home Assistant.
+
+2) Restart Home Assistant.
+
+3) Now you have the switches `switch.zendure_1_offgrid_socket`, `switch.zendure_2_offgrid_socket` and, if applicable, `switch.zendure_3_offgrid_socket` available in Home Assistant. 
+
+4) Place these switches `switch.zendure_x_offgrid_socket` on a Dashboard. Now you have them available for switching on or off from Home Assistent. 
+
+  <img src="https://github.com/gast777/Zendure-zenSDK-proxy/blob/main/images/offgrid-sockets-switches.png" width="50%">
+<br/>
+
+Note1: This solution requires that you have already installed the yaml code as instructed under [Monitoring](https://github.com/gast777/Zendure-zenSDK-proxy/blob/main/README.md#instructions-1).<br/>
+Note2: This supports switching the sockets on or off. The ECO setting cannot be set, which is a known limitation (with no plan to change it).
+
+
+
+<br/>
+<br/>
+
+## More documentation ##
+
+
+### Automatic Standby mode at lower power levels ###
+
+At lower power values, one of the Zendures will first be set to standby and then after 5 minutes to sleep mode, for efficiency.
+
+With 2 Zendures behind the Proxy the standard thresholds are 40% and 100% of the configured max power of 1 device (which can be different for charging and discharging). So normally for an SF2400AC that will be 40% and 100% of 2400 Watts (960W en 2400W):
+
+below 960W - always 1 device<br/>
+above 2400W - always 2 devices<br/>
+In between it will stay what it is.<br/>
+
+With 3 Zendures it is the same, but slightly more complicated:
+
+below 960W - always 1 device<br/>
+abve 4800W - always 3 devices<br/>
+if 1 is active, above 2400W go to 2 devices<br/>
+if 3 are active, below 1920W (40% of 4800W) go to 2 devices<br/>
+
+Besides this, they will change active device if the difference in SoC becomes >=5%. If they change/discharge at the same time, the power will balance so that the SoC of the Zendures will stay close to eachother.
+
+<br/>
+
 ### Proxy attributes specifications ###
 
 <br/>
@@ -216,57 +267,6 @@ Now the party can start!
  | `proxyVersion` | Version of the Proxy |
 <br/>
 <br/>
-
-
-## Optional: Switching Off-grid sockets on/off ##
-
-Most of the Zendure SolarFlow models have an off-grid socket. This can be switched to on, off or ECO via the Zendure App.
-
-To be able to switch the off-grid sockets of the multiple Zendures on/off via Home Assistant, follow these instructions:
-
-1) Place the file zendure_proxy_optional_controls_en.yaml in your packages directory in Home Assistant.
-
-2) Restart Home Assistant.
-
-3) Now you have the switches `switch.zendure_1_offgrid_socket`, `switch.zendure_2_offgrid_socket` and, if applicable, `switch.zendure_3_offgrid_socket` available in Home Assistant. 
-
-4) Place these switches `switch.zendure_x_offgrid_socket` on a Dashboard. Now you have them available for switching on or off from Home Assistent. 
-
-  <img src="https://github.com/gast777/Zendure-zenSDK-proxy/blob/main/images/offgrid-sockets-switches.png" width="50%">
-<br/>
-
-Note1: This solution requires that you have already installed the yaml code as instructed under [Monitoring](https://github.com/gast777/Zendure-zenSDK-proxy/blob/main/README.md#instructions-1).<br/>
-Note2: This supports switching the sockets on or off. The ECO setting cannot be set, which is a known limitation (with no plan to change it).
-
-
-
-<br/>
-<br/>
-
-## More documentation ##
-
-
-### Automatic Standby mode at lower power levels ###
-
-At lower power values, one of the Zendures will first be set to standby and then after 5 minutes to sleep mode, for efficiency.
-
-With 2 Zendures behind the Proxy the standard thresholds are 40% and 100% of the configured max power of 1 device (which can be different for charging and discharging). So normally for an SF2400AC that will be 40% and 100% of 2400 Watts (960W en 2400W):
-
-below 960W - always 1 device<br/>
-above 2400W - always 2 devices<br/>
-In between it will stay what it is.<br/>
-
-With 3 Zendures it is the same, but slightly more complicated:
-
-below 960W - always 1 device<br/>
-abve 4800W - always 3 devices<br/>
-if 1 is active, above 2400W go to 2 devices<br/>
-if 3 are active, below 1920W (40% of 4800W) go to 2 devices<br/>
-
-Besides this, they will change active device if the difference in SoC becomes >=5%. If they change/discharge at the same time, the power will balance so that the SoC of the Zendures will stay close to eachother.
-
-<br/>
-
 
 
 ## Features ##
