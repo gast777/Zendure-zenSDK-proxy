@@ -382,50 +382,8 @@ Deze demper kan op verschillende manieren in en uitgeschakeld worden:
 <br/>
 Hoe te installeren:
 
-1) De REST sensoren van [Monitoring](https://github.com/gast777/Zendure-zenSDK-proxy/tree/main?tab=readme-ov-file#monitoring) moeten geinstalleerd zijn in de Gielz package of in de configuration.yaml. Het handigst is om de Gielz Package te gebruiken. Zie de [instructie van Gielz](https://github.com/Gielz1986/Zendure-HA-zenSDK/tree/main?tab=readme-ov-file#%EF%B8%8F%E2%83%A3-configuratie-en-herstart) hoe die te installeren.
-2) Voeg de volgende items toe aan configuration.yaml of een aparte package (niet aan de Gielz package).
-
-```
-template:
-
-  - switch:
-
-      - name: "Dual Mode Demper"
-        unique_id: Zendure_proxy_dualModeDamper_switch
-        state: >
-          {{ is_state('sensor.dual_mode_demper_status', 'Aan') }}
-        icon: mdi:speedometer-medium
-        turn_on:
-          - service: rest_command.set_dualmodedamper_on
-        turn_off:
-          - service: rest_command.set_dualmodedamper_off
-
-
-rest_command:
-
-  set_dualmodedamper_on:
-    url: http://{{ states('input_text.zendure_2400_ac_ip_adres') }}/properties/write
-    method: POST
-    content_type: "application/json"
-    payload: >
-      {
-        "properties": {
-          "dualModeDamper": {{ 1 }}
-        }
-      }
-
-  set_dualmodedamper_off:
-    url: http://{{ states('input_text.zendure_2400_ac_ip_adres') }}/properties/write
-    method: POST
-    content_type: "application/json"
-    payload: >
-      {
-        "properties": {
-          "dualModeDamper": {{ 0 }}
-        }
-      }
-```
-
+1) De REST sensoren van [Monitoring](https://github.com/gast777/Zendure-zenSDK-proxy/tree/main?tab=readme-ov-file#monitoring) moeten geinstalleerd zijn in de Gielz package. Zie de [instructie van Gielz](https://github.com/Gielz1986/Zendure-HA-zenSDK/tree/main?tab=readme-ov-file#%EF%B8%8F%E2%83%A3-configuratie-en-herstart) hoe de Gielz Package te installeren.
+2) Plaats de package file zendure_proxy_optional_controls_xx.yaml in de packages directory (xx staat voor de taal, nl of en). Gebruik het bestand van dezelfde taal als je Gielz en Proxy sensoren.
 3) Herstart Home Assistant
 4) Zet de toggle switch `switch.dual_mode_demper` op je dashboard.
 
@@ -434,24 +392,9 @@ rest_command:
 
 #### ==> Via een automation die de Dual Mode Demper altijd aan houdt ####
 
-Als je de Dual Mode Demper altijd aan wilt laten staan, ook na her-instalatie van de Proxy Node-RED flow en na restart van Node-RED, dan kun je deze automation gebruiken samen met een rest command.
+Als je de Dual Mode Demper altijd aan wilt laten staan, ook na her-instalatie van de Proxy Node-RED flow en na restart van Node-RED, dan kun je een automation gebruiken.
 
-1) Voeg dit rest command toe aan configuration.yaml of een aparte package (niet aan de Gielz package).
-
-```
-rest_command:
-
-  set_dualmodedamper_on:
-    url: http://{{ states('input_text.zendure_2400_ac_ip_adres') }}/properties/write
-    method: POST
-    content_type: "application/json"
-    payload: >
-      {
-        "properties": {
-          "dualModeDamper": {{ 1 }}
-        }
-      }
-```
+1) Indien nog niet aanwezig, plaats de package file zendure_proxy_optional_controls_xx.yaml in de packages directory (xx staat voor de taal, nl of en). Gebruik het bestand van dezelfde taal als je Gielz en Proxy sensoren.
 
 2) Voeg de volgende automation toe (Settings -> Automations & Scenes, Create New Automation, Edit in Yaml)
 
@@ -491,8 +434,8 @@ Dit moet dan wel weer opnieuw ingesteld worden na upgrade van de Proxy flow in N
 
 <br/>
 
-Met de instelling _Beide Actief_ ingeschakeld zullen beide Zendures actief blijven, dus altijd in dual mode blijven. 
-De instelling _Synchroon Laden_ is hetzelfde als _Beide Actief_ maar waarbij dan ook nog de beide Zendure devices steeds met hetzelfde vermogen opladen of ontladen.
+Met de instelling _Beide Actief_ ingeschakeld zullen beide/alle Zendures actief blijven. Het gevraagde vermogen zal dus steeds over alle devices verdeeld worden (afhankelijk van SoC%). 
+De instelling _Synchroon Laden_ is hetzelfde als _Beide Actief_ maar waarbij dan ook nog alle Zendure devices steeds met hetzelfde vermogen opladen of ontladen.
 
 Deze twee features zullen niet zinvol zijn voor 99% van de gebruikers. Echter in bepaalde gevallen zou het wenselijk kunnen zijn om deze mogelijkheden te hebben.
 
@@ -506,92 +449,12 @@ Deze twee instellingen kunnen eenvoudig bediend worden via een toggle switch op 
 <br/>
 Hoe te installeren:
 
-1) De REST sensoren van [Monitoring](https://github.com/gast777/Zendure-zenSDK-proxy/tree/main?tab=readme-ov-file#monitoring) moeten geinstalleerd zijn in de Gielz package of in de configuration.yaml. Het handigst is om de Gielz Package te gebruiken. Zie de [instructie van Gielz](https://github.com/Gielz1986/Zendure-HA-zenSDK/tree/main?tab=readme-ov-file#%EF%B8%8F%E2%83%A3-configuratie-en-herstart) hoe die te installeren.
-2) Voeg de volgende items toe aan configuration.yaml (niet aan de Gielz package, kan wel in een aparte package).
-
-```
-
-template:
-
-  - switch:
-
-      - name: "Beide Actief"
-        unique_id: Zendure_proxy_alwaysDualMode_switch
-        state: >
-          {{ is_state('sensor.beide_actief_status', 'Aan') }}
-        icon: mdi:format-columns
-        turn_on:
-          - service: rest_command.set_alwaysdualmode_on
-        turn_off:
-          - service: rest_command.set_alwaysdualmode_off
-
-      - name: "Synchroon Laden"
-        unique_id: Zendure_proxy_equalMode_switch
-        state: >
-          {{ is_state('sensor.synchroon_laden_status', 'Aan') }}
-        icon: >
-          {% if is_state('switch.synchroon_laden', 'on') %}
-            mdi:battery-sync
-          {% else %}
-            mdi:battery-sync-outline
-          {% endif %}
-        turn_on:
-          - service: rest_command.set_equalmode_on
-        turn_off:
-          - service: rest_command.set_equalmode_off
-
-
-rest_command:
-
-  set_alwaysdualmode_on:
-    url: http://{{ states('input_text.zendure_2400_ac_ip_adres') }}/properties/write
-    method: POST
-    content_type: "application/json"
-    payload: >
-      {
-        "properties": {
-          "alwaysDualMode": {{ 1 }}
-        }
-      }
-
-  set_alwaysdualmode_off:
-    url: http://{{ states('input_text.zendure_2400_ac_ip_adres') }}/properties/write
-    method: POST
-    content_type: "application/json"
-    payload: >
-      {
-        "properties": {
-          "alwaysDualMode": {{ 0 }}
-        }
-      }
-
-  set_equalmode_on:
-    url: http://{{ states('input_text.zendure_2400_ac_ip_adres') }}/properties/write
-    method: POST
-    content_type: "application/json"
-    payload: >
-      {
-        "properties": {
-          "equalMode": {{ 1 }}
-        }
-      }
-
-  set_equalmode_off:
-    url: http://{{ states('input_text.zendure_2400_ac_ip_adres') }}/properties/write
-    method: POST
-    content_type: "application/json"
-    payload: >
-      {
-        "properties": {
-          "equalMode": {{ 0 }}
-        }
-      }
-```
-
+1) De REST sensoren van [Monitoring](https://github.com/gast777/Zendure-zenSDK-proxy/tree/main?tab=readme-ov-file#monitoring) moeten geinstalleerd zijn in de Gielz package. Zie de [instructie van Gielz](https://github.com/Gielz1986/Zendure-HA-zenSDK/tree/main?tab=readme-ov-file#%EF%B8%8F%E2%83%A3-configuratie-en-herstart) hoe de Gielz Package te installeren.
+2) Indien nog niet aanwezig, plaats de package file zendure_proxy_optional_controls_xx.yaml in de packages directory (xx staat voor de taal, nl of en). Gebruik het bestand van dezelfde taal als je Gielz en Proxy sensoren.
 3) Herstart Home Assistant
 4) Zet de toggle switches `switch.beide_actief` en `switch.synchroon_laden` op je dashboard.
 
-Als je nu de switch _Beide Actief_ aan zet, zullen beide Zendures actief blijven. Als de switch _Synchroon Laden_ aangezet wordt, zullen beide Zendures ook steeds met hetzelfde vermogen laden en ontladen.
+Als je nu de switch _Beide Actief_ aan zet, zullen beide/alle Zendures actief blijven. Als de switch _Synchroon Laden_ aangezet wordt, zullen beide Zendures ook steeds met hetzelfde vermogen laden en ontladen.
 
 </details>
 
