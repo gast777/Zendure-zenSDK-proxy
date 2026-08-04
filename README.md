@@ -177,7 +177,7 @@ To be able to switch the off-grid sockets of the multiple Zendures On/Off direct
   <img src="https://github.com/gast777/Zendure-zenSDK-proxy/blob/main/images/offgrid-sockets-switches.png" width="50%">
 <br/>
 
-Note1: This solution requires that you have already installed the yaml code as instructed under [Monitoring](https://github.com/gast777/Zendure-zenSDK-proxy/blob/main/README.md#instructions-1).<br/>
+Note1: This solution requires that you have already installed the Proxy sensors yaml code as instructed under [Monitoring](https://github.com/gast777/Zendure-zenSDK-proxy/blob/main/README.md#instructions-1).<br/>
 Note2: This supports switching the sockets On or Off. The ECO setting cannot be set, which is a known limitation (with no plan to change it).
 
 
