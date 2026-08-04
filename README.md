@@ -160,7 +160,7 @@ Now the party can start!
 
 
 
-## Optional: Switching Off-grid sockets on/off ##
+## Optional: Switching Off-grid sockets On/Off ##
 
 Most of the Zendure SolarFlow models have an off-grid socket. This can be switched to On, Off or ECO via the Zendure App.
 
