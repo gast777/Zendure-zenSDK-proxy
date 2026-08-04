@@ -164,7 +164,7 @@ Now the party can start!
 
 Most of the Zendure SolarFlow models have an off-grid socket. This can be switched to on, off or ECO via the Zendure App.
 
-To be able to switch the off-grid sockets of the multiple Zendures on/off via Home Assistant, follow these instructions:
+To be able to switch the off-grid sockets of the multiple Zendures on/off directly from Home Assistant, follow these instructions:
 
 1) Place the file zendure_proxy_optional_controls_en.yaml in your packages directory in Home Assistant.
 
