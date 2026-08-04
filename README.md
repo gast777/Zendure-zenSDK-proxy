@@ -172,7 +172,7 @@ To be able to switch the off-grid sockets of the multiple Zendures On/Off direct
 
 3) Now you have the switches `switch.zendure_1_offgrid_socket`, `switch.zendure_2_offgrid_socket` and, if applicable, `switch.zendure_3_offgrid_socket` available in Home Assistant. 
 
-4) Place these switches `switch.zendure_x_offgrid_socket` on a Dashboard. Now you have them available for switching On or Off from Home Assistent. 
+4) Place these switches `switch.zendure_x_offgrid_socket` on a Dashboard. Now you have them available for switching On or Off from Home Assistant. 
 
   <img src="https://github.com/gast777/Zendure-zenSDK-proxy/blob/main/images/offgrid-sockets-switches.png" width="50%">
 <br/>
