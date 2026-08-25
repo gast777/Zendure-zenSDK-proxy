@@ -201,11 +201,11 @@ In between it will stay what it is.<br/>
 With 3 Zendures it is the same, but slightly more complicated:
 
 below 960W - always 1 device<br/>
-abve 4800W - always 3 devices<br/>
+above 4800W - always 3 devices<br/>
 if 1 is active, above 2400W go to 2 devices<br/>
 if 3 are active, below 1920W (40% of 4800W) go to 2 devices<br/>
 
-Besides this, they will change active device if the difference in SoC becomes >=5%. If they change/discharge at the same time, the power will balance so that the SoC of the Zendures will stay close to eachother.
+Besides this, they will change active device if the difference in SoC becomes >=5%. If they charge/discharge at the same time, the power will balance so that the SoC of the Zendures will stay close to eachother.
 
 <br/>
 
